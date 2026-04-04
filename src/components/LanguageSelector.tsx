@@ -1,0 +1,81 @@
+'use client'
+
+import { useState, useRef, useEffect } from 'react'
+import { Globe } from 'lucide-react'
+
+const lingue = [
+  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'pt', label: 'Português', flag: '🇧🇷' },
+  { code: 'ro', label: 'Română', flag: '🇷🇴' },
+  { code: 'uk', label: 'Українська', flag: '🇺🇦' },
+  { code: 'pl', label: 'Polski', flag: '🇵🇱' },
+  { code: 'sq', label: 'Shqip', flag: '🇦🇱' },
+  { code: 'zh', label: '中文', flag: '🇨🇳' },
+  { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'bn', label: 'বাংলা', flag: '🇧🇩' },
+  { code: 'tl', label: 'Filipino', flag: '🇵🇭' },
+  { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+]
+
+export function LanguageSelector() {
+  const [open, setOpen] = useState(false)
+  const [lingua, setLingua] = useState('it')
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('funerix-lang')
+    if (saved) setLingua(saved)
+  }, [])
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const cambiaLingua = (code: string) => {
+    setLingua(code)
+    localStorage.setItem('funerix-lang', code)
+    setOpen(false)
+    document.documentElement.dir = code === 'ar' ? 'rtl' : 'ltr'
+  }
+
+  const current = lingue.find(l => l.code === lingua) || lingue[0]
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 text-primary/70 hover:text-primary transition-colors"
+        aria-label="Lingua"
+      >
+        <Globe size={16} />
+        <span className="text-sm hidden md:inline">{current.flag}</span>
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full mt-2 bg-surface rounded-xl border border-border shadow-xl py-2 min-w-[160px] max-h-72 overflow-y-auto z-50">
+          {lingue.map(l => (
+            <button
+              key={l.code}
+              onClick={() => cambiaLingua(l.code)}
+              className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2.5 transition-colors ${
+                l.code === lingua ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
+              }`}
+            >
+              <span className="text-base">{l.flag}</span>
+              <span>{l.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}

@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: #2C3E50;
+  --color-primary-light: #3D5266;
+  --color-primary-dark: #1A252F;
+  --color-secondary: #8B7355;
+  --color-secondary-light: #A6896A;
+  --color-secondary-dark: #6B5A43;
+  --color-accent: #6B8E6B;
+  --color-accent-light: #8AAE8A;
+  --color-background: #F8F6F3;
+  --color-background-dark: #EDE9E3;
+  --color-surface: #FFFFFF;
+  --color-text: #333333;
+  --color-text-light: #6B7280;
+  --color-text-muted: #9CA3AF;
+  --color-error: #C0392B;
+  --color-border: #E5E1DB;
+  --color-gold: #C9A96E;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-serif); }
+::selection { background-color: var(--color-secondary); color: white; }
+html { scroll-behavior: smooth; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.shimmer-auto {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@utility btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.75rem 1.5rem; background-color: var(--color-primary);
+  color: #fff; font-weight: 500; border-radius: 0.5rem; transition: all 0.3s;
+  &:hover { background-color: var(--color-primary-dark); box-shadow: 0 4px 12px rgb(0 0 0 / 0.15); }
+  &:focus { outline: none; box-shadow: 0 0 0 3px rgb(44 62 80 / 0.3); }
+}
+
+@utility btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.75rem 1.5rem; background-color: transparent;
+  color: var(--color-primary); font-weight: 500; border-radius: 0.5rem;
+  border: 2px solid var(--color-primary); transition: all 0.3s;
+  &:hover { background-color: var(--color-primary); color: #fff; }
+  &:focus { outline: none; box-shadow: 0 0 0 3px rgb(44 62 80 / 0.3); }
+}
+
+@utility btn-accent {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.75rem 1.5rem; background-color: var(--color-accent);
+  color: #fff; font-weight: 500; border-radius: 0.5rem; transition: all 0.3s;
+  &:hover { background-color: var(--color-accent-light); box-shadow: 0 4px 12px rgb(0 0 0 / 0.15); }
+  &:focus { outline: none; box-shadow: 0 0 0 3px rgb(107 142 107 / 0.3); }
+}
+
+@utility card {
+  background-color: var(--color-surface); border-radius: 0.75rem;
+  border: 1px solid var(--color-border); padding: 1.5rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); transition: all 0.3s;
+  &:hover { box-shadow: 0 4px 12px rgb(0 0 0 / 0.08); }
+}
+
+@utility input-field {
+  width: 100%; padding: 0.75rem 1rem;
+  background-color: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: 0.5rem; color: var(--color-text); transition: all 0.2s;
+  &::placeholder { color: var(--color-text-muted); }
+  &:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgb(44 62 80 / 0.15); }
+}
+
+@utility product-card {
+  background-color: var(--color-surface); border-radius: 0.75rem;
+  border: 1px solid var(--color-border); padding: 1.5rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05); transition: all 0.3s; cursor: pointer;
+  &:hover { box-shadow: 0 4px 12px rgb(0 0 0 / 0.08); }
+}
+
+@utility product-card-selected {
+  background-color: rgb(139 115 85 / 0.05); border-radius: 0.75rem;
+  border: 2px solid var(--color-secondary); padding: 1.5rem;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }

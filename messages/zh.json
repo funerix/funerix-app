@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "home": "首页",
+    "configuratore": "配置服务",
+    "catalogo": "目录",
+    "necrologi": "讣告",
+    "chiSiamo": "关于我们",
+    "contatti": "联系我们",
+    "assistenza": "请求帮助",
+    "chiamaOra": "立即致电"
+  },
+  "hero": {
+    "slide1": "在最困难的时刻，我们用心陪伴您",
+    "slide2": "坎帕尼亚第一家数字殡葬机构",
+    "slide3": "每一个细节都体现透明、尊严和尊重",
+    "sub1": "平静地为您的亲人配置殡葬服务。价格透明，无义务，最大尊重。",
+    "sub2": "几分钟内在线配置您的服务。专属顾问将在每一步指导您。",
+    "sub3": "没有隐藏费用，没有压力。只有围绕您的需求构建的专业服务。"
+  },
+  "stats": {
+    "primaAgenzia": "第一家数字机构",
+    "inCampania": "在坎帕尼亚",
+    "tempoRisposta": "响应时间",
+    "trenta": "< 30分钟",
+    "preventivo": "在线报价",
+    "cinqueMinuti": "5分钟内",
+    "famiglie": "已服务家庭",
+    "oltre2000": "超过2,000"
+  },
+  "valori": {
+    "titolo": "我们的价值观",
+    "sottotitolo": "三十多年来一直陪伴坎帕尼亚的家庭",
+    "rispetto": "尊重",
+    "rispettoDesc": "每个家庭都值得关注和关怀。",
+    "trasparenza": "透明",
+    "trasparenzaDesc": "清晰详细的价格，没有惊喜。",
+    "disponibilita": "全天候服务",
+    "disponibilitaDesc": "我们随时可以联系，全天候。",
+    "esperienza": "经验",
+    "esperienzaDesc": "超过30年的家庭服务经验。"
+  },
+  "comeFunziona": {
+    "titolo": "如何运作",
+    "sottotitolo": "几个步骤即可配置服务并获得指示性报价",
+    "step1": "选择服务类型",
+    "step1Desc": "土葬或火化",
+    "step2": "定制每个细节",
+    "step2Desc": "棺材、鲜花、仪式、运输",
+    "step3": "获取报价",
+    "step3Desc": "逐项详细摘要",
+    "step4": "我们联系您",
+    "step4Desc": "专属顾问将陪伴您每一步",
+    "inizia": "开始配置"
+  },
+  "faq": { "titolo": "常见问题" },
+  "cta": {
+    "bisognoAssistenza": "需要帮助吗？",
+    "disponibili247": "我们全天候24小时，每周7天提供服务。",
+    "configura": "配置服务",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "servizi": "服务",
+    "informazioni": "信息",
+    "contatti": "联系我们",
+    "disponibili": "全天候24小时，每周7天提供服务"
+  },
+  "lingua": {
+    "it": "Italiano",
+    "en": "English",
+    "ar": "العربية",
+    "uk": "Українська",
+    "ro": "Română",
+    "zh": "中文"
+  }
+}

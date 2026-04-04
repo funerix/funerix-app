@@ -1,0 +1,78 @@
+{
+  "nav": {
+    "home": "Home",
+    "configuratore": "Configure Service",
+    "catalogo": "Catalog",
+    "necrologi": "Obituaries",
+    "chiSiamo": "About Us",
+    "contatti": "Contact",
+    "assistenza": "Request Assistance",
+    "chiamaOra": "Call Now"
+  },
+  "hero": {
+    "slide1": "We accompany you with care in the most difficult moments",
+    "slide2": "The first digital funeral agency in Campania",
+    "slide3": "Transparency, dignity and respect in every detail",
+    "sub1": "Configure the funeral service for your loved one in complete tranquility. Transparent prices, no obligation, utmost respect.",
+    "sub2": "Configure your service online in just a few minutes. A dedicated consultant will guide you every step of the way.",
+    "sub3": "No hidden costs, no pressure. Just a professional service built around your needs."
+  },
+  "stats": {
+    "primaAgenzia": "First digital agency",
+    "inCampania": "In Campania",
+    "tempoRisposta": "Response time",
+    "trenta": "< 30 minutes",
+    "preventivo": "Online quote",
+    "cinqueMinuti": "In 5 minutes",
+    "famiglie": "Families assisted",
+    "oltre2000": "Over 2,000"
+  },
+  "valori": {
+    "titolo": "Our values",
+    "sottotitolo": "Over thirty years at the side of Campanian families",
+    "rispetto": "Respect",
+    "rispettoDesc": "Every family deserves attention and care. We accompany with discretion and sensitivity.",
+    "trasparenza": "Transparency",
+    "trasparenzaDesc": "Clear and detailed prices, no surprises. You will always know what you are choosing.",
+    "disponibilita": "Available 24/7",
+    "disponibilitaDesc": "We are always reachable, at any time of day or night.",
+    "esperienza": "Experience",
+    "esperienzaDesc": "Over 30 years of experience serving Campanian families."
+  },
+  "comeFunziona": {
+    "titolo": "How it works",
+    "sottotitolo": "In a few steps you can configure the service and receive an indicative quote",
+    "step1": "Choose the type of service",
+    "step1Desc": "Burial, entombment or cremation",
+    "step2": "Customize every detail",
+    "step2Desc": "Coffin, flowers, ceremony, transport and extra services",
+    "step3": "Receive your quote",
+    "step3Desc": "Detailed summary item by item",
+    "step4": "We contact you",
+    "step4Desc": "A dedicated consultant will accompany you every step",
+    "inizia": "Start Configuration"
+  },
+  "faq": {
+    "titolo": "Frequently asked questions"
+  },
+  "cta": {
+    "bisognoAssistenza": "Do you need assistance?",
+    "disponibili247": "We are available 24 hours a day, 7 days a week.",
+    "configura": "Configure the Service",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "servizi": "Services",
+    "informazioni": "Information",
+    "contatti": "Contact",
+    "disponibili": "Available 24 hours a day, 7 days a week"
+  },
+  "lingua": {
+    "it": "Italiano",
+    "en": "English",
+    "ar": "العربية",
+    "uk": "Українська",
+    "ro": "Română",
+    "zh": "中文"
+  }
+}

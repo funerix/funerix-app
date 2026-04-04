@@ -1,0 +1,15 @@
+{
+  "name": "Funerix — Servizi Funebri",
+  "short_name": "Funerix",
+  "description": "Configura il servizio funebre online. Preventivo immediato, trasparenza totale.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F6F3",
+  "theme_color": "#2C3E50",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/images/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["business", "lifestyle"],
+  "lang": "it"
+}

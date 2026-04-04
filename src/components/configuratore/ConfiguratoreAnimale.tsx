@@ -113,9 +113,9 @@ export function ConfiguratoreAnimale() {
 
               {step === 1 && (
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Tipo di animale</h2>
-                <div className="grid grid-cols-3 gap-4">{animali.map(a => (
+                <div className="grid grid-cols-3 gap-2 md:gap-4">{animali.map(a => (
                   <div key={a.id} onClick={() => { setAnimale(a.id); if(a.id==='gatto')setTaglia('gatto'); next() }}
-                    className={animale===a.id?'product-card-selected text-center py-8':'product-card text-center py-8'}>
+                    className={animale===a.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <a.icon size={32} className="mx-auto mb-2 text-secondary" /><span className="font-medium text-primary">{a.label}</span>
                   </div>))}</div></div>
               )}
@@ -124,7 +124,7 @@ export function ConfiguratoreAnimale() {
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Taglia</h2>
                 <div className="grid grid-cols-3 gap-4">{taglie.map(t => (
                   <div key={t.id} onClick={() => setTaglia(t.id)}
-                    className={taglia===t.id?'product-card-selected text-center py-6':'product-card text-center py-6'}>
+                    className={taglia===t.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{t.label}</span>
                     <span className="block text-text-muted text-xs">{t.desc}</span>
                     <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {t.prezzo}</span>
@@ -139,7 +139,7 @@ export function ConfiguratoreAnimale() {
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Tipo di cremazione</h2>
                 <div className="grid grid-cols-2 gap-4">{tipiCrema.map(t => (
                   <div key={t.id} onClick={() => setTipo(t.id)}
-                    className={tipo===t.id?'product-card-selected text-center py-6':'product-card text-center py-6'}>
+                    className={tipo===t.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{t.label}</span>
                     <span className="block text-text-muted text-xs mt-1">{t.desc}</span>
                   </div>))}</div></div>
@@ -149,7 +149,7 @@ export function ConfiguratoreAnimale() {
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Scelta urna</h2>
                 <div className="grid grid-cols-2 gap-4">{urneList.map(u => (
                   <div key={u.id} onClick={() => setUrna(u.id)}
-                    className={urna===u.id?'product-card-selected text-center py-6':'product-card text-center py-6'}>
+                    className={urna===u.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{u.label}</span>
                     <span className="block text-text-muted text-xs">{u.desc}</span>
                     {u.prezzo>0&&<span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {u.prezzo}</span>}
@@ -161,9 +161,9 @@ export function ConfiguratoreAnimale() {
 
               {step === 5 && (
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Ritiro</h2>
-                <div className="grid grid-cols-2 gap-4">{ritiroList.map(r => (
+                <div className="grid grid-cols-2 gap-2 md:gap-4">{ritiroList.map(r => (
                   <div key={r.id} onClick={() => setRitiro(r.id)}
-                    className={ritiro===r.id?'product-card-selected text-center py-6':'product-card text-center py-6'}>
+                    className={ritiro===r.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{r.label}</span>
                     <span className="block text-text-muted text-xs mt-1">{r.desc}</span>
                     {r.prezzo>0&&<span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {r.prezzo}</span>}

@@ -107,11 +107,11 @@ export function ConfiguratoreRimpatrio() {
               {step === 1 && (
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Di cosa avete bisogno?</h2>
                 <div className="grid grid-cols-2 gap-4">
-                  <div onClick={() => { setDir('rimpatrio'); next() }} className={dir==='rimpatrio'?'product-card-selected text-center py-10':'product-card text-center py-10'}>
-                    <Plane size={36} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-lg">Rimpatrio in Italia</span>
+                  <div onClick={() => { setDir('rimpatrio'); next() }} className={dir==='rimpatrio'?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
+                    <Plane size={36} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-sm md:text-lg">Rimpatrio</span>
                     <span className="block text-text-muted text-sm mt-1">Decesso all&apos;estero</span></div>
-                  <div onClick={() => { setDir('espatrio'); next() }} className={dir==='espatrio'?'product-card-selected text-center py-10':'product-card text-center py-10'}>
-                    <Globe size={36} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-lg">Espatrio dall&apos;Italia</span>
+                  <div onClick={() => { setDir('espatrio'); next() }} className={dir==='espatrio'?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
+                    <Globe size={36} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-sm md:text-lg">Espatrio dall&apos;Italia</span>
                     <span className="block text-text-muted text-sm mt-1">Trasporto verso l&apos;estero</span></div>
                 </div></div>
               )}
@@ -119,7 +119,7 @@ export function ConfiguratoreRimpatrio() {
               {step === 2 && (
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">{dir==='rimpatrio'?'Da quale zona?':'Verso quale zona?'}</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">{zone.map(z => (
-                  <div key={z.id} onClick={() => setZonaId(z.id)} className={zonaId===z.id?'product-card-selected text-center py-5':'product-card text-center py-5'}>
+                  <div key={z.id} onClick={() => setZonaId(z.id)} className={zonaId===z.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{z.label}</span>
                     <span className="block text-text-muted text-xs">da &euro; {z.base.toLocaleString('it-IT')}</span>
                     <span className="block text-text-muted text-[10px] mt-1">{z.paesi.length} paesi</span>

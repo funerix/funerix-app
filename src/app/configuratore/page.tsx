@@ -259,8 +259,8 @@ export default function ConfiguratorePage() {
                               }
                               className={
                                 store.cerimonia?.tipo === tipo.value
-                                  ? 'product-card-selected text-center py-6'
-                                  : 'product-card text-center py-6'
+                                  ? 'product-card-selected text-center py-5 md:py-8'
+                                  : 'product-card text-center py-5 md:py-8'
                               }
                             >
                               <span className="font-medium text-primary">{tipo.label}</span>

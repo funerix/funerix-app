@@ -107,12 +107,12 @@ export function ConfiguratorePrevidenza() {
               {step === 1 && (
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Per chi &egrave; il piano?</h2>
                 <div className="grid grid-cols-2 gap-4">
-                  <div onClick={() => { setBeneficiario('se_stesso'); next() }} className={beneficiario==='se_stesso'?'product-card-selected text-center py-8':'product-card text-center py-8'}>
-                    <Heart size={32} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-lg">Per me stesso</span>
-                    <span className="block text-text-muted text-sm mt-1">Pianifico il mio servizio funebre</span></div>
-                  <div onClick={() => setBeneficiario('familiare')} className={beneficiario==='familiare'?'product-card-selected text-center py-8':'product-card text-center py-8'}>
-                    <Shield size={32} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-lg">Per un familiare</span>
-                    <span className="block text-text-muted text-sm mt-1">Pianifico per un genitore o caro</span></div>
+                  <div onClick={() => { setBeneficiario('se_stesso'); next() }} className={beneficiario==='se_stesso'?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
+                    <Heart size={32} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-sm md:text-lg">Per me</span>
+                    <span className="block text-text-muted text-[10px] md:text-sm mt-1">Pianifico il mio servizio funebre</span></div>
+                  <div onClick={() => setBeneficiario('familiare')} className={beneficiario==='familiare'?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
+                    <Shield size={32} className="mx-auto mb-3 text-secondary" /><span className="block font-medium text-primary text-sm md:text-lg">Per un familiare</span>
+                    <span className="block text-text-muted text-[10px] md:text-sm mt-1">Pianifico per un genitore o caro</span></div>
                 </div>
                 {beneficiario === 'familiare' && (
                   <div className="mt-6 grid grid-cols-3 gap-3">

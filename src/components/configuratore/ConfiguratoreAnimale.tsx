@@ -126,7 +126,7 @@ export function ConfiguratoreAnimale() {
                   <div key={t.id} onClick={() => setTaglia(t.id)}
                     className={taglia===t.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{t.label}</span>
-                    <span className="block text-text-muted text-xs">{t.desc}</span>
+                    <p className="text-text-light text-[10px] md:text-sm">{t.desc}</p>
                     <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {t.prezzo}</span>
                   </div>))}</div></div>
               )}
@@ -141,7 +141,7 @@ export function ConfiguratoreAnimale() {
                   <div key={t.id} onClick={() => setTipo(t.id)}
                     className={tipo===t.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{t.label}</span>
-                    <span className="block text-text-muted text-xs mt-1">{t.desc}</span>
+                    <p className="text-text-light text-[10px] md:text-sm">{t.desc}</p>
                   </div>))}</div></div>
               )}
 
@@ -151,7 +151,7 @@ export function ConfiguratoreAnimale() {
                   <div key={u.id} onClick={() => setUrna(u.id)}
                     className={urna===u.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{u.label}</span>
-                    <span className="block text-text-muted text-xs">{u.desc}</span>
+                    <p className="text-text-light text-[10px] md:text-sm">{u.desc}</p>
                     {u.prezzo>0&&<span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {u.prezzo}</span>}
                   </div>))}</div></div>
               )}
@@ -165,7 +165,7 @@ export function ConfiguratoreAnimale() {
                   <div key={r.id} onClick={() => setRitiro(r.id)}
                     className={ritiro===r.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
                     <span className="block font-medium text-primary">{r.label}</span>
-                    <span className="block text-text-muted text-xs mt-1">{r.desc}</span>
+                    <p className="text-text-light text-[10px] md:text-sm">{r.desc}</p>
                     {r.prezzo>0&&<span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {r.prezzo}</span>}
                   </div>))}</div></div>
               )}

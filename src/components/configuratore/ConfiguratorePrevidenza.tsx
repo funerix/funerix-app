@@ -128,9 +128,14 @@ export function ConfiguratorePrevidenza() {
 
               {step === 2 && (
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Tipo di servizio</h2>
-                <div className="grid grid-cols-3 gap-2 md:gap-4">{['Inumazione','Tumulazione','Cremazione'].map(t=>(
-                  <div key={t} onClick={() => setTipoServizio(t)} className={tipoServizio===t?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
-                    <span className="font-medium text-primary text-xs md:text-lg">{t}</span></div>))}</div></div>
+                <div className="grid grid-cols-3 gap-2 md:gap-4">{[
+                  {v:'Inumazione',d:'Sepoltura in terra'},
+                  {v:'Tumulazione',d:'Sepoltura in loculo'},
+                  {v:'Cremazione',d:'Con scelta urna'},
+                ].map(t=>(
+                  <div key={t.v} onClick={() => setTipoServizio(t.v)} className={tipoServizio===t.v?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
+                    <h3 className="font-[family-name:var(--font-serif)] text-sm md:text-lg text-primary mb-1">{t.v}</h3>
+                    <p className="text-text-light text-[10px] md:text-sm">{t.d}</p></div>))}</div></div>
               )}
 
               {step === 3 && (

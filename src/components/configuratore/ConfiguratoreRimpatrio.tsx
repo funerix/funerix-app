@@ -120,8 +120,8 @@ export function ConfiguratoreRimpatrio() {
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">{dir==='rimpatrio'?'Da quale zona?':'Verso quale zona?'}</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">{zone.map(z => (
                   <div key={z.id} onClick={() => setZonaId(z.id)} className={zonaId===z.id?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
-                    <span className="block font-medium text-primary">{z.label}</span>
-                    <span className="block text-text-muted text-xs">da &euro; {z.base.toLocaleString('it-IT')}</span>
+                    <h3 className="font-[family-name:var(--font-serif)] text-sm md:text-lg text-primary mb-1">{z.label}</h3>
+                    <p className="text-text-light text-[10px] md:text-sm">da &euro; {z.base.toLocaleString('it-IT')}</p>
                     <span className="block text-text-muted text-[10px] mt-1">{z.paesi.length} paesi</span>
                   </div>))}</div></div>
               )}

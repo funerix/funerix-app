@@ -99,7 +99,7 @@ export default function ConfiguratorePage() {
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
                       Tipo di servizio
                     </h2>
-                    <div className="grid grid-cols-3 gap-3 md:gap-6">
+                    <div className="grid grid-cols-3 gap-2 md:gap-4">
                       {([
                         { value: 'inumazione', label: 'Inumazione', desc: 'Sepoltura in terra' },
                         { value: 'tumulazione', label: 'Tumulazione', desc: 'Sepoltura in loculo' },
@@ -110,11 +110,11 @@ export default function ConfiguratorePage() {
                           onClick={() => store.setTipoServizio(tipo.value as TipoServizio)}
                           className={
                             store.tipoServizio === tipo.value
-                              ? 'product-card-selected text-center py-6 md:py-10'
-                              : 'product-card text-center py-6 md:py-10'
+                              ? 'product-card-selected text-center py-5 md:py-8'
+                              : 'product-card text-center py-5 md:py-8'
                           }
                         >
-                          <h3 className="font-[family-name:var(--font-serif)] text-sm md:text-xl text-primary mb-1 md:mb-2">
+                          <h3 className="font-[family-name:var(--font-serif)] text-sm md:text-lg text-primary mb-1">
                             {tipo.label}
                           </h3>
                           <p className="text-text-light text-[10px] md:text-sm">{tipo.desc}</p>

@@ -66,9 +66,9 @@ export default function CremazioneAnimaliPage() {
               Contattateci telefonicamente o via WhatsApp. Organizzeremo il ritiro del vostro animale
               e vi accompagneremo in ogni fase con delicatezza e rispetto.
             </p>
-            <a href="tel:+390815551234" className="btn-primary">
-              <Phone size={18} className="mr-2" /> Chiama Ora
-            </a>
+            <Link href="/configuratore?tipo=animale" className="btn-primary">
+              Configura Cremazione Animale
+            </Link>
           </div>
         </div>
       </section>

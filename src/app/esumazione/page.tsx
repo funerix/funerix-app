@@ -46,7 +46,7 @@ export default function EsumazionePage() {
           </div>
 
           <div className="text-center">
-            <a href="tel:+390815551234" className="btn-primary"><Phone size={16} className="mr-2" /> Contattaci</a>
+            <Link href="/contatti" className="btn-primary">Richiedi Preventivo Esumazione</Link>
           </div>
         </div>
       </section>

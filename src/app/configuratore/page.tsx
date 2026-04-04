@@ -42,7 +42,7 @@ export default function ConfiguratorePage() {
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
         {/* Selettore tipo servizio */}
-        <div className="flex justify-center gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-8">
           {[
             { id: 'funebre' as const, label: 'Servizio Funebre', desc: 'Per una persona cara' },
             { id: 'animale' as const, label: 'Cremazione Animale', desc: 'Per un animale domestico' },
@@ -50,13 +50,13 @@ export default function ConfiguratorePage() {
             { id: 'previdenza' as const, label: 'Previdenza Funerix', desc: 'Pianifica e paga a rate' },
           ].map(t => (
             <button key={t.id} onClick={() => setTipoConfigurazione(t.id)}
-              className={`px-5 py-3 rounded-xl text-center transition-all ${
+              className={`px-3 md:px-5 py-3 rounded-xl text-center transition-all ${
                 tipoConfigurazione === t.id
                   ? 'bg-primary text-white shadow-lg'
-                  : 'bg-surface border border-border text-text-light hover:border-secondary'
+                  : 'bg-surface border border-border text-text-light'
               }`}>
-              <span className="block text-sm font-medium">{t.label}</span>
-              <span className={`block text-[10px] mt-0.5 ${tipoConfigurazione === t.id ? 'text-white/70' : 'text-text-muted'}`}>{t.desc}</span>
+              <span className="block text-xs md:text-sm font-medium">{t.label}</span>
+              <span className={`block text-[9px] md:text-[10px] mt-0.5 ${tipoConfigurazione === t.id ? 'text-white/70' : 'text-text-muted'}`}>{t.desc}</span>
             </button>
           ))}
         </div>

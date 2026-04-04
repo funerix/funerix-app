@@ -43,12 +43,12 @@ export default function RimpatriPage() {
             Assistenza completa per documentazione, pratiche consolari e logistica.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+390815551234" className="btn-accent text-base py-4 px-8">
-              <Phone size={18} className="mr-2" /> Chiama Ora — Urgenze 24/7
-            </a>
-            <Link href="/contatti" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
-              Richiedi Preventivo
+            <Link href="/configuratore?tipo=rimpatrio" className="btn-accent text-base py-4 px-8">
+              Configura Rimpatrio <ChevronRight size={18} className="ml-2" />
             </Link>
+            <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
+              <Phone size={18} className="mr-2" /> Urgenze 24/7
+            </a>
           </div>
         </div>
       </section>
@@ -169,9 +169,14 @@ export default function RimpatriPage() {
             Siamo operativi 24 ore su 24 per gestire rimpatri urgenti in tutto il mondo.
             Un consulente specializzato vi seguir&agrave; in ogni fase.
           </p>
-          <a href="tel:+390815551234" className="btn-accent text-lg py-4 px-10">
-            <Phone size={20} className="mr-2" /> Chiama Ora
-          </a>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/configuratore?tipo=rimpatrio" className="btn-accent text-lg py-4 px-10">
+              Configura Rimpatrio <ChevronRight size={18} className="ml-2" />
+            </Link>
+            <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">
+              <Phone size={18} className="mr-2" /> Urgenze 24/7
+            </a>
+          </div>
         </div>
       </section>
 

@@ -62,10 +62,10 @@ export default function HomePage() {
   return (
     <>
       {/* ═══════════════ 1. HERO ═══════════════ */}
-      <section className="relative bg-primary overflow-hidden h-[80vh] min-h-[550px] max-h-[700px]">
+      <section className="relative bg-primary overflow-hidden h-[90vh] min-h-[650px] md:min-h-[550px] max-h-[800px]">
         <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-25" priority sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary/70 to-primary-dark/50" />
-        <div className="relative h-full flex flex-col justify-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative h-full flex flex-col justify-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           <motion.div initial="hidden" animate="visible" className="max-w-2xl">
             <motion.div variants={fadeUp} custom={0}
               className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-light text-xs px-4 py-2 rounded-full mb-5 backdrop-blur-sm border border-secondary/20">

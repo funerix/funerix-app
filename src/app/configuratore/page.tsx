@@ -99,25 +99,25 @@ export default function ConfiguratorePage() {
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
                       Tipo di servizio
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-3 gap-3 md:gap-6">
                       {([
                         { value: 'inumazione', label: 'Inumazione', desc: 'Sepoltura in terra' },
                         { value: 'tumulazione', label: 'Tumulazione', desc: 'Sepoltura in loculo' },
-                        { value: 'cremazione', label: 'Cremazione', desc: 'Con scelta urna cineraria' },
+                        { value: 'cremazione', label: 'Cremazione', desc: 'Con scelta urna' },
                       ] as const).map((tipo) => (
                         <div
                           key={tipo.value}
                           onClick={() => store.setTipoServizio(tipo.value as TipoServizio)}
                           className={
                             store.tipoServizio === tipo.value
-                              ? 'product-card-selected text-center py-10'
-                              : 'product-card text-center py-10'
+                              ? 'product-card-selected text-center py-6 md:py-10'
+                              : 'product-card text-center py-6 md:py-10'
                           }
                         >
-                          <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-2">
+                          <h3 className="font-[family-name:var(--font-serif)] text-sm md:text-xl text-primary mb-1 md:mb-2">
                             {tipo.label}
                           </h3>
-                          <p className="text-text-light text-sm">{tipo.desc}</p>
+                          <p className="text-text-light text-[10px] md:text-sm">{tipo.desc}</p>
                         </div>
                       ))}
                     </div>
@@ -241,7 +241,7 @@ export default function ConfiguratorePage() {
                     <div className="space-y-6">
                       <div>
                         <label className="block text-sm font-medium text-text mb-3">Tipo di cerimonia</label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-3 gap-2 md:gap-4">
                           {([
                             { value: 'cattolica', label: 'Cattolica' },
                             { value: 'altra_confessione', label: 'Altra confessione' },
@@ -586,7 +586,7 @@ export default function ConfiguratorePage() {
             {/* Navigation */}
             <div className="flex justify-between mt-10">
               <button
-                onClick={store.prevStep}
+                onClick={() => { store.prevStep(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
                 disabled={store.step === 1}
                 className="btn-secondary disabled:opacity-30 disabled:cursor-not-allowed"
               >
@@ -601,7 +601,7 @@ export default function ConfiguratorePage() {
                 Ricomincia
               </button>
               {store.step < TOTAL_STEPS && (
-                <button onClick={store.nextStep} className="btn-primary">
+                <button onClick={() => { store.nextStep(); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className="btn-primary">
                   Avanti
                   <ChevronRight size={18} className="ml-1" />
                 </button>

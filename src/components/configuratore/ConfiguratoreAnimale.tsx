@@ -52,8 +52,8 @@ export function ConfiguratoreAnimale() {
   const ritiroObj = ritiroList.find(r => r.id === ritiro)
   const totale = (tagliaObj?.prezzo || (animale === 'gatto' ? 150 : 0)) + (tipoObj?.extra || 0) + (urnaObj?.prezzo || 0) + (ritiroObj?.prezzo || 0)
 
-  const next = () => setStep(s => Math.min(STEPS.length, s + 1))
-  const prev = () => setStep(s => Math.max(1, s - 1))
+  const next = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.min(STEPS.length, s + 1)) }
+  const prev = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.max(1, s - 1)) }
   const reset = () => { setStep(1); setAnimale(''); setTaglia(''); setTipo(''); setUrna(''); setRitiro('') }
 
   const handleSubmit = async (e: React.FormEvent) => {

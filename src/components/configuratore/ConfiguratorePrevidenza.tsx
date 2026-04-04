@@ -38,8 +38,8 @@ export function ConfiguratorePrevidenza() {
   const totale = (baraObj?.prezzo || 0) + fioriTot + extraTot
   const rataMensile = totale > 0 ? Math.ceil(totale / numRate) : 0
 
-  const next = () => setStep(s => Math.min(STEPS.length, s + 1))
-  const prev = () => setStep(s => Math.max(1, s - 1))
+  const next = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.min(STEPS.length, s + 1)) }
+  const prev = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.max(1, s - 1)) }
   const reset = () => { setStep(1); setBeneficiario(''); setBara(null); setFioriSel([]); setExtraSel([]) }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -128,9 +128,9 @@ export function ConfiguratorePrevidenza() {
 
               {step === 2 && (
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Tipo di servizio</h2>
-                <div className="grid grid-cols-3 gap-4">{['Inumazione','Tumulazione','Cremazione'].map(t=>(
-                  <div key={t} onClick={() => setTipoServizio(t)} className={tipoServizio===t?'product-card-selected text-center py-8':'product-card text-center py-8'}>
-                    <span className="font-medium text-primary text-lg">{t}</span></div>))}</div></div>
+                <div className="grid grid-cols-3 gap-2 md:gap-4">{['Inumazione','Tumulazione','Cremazione'].map(t=>(
+                  <div key={t} onClick={() => setTipoServizio(t)} className={tipoServizio===t?'product-card-selected text-center py-5 md:py-8':'product-card text-center py-5 md:py-8'}>
+                    <span className="font-medium text-primary text-xs md:text-lg">{t}</span></div>))}</div></div>
               )}
 
               {step === 3 && (

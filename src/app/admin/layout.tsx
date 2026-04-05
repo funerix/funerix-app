@@ -54,6 +54,7 @@ const navGroups = [
   {
     label: 'Sistema',
     items: [
+      { href: '/admin/consulenti', icon: Users, label: 'Consulenti' },
       { href: '/admin/impostazioni', icon: Settings, label: 'Impostazioni' },
     ],
   },

@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     path: '/',
   })
 
-  return NextResponse.json({ success: true, user: { id: user.id, email: user.email, nome: user.nome } })
+  return NextResponse.json({ success: true, user: { id: user.id, email: user.email, nome: user.nome, ruolo: user.ruolo } })
 }
 
 // DELETE /api/auth — Logout

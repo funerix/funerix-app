@@ -10,8 +10,10 @@ import { ConfiguratoreAnimale } from '@/components/configuratore/ConfiguratoreAn
 import { ConfiguratoreRimpatrio } from '@/components/configuratore/ConfiguratoreRimpatrio'
 import { ConfiguratorePrevidenza } from '@/components/configuratore/ConfiguratorePrevidenza'
 import { useSitoStore } from '@/store/sito'
+import { useSearchParams } from 'next/navigation'
+import { getSupabase } from '@/lib/supabase-client'
 import { TipoServizio, TipoCerimonia } from '@/types'
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 
 const slideVariants = {
   enter: (direction: number) => ({ x: direction > 0 ? 200 : -200, opacity: 0 }),
@@ -19,15 +21,34 @@ const slideVariants = {
   exit: (direction: number) => ({ x: direction > 0 ? -200 : 200, opacity: 0 }),
 }
 
-export default function ConfiguratorePage() {
+export default function ConfiguratorePageWrapper() {
+  return <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 border-4 border-secondary border-t-transparent rounded-full animate-spin" /></div>}><ConfiguratorePage /></Suspense>
+}
+
+function ConfiguratorePage() {
   const store = useConfiguratoreStore()
-  const { prodotti, impostazioni } = useSitoStore()
+  const { prodotti, categorie } = useSitoStore()
   const totale = store.totale()
   const [mostraOrarioSpecifico, setMostraOrarioSpecifico] = useState(false)
   const [richiestaInviata, setRichiestaInviata] = useState(false)
   const [tempoAttesa, setTempoAttesa] = useState('')
+  const [referralCode, setReferralCode] = useState('')
+  const [referralSconto, setReferralSconto] = useState(0)
 
-  const { categorie } = useSitoStore()
+  // Leggi codice referral dall'URL
+  const searchParams = useSearchParams()
+  useEffect(() => {
+    const ref = searchParams.get('ref')
+    if (ref && !referralCode) {
+      getSupabase().from('referral').select('codice, sconto_percentuale, attivo').eq('codice', ref).eq('attivo', true).single()
+        .then(({ data }: { data: unknown }) => {
+          const r = data as { codice: string; sconto_percentuale: number } | null
+          if (r) { setReferralCode(r.codice); setReferralSconto(r.sconto_percentuale) }
+        })
+    }
+  }, [searchParams, referralCode])
+
+  const totaleConSconto = referralSconto > 0 ? Math.round(totale * (1 - referralSconto / 100)) : totale
   const attivi = prodotti.filter((p) => p.attivo)
   const catId = (slug: string) => categorie.find(c => c.slug === slug)?.id || ''
   const bare = attivi.filter((p) => p.categoriaId === catId('bare'))
@@ -389,11 +410,18 @@ export default function ConfiguratorePage() {
                         <RiepilogoRow key={s.id} label="Servizio extra" value={s.nome} prezzo={s.prezzo} onEdit={() => store.setStep(6)} />
                       ))}
 
-                      <div className="border-t-2 border-primary pt-4 mt-6 flex justify-between items-center">
+                      {referralSconto > 0 && (
+                        <div className="mt-4 p-3 bg-accent/10 border border-accent/20 rounded-lg flex justify-between items-center">
+                          <span className="text-accent text-sm font-medium">Sconto referral ({referralCode}): -{referralSconto}%</span>
+                          <span className="text-accent font-bold">-&euro; {(totale - totaleConSconto).toLocaleString('it-IT')}</span>
+                        </div>
+                      )}
+                      <div className="border-t-2 border-primary pt-4 mt-4 flex justify-between items-center">
                         <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">Totale indicativo</span>
-                        <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">
-                          &euro; {totale.toLocaleString('it-IT')}
-                        </span>
+                        <div className="text-right">
+                          {referralSconto > 0 && <span className="text-text-muted text-sm line-through block">&euro; {totale.toLocaleString('it-IT')}</span>}
+                          <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totaleConSconto.toLocaleString('it-IT')}</span>
+                        </div>
                       </div>
                       <div className="mt-6 p-4 bg-background-dark rounded-lg border border-border">
                         <p className="text-xs font-semibold text-primary mb-2 uppercase tracking-wider">
@@ -469,11 +497,18 @@ export default function ConfiguratorePage() {
                           modalita: modalita.value,
                           orario,
                           note,
-                          configurazione: righe.join('\n'),
-                          totale,
+                          configurazione: righe.join('\n') + (referralCode ? `\nReferral: ${referralCode} (-${referralSconto}%)` : ''),
+                          totale: totaleConSconto,
                           stato: 'nuova',
                           createdAt: new Date().toISOString(),
                         })
+
+                        // Incrementa utilizzi referral
+                        if (referralCode) {
+                          const sb = getSupabase()
+                          const { data: ref } = await sb.from('referral').select('id, utilizzi').eq('codice', referralCode).single() as { data: { id: string; utilizzi: number } | null }
+                          if (ref) await sb.from('referral').update({ utilizzi: ref.utilizzi + 1 }).eq('id', ref.id)
+                        }
 
                         // Notifica consulente (WhatsApp Business API + email)
                         // L'API legge le impostazioni dal DB e invia automaticamente
@@ -630,12 +665,20 @@ export default function ConfiguratorePage() {
                 ))}
 
                 {totale > 0 && (
-                  <div className="border-t border-border pt-3 mt-3 flex justify-between font-semibold text-primary">
+                  <>
+                  {referralSconto > 0 && (
+                    <div className="border-t border-border pt-2 mt-2 text-xs text-accent flex justify-between">
+                      <span>Sconto {referralSconto}%</span>
+                      <span>-&euro; {(totale - totaleConSconto).toLocaleString('it-IT')}</span>
+                    </div>
+                  )}
+                  <div className={`${referralSconto > 0 ? 'pt-1' : 'border-t border-border pt-3 mt-3'} flex justify-between font-semibold text-primary`}>
                     <span>Totale</span>
                     <span className="font-[family-name:var(--font-serif)] text-lg">
-                      &euro; {totale.toLocaleString('it-IT')}
+                      &euro; {totaleConSconto.toLocaleString('it-IT')}
                     </span>
                   </div>
+                  </>
                 )}
 
                 {totale === 0 && (
@@ -680,7 +723,7 @@ export default function ConfiguratorePage() {
               <div className="bg-background rounded-xl p-5 mb-6 text-left">
                 <p className="text-sm text-text-light leading-relaxed">
                   Il consulente avr&agrave; gi&agrave; tutti i dettagli della vostra configurazione
-                  e del preventivo indicativo di <strong className="text-primary">&euro; {totale.toLocaleString('it-IT')}</strong>.
+                  e del preventivo indicativo di <strong className="text-primary">&euro; {totaleConSconto.toLocaleString('it-IT')}</strong>.
                   Non dovrete ripetere nulla.
                 </p>
               </div>

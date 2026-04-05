@@ -1,121 +1,149 @@
 # Funerix — Progetto Completo
 
-## Stato: MVP Avanzato — Voto 72/100
+## Live: https://funerix.com | https://funerix-app.vercel.app
+## GitHub: https://github.com/funerix/funerix-app
+## Admin: admin@funerix.com / funerix2026
 
-### Stack
+---
+
+## Stack Tecnologico
 - **Frontend**: Next.js 16 + TypeScript + Tailwind CSS v4
 - **Backend**: Supabase (PostgreSQL + Auth + Storage + Realtime)
-- **State**: Zustand (persistente)
+- **State**: Zustand
 - **Animazioni**: Framer Motion
 - **PDF**: jsPDF
 - **Grafici**: Recharts
 - **Mappe**: Leaflet + React-Leaflet
 - **QR Code**: qrcode.react
-
-### Database: 18 tabelle
-categorie, prodotti, memorial, messaggi_memorial, richieste, clienti, pagamenti, impostazioni, contenuti, blog_posts, comunicazioni, agenzie, appuntamenti, referral, admin_users, servizi_homepage, faq, testimonianze
-
-### Credenziali
-- **Admin**: admin@funerix.com / funerix2026
-- **Supabase URL**: https://rnimsuoabbucrtmhhcqx.supabase.co
+- **Deploy**: Vercel (auto-deploy da GitHub)
+- **Dominio**: funerix.com (DNS su Register.it → Vercel)
 
 ---
 
-## Pagine Frontend (44+)
+## Database: 21 tabelle Supabase
+
+| Tabella | Rows | Collegata a Frontend | Admin UI |
+|---|---|---|---|
+| categorie | 5 | ✅ Catalogo + Configuratore | ❌ |
+| prodotti | 18 | ✅ Catalogo + Configuratore | ✅ CRUD completo |
+| memorial | 4 | ✅ /memorial | ✅ CRUD |
+| messaggi_memorial | 5 | ✅ /memorial/[id] | ✅ (in scheda) |
+| richieste | 6 | ✅ Configuratore → Admin | ✅ Lista + Scheda 6 tab |
+| clienti | 3 | ✅ /cliente?token= | ✅ (in scheda richiesta) |
+| pagamenti | 0 | ❌ NON COLLEGATA | ❌ |
+| impostazioni | 1 | ✅ Header, Footer, Contatti | ✅ Impostazioni |
+| contenuti | 1 | ✅ Homepage hero, footer | ✅ Contenuti |
+| blog_posts | 5 | ✅ /blog | ✅ CRUD |
+| comunicazioni | 0 | ✅ (in scheda richiesta) | ✅ (in scheda) |
+| agenzie | 1 | ✅ Manifesto | ✅ CRUD |
+| appuntamenti | 0 | ❌ Solo admin | ✅ Calendario |
+| referral | 0 | ❌ NON collegato al config | ✅ CRUD |
+| admin_users | 1 | ✅ /admin/login | ❌ Solo 1 utente |
+| servizi_homepage | 6 | ✅ Homepage card | ❌ MANCA ADMIN |
+| faq | 6 | ✅ Homepage FAQ | ❌ MANCA ADMIN |
+| testimonianze | 3 | ✅ Homepage testimonianze | ❌ MANCA ADMIN |
+| piani_previdenza | 0 | ✅ /previdenza | ✅ Lista (base) |
+| pagamenti_piano | 0 | ❌ NON COLLEGATA | ❌ |
+| rsa_convenzionate | 0 | ✅ /convenzioni | ✅ CRUD |
+
+---
+
+## Pagine Frontend (48+)
 
 ### Pubbliche
-- `/` — Homepage (hero, servizi, come funziona, prezzi, testimonianze, FAQ, CTA)
-- `/configuratore` — Configuratore multi-tipo (funebre 8 step, animali 7 step, rimpatri 6 step)
-- `/catalogo` — Catalogo prodotti con filtri
-- `/prezzi` — Prezzi per provincia + dettaglio costi
-- `/rimpatri` — Rimpatri ed espatri salme internazionali
-- `/cremazione-animali` — Cremazione animali domestici
-- `/esumazione` — Esumazione e riesumazione
-- `/memorial` — Lista necrologi pubblici
-- `/memorial/[id]` — Memorial singolo con QR Code
-- `/manifesto/[id]` — Manifesto funebre con cornici
-- `/blog` — Lista articoli (5 seed)
-- `/blog/[slug]` — Articolo singolo
-- `/guida` — Indice 12 guide
-- `/guida/*` — 12 guide SEO (decesso casa/ospedale/estero/RSA, costi, documenti, cremazione, inumazione/tumulazione, manifesto, testamento, lutto, cremazione animali)
-- `/chi-siamo` — Storia dal 1920, autorizzazioni, guida post-decesso
-- `/contatti` — Form + info contatto
-- `/assistenza` — Chatbot FAQ + contatto diretto
-- `/cliente?token=xxx` — Area cliente (timeline, chat, documenti, firma)
-- `/onoranze-funebri/[comune]` — 37 pagine SEO locali
-- `/sitemap.xml`, `/robots.txt`, `/manifest.json`
+| Pagina | URL | Stato |
+|---|---|---|
+| Homepage | / | ✅ Hero + 6 servizi + prezzi + FAQ + testimonianze |
+| Configuratore (4 tipi) | /configuratore | ✅ Funebre 8 step, Animali 7, Rimpatri 6, Previdenza 8 |
+| Catalogo | /catalogo | ✅ Filtri + immagini |
+| Prezzi | /prezzi | ✅ Per provincia + dettaglio |
+| Rimpatri | /rimpatri | ✅ Zone, costi, documenti |
+| Cremazione Animali | /cremazione-animali | ✅ Listino + procedura |
+| Esumazione | /esumazione | ✅ Servizi + listino |
+| Previdenza | /previdenza | ✅ Landing + simulatore rate |
+| Convenzioni RSA | /convenzioni | ✅ Landing B2B |
+| Memorial lista | /memorial | ✅ Necrologi pubblici |
+| Memorial singolo | /memorial/[id] | ✅ QR Code + messaggi |
+| Manifesto | /manifesto/[id] | ✅ Cornici + stampa |
+| Blog | /blog | ✅ 5 articoli |
+| Blog articolo | /blog/[slug] | ✅ |
+| Guide indice | /guida | ✅ 12 guide |
+| 12 guide singole | /guida/* | ✅ SEO |
+| Chi Siamo | /chi-siamo | ✅ Storia 1920 + foto |
+| Contatti | /contatti | ✅ Form + info |
+| Assistenza | /assistenza | ✅ Chatbot FAQ + contatti |
+| Area Cliente | /cliente?token= | ✅ Timeline + chat + documenti + firma |
+| SEO comuni | /onoranze-funebri/[comune] | ✅ 37 pagine |
+| Sitemap | /sitemap.xml | ✅ |
+| Robots | /robots.txt | ✅ |
+| PWA Manifest | /manifest.json | ✅ |
 
-### Admin (protetto da login)
-- `/admin/login` — Login
-- `/admin` — Dashboard con stats reali
-- `/admin/richieste` — Lista richieste
-- `/admin/richieste/[id]` — Scheda cliente 6 tab (panoramica, persona cara, preventivo, documenti, cerimonia, comunicazioni)
-- `/admin/prodotti` — CRUD prodotti
-- `/admin/memorial` — CRUD memorial
-- `/admin/blog` — CRUD articoli
-- `/admin/contenuti` — Editor testi sito
-- `/admin/impostazioni` — Dati aziendali, WhatsApp Business API
-- `/admin/media` — Galleria immagini
-- `/admin/agenzie` — CRUD agenzie partner
-- `/admin/analytics` — Grafici (recharts)
-- `/admin/calendario` — Calendario appuntamenti
-- `/admin/referral` — Codici sconto
-
----
-
-## 15 PUNTI DA COMPLETARE (da audit)
-
-### Per arrivare a 85/100:
-1. ⬜ **40 immagini AI** — prodotti, servizi, sfondi (prompt pronti, in produzione)
-2. ⬜ **Admin CRUD per servizi homepage + FAQ + testimonianze** — i dati sono nel DB ma manca la UI admin
-3. ⬜ **Guide decesso con contenuti unici** — le 4 guide scenario hanno contenuto generico simile
-4. ⬜ **Stripe pagamenti** — serve STRIPE_SECRET_KEY + STRIPE_PUBLISHABLE_KEY
-5. ⬜ **Resend email** — serve RESEND_API_KEY
-
-### Per arrivare a 95/100:
-6. ⬜ **Multi-lingua funzionante** — next-intl routing, traduzione pagine
-7. ⬜ **Google Reviews widget** — mostrare recensioni reali
-8. ⬜ **Analytics reali** — Vercel Analytics o Plausible
-9. ⬜ **Cookie banner GDPR** — consenso cookie + privacy policy
-10. ⬜ **Test automatici** — Vitest, almeno flusso configuratore
-
-### Per il 100/100:
-11. ⬜ **Chatbot AI con OpenAI** — serve OPENAI_API_KEY
-12. ⬜ **App mobile React Native** — per il consulente
-13. ⬜ **Google Calendar integrazione** — sync appuntamenti
-14. ⬜ **SMS automatici** — cambio stato → SMS al cliente
-15. ⬜ **Deploy Vercel + dominio funerix.com**
+### Admin (16 pagine)
+| Pagina | URL | Stato |
+|---|---|---|
+| Login | /admin/login | ✅ |
+| Dashboard | /admin | ✅ Stats reali |
+| Richieste lista | /admin/richieste | ✅ |
+| Scheda cliente | /admin/richieste/[id] | ✅ 6 tab |
+| Prodotti | /admin/prodotti | ✅ CRUD + upload |
+| Memorial | /admin/memorial | ✅ CRUD |
+| Blog | /admin/blog | ✅ CRUD |
+| Contenuti | /admin/contenuti | ✅ Editor testi |
+| Impostazioni | /admin/impostazioni | ✅ WhatsApp + dati |
+| Media | /admin/media | ✅ Galleria |
+| Agenzie | /admin/agenzie | ✅ CRUD |
+| Calendario | /admin/calendario | ✅ Appuntamenti |
+| Analytics | /admin/analytics | ✅ Grafici |
+| Referral | /admin/referral | ✅ Codici sconto |
+| Previdenza | /admin/previdenza | ✅ Lista piani |
+| RSA | /admin/rsa | ✅ CRUD strutture |
 
 ---
 
-## Prodotti da aggiungere al DB (con immagini)
+## API Routes (10)
+| Endpoint | Metodo | Funzione |
+|---|---|---|
+| /api/auth | POST/GET/DELETE | Login, check sessione, logout |
+| /api/cliente | POST/GET | Crea account cliente, verifica token |
+| /api/cliente/chat | POST | Messaggi chat cliente-consulente |
+| /api/cliente/documenti | POST/GET | Upload/download documenti |
+| /api/memorial | POST/PUT | CRUD memorial |
+| /api/notifica | POST | Notifica consulente (WhatsApp Business API) |
+| /api/notifica-stato | POST | Email cambio stato (Resend predisposto) |
+| /api/richieste | POST/GET | CRUD richieste |
+| /api/upload | POST | Upload immagini Supabase Storage |
+| /api/whatsapp | POST | Invio WhatsApp Business API |
 
-### Bare (aggiungi 6 — totale 10)
-- Cofano in Abete €450
-- Cofano in Pino €700
-- Cofano in Castagno €1.600
-- Cofano in Ciliegio Laccato €3.000
-- Cofano in Noce Intarsiato €4.500
-- Cofano Presidenziale Oro €7.000
+---
 
-### Urne (aggiungi 4 — totale 7)
-- Urna Economica Resina €120
-- Urna in Bronzo Antico €850
-- Urna in Onice €1.100
-- Urna Biodegradabile €200
+## COSA FARE — Priorità
 
-### Auto (aggiungi 2 — totale 4)
-- Auto Premium BMW €1.200
-- Auto Luxury Maserati €2.000
+### FASE 1: Backend Admin (URGENTE)
+1. ⬜ **Sidebar admin** — sostituire top-bar con sidebar laterale
+2. ⬜ **Gestione consulenti** — CRUD utenti admin con ruoli (admin/consulente)
+3. ⬜ **Dashboard consulente** — vista limitata alle proprie pratiche
+4. ⬜ **Assegnazione pratiche** — admin assegna richiesta a consulente
+5. ⬜ **CRUD servizi homepage** — gestire card servizi dalla admin
+6. ⬜ **CRUD FAQ** — gestire domande frequenti
+7. ⬜ **CRUD testimonianze** — gestire recensioni
+8. ⬜ **Collegare referral al configuratore** — applicare sconto
 
-### Fiori (aggiungi 4 — totale 7)
-- Bouquet Rose Bianche €60
-- Composizione Orchidee Altare €350
-- Copertura Bara Floreale €450
-- Corona Grande Deluxe €500
+### FASE 2: Integrazioni (servono API key)
+9. ⬜ **Stripe pagamenti** — acconto, rate previdenza, link pagamento
+10. ⬜ **Resend email** — conferma cliente, notifiche stato, email consulente
+11. ⬜ **OpenAI chatbot** — assistente AI invece di keyword match
 
-### Servizi (aggiungi 2 — totale 8)
-- Manifesti Funebri 50pz €100
-- Camera Ardente giornata €400
+### FASE 3: Completamento
+12. ⬜ **61 immagini AI** — prodotti, servizi, sfondi (prompt pronti)
+13. ⬜ **14 prodotti nuovi** — bare, urne, auto, fiori da aggiungere al DB
+14. ⬜ **Multi-lingua routing** — next-intl, traduzione pagine reale
+15. ⬜ **Cookie banner GDPR** — consenso + privacy policy
+16. ⬜ **Test automatici** — Vitest, flusso configuratore
+17. ⬜ **Piani previdenza flusso completo** — pagamento ricorrente, dashboard rate
 
-### Totale prodotti: da 18 a 32
+### FASE 4: Crescita
+18. ⬜ **Google Reviews widget** — recensioni reali
+19. ⬜ **Google Calendar sync** — appuntamenti
+20. ⬜ **SMS automatici** — Twilio per cambio stato
+21. ⬜ **App mobile consulente** — React Native
+22. ⬜ **A/B testing** — landing page

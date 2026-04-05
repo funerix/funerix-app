@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowLeft, Clock, Phone, Mail, Eye, MessageCircle, FileText, Download, CheckCircle2, Circle, Loader2, User } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { getSupabase } from '@/lib/supabase-client'
+import { useAdminUser } from '@/lib/useAdminUser'
 import { useState, useEffect } from 'react'
 
 interface ClienteInfo {
@@ -24,6 +25,9 @@ const statoColori: Record<string, string> = {
 
 export default function RichiestePage() {
   const { richieste, aggiornaStatoRichiesta, impostazioni } = useSitoStore()
+  const { user, canSeeAll } = useAdminUser()
+  // Consulente vede solo le sue pratiche
+  const mieRichieste = canSeeAll ? richieste : richieste.filter(r => (r as unknown as Record<string, string>).consulente_id === user?.id)
   const [filtroStato, setFiltroStato] = useState<string>('tutti')
   const [dettaglio, setDettaglio] = useState<string | null>(null)
   const [consulentiMap, setConsulentiMap] = useState<Record<string, string>>({})
@@ -56,8 +60,8 @@ export default function RichiestePage() {
   }, [dettaglio])
 
   const richiesteFiltrate = filtroStato === 'tutti'
-    ? richieste
-    : richieste.filter(r => r.stato === filtroStato)
+    ? mieRichieste
+    : mieRichieste.filter(r => r.stato === filtroStato)
 
   const richiestaDettaglio = richieste.find(r => r.id === dettaglio)
 
@@ -82,11 +86,11 @@ export default function RichiestePage() {
           </Link>
           <div>
             <h1 className="font-[family-name:var(--font-serif)] text-3xl text-primary">Richieste</h1>
-            <p className="text-text-light text-sm">{richieste.length} richieste totali</p>
+            <p className="text-text-light text-sm">{mieRichieste.length} richieste</p>
           </div>
         </div>
 
-        {richieste.length === 0 ? (
+        {mieRichieste.length === 0 ? (
           <div className="card text-center py-16">
             <Eye size={32} className="mx-auto mb-4 text-text-muted opacity-30" />
             <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-2">Nessuna richiesta</h3>
@@ -104,7 +108,7 @@ export default function RichiestePage() {
                     filtroStato === stato ? 'bg-primary text-white' : 'bg-surface text-text-light border border-border'
                   }`}
                 >
-                  {stato === 'tutti' ? `Tutti (${richieste.length})` : `${stato.replace('_', ' ')} (${richieste.filter(r => r.stato === stato).length})`}
+                  {stato === 'tutti' ? `Tutti (${mieRichieste.length})` : `${stato.replace('_', ' ')} (${mieRichieste.filter(r => r.stato === stato).length})`}
                 </button>
               ))}
             </div>

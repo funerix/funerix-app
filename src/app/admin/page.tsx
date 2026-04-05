@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Package, FileText, BarChart3, Users, TrendingUp, Clock, Heart, Settings, Globe, Edit3, Image, Phone } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
+import { useAdminUser } from '@/lib/useAdminUser'
 
 const statoColori: Record<string, string> = {
   nuova: 'bg-blue-100 text-blue-800',
@@ -22,13 +23,22 @@ const sezioniAdmin = [
 
 export default function AdminPage() {
   const { richieste, prodotti, memorial } = useSitoStore()
-  const richiesteNuove = richieste.filter(r => r.stato === 'nuova').length
+  const { user, canSeeAll, isConsulente } = useAdminUser()
 
-  const stats = [
+  // Filtra richieste: consulente vede solo le sue
+  const mieRichieste = canSeeAll ? richieste : richieste.filter(r => (r as unknown as Record<string, string>).consulente_id === user?.id)
+  const richiesteNuove = mieRichieste.filter(r => r.stato === 'nuova').length
+
+  const stats = canSeeAll ? [
     { label: 'Richieste totali', value: String(richieste.length), icon: FileText, trend: richiesteNuove > 0 ? `${richiesteNuove} nuove` : undefined },
     { label: 'Prodotti attivi', value: String(prodotti.filter(p => p.attivo).length), icon: Package, trend: undefined },
     { label: 'Memorial attivi', value: String(memorial.filter(m => m.attivo).length), icon: Heart, trend: undefined },
     { label: 'Ultimo preventivo', value: richieste[0] ? `€${richieste[0].totale.toLocaleString('it-IT')}` : '—', icon: TrendingUp, trend: undefined },
+  ] : [
+    { label: 'Le mie pratiche', value: String(mieRichieste.length), icon: FileText, trend: richiesteNuove > 0 ? `${richiesteNuove} nuove` : undefined },
+    { label: 'In lavorazione', value: String(mieRichieste.filter(r => r.stato === 'in_lavorazione').length), icon: Clock, trend: undefined },
+    { label: 'Confermate', value: String(mieRichieste.filter(r => r.stato === 'confermata').length), icon: TrendingUp, trend: undefined },
+    { label: 'Completate', value: String(mieRichieste.filter(r => r.stato === 'completata').length), icon: Heart, trend: undefined },
   ]
 
   return (
@@ -37,8 +47,12 @@ export default function AdminPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="font-[family-name:var(--font-serif)] text-3xl text-primary">Dashboard Admin</h1>
-            <p className="text-text-light text-sm mt-1">Gestisci tutto il contenuto visibile sul sito</p>
+            <h1 className="font-[family-name:var(--font-serif)] text-3xl text-primary">
+              {isConsulente ? `Benvenuto, ${user?.nome || 'Consulente'}` : 'Dashboard'}
+            </h1>
+            <p className="text-text-light text-sm mt-1">
+              {isConsulente ? 'Le tue pratiche assegnate' : 'Gestisci tutto il contenuto visibile sul sito'}
+            </p>
           </div>
           <div className="flex gap-3">
             <Link href="/" target="_blank" className="btn-secondary text-sm py-2 px-4">
@@ -72,7 +86,8 @@ export default function AdminPage() {
           ))}
         </div>
 
-        {/* Sezioni gestione */}
+        {/* Sezioni gestione — solo admin/manager */}
+        {canSeeAll && (
         <div className="mb-8">
           <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">
             Gestione contenuti
@@ -93,6 +108,7 @@ export default function AdminPage() {
             ))}
           </div>
         </div>
+        )}
 
         {/* Richieste recenti */}
         <div className="card">
@@ -118,8 +134,8 @@ export default function AdminPage() {
               </thead>
               <tbody>
                 {richieste.length === 0 ? (
-                  <tr><td colSpan={6} className="py-8 text-center text-text-muted">Nessuna richiesta ancora. Le richieste dal configuratore appariranno qui.</td></tr>
-                ) : richieste.slice(0, 5).map((r) => (
+                  <tr><td colSpan={6} className="py-8 text-center text-text-muted">{isConsulente ? 'Nessuna pratica assegnata.' : 'Nessuna richiesta ancora.'}</td></tr>
+                ) : mieRichieste.slice(0, 5).map((r) => (
                   <tr key={r.id} className="border-b border-border/50 hover:bg-background transition-colors">
                     <td className="py-3 px-2 font-mono text-xs text-text-muted">{r.id.slice(0, 10)}</td>
                     <td className="py-3 px-2 font-medium text-primary">{r.nome}</td>

@@ -1,27 +1,62 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Package, FileText, Heart, Edit3, Image, Settings, Bell, Building2, LogOut, BookOpen, BarChart3, CalendarDays, Gift, Shield } from 'lucide-react'
+import {
+  LayoutDashboard, Package, FileText, Heart, Edit3, Image as ImageIcon, Settings,
+  Bell, Building2, LogOut, BookOpen, BarChart3, CalendarDays, Gift, Shield,
+  ChevronLeft, Menu, X, Users, Globe
+} from 'lucide-react'
 import { RealtimeNotifiche } from '@/components/admin/RealtimeNotifiche'
 import { useSitoStore } from '@/store/sito'
 import { useEffect, useState } from 'react'
 
-const navItems = [
-  { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
-  { href: '/admin/richieste', icon: FileText, label: 'Richieste' },
-  { href: '/admin/prodotti', icon: Package, label: 'Prodotti' },
-  { href: '/admin/memorial', icon: Heart, label: 'Memorial' },
-  { href: '/admin/contenuti', icon: Edit3, label: 'Contenuti' },
-  { href: '/admin/blog', icon: BookOpen, label: 'Blog' },
-  { href: '/admin/media', icon: Image, label: 'Media' },
-  { href: '/admin/calendario', icon: CalendarDays, label: 'Calendario' },
-  { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
-  { href: '/admin/previdenza', icon: Shield, label: 'Previdenza' },
-  { href: '/admin/rsa', icon: Building2, label: 'RSA' },
-  { href: '/admin/referral', icon: Gift, label: 'Referral' },
-  { href: '/admin/agenzie', icon: Building2, label: 'Agenzie' },
-  { href: '/admin/impostazioni', icon: Settings, label: 'Impostazioni' },
+const navGroups = [
+  {
+    label: 'Principale',
+    items: [
+      { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
+      { href: '/admin/richieste', icon: FileText, label: 'Richieste', badge: true },
+      { href: '/admin/calendario', icon: CalendarDays, label: 'Calendario' },
+      { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
+    ],
+  },
+  {
+    label: 'Catalogo',
+    items: [
+      { href: '/admin/prodotti', icon: Package, label: 'Prodotti' },
+      { href: '/admin/memorial', icon: Heart, label: 'Memorial' },
+      { href: '/admin/blog', icon: BookOpen, label: 'Blog' },
+    ],
+  },
+  {
+    label: 'Contenuti',
+    items: [
+      { href: '/admin/contenuti', icon: Edit3, label: 'Contenuti Sito' },
+      { href: '/admin/media', icon: ImageIcon, label: 'Media' },
+    ],
+  },
+  {
+    label: 'Previdenza',
+    items: [
+      { href: '/admin/previdenza', icon: Shield, label: 'Piani' },
+      { href: '/admin/rsa', icon: Building2, label: 'RSA' },
+    ],
+  },
+  {
+    label: 'Marketing',
+    items: [
+      { href: '/admin/referral', icon: Gift, label: 'Referral' },
+      { href: '/admin/agenzie', icon: Globe, label: 'Agenzie' },
+    ],
+  },
+  {
+    label: 'Sistema',
+    items: [
+      { href: '/admin/impostazioni', icon: Settings, label: 'Impostazioni' },
+    ],
+  },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -30,8 +65,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const richiesteNuove = useSitoStore((s) => s.richieste.filter(r => r.stato === 'nuova').length)
   const [autenticato, setAutenticato] = useState<boolean | null>(null)
   const [adminNome, setAdminNome] = useState('')
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
-  // Skip auth check per la pagina login
   const isLoginPage = pathname === '/admin/login'
 
   useEffect(() => {
@@ -54,66 +90,136 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     router.push('/admin/login')
   }
 
-  // Loading
   if (autenticato === null && !isLoginPage) {
-    return (
-      <div className="min-h-screen bg-background-dark flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-secondary border-t-transparent rounded-full animate-spin" />
-      </div>
-    )
+    return <div className="min-h-screen bg-background-dark flex items-center justify-center">
+      <div className="w-8 h-8 border-3 border-secondary border-t-transparent rounded-full animate-spin" />
+    </div>
   }
 
-  // Login page — no navbar
   if (isLoginPage) return <>{children}</>
 
   return (
     <>
       <RealtimeNotifiche />
 
-      {/* Admin top bar */}
-      <div className="bg-primary-dark text-white/80 text-xs">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-          <div className="flex items-center gap-6 overflow-x-auto">
-            {navItems.map((item) => {
-              const isActive = item.href === '/admin'
-                ? pathname === '/admin'
-                : pathname.startsWith(item.href)
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-1.5 py-1 transition-colors relative whitespace-nowrap ${
-                    isActive ? 'text-white' : 'text-white/50 hover:text-white/80'
-                  }`}
-                >
-                  <item.icon size={14} />
-                  <span className="hidden md:inline">{item.label}</span>
-                  {item.href === '/admin/richieste' && richiesteNuove > 0 && (
-                    <span className="absolute -top-1 -right-3 w-4 h-4 bg-red-500 rounded-full text-[10px] flex items-center justify-center text-white font-bold animate-pulse">
-                      {richiesteNuove}
-                    </span>
-                  )}
-                </Link>
-              )
-            })}
-          </div>
-          <div className="flex items-center gap-3 whitespace-nowrap">
-            {richiesteNuove > 0 && (
-              <Link href="/admin/richieste" className="flex items-center gap-1 text-yellow-300 animate-pulse">
-                <Bell size={14} />
-                <span>{richiesteNuove} nuove</span>
-              </Link>
+      <div className="flex min-h-screen">
+        {/* Sidebar Desktop */}
+        <aside className={`hidden md:flex flex-col bg-primary-dark text-white/80 transition-all duration-300 ${sidebarOpen ? 'w-56' : 'w-16'}`}>
+          {/* Logo + Toggle */}
+          <div className="flex items-center justify-between p-3 border-b border-white/10">
+            {sidebarOpen && (
+              <Image src="/images/logo-white.png" alt="Funerix" width={100} height={30} className="h-6 w-auto" />
             )}
-            {adminNome && <span className="text-white/40 hidden md:inline">{adminNome}</span>}
-            <Link href="/" className="text-white/40 hover:text-white/70">Sito</Link>
-            <button onClick={logout} className="text-white/40 hover:text-red-400 flex items-center gap-1">
-              <LogOut size={12} /> <span className="hidden md:inline">Esci</span>
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 hover:bg-white/10 rounded transition-colors">
+              {sidebarOpen ? <ChevronLeft size={16} /> : <Menu size={16} />}
             </button>
           </div>
-        </div>
-      </div>
 
-      {children}
+          {/* Nav Groups */}
+          <nav className="flex-1 overflow-y-auto py-2">
+            {navGroups.map(group => (
+              <div key={group.label} className="mb-2">
+                {sidebarOpen && (
+                  <p className="text-[9px] text-white/30 uppercase tracking-wider px-4 py-1">{group.label}</p>
+                )}
+                {group.items.map(item => {
+                  const isActive = item.href === '/admin'
+                    ? pathname === '/admin'
+                    : pathname.startsWith(item.href) && item.href !== '/admin'
+                  return (
+                    <Link key={item.href} href={item.href}
+                      className={`flex items-center gap-2.5 px-3 py-2 mx-2 rounded-lg text-xs transition-colors relative ${
+                        isActive ? 'bg-white/15 text-white' : 'text-white/60 hover:text-white hover:bg-white/5'
+                      }`}>
+                      <item.icon size={16} className="flex-shrink-0" />
+                      {sidebarOpen && <span>{item.label}</span>}
+                      {item.badge && richiesteNuove > 0 && (
+                        <span className={`${sidebarOpen ? 'ml-auto' : 'absolute -top-1 -right-1'} w-4 h-4 bg-red-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold`}>
+                          {richiesteNuove}
+                        </span>
+                      )}
+                    </Link>
+                  )
+                })}
+              </div>
+            ))}
+          </nav>
+
+          {/* User + Actions */}
+          <div className="border-t border-white/10 p-3">
+            {sidebarOpen && (
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-7 h-7 bg-secondary/30 rounded-full flex items-center justify-center">
+                  <Users size={12} className="text-secondary-light" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs text-white truncate">{adminNome || 'Admin'}</p>
+                  <p className="text-[9px] text-white/40">Amministratore</p>
+                </div>
+              </div>
+            )}
+            <div className="flex gap-1">
+              <Link href="/" className={`flex items-center gap-1.5 px-2 py-1.5 rounded text-[10px] text-white/40 hover:text-white hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
+                <Globe size={12} />
+                {sidebarOpen && <span>Sito</span>}
+              </Link>
+              <button onClick={logout} className={`flex items-center gap-1.5 px-2 py-1.5 rounded text-[10px] text-white/40 hover:text-red-400 hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
+                <LogOut size={12} />
+                {sidebarOpen && <span>Esci</span>}
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        {/* Mobile Header */}
+        <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-primary-dark text-white h-12 flex items-center justify-between px-3">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="p-1.5">
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+          <Image src="/images/logo-white.png" alt="Funerix" width={80} height={24} className="h-5 w-auto" />
+          <Link href="/admin/richieste" className="relative p-1.5">
+            <Bell size={18} />
+            {richiesteNuove > 0 && <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full text-[8px] flex items-center justify-center font-bold">{richiesteNuove}</span>}
+          </Link>
+        </div>
+
+        {/* Mobile Sidebar Overlay */}
+        {mobileOpen && (
+          <div className="md:hidden fixed inset-0 z-40">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
+            <aside className="absolute left-0 top-12 bottom-0 w-64 bg-primary-dark text-white/80 overflow-y-auto">
+              <nav className="py-2">
+                {navGroups.map(group => (
+                  <div key={group.label} className="mb-2">
+                    <p className="text-[9px] text-white/30 uppercase tracking-wider px-4 py-1">{group.label}</p>
+                    {group.items.map(item => {
+                      const isActive = item.href === '/admin' ? pathname === '/admin' : pathname.startsWith(item.href) && item.href !== '/admin'
+                      return (
+                        <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
+                          className={`flex items-center gap-2.5 px-4 py-2.5 text-sm ${isActive ? 'bg-white/15 text-white' : 'text-white/60'}`}>
+                          <item.icon size={16} /> {item.label}
+                          {item.badge && richiesteNuove > 0 && <span className="ml-auto w-5 h-5 bg-red-500 rounded-full text-[10px] flex items-center justify-center text-white font-bold">{richiesteNuove}</span>}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                ))}
+              </nav>
+              <div className="border-t border-white/10 p-3">
+                <p className="text-xs text-white mb-2">{adminNome || 'Admin'}</p>
+                <button onClick={logout} className="flex items-center gap-2 text-sm text-white/40 hover:text-red-400">
+                  <LogOut size={14} /> Esci
+                </button>
+              </div>
+            </aside>
+          </div>
+        )}
+
+        {/* Content */}
+        <main className="flex-1 md:overflow-y-auto md:h-screen pt-12 md:pt-0">
+          {children}
+        </main>
+      </div>
     </>
   )
 }

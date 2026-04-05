@@ -34,6 +34,7 @@ const navGroups = [
   {
     label: 'Contenuti',
     items: [
+      { href: '/admin/homepage', icon: LayoutDashboard, label: 'Homepage', ruolo: 'manager+' },
       { href: '/admin/contenuti', icon: Edit3, label: 'Contenuti Sito', ruolo: 'manager+' },
       { href: '/admin/media', icon: ImageIcon, label: 'Media', ruolo: 'perm:media' },
     ],

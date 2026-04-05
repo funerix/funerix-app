@@ -302,19 +302,22 @@ export const useSitoStore = create<SitoStore>()((set, get) => ({
 
   // === Prodotti ===
   aggiungiProdotto: async (p) => {
-    const sb = getSupabase()
-    const { data } = await sb.from('prodotti').insert({
-      categoria_id: p.categoriaId, nome: p.nome, slug: p.slug,
-      descrizione: p.descrizione, descrizione_breve: p.descrizioneBreve,
-      materiale: p.materiale, dimensioni: p.dimensioni, prezzo: p.prezzo,
-      immagini: p.immagini, attivo: p.attivo, tipo_servizio: p.tipoServizio,
-    }).select().single()
-    if (data) set((s) => ({ prodotti: [...s.prodotti, mapProdotto(data)] }))
+    const res = await fetch('/api/prodotti', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        categoria_id: p.categoriaId, nome: p.nome, slug: p.slug,
+        descrizione: p.descrizione, descrizione_breve: p.descrizioneBreve,
+        materiale: p.materiale, dimensioni: p.dimensioni, prezzo: p.prezzo,
+        immagini: p.immagini, attivo: p.attivo, tipo_servizio: p.tipoServizio,
+      }),
+    })
+    const data = await res.json()
+    if (data && !data.error) set((s) => ({ prodotti: [...s.prodotti, mapProdotto(data)] }))
   },
 
   modificaProdotto: async (id, updates) => {
-    const sb = getSupabase()
-    const dbUpdates: Record<string, unknown> = {}
+    const dbUpdates: Record<string, unknown> = { id }
     if (updates.nome !== undefined) dbUpdates.nome = updates.nome
     if (updates.slug !== undefined) dbUpdates.slug = updates.slug
     if (updates.descrizione !== undefined) dbUpdates.descrizione = updates.descrizione
@@ -328,21 +331,31 @@ export const useSitoStore = create<SitoStore>()((set, get) => ({
     if (updates.categoriaId !== undefined) dbUpdates.categoria_id = updates.categoriaId
     dbUpdates.updated_at = new Date().toISOString()
 
-    await sb.from('prodotti').update(dbUpdates).eq('id', id)
+    await fetch('/api/prodotti', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dbUpdates),
+    })
     set((s) => ({ prodotti: s.prodotti.map(p => p.id === id ? { ...p, ...updates } : p) }))
   },
 
   eliminaProdotto: async (id) => {
-    const sb = getSupabase()
-    await sb.from('prodotti').delete().eq('id', id)
+    await fetch('/api/prodotti', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    })
     set((s) => ({ prodotti: s.prodotti.filter(p => p.id !== id) }))
   },
 
   toggleProdottoAttivo: async (id) => {
     const p = get().prodotti.find(p => p.id === id)
     if (!p) return
-    const sb = getSupabase()
-    await sb.from('prodotti').update({ attivo: !p.attivo }).eq('id', id)
+    await fetch('/api/prodotti', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, attivo: !p.attivo }),
+    })
     set((s) => ({ prodotti: s.prodotti.map(pr => pr.id === id ? { ...pr, attivo: !pr.attivo } : pr) }))
   },
 

@@ -4,6 +4,7 @@ import "./globals.css"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { SitoProvider } from "@/components/SitoProvider"
+import { CookieBanner } from "@/components/CookieBanner"
 
 const playfair = Playfair_Display({
   variable: "--font-serif",
@@ -59,6 +60,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <CookieBanner />
         </SitoProvider>
       </body>
     </html>

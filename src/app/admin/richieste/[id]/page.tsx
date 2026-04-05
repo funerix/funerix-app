@@ -68,6 +68,8 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
   const [vociPreventivo, setVociPreventivo] = useState<{ categoria: string; descrizione: string; prezzo: number }[]>([])
   const [preventivoInizializzato, setPreventivoInizializzato] = useState(false)
   const [datiDefunto, setDatiDefunto] = useState<Record<string, string>>({})
+  const [consulenti, setConsulenti] = useState<{ id: string; nome: string }[]>([])
+  const [consulenteAssegnato, setConsulenteAssegnato] = useState<string>('')
 
   // Inizializza voci preventivo dal testo configurazione
   useEffect(() => {
@@ -88,8 +90,13 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
       sb.from('richieste').select('*').eq('id', id).single(),
       sb.from('clienti').select('*').eq('richiesta_id', id).single(),
       sb.from('comunicazioni').select('*').eq('richiesta_id', id).order('created_at', { ascending: false }),
-    ]).then(([reqRes, clienteRes, comRes]) => {
-      if (reqRes.data) setRichiesta(reqRes.data as unknown as Richiesta)
+      sb.from('admin_users').select('id, nome').eq('attivo', true).order('nome'),
+    ]).then(([reqRes, clienteRes, comRes, consRes]) => {
+      if (reqRes.data) {
+        setRichiesta(reqRes.data as unknown as Richiesta)
+        setConsulenteAssegnato((reqRes.data as unknown as Record<string, string>).consulente_id || '')
+      }
+      if (consRes.data) setConsulenti((consRes.data as unknown as { id: string; nome: string }[]))
       if (clienteRes.data) {
         setCliente(clienteRes.data as unknown as Cliente)
         setDettagliCerimonia((clienteRes.data as unknown as Cliente).dettagli_cerimonia || {})
@@ -125,6 +132,27 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ richiestaId: id, stato, email: richiesta.email, nome: richiesta.nome }),
+      }).catch(() => {})
+    }
+  }
+
+  const assegnaPratica = async (consulenteId: string) => {
+    const sb = getSupabase()
+    await sb.from('richieste').update({ consulente_id: consulenteId || null, updated_at: new Date().toISOString() }).eq('id', id)
+    setConsulenteAssegnato(consulenteId)
+    const nomeConsulente = consulenti.find(c => c.id === consulenteId)?.nome || 'nessuno'
+    // Log attività
+    await sb.from('log_attivita').insert({
+      user_nome: 'Admin', azione: 'assegna_pratica',
+      dettaglio: `Pratica ${richiesta.nome} assegnata a ${nomeConsulente}`,
+      richiesta_id: id,
+    })
+    // Notifica consulente via WhatsApp (se configurato)
+    if (consulenteId) {
+      fetch('/api/notifica', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ richiestaId: id }),
       }).catch(() => {})
     }
   }
@@ -269,6 +297,22 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
             </button>
           ))}
           <div className="flex-1" />
+
+          {/* Assegnazione consulente */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-text-muted">Consulente:</span>
+            <select
+              value={consulenteAssegnato}
+              onChange={(e) => assegnaPratica(e.target.value)}
+              className="input-field text-xs py-1.5 w-40"
+            >
+              <option value="">Non assegnato</option>
+              {consulenti.map(c => (
+                <option key={c.id} value={c.id}>{c.nome}</option>
+              ))}
+            </select>
+          </div>
+
           {!cliente && (
             <button onClick={creaAccountCliente} className="btn-accent text-xs py-2 px-4">
               <Plus size={14} className="mr-1" /> Crea area cliente

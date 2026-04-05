@@ -26,6 +26,17 @@ export default function RichiestePage() {
   const { richieste, aggiornaStatoRichiesta, impostazioni } = useSitoStore()
   const [filtroStato, setFiltroStato] = useState<string>('tutti')
   const [dettaglio, setDettaglio] = useState<string | null>(null)
+  const [consulentiMap, setConsulentiMap] = useState<Record<string, string>>({})
+
+  // Carica nomi consulenti
+  useEffect(() => {
+    getSupabase().from('admin_users').select('id, nome').eq('attivo', true)
+      .then(({ data }: { data: unknown[] | null }) => {
+        const map: Record<string, string> = {}
+        ;(data || []).forEach((c: unknown) => { const u = c as { id: string; nome: string }; map[u.id] = u.nome })
+        setConsulentiMap(map)
+      })
+  }, [])
   const [clienteInfo, setClienteInfo] = useState<ClienteInfo | null>(null)
   const [loadingCliente, setLoadingCliente] = useState(false)
 
@@ -125,6 +136,11 @@ export default function RichiestePage() {
                           </span>
                           <span>{r.modalita}</span>
                           <span>{r.orario}</span>
+                          {(r as unknown as Record<string, string>).consulente_id && consulentiMap[(r as unknown as Record<string, string>).consulente_id] && (
+                            <span className="flex items-center gap-1 text-secondary">
+                              <User size={10} /> {consulentiMap[(r as unknown as Record<string, string>).consulente_id]}
+                            </span>
+                          )}
                         </div>
                       </div>
                       <div className="text-right">

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   }
 
   const { data: user } = await sb.from('admin_users')
-    .select('id, email, nome, ruolo, password_hash')
+    .select('id, email, nome, ruolo, password_hash, permessi')
     .eq('email', email)
     .eq('attivo', true)
     .single()
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     maxAge: 60 * 60 * 24 * 7, // 7 giorni
     path: '/',
   })
-  cookieStore.set('funerix-admin-user', JSON.stringify({ id: user.id, email: user.email, nome: user.nome, ruolo: user.ruolo }), {
+  cookieStore.set('funerix-admin-user', JSON.stringify({ id: user.id, email: user.email, nome: user.nome, ruolo: user.ruolo, permessi: user.permessi || {} }), {
     httpOnly: false,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     path: '/',
   })
 
-  return NextResponse.json({ success: true, user: { id: user.id, email: user.email, nome: user.nome, ruolo: user.ruolo } })
+  return NextResponse.json({ success: true, user: { id: user.id, email: user.email, nome: user.nome, ruolo: user.ruolo, permessi: user.permessi || {} } })
 }
 
 // DELETE /api/auth — Logout

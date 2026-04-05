@@ -12,53 +12,67 @@ import { RealtimeNotifiche } from '@/components/admin/RealtimeNotifiche'
 import { useSitoStore } from '@/store/sito'
 import { useEffect, useState } from 'react'
 
+// ruoli: 'tutti' = sempre visibile, 'admin' = solo admin, 'manager+' = admin+manager, 'perm:xxx' = serve permesso xxx
 const navGroups = [
   {
     label: 'Principale',
     items: [
-      { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
-      { href: '/admin/richieste', icon: FileText, label: 'Richieste', badge: true },
-      { href: '/admin/calendario', icon: CalendarDays, label: 'Calendario' },
-      { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
+      { href: '/admin', icon: LayoutDashboard, label: 'Dashboard', ruolo: 'tutti' },
+      { href: '/admin/richieste', icon: FileText, label: 'Richieste', badge: true, ruolo: 'tutti' },
+      { href: '/admin/calendario', icon: CalendarDays, label: 'Calendario', ruolo: 'tutti' },
+      { href: '/admin/analytics', icon: BarChart3, label: 'Analytics', ruolo: 'perm:analytics_globali' },
     ],
   },
   {
     label: 'Catalogo',
     items: [
-      { href: '/admin/prodotti', icon: Package, label: 'Prodotti' },
-      { href: '/admin/memorial', icon: Heart, label: 'Memorial' },
-      { href: '/admin/blog', icon: BookOpen, label: 'Blog' },
+      { href: '/admin/prodotti', icon: Package, label: 'Prodotti', ruolo: 'perm:prodotti' },
+      { href: '/admin/memorial', icon: Heart, label: 'Memorial', ruolo: 'perm:memorial' },
+      { href: '/admin/blog', icon: BookOpen, label: 'Blog', ruolo: 'perm:blog' },
     ],
   },
   {
     label: 'Contenuti',
     items: [
-      { href: '/admin/contenuti', icon: Edit3, label: 'Contenuti Sito' },
-      { href: '/admin/media', icon: ImageIcon, label: 'Media' },
+      { href: '/admin/contenuti', icon: Edit3, label: 'Contenuti Sito', ruolo: 'manager+' },
+      { href: '/admin/media', icon: ImageIcon, label: 'Media', ruolo: 'perm:media' },
     ],
   },
   {
     label: 'Previdenza',
     items: [
-      { href: '/admin/previdenza', icon: Shield, label: 'Piani' },
-      { href: '/admin/rsa', icon: Building2, label: 'RSA' },
+      { href: '/admin/previdenza', icon: Shield, label: 'Piani', ruolo: 'perm:previdenza' },
+      { href: '/admin/rsa', icon: Building2, label: 'RSA', ruolo: 'manager+' },
     ],
   },
   {
     label: 'Marketing',
     items: [
-      { href: '/admin/referral', icon: Gift, label: 'Referral' },
-      { href: '/admin/agenzie', icon: Globe, label: 'Agenzie' },
+      { href: '/admin/referral', icon: Gift, label: 'Referral', ruolo: 'manager+' },
+      { href: '/admin/agenzie', icon: Globe, label: 'Agenzie', ruolo: 'admin' },
     ],
   },
   {
     label: 'Sistema',
     items: [
-      { href: '/admin/consulenti', icon: Users, label: 'Consulenti' },
-      { href: '/admin/impostazioni', icon: Settings, label: 'Impostazioni' },
+      { href: '/admin/consulenti', icon: Users, label: 'Consulenti', ruolo: 'admin' },
+      { href: '/admin/impostazioni', icon: Settings, label: 'Impostazioni', ruolo: 'admin' },
     ],
   },
 ]
+
+function hasAccess(itemRuolo: string, userRuolo: string, userPermessi: Record<string, boolean>): boolean {
+  if (itemRuolo === 'tutti') return true
+  if (itemRuolo === 'admin') return userRuolo === 'admin'
+  if (itemRuolo === 'manager+') return userRuolo === 'admin' || userRuolo === 'manager'
+  if (itemRuolo.startsWith('perm:')) {
+    const perm = itemRuolo.replace('perm:', '')
+    if (userRuolo === 'admin') return true
+    if (userRuolo === 'manager') return true
+    return userPermessi[perm] === true
+  }
+  return false
+}
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -66,6 +80,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const richiesteNuove = useSitoStore((s) => s.richieste.filter(r => r.stato === 'nuova').length)
   const [autenticato, setAutenticato] = useState<boolean | null>(null)
   const [adminNome, setAdminNome] = useState('')
+  const [adminRuolo, setAdminRuolo] = useState('admin')
+  const [adminPermessi, setAdminPermessi] = useState<Record<string, boolean>>({})
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -79,6 +95,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         if (data.authenticated) {
           setAutenticato(true)
           setAdminNome(data.user?.nome || '')
+          setAdminRuolo(data.user?.ruolo || 'consulente')
+          setAdminPermessi(data.user?.permessi || {})
         } else {
           router.push('/admin/login')
         }
@@ -116,14 +134,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </button>
           </div>
 
-          {/* Nav Groups */}
+          {/* Nav Groups — filtrati per ruolo */}
           <nav className="flex-1 overflow-y-auto py-2">
-            {navGroups.map(group => (
+            {navGroups.map(group => {
+              const visibleItems = group.items.filter(item => hasAccess(item.ruolo, adminRuolo, adminPermessi))
+              if (visibleItems.length === 0) return null
+              return (
               <div key={group.label} className="mb-2">
                 {sidebarOpen && (
                   <p className="text-[9px] text-white/30 uppercase tracking-wider px-4 py-1">{group.label}</p>
                 )}
-                {group.items.map(item => {
+                {visibleItems.map(item => {
                   const isActive = item.href === '/admin'
                     ? pathname === '/admin'
                     : pathname.startsWith(item.href) && item.href !== '/admin'
@@ -143,7 +164,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   )
                 })}
               </div>
-            ))}
+            )})}
           </nav>
 
           {/* User + Actions */}
@@ -155,7 +176,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-white truncate">{adminNome || 'Admin'}</p>
-                  <p className="text-[9px] text-white/40">Amministratore</p>
+                  <p className="text-[9px] text-white/40 capitalize">{adminRuolo}</p>
                 </div>
               </div>
             )}
@@ -190,10 +211,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
             <aside className="absolute left-0 top-12 bottom-0 w-64 bg-primary-dark text-white/80 overflow-y-auto">
               <nav className="py-2">
-                {navGroups.map(group => (
+                {navGroups.map(group => {
+                  const visibleItems = group.items.filter(item => hasAccess(item.ruolo, adminRuolo, adminPermessi))
+                  if (visibleItems.length === 0) return null
+                  return (
                   <div key={group.label} className="mb-2">
                     <p className="text-[9px] text-white/30 uppercase tracking-wider px-4 py-1">{group.label}</p>
-                    {group.items.map(item => {
+                    {visibleItems.map(item => {
                       const isActive = item.href === '/admin' ? pathname === '/admin' : pathname.startsWith(item.href) && item.href !== '/admin'
                       return (
                         <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
@@ -204,7 +228,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                       )
                     })}
                   </div>
-                ))}
+                )})}
               </nav>
               <div className="border-t border-white/10 p-3">
                 <p className="text-xs text-white mb-2">{adminNome || 'Admin'}</p>

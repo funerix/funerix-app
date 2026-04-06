@@ -5,9 +5,12 @@ import Image from 'next/image'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { useTranslations } from 'next-intl'
+import { useLocale } from '@/i18n/provider'
 
 export function Footer() {
   const t = useTranslations('footer')
+  const { locale } = useLocale()
+  const isIt = locale === 'it'
   const { impostazioni, contenuti } = useSitoStore()
   return (
     <footer className="bg-primary text-white/80">
@@ -17,7 +20,7 @@ export function Footer() {
           <div className="md:col-span-4">
             <Image src="/images/logo-white.png" alt="Funerix" width={280} height={84} className="h-16 w-auto -mt-3 mb-1" />
             <p className="text-sm leading-relaxed text-white/70">
-              {contenuti.footerDescrizione}
+              {isIt ? contenuti.footerDescrizione : t('descrizione')}
             </p>
           </div>
 
@@ -67,18 +70,17 @@ export function Footer() {
               </li>
             </ul>
             <p className="text-xs text-white/50 mt-4">
-              Disponibili 24 ore su 24, 7 giorni su 7
+              {t('disponibili247')}
             </p>
           </div>
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-xs text-white/50">
-            &copy; {new Date().getFullYear()} {contenuti.footerCopyright}
-            {impostazioni.registroRegionale && ` — Registro Regionale Campania n. ${impostazioni.registroRegionale}`}
+            &copy; {new Date().getFullYear()} Funerix — {t('diritti')}
           </p>
           <p className="text-xs text-white/40">
-            {contenuti.footerNotaPreventivi}
+            {isIt ? contenuti.footerNotaPreventivi : t('notaPreventivi')}
           </p>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { Cross, Shield, Clock, ChevronRight, Phone, MessageCircle, Star, Chevron
 import { useSitoStore, type ServiziHomepage } from '@/store/sito'
 import type { LucideIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useLocale } from '@/i18n/provider'
 
 const iconMap: Record<string, LucideIcon> = { Cross, Plane, PawPrint, Shovel, ShoppingBag, Euro, Globe }
 import { useState } from 'react'
@@ -21,6 +22,8 @@ const fadeUp = {
 
 export default function HomePage() {
   const t = useTranslations('home')
+  const { locale } = useLocale()
+  const isIt = locale === 'it'
   const { impostazioni, serviziHomepage, faqList, testimonianzeList } = useSitoStore()
   const [faqAperta, setFaqAperta] = useState<number | null>(null)
 
@@ -48,10 +51,16 @@ export default function HomePage() {
     { domanda: t('faq6D'), risposta: t('faq6R') },
   ]
 
-  // Usa dati da DB se disponibili, altrimenti i tradotti sopra
-  const serviziDaMostrare = serviziHomepage.length > 0 ? serviziHomepage : servizi.map((s, i) => ({ ...s, id: String(i), icona: '', immagine: s.img, descrizione: s.desc, ordine: i, attivo: true } as unknown as ServiziHomepage))
-  const faqDaMostrare = faqList.length > 0 ? faqList.map(f => ({ domanda: f.domanda, risposta: f.risposta })) : faqItems
-  const testimonianzeDaMostrare = testimonianzeList.length > 0 ? testimonianzeList.map(tst => ({ nome: tst.nome, citta: tst.citta, testo: tst.testo, stelle: tst.stelle })) : testimonianze
+  // Usa DB solo se lingua è IT, altrimenti usa sempre le traduzioni JSON
+  const serviziDaMostrare = (isIt && serviziHomepage.length > 0)
+    ? serviziHomepage
+    : servizi.map((s, i) => ({ ...s, id: String(i), icona: '', immagine: s.img, descrizione: s.desc, ordine: i, attivo: true } as unknown as ServiziHomepage))
+  const faqDaMostrare = (isIt && faqList.length > 0)
+    ? faqList.map(f => ({ domanda: f.domanda, risposta: f.risposta }))
+    : faqItems
+  const testimonianzeDaMostrare = (isIt && testimonianzeList.length > 0)
+    ? testimonianzeList.map(tst => ({ nome: tst.nome, citta: tst.citta, testo: tst.testo, stelle: tst.stelle }))
+    : testimonianze
 
 
   return (

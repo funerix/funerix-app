@@ -6,7 +6,6 @@ import { Footer } from "@/components/layout/Footer"
 import { SitoProvider } from "@/components/SitoProvider"
 import { CookieBanner } from "@/components/CookieBanner"
 import { I18nProvider } from "@/i18n/provider"
-import { TranslatePage } from "@/components/TranslatePage"
 
 const playfair = Playfair_Display({
   variable: "--font-serif",
@@ -61,9 +60,7 @@ export default function RootLayout({
         <SitoProvider>
           <I18nProvider>
             <Header />
-            <TranslatePage>
-              <main className="flex-1">{children}</main>
-            </TranslatePage>
+            <main className="flex-1">{children}</main>
             <Footer />
             <CookieBanner />
           </I18nProvider>

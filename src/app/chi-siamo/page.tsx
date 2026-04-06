@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Shield, Award, Users, MapPin } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -13,6 +14,7 @@ const fadeUp = {
 }
 
 export default function ChiSiamoPage() {
+  const t = useTranslations('chiSiamo')
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
@@ -24,7 +26,7 @@ export default function ChiSiamoPage() {
             animate={{ opacity: 1, y: 0 }}
             className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white"
           >
-            Chi Siamo
+            {t('titolo')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -32,8 +34,7 @@ export default function ChiSiamoPage() {
             transition={{ delay: 0.1 }}
             className="mt-6 text-white/90 text-lg leading-relaxed max-w-2xl mx-auto"
           >
-            Da oltre trent&apos;anni al fianco delle famiglie campane, con professionalit&agrave;,
-            rispetto e dedizione in ogni momento.
+            {t('sottotitolo')}
           </motion.p>
         </div>
       </section>
@@ -44,42 +45,14 @@ export default function ChiSiamoPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">
-              La nostra storia
+              {t('storiaTitolo')}
             </motion.h2>
             <motion.div variants={fadeUp} custom={1} className="prose prose-lg text-text-light leading-relaxed space-y-4">
-              <p>
-                <strong className="text-primary">Dal 1920</strong>, la nostra famiglia si dedica con passione e devozione
-                all&apos;accompagnamento delle famiglie nei momenti pi&ugrave; delicati della vita.
-                Oltre un secolo di esperienza, tramandata di generazione in generazione,
-                ci ha insegnato che ogni persona merita un ultimo saluto fatto di rispetto,
-                dignit&agrave; e cura in ogni dettaglio.
-              </p>
-              <p>
-                La nostra impresa funebre, regolarmente iscritta al Registro Regionale della Campania,
-                offre un servizio completo a 360 gradi: dalla vestizione della salma alla tanatocosmesi,
-                dall&apos;organizzazione della cerimonia religiosa o laica alla gestione di tutte le
-                pratiche burocratiche, dalla scelta dei fiori e degli addobbi alla stampa dei manifesti
-                e dei santini commemorativi.
-              </p>
-              <p>
-                Disponiamo di una <strong className="text-primary">casa funeraria moderna e accogliente</strong>,
-                dotata di sale per la camera ardente, sala cerimonie con capienza fino a 100 posti,
-                e un ampio showroom dove le famiglie possono visionare cofani, urne e composizioni
-                floreali in un ambiente sereno e riservato.
-              </p>
-              <p>
-                Siamo la <strong className="text-primary">prima agenzia funebre digitale in Italia</strong>:
-                il nostro configuratore online permette di personalizzare ogni aspetto del servizio
-                e ricevere un preventivo indicativo in pochi minuti, senza pressioni e senza obblighi.
-                Un consulente dedicato vi contatta entro 30 minuti per accompagnarvi in tutto il percorso.
-              </p>
-              <p>
-                Operiamo in tutta la <strong className="text-primary">Campania</strong> — Napoli, Caserta, Salerno,
-                Avellino e Benevento — e gestiamo <strong className="text-primary">rimpatri ed espatri
-                salme in tutto il mondo</strong>, con assistenza consolare e documentale completa.
-                Offriamo inoltre il servizio di cremazione per animali domestici, esumazione e riesumazione,
-                e il memorial online con QR Code per lapide.
-              </p>
+              <p>{t('storiaP1')}</p>
+              <p>{t('storiaP2')}</p>
+              <p>{t('storiaP3')}</p>
+              <p>{t('storiaP4')}</p>
+              <p>{t('storiaP5')}</p>
             </motion.div>
           </motion.div>
 
@@ -116,14 +89,14 @@ export default function ChiSiamoPage() {
             variants={fadeUp} custom={0}
             className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-10 text-center"
           >
-            Autorizzazioni e garanzie
+            {t('autorizzazioniTitolo')}
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Shield, titolo: 'Registro Regionale', desc: 'Iscritti al Registro Regionale delle imprese funebri della Campania (D.G.R. 732/2017)' },
-              { icon: Award, titolo: 'Conformit\u00e0 normativa', desc: 'Operanti nel pieno rispetto della L.R. 12/2001 e del D.P.R. 285/1990' },
-              { icon: Users, titolo: 'Formazione continua', desc: 'Personale qualificato e aggiornato sulle normative e le migliori pratiche del settore' },
-              { icon: MapPin, titolo: 'Copertura regionale', desc: 'Servizio attivo in tutta la Campania con strutture a Napoli e provincia' },
+              { icon: Shield, titolo: t('registroRegionale'), desc: t('registroRegionaleDesc') },
+              { icon: Award, titolo: t('conformitaNormativa'), desc: t('conformitaNormativaDesc') },
+              { icon: Users, titolo: t('formazioneContinua'), desc: t('formazioneContinuaDesc') },
+              { icon: MapPin, titolo: t('coperturaRegionale'), desc: t('coperturaRegionaleDesc') },
             ].map((item, i) => (
               <motion.div
                 key={item.titolo}
@@ -150,24 +123,24 @@ export default function ChiSiamoPage() {
             variants={fadeUp} custom={0}
             className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4 text-center"
           >
-            Cosa fare in caso di decesso
+            {t('cosaDareTitolo')}
           </motion.h2>
           <motion.p
             initial="hidden" whileInView="visible" viewport={{ once: true }}
             variants={fadeUp} custom={1}
             className="text-text-light text-center mb-10 max-w-2xl mx-auto"
           >
-            Una guida pratica per orientarsi nei primi momenti, passo dopo passo.
+            {t('cosaDareDesc')}
           </motion.p>
 
           <div className="space-y-6">
             {[
-              { step: '1', titolo: 'Chiamare il medico', desc: 'Il medico curante o il 118 dovr\u00e0 constatare il decesso e rilasciare il certificato di morte.' },
-              { step: '2', titolo: 'Contattare l\'impresa funebre', desc: 'Chiamateci a qualsiasi ora al 081 555 1234. Ci occuperemo di tutto, incluso il trasporto della salma.' },
-              { step: '3', titolo: 'Documenti necessari', desc: 'Carta d\'identit\u00e0 del defunto, tessera sanitaria, certificato di morte. Penseremo noi a tutto il resto.' },
-              { step: '4', titolo: 'Scelta del servizio', desc: 'Insieme definiremo il tipo di cerimonia, la bara, i fiori e ogni dettaglio. Potete usare il nostro configuratore online.' },
-              { step: '5', titolo: 'Pratiche burocratiche', desc: 'Ci occupiamo noi della denuncia di morte, dell\'autorizzazione al trasporto e delle pratiche cimiteriali.' },
-              { step: '6', titolo: 'Cerimonia e sepoltura', desc: 'Organizziamo e coordiniamo l\'intera cerimonia secondo le vostre volont\u00e0.' },
+              { step: '1', titolo: t('step1Titolo'), desc: t('step1Desc') },
+              { step: '2', titolo: t('step2Titolo'), desc: t('step2Desc') },
+              { step: '3', titolo: t('step3Titolo'), desc: t('step3Desc') },
+              { step: '4', titolo: t('step4Titolo'), desc: t('step4Desc') },
+              { step: '5', titolo: t('step5Titolo'), desc: t('step5Desc') },
+              { step: '6', titolo: t('step6Titolo'), desc: t('step6Desc') },
             ].map((item, i) => (
               <motion.div
                 key={item.step}

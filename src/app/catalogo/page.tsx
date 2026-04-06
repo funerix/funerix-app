@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -15,6 +16,7 @@ const fadeUp = {
 }
 
 export default function CatalogoPage() {
+  const t = useTranslations('catalogo')
   const { prodotti, categorie } = useSitoStore()
   const [categoriaAttiva, setCategoriaAttiva] = useState<string | null>(null)
   const [ordinamento, setOrdinamento] = useState<'prezzo_asc' | 'prezzo_desc' | 'nome'>('prezzo_asc')
@@ -33,11 +35,10 @@ export default function CatalogoPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="text-center mb-12">
           <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary">
-            Catalogo Prodotti e Servizi
+            {t('titolo')}
           </h1>
           <p className="mt-3 text-text-light text-lg max-w-2xl mx-auto">
-            Tutti i nostri prodotti e servizi presentati con la massima trasparenza.
-            I prezzi sono indicativi e soggetti a conferma.
+            {t('sottotitolo')}
           </p>
         </div>
 
@@ -50,7 +51,7 @@ export default function CatalogoPage() {
                 !categoriaAttiva ? 'bg-primary text-white' : 'bg-surface text-text-light border border-border hover:bg-background-dark'
               }`}
             >
-              Tutti
+              {t('tutti')}
             </button>
             {categorie.map((cat) => (
               <button
@@ -69,9 +70,9 @@ export default function CatalogoPage() {
             onChange={(e) => setOrdinamento(e.target.value as typeof ordinamento)}
             className="input-field w-auto text-sm"
           >
-            <option value="prezzo_asc">Prezzo: dal pi&ugrave; basso</option>
-            <option value="prezzo_desc">Prezzo: dal pi&ugrave; alto</option>
-            <option value="nome">Nome A-Z</option>
+            <option value="prezzo_asc">{t('prezzoAsc')}</option>
+            <option value="prezzo_desc">{t('prezzoDesc')}</option>
+            <option value="nome">{t('nomeAZ')}</option>
           </select>
         </div>
 
@@ -92,7 +93,7 @@ export default function CatalogoPage() {
                   <Image src={prodotto.immagini[0]} alt={prodotto.nome} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-text-muted text-sm">Foto prodotto</span>
+                    <span className="text-text-muted text-sm">{t('fotoProdotto')}</span>
                   </div>
                 )}
               </div>
@@ -103,7 +104,7 @@ export default function CatalogoPage() {
               </div>
               <p className="text-text-light text-sm mb-3">{prodotto.descrizioneBreve}</p>
               {prodotto.materiale && (
-                <p className="text-xs text-text-muted">Materiale: {prodotto.materiale}</p>
+                <p className="text-xs text-text-muted">{t('materiale')} {prodotto.materiale}</p>
               )}
               <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
                 <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-semibold">
@@ -119,10 +120,10 @@ export default function CatalogoPage() {
 
         <div className="text-center mt-12">
           <p className="text-text-muted text-sm mb-4">
-            Non trovate quello che cercate? Il nostro catalogo completo &egrave; disponibile su richiesta.
+            {t('nonTrovate')}
           </p>
           <Link href="/configuratore" className="btn-primary">
-            Configura il tuo servizio
+            {t('configuraServizio')}
           </Link>
         </div>
       </div>

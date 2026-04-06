@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { Heart, QrCode, MessageCircle, ImageIcon, Gift, Search, Calendar } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -24,6 +25,7 @@ function formatDate(dateStr: string) {
 }
 
 export default function MemorialPage() {
+  const t = useTranslations('memorial')
   const { memorial } = useSitoStore()
   const [ricerca, setRicerca] = useState('')
 
@@ -47,11 +49,10 @@ export default function MemorialPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <Heart size={40} className="mx-auto mb-6 text-secondary-light" />
             <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white">
-              Necrologi e Memorial
+              {t('titolo')}
             </h1>
             <p className="mt-6 text-white/90 text-lg leading-relaxed max-w-2xl mx-auto">
-              Uno spazio per onorare e ricordare chi non c&apos;&egrave; pi&ugrave;.
-              Lasciate un pensiero, una condoglianza o un ricordo per i vostri cari.
+              {t('sottotitolo')}
             </p>
           </motion.div>
         </div>
@@ -63,17 +64,17 @@ export default function MemorialPage() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
             <div>
               <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">
-                Necrologi recenti
+                {t('necrologiRecentiTitolo')}
               </h2>
               <p className="text-text-light mt-1">
-                Lasciate un messaggio di cordoglio per i defunti assistiti dalla nostra impresa.
+                {t('necrologiRecentiDesc')}
               </p>
             </div>
             <div className="relative">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <input
                 type="text"
-                placeholder="Cerca per nome o comune..."
+                placeholder={t('cercaPlaceholder')}
                 className="input-field pl-10 w-full md:w-72"
                 value={ricerca}
                 onChange={(e) => setRicerca(e.target.value)}
@@ -126,7 +127,7 @@ export default function MemorialPage() {
                           <MessageCircle size={14} className="text-secondary" />
                           <span className="text-sm font-medium text-primary">{necrologio.messaggiCount}</span>
                         </div>
-                        <p className="text-xs text-text-muted mt-1">condoglianze</p>
+                        <p className="text-xs text-text-muted mt-1">{t('condoglianze')}</p>
                       </div>
                     </div>
                   </div>
@@ -137,7 +138,7 @@ export default function MemorialPage() {
             {necrologiFiltrati.length === 0 && (
               <div className="text-center py-12 text-text-muted">
                 <Search size={32} className="mx-auto mb-3 opacity-30" />
-                <p>Nessun risultato per &ldquo;{ricerca}&rdquo;</p>
+                <p>{t('nessunoRisultato')} &ldquo;{ricerca}&rdquo;</p>
               </div>
             )}
           </div>
@@ -149,10 +150,10 @@ export default function MemorialPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">
-              Come funziona il Memorial
+              {t('comeFunzionaTitolo')}
             </h2>
             <p className="text-text-light mt-2">
-              Ogni defunto assistito dalla nostra impresa pu&ograve; avere una pagina memorial dedicata.
+              {t('comeFunzionaDesc')}
             </p>
           </div>
 
@@ -160,23 +161,23 @@ export default function MemorialPage() {
             {[
               {
                 icon: QrCode,
-                titolo: 'QR Code',
-                desc: 'Un codice QR unico da stampare su lapide, santino o manifesto funebre.',
+                titolo: t('qrCodeTitolo'),
+                desc: t('qrCodeDesc'),
               },
               {
                 icon: MessageCircle,
-                titolo: 'Condoglianze',
-                desc: 'Chiunque pu\u00f2 lasciare un messaggio di cordoglio, anche da lontano.',
+                titolo: t('condoglianzeTitolo'),
+                desc: t('condoglianzeFeatDesc'),
               },
               {
                 icon: ImageIcon,
-                titolo: 'Foto e ricordi',
-                desc: 'Una galleria di immagini condivise da chi ha conosciuto il defunto.',
+                titolo: t('fotoRicordiTitolo'),
+                desc: t('fotoRicordiDesc'),
               },
               {
                 icon: Gift,
-                titolo: 'Donazioni in memoria',
-                desc: 'Possibilit\u00e0 di indicare un\'associazione per offerte in memoria.',
+                titolo: t('donazioniTitolo'),
+                desc: t('donazioniDesc'),
               },
             ].map((item, i) => (
               <motion.div
@@ -203,18 +204,17 @@ export default function MemorialPage() {
       <section className="py-16 md:py-20">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">
-            Desiderate un memorial per il vostro caro?
+            {t('ctaTitolo')}
           </h2>
           <p className="text-text-light mb-8 max-w-xl mx-auto">
-            Il memorial online &egrave; incluso come servizio aggiuntivo nel configuratore,
-            oppure potete richiederlo contattandoci direttamente.
+            {t('ctaDesc')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/configuratore" className="btn-primary">
-              Vai al configuratore
+              {t('vaiConfiguratore')}
             </Link>
             <Link href="/contatti" className="btn-secondary">
-              Contattaci
+              {t('contattaci')}
             </Link>
           </div>
         </div>

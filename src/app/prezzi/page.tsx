@@ -1,11 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { ChevronRight, Euro } from 'lucide-react'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Prezzi Funerali Campania 2026 — Costi per Provincia',
-  description: 'Quanto costa un funerale in Campania? Prezzi medi per provincia: Napoli, Caserta, Salerno, Avellino, Benevento. Confronta e risparmia.',
-}
+import { useTranslations } from 'next-intl'
 
 const prezziProvincia = [
   { provincia: 'Napoli', inumazione: '2.500', tumulazione: '4.500', cremazione: '2.200', premium: '8.000' },
@@ -29,17 +26,18 @@ const costiDettaglio = [
 ]
 
 export default function PrezziPage() {
+  const t = useTranslations('prezzi')
+
   return (
     <div className="min-h-screen bg-background">
       <section className="bg-primary py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <Euro size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
-            Prezzi Funerali in Campania
+            {t('titolo')}
           </h1>
           <p className="text-white/90 text-lg max-w-2xl mx-auto">
-            Trasparenza totale sui costi. Confrontate i prezzi medi per provincia
-            e ottenete un preventivo personalizzato con il nostro configuratore.
+            {t('sottotitolo')}
           </p>
         </div>
       </section>
@@ -47,26 +45,26 @@ export default function PrezziPage() {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
           {/* Tabella per provincia */}
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Prezzi medi per provincia (da...)</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">{t('prezziMediTitolo')}</h2>
           <div className="card overflow-x-auto mb-16">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-text-muted font-medium">Provincia</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Inumazione</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Tumulazione</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Cremazione</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Premium</th>
+                  <th className="text-left py-3 px-4 text-text-muted font-medium">{t('colProvincia')}</th>
+                  <th className="text-right py-3 px-4 text-text-muted font-medium">{t('colInumazione')}</th>
+                  <th className="text-right py-3 px-4 text-text-muted font-medium">{t('colTumulazione')}</th>
+                  <th className="text-right py-3 px-4 text-text-muted font-medium">{t('colCremazione')}</th>
+                  <th className="text-right py-3 px-4 text-text-muted font-medium">{t('colPremium')}</th>
                 </tr>
               </thead>
               <tbody>
                 {prezziProvincia.map(p => (
                   <tr key={p.provincia} className="border-b border-border/50 hover:bg-background transition-colors">
                     <td className="py-4 px-4 font-medium text-primary">{p.provincia}</td>
-                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)]">da &euro; {p.inumazione}</td>
-                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)]">da &euro; {p.tumulazione}</td>
-                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)]">da &euro; {p.cremazione}</td>
-                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">da &euro; {p.premium}</td>
+                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)]">{t('da')} &euro; {p.inumazione}</td>
+                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)]">{t('da')} &euro; {p.tumulazione}</td>
+                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)]">{t('da')} &euro; {p.cremazione}</td>
+                    <td className="py-4 px-4 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">{t('da')} &euro; {p.premium}</td>
                   </tr>
                 ))}
               </tbody>
@@ -74,15 +72,15 @@ export default function PrezziPage() {
           </div>
 
           {/* Dettaglio costi */}
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Dettaglio costi per servizio</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">{t('dettaglioCostiTitolo')}</h2>
           <div className="card overflow-x-auto mb-16">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-text-muted font-medium">Servizio</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Economico</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Standard</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Premium</th>
+                  <th className="text-left py-3 px-4 text-text-muted font-medium">{t('colServizio')}</th>
+                  <th className="text-right py-3 px-4 text-text-muted font-medium">{t('colEconomico')}</th>
+                  <th className="text-right py-3 px-4 text-text-muted font-medium">{t('colStandard')}</th>
+                  <th className="text-right py-3 px-4 text-text-muted font-medium">{t('colPremium')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -100,16 +98,15 @@ export default function PrezziPage() {
 
           <div className="bg-primary/5 border border-primary/10 rounded-xl p-6 text-center mb-16">
             <p className="text-xs text-text-muted mb-4">
-              I prezzi indicati sono orientativi e basati sulle medie di mercato in Campania.
-              Non costituiscono offerta contrattuale. Il preventivo definitivo viene concordato con il consulente.
+              {t('notaLegale')}
             </p>
           </div>
 
           <div className="text-center">
-            <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-4">Volete un preventivo personalizzato?</h2>
-            <p className="text-text-light mb-6">Usate il configuratore per un preventivo dettagliato voce per voce, gratuito e senza impegno.</p>
+            <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-4">{t('preventivoPersonalizzatoTitolo')}</h2>
+            <p className="text-text-light mb-6">{t('preventivoPersonalizzatoDesc')}</p>
             <Link href="/configuratore" className="btn-primary text-base py-4 px-10">
-              Configura il Servizio <ChevronRight size={18} className="ml-2" />
+              {t('configuraServizio')} <ChevronRight size={18} className="ml-2" />
             </Link>
           </div>
         </div>

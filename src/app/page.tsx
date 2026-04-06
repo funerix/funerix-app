@@ -7,8 +7,6 @@ import { Cross, Shield, Clock, ChevronRight, Phone, MessageCircle, Star, Chevron
 import { useSitoStore, type ServiziHomepage } from '@/store/sito'
 import type { LucideIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useLocale } from '@/i18n/provider'
-import { useAutoTranslate } from '@/lib/useAutoTranslate'
 
 const iconMap: Record<string, LucideIcon> = { Cross, Plane, PawPrint, Shovel, ShoppingBag, Euro, Globe }
 import { useState } from 'react'
@@ -55,7 +53,6 @@ const prezziRapidi = [
 
 export default function HomePage() {
   const t = useTranslations('home')
-  const { locale } = useLocale()
   const { contenuti, impostazioni, serviziHomepage, faqList, testimonianzeList } = useSitoStore()
 
   // Fallback se DB vuoto
@@ -64,12 +61,6 @@ export default function HomePage() {
   const testimonianzeDaMostrare = testimonianzeList.length > 0 ? testimonianzeList.map(t => ({ nome: t.nome, citta: t.citta, testo: t.testo, stelle: t.stelle })) : testimonianze
   const [faqAperta, setFaqAperta] = useState<number | null>(null)
 
-  // Auto-translate contenuti dinamici dal DB
-  const tServizi = useAutoTranslate(serviziDaMostrare.map(s => s.titolo), locale)
-  const tServiziDesc = useAutoTranslate(serviziDaMostrare.map(s => s.descrizione || (s as any).desc || ''), locale)
-  const tFaqDom = useAutoTranslate(faqDaMostrare.map(f => f.domanda), locale)
-  const tFaqRisp = useAutoTranslate(faqDaMostrare.map(f => f.risposta), locale)
-  const tTestTesto = useAutoTranslate(testimonianzeDaMostrare.map(t => t.testo), locale)
 
   return (
     <>
@@ -139,17 +130,17 @@ export default function HomePage() {
               <motion.div key={s.href} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
                 <Link href={s.href} className="group block overflow-hidden rounded-xl border border-border bg-surface hover:shadow-md transition-all duration-300 h-full flex flex-col">
                   <div className="relative h-44 overflow-hidden flex-shrink-0">
-                    <Image src={img} alt={tServizi[i] || s.titolo} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
+                    <Image src={img} alt={s.titolo} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-3 left-3 flex items-center gap-2">
                       <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
                         <Icon size={16} className="text-white" />
                       </div>
-                      <span className="text-white font-semibold text-sm">{tServizi[i] || s.titolo}</span>
+                      <span className="text-white font-semibold text-sm">{s.titolo}</span>
                     </div>
                   </div>
                   <div className="p-4 flex-1 flex flex-col">
-                    <p className="text-text-light text-sm leading-relaxed flex-1">{tServiziDesc[i] || s.descrizione || (s as any).desc}</p>
+                    <p className="text-text-light text-sm leading-relaxed flex-1">{s.descrizione || (s as any).desc}</p>
                     <span className="mt-3 inline-flex items-center gap-1 text-secondary text-sm font-medium group-hover:gap-2 transition-all">
                       {t('scopri')} <ChevronRight size={14} />
                     </span>
@@ -236,7 +227,7 @@ export default function HomePage() {
                 <div className="flex gap-0.5 mb-3">
                   {Array.from({ length: tst.stelle }).map((_, j) => <Star key={j} size={14} className="text-secondary fill-secondary" />)}
                 </div>
-                <p className="text-text-light text-sm leading-relaxed italic mb-4">&ldquo;{tTestTesto[i] || tst.testo}&rdquo;</p>
+                <p className="text-text-light text-sm leading-relaxed italic mb-4">&ldquo;{tst.testo}&rdquo;</p>
                 <div className="pt-3 border-t border-border">
                   <p className="font-medium text-primary text-sm">{tst.nome}</p>
                   <p className="text-text-muted text-xs">{tst.citta}</p>
@@ -255,11 +246,11 @@ export default function HomePage() {
             {faqDaMostrare.map((item, i) => (
               <div key={i} className="card cursor-pointer" onClick={() => setFaqAperta(faqAperta === i ? null : i)}>
                 <div className="flex items-center justify-between">
-                  <h3 className="font-medium text-primary text-sm pr-4">{tFaqDom[i] || item.domanda}</h3>
+                  <h3 className="font-medium text-primary text-sm pr-4">{item.domanda}</h3>
                   <ChevronDown size={16} className={`text-secondary flex-shrink-0 transition-transform ${faqAperta === i ? 'rotate-180' : ''}`} />
                 </div>
                 {faqAperta === i && (
-                  <p className="mt-3 text-text-light text-sm leading-relaxed border-t border-border pt-3">{tFaqRisp[i] || item.risposta}</p>
+                  <p className="mt-3 text-text-light text-sm leading-relaxed border-t border-border pt-3">{item.risposta}</p>
                 )}
               </div>
             ))}

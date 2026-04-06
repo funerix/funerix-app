@@ -12,6 +12,48 @@ import {
 } from 'lucide-react'
 import { ChatTranslator } from '@/components/admin/ChatTranslator'
 
+// Auto-translate client messages to Italian for the consultant
+function AutoTranslateMessage({ text }: { text: string }) {
+  const [translated, setTranslated] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Skip if already Italian-looking (simple heuristic)
+    const italianChars = /[àèéìòùç]/
+    if (/^[a-zA-Z0-9\s.,!?'"àèéìòùç()-]+$/.test(text) && !italianChars.test(text)) {
+      // Might be foreign, try translating
+      fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texts: text, targetLang: 'it' }),
+      })
+        .then(r => r.json())
+        .then(d => {
+          if (d.translations && d.translations !== text) setTranslated(d.translations)
+        })
+        .catch(() => {})
+    } else if (/[^\x00-\x7F]/.test(text) && !/[àèéìòùç]/.test(text)) {
+      // Non-ASCII and not Italian accents → likely foreign script
+      fetch('/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texts: text, targetLang: 'it' }),
+      })
+        .then(r => r.json())
+        .then(d => {
+          if (d.translations) setTranslated(d.translations)
+        })
+        .catch(() => {})
+    }
+  }, [text])
+
+  if (!translated) return null
+  return (
+    <p className="text-xs text-secondary/70 mt-1 italic border-t border-border/30 pt-1">
+      🇮🇹 {translated}
+    </p>
+  )
+}
+
 // Types
 interface Richiesta {
   id: string; nome: string; telefono: string; email: string; modalita: string;
@@ -1131,11 +1173,11 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
                   <div className="space-y-2 max-h-96 overflow-y-auto mb-4">
                     {(cliente.messaggi_chat || []).length === 0 ? (
                       <p className="text-text-muted text-sm text-center py-6">Nessun messaggio</p>
-                    ) : (cliente.messaggi_chat || []).map((msg, i) => (
+                    ) : (cliente.messaggi_chat || []).map((msg, i) => {
+                      const isConsulente = msg.autore.includes('Consulente') || msg.autore.includes('Funerix')
+                      return (
                       <div key={i} className={`p-3 rounded-lg text-sm ${
-                        msg.autore.includes('Consulente') || msg.autore.includes('Funerix')
-                          ? 'bg-secondary/5 border border-secondary/10 ml-6'
-                          : 'bg-background mr-6'
+                        isConsulente ? 'bg-secondary/5 border border-secondary/10 ml-6' : 'bg-background mr-6'
                       }`}>
                         <div className="flex justify-between mb-1">
                           <span className="font-medium text-primary text-xs">{msg.autore}</span>
@@ -1144,8 +1186,9 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
                           </span>
                         </div>
                         <p className="text-text-light">{msg.testo}</p>
+                        {!isConsulente && <AutoTranslateMessage text={msg.testo} />}
                       </div>
-                    ))}
+                    )})}
                   </div>
                   <div className="flex gap-2">
                     <input type="text" className="input-field flex-1 text-sm" placeholder="Scrivi al cliente..."

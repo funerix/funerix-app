@@ -2,7 +2,7 @@
 
 import { NextIntlClientProvider } from 'next-intl'
 import { useState, useEffect, createContext, useContext } from 'react'
-import { type Locale, defaultLocale } from './config'
+import { type Locale, defaultLocale, locales } from './config'
 
 import it from './messages/it.json'
 
@@ -38,10 +38,22 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<Record<string, unknown>>(it)
 
   useEffect(() => {
+    // 1. Check saved preference
     const saved = localStorage.getItem('funerix-lang') as Locale | null
     if (saved && saved !== 'it') {
       setLocaleState(saved)
       loadMessages(saved)
+      return
+    }
+
+    // 2. Auto-detect from browser language (only if no saved preference)
+    if (!saved) {
+      const browserLang = navigator.language?.split('-')[0] as Locale
+      if (browserLang && browserLang !== 'it' && locales.includes(browserLang)) {
+        setLocaleState(browserLang)
+        localStorage.setItem('funerix-lang', browserLang)
+        loadMessages(browserLang)
+      }
     }
   }, [])
 

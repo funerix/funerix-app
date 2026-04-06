@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Mail, MessageCircle, FileCheck, Clock, CheckCircle2, Circle, ChevronRight, Send, Heart, Upload, FileText, Loader2, PenTool } from 'lucide-react'
 import { FirmaDigitale } from '@/components/FirmaDigitale'
+import { useAutoTranslate } from '@/lib/useAutoTranslate'
 
 interface ClienteData {
   id: string
@@ -57,6 +58,13 @@ function ClientePage() {
   const [errore, setErrore] = useState('')
   const [nuovoMessaggio, setNuovoMessaggio] = useState('')
   const [uploading, setUploading] = useState<string | null>(null)
+  const userLang = typeof window !== 'undefined' ? (localStorage.getItem('funerix-lang') || 'it') : 'it'
+
+  // Auto-translate consultant messages to user's language
+  const consulenteMessages = (cliente?.messaggi_chat || [])
+    .filter(m => m.autore !== cliente?.nome)
+    .map(m => m.testo)
+  const translatedConsulente = useAutoTranslate(consulenteMessages, userLang)
 
   useEffect(() => {
     if (!token) { setErrore('Link non valido'); setLoading(false); return }
@@ -197,9 +205,21 @@ function ClientePage() {
                     Nessun messaggio ancora. Scrivete al consulente per qualsiasi necessit&agrave;.
                   </p>
                 ) : (
-                  cliente.messaggi_chat.map((msg, i) => (
+                  cliente.messaggi_chat.map((msg, i) => {
+                    const isCliente = msg.autore === cliente.nome
+                    // Find translated version for consultant messages
+                    let displayText = msg.testo
+                    if (!isCliente && userLang !== 'it') {
+                      const cIdx = (cliente.messaggi_chat || [])
+                        .filter(m => m.autore !== cliente.nome)
+                        .indexOf(msg)
+                      if (cIdx >= 0 && translatedConsulente[cIdx]) {
+                        displayText = translatedConsulente[cIdx]
+                      }
+                    }
+                    return (
                     <div key={i} className={`p-3 rounded-lg text-sm ${
-                      msg.autore === cliente.nome
+                      isCliente
                         ? 'bg-primary/5 border border-primary/10 ml-8'
                         : 'bg-secondary/5 border border-secondary/10 mr-8'
                     }`}>
@@ -209,9 +229,9 @@ function ClientePage() {
                           {new Date(msg.data).toLocaleString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </div>
-                      <p className="text-text-light">{msg.testo}</p>
+                      <p className="text-text-light">{displayText}</p>
                     </div>
-                  ))
+                  )})
                 )}
               </div>
               <div className="flex gap-2">

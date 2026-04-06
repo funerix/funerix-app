@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { SitoProvider } from "@/components/SitoProvider"
 import { CookieBanner } from "@/components/CookieBanner"
+import { I18nProvider } from "@/i18n/provider"
 
 const playfair = Playfair_Display({
   variable: "--font-serif",
@@ -57,10 +58,12 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-background text-text">
         <SitoProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CookieBanner />
+          <I18nProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CookieBanner />
+          </I18nProvider>
         </SitoProvider>
       </body>
     </html>

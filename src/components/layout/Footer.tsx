@@ -4,8 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
+import { useTranslations } from 'next-intl'
 
 export function Footer() {
+  const t = useTranslations('footer')
   const { impostazioni, contenuti } = useSitoStore()
   return (
     <footer className="bg-primary text-white/80">
@@ -22,33 +24,33 @@ export function Footer() {
           {/* Servizi — 2 colonne */}
           <div className="md:col-span-2">
             <h4 className="text-white font-semibold mb-4 text-xs uppercase tracking-wider">
-              Servizi
+              {t('servizi')}
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/configuratore" className="hover:text-white transition-colors">Configura il Servizio</Link></li>
-              <li><Link href="/catalogo" className="hover:text-white transition-colors">Catalogo Prodotti</Link></li>
-              <li><Link href="/memorial" className="hover:text-white transition-colors">Memorial Online</Link></li>
-              <li><Link href="/contatti" className="hover:text-white transition-colors">Richiedi Assistenza</Link></li>
+              <li><Link href="/configuratore" className="hover:text-white transition-colors">{t('configuraServizio')}</Link></li>
+              <li><Link href="/catalogo" className="hover:text-white transition-colors">{t('catalogoProdotti')}</Link></li>
+              <li><Link href="/memorial" className="hover:text-white transition-colors">{t('memorialOnline')}</Link></li>
+              <li><Link href="/contatti" className="hover:text-white transition-colors">{t('contatti')}</Link></li>
             </ul>
           </div>
 
           {/* Info — 2 colonne */}
           <div className="md:col-span-2">
             <h4 className="text-white font-semibold mb-4 text-xs uppercase tracking-wider">
-              Informazioni
+              {t('azienda')}
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/chi-siamo" className="hover:text-white transition-colors">Chi Siamo</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/cookie" className="hover:text-white transition-colors">Cookie Policy</Link></li>
-              <li><Link href="/termini" className="hover:text-white transition-colors">Termini e Condizioni</Link></li>
+              <li><Link href="/chi-siamo" className="hover:text-white transition-colors">{t('chiSiamo')}</Link></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">{t('privacy')}</Link></li>
+              <li><Link href="/cookie" className="hover:text-white transition-colors">{t('cookie')}</Link></li>
+              <li><Link href="/termini" className="hover:text-white transition-colors">{t('termini')}</Link></li>
             </ul>
           </div>
 
           {/* Contatti — 4 colonne */}
           <div className="md:col-span-4">
             <h4 className="text-white font-semibold mb-4 text-xs uppercase tracking-wider">
-              Contatti
+              {t('contatti')}
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li className="flex items-center gap-2.5">

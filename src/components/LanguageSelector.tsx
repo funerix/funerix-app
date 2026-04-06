@@ -2,8 +2,10 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Globe } from 'lucide-react'
+import { useLocale } from '@/i18n/provider'
+import { type Locale } from '@/i18n/config'
 
-const lingue = [
+const lingue: { code: Locale; label: string; flag: string }[] = [
   { code: 'it', label: 'Italiano', flag: '🇮🇹' },
   { code: 'en', label: 'English', flag: '🇬🇧' },
   { code: 'ar', label: 'العربية', flag: '🇸🇦' },
@@ -24,13 +26,8 @@ const lingue = [
 
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
-  const [lingua, setLingua] = useState('it')
+  const { locale, setLocale } = useLocale()
   const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const saved = localStorage.getItem('funerix-lang')
-    if (saved) setLingua(saved)
-  }, [])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -40,14 +37,7 @@ export function LanguageSelector() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const cambiaLingua = (code: string) => {
-    setLingua(code)
-    localStorage.setItem('funerix-lang', code)
-    setOpen(false)
-    document.documentElement.dir = code === 'ar' ? 'rtl' : 'ltr'
-  }
-
-  const current = lingue.find(l => l.code === lingua) || lingue[0]
+  const current = lingue.find(l => l.code === locale) || lingue[0]
 
   return (
     <div ref={ref} className="relative">
@@ -65,9 +55,9 @@ export function LanguageSelector() {
           {lingue.map(l => (
             <button
               key={l.code}
-              onClick={() => cambiaLingua(l.code)}
+              onClick={() => { setLocale(l.code); setOpen(false) }}
               className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2.5 transition-colors ${
-                l.code === lingua ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
+                l.code === locale ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
               }`}
             >
               <span className="text-base">{l.flag}</span>

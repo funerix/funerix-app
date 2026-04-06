@@ -19,47 +19,39 @@ const fadeUp = {
   }),
 }
 
-const servizi = [
-  { href: '/configuratore', img: '/images/card-servizio-funebre.jpg', titolo: 'Servizio Funebre', desc: 'Configurate il funerale online. Preventivo immediato, nessun obbligo.', icon: Cross },
-  { href: '/rimpatri', img: '/images/card-rimpatri.jpg', titolo: 'Rimpatri ed Espatri', desc: 'Trasporto internazionale salme da e verso qualsiasi paese del mondo.', icon: Plane },
-  { href: '/cremazione-animali', img: '/images/card-cremazione-animali.jpg', titolo: 'Cremazione Animali', desc: 'Un ultimo saluto dignitoso per il vostro compagno di vita.', icon: PawPrint },
-  { href: '/esumazione', img: '/images/card-esumazione.jpg', titolo: 'Esumazione', desc: 'Trasferimento resti, ricollocazione e cremazione resti.', icon: Shovel },
-  { href: '/catalogo', img: '/images/card-catalogo.jpg', titolo: 'Catalogo', desc: 'Bare, urne, fiori, auto funebri e servizi aggiuntivi.', icon: ShoppingBag },
-  { href: '/prezzi', img: '/images/card-prezzi.jpg', titolo: 'Prezzi', desc: 'Trasparenza totale. Confrontate i costi per provincia.', icon: Euro },
-]
-
-const testimonianze = [
-  { nome: 'Famiglia Esposito', citta: 'Napoli', testo: 'In un momento così difficile, avere la possibilità di organizzare tutto online è stato fondamentale. Il consulente ci ha seguito con delicatezza straordinaria.', stelle: 5 },
-  { nome: 'Famiglia De Luca', citta: 'Caserta', testo: 'Trasparenza totale sui prezzi, nessuna sorpresa. Ci hanno accompagnato dalla prima telefonata fino alla cerimonia.', stelle: 5 },
-  { nome: 'Famiglia Romano', citta: 'Salerno', testo: 'Il memorial online per nostro padre è un regalo meraviglioso. Parenti da tutto il mondo hanno potuto lasciare un pensiero.', stelle: 5 },
-]
-
-const faq = [
-  { domanda: 'Il preventivo online è vincolante?', risposta: 'No, il preventivo è puramente indicativo e non costituisce proposta contrattuale. Il prezzo definitivo viene concordato con il consulente.' },
-  { domanda: 'In quanto tempo vengo contattato?', risposta: 'Un nostro consulente vi contatterà entro 30 minuti dall\'invio della richiesta, 24 ore su 24, 7 giorni su 7.' },
-  { domanda: 'Quali zone coprite?', risposta: 'Operiamo in tutta la Campania e per i rimpatri/espatri in tutto il mondo.' },
-  { domanda: 'Posso modificare il servizio dopo la richiesta?', risposta: 'Assolutamente sì. La configurazione è un punto di partenza, il consulente personalizzerà tutto.' },
-  { domanda: 'Offrite cremazione per animali?', risposta: 'Sì, offriamo cremazione individuale e collettiva per cani, gatti e altri animali domestici.' },
-  { domanda: 'Come funziona il rimpatrio salme?', risposta: 'Ci occupiamo di tutto: documentazione, consolati, trasporto aereo e consegna. Assistenza 24/7.' },
-]
-
-const prezziRapidi = [
-  { provincia: 'Napoli', da: '1.350', tipo: 'Funerale economico' },
-  { provincia: 'Caserta', da: '1.200', tipo: 'Funerale economico' },
-  { provincia: 'Salerno', da: '1.300', tipo: 'Funerale economico' },
-  { provincia: 'Avellino', da: '1.100', tipo: 'Funerale economico' },
-  { provincia: 'Benevento', da: '1.100', tipo: 'Funerale economico' },
-]
-
 export default function HomePage() {
   const t = useTranslations('home')
-  const { contenuti, impostazioni, serviziHomepage, faqList, testimonianzeList } = useSitoStore()
-
-  // Fallback se DB vuoto
-  const serviziDaMostrare = serviziHomepage.length > 0 ? serviziHomepage : servizi.map((s, i) => ({ ...s, id: String(i), icona: '', immagine: s.img, descrizione: s.desc, ordine: i, attivo: true } as unknown as ServiziHomepage))
-  const faqDaMostrare = faqList.length > 0 ? faqList.map(f => ({ domanda: f.domanda, risposta: f.risposta })) : faq
-  const testimonianzeDaMostrare = testimonianzeList.length > 0 ? testimonianzeList.map(t => ({ nome: t.nome, citta: t.citta, testo: t.testo, stelle: t.stelle })) : testimonianze
+  const { impostazioni, serviziHomepage, faqList, testimonianzeList } = useSitoStore()
   const [faqAperta, setFaqAperta] = useState<number | null>(null)
+
+  const servizi = [
+    { href: '/configuratore', img: '/images/card-servizio-funebre.jpg', titolo: t('serv1Titolo'), desc: t('serv1Desc'), icon: Cross },
+    { href: '/rimpatri', img: '/images/card-rimpatri.jpg', titolo: t('serv2Titolo'), desc: t('serv2Desc'), icon: Plane },
+    { href: '/cremazione-animali', img: '/images/card-cremazione-animali.jpg', titolo: t('serv3Titolo'), desc: t('serv3Desc'), icon: PawPrint },
+    { href: '/esumazione', img: '/images/card-esumazione.jpg', titolo: t('serv4Titolo'), desc: t('serv4Desc'), icon: Shovel },
+    { href: '/catalogo', img: '/images/card-catalogo.jpg', titolo: t('serv5Titolo'), desc: t('serv5Desc'), icon: ShoppingBag },
+    { href: '/prezzi', img: '/images/card-prezzi.jpg', titolo: t('serv6Titolo'), desc: t('serv6Desc'), icon: Euro },
+  ]
+
+  const testimonianze = [
+    { nome: t('test1Nome'), citta: t('test1Citta'), testo: t('test1Testo'), stelle: 5 },
+    { nome: t('test2Nome'), citta: t('test2Citta'), testo: t('test2Testo'), stelle: 5 },
+    { nome: t('test3Nome'), citta: t('test3Citta'), testo: t('test3Testo'), stelle: 5 },
+  ]
+
+  const faqItems = [
+    { domanda: t('faq1D'), risposta: t('faq1R') },
+    { domanda: t('faq2D'), risposta: t('faq2R') },
+    { domanda: t('faq3D'), risposta: t('faq3R') },
+    { domanda: t('faq4D'), risposta: t('faq4R') },
+    { domanda: t('faq5D'), risposta: t('faq5R') },
+    { domanda: t('faq6D'), risposta: t('faq6R') },
+  ]
+
+  // Usa dati da DB se disponibili, altrimenti i tradotti sopra
+  const serviziDaMostrare = serviziHomepage.length > 0 ? serviziHomepage : servizi.map((s, i) => ({ ...s, id: String(i), icona: '', immagine: s.img, descrizione: s.desc, ordine: i, attivo: true } as unknown as ServiziHomepage))
+  const faqDaMostrare = faqList.length > 0 ? faqList.map(f => ({ domanda: f.domanda, risposta: f.risposta })) : faqItems
+  const testimonianzeDaMostrare = testimonianzeList.length > 0 ? testimonianzeList.map(tst => ({ nome: tst.nome, citta: tst.citta, testo: tst.testo, stelle: tst.stelle })) : testimonianze
 
 
   return (
@@ -186,7 +178,13 @@ export default function HomePage() {
             <p className="mt-2 text-text-light">{t('prezziPartenza')}</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8">
-            {prezziRapidi.map(p => (
+            {[
+              { provincia: 'Napoli', da: '1.350' },
+              { provincia: 'Caserta', da: '1.200' },
+              { provincia: 'Salerno', da: '1.300' },
+              { provincia: 'Avellino', da: '1.100' },
+              { provincia: 'Benevento', da: '1.100' },
+            ].map(p => (
               <div key={p.provincia} className="card text-center py-5">
                 <p className="text-text-muted text-[10px] uppercase tracking-wider">{p.provincia}</p>
                 <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold mt-1">&euro; {p.da}</p>

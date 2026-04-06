@@ -15,59 +15,46 @@ const DEEPL_CODES: Record<string, string> = {
   it: 'IT',
 }
 
-// Ensure cache table exists (runs once)
-let tableChecked = false
-async function ensureTable() {
-  if (tableChecked) return
+// In-memory cache per lingua (reset ad ogni cold start, ma velocissima)
+const memoryCache = new Map<string, Map<string, string>>()
+
+// Load cache from Supabase Storage for a given language
+async function loadStorageCache(lang: string): Promise<Map<string, string>> {
+  if (memoryCache.has(lang)) return memoryCache.get(lang)!
+
+  const map = new Map<string, string>()
   try {
-    // Try to query - if fails, table doesn't exist
-    const { error } = await sb.from('traduzioni_cache').select('id').limit(1)
-    if (error && error.code === 'PGRST205') {
-      // Table doesn't exist yet - will be created from Supabase Dashboard
-      // Visit /api/setup-translations for the SQL
+    const { data, error } = await sb.storage
+      .from('translations')
+      .download(`cache-${lang}.json`)
+    if (!error && data) {
+      const text = await data.text()
+      const obj = JSON.parse(text) as Record<string, string>
+      Object.entries(obj).forEach(([k, v]) => map.set(k, v))
     }
-  } catch { /* ignore */ }
-  tableChecked = true
+  } catch { /* file may not exist yet */ }
+
+  memoryCache.set(lang, map)
+  return map
 }
 
-// Lookup cached translations from Supabase
-async function getCachedTranslations(texts: string[], lang: string): Promise<Map<string, string>> {
-  const cached = new Map<string, string>()
+// Save cache to Supabase Storage
+async function saveStorageCache(lang: string, cacheMap: Map<string, string>) {
   try {
-    // Query in batches of 50
-    for (let i = 0; i < texts.length; i += 50) {
-      const batch = texts.slice(i, i + 50)
-      const { data } = await sb
-        .from('traduzioni_cache')
-        .select('testo_originale, traduzione')
-        .eq('lingua', lang)
-        .in('testo_originale', batch)
-      if (data) {
-        data.forEach((row: { testo_originale: string; traduzione: string }) => {
-          cached.set(row.testo_originale, row.traduzione)
-        })
-      }
-    }
-  } catch { /* table may not exist yet */ }
-  return cached
+    const obj: Record<string, string> = {}
+    cacheMap.forEach((v, k) => { obj[k] = v })
+    const blob = new Blob([JSON.stringify(obj)], { type: 'application/json' })
+
+    await sb.storage
+      .from('translations')
+      .upload(`cache-${lang}.json`, blob, {
+        upsert: true,
+        contentType: 'application/json',
+      })
+  } catch { /* ignore storage errors */ }
 }
 
-// Save translations to Supabase cache
-async function saveCachedTranslations(entries: { text: string; translation: string }[], lang: string) {
-  try {
-    const rows = entries.map(e => ({
-      testo_originale: e.text,
-      lingua: lang,
-      traduzione: e.translation,
-    }))
-    // Upsert to handle duplicates
-    await sb.from('traduzioni_cache').upsert(rows, {
-      onConflict: 'testo_originale,lingua',
-    })
-  } catch { /* ignore - table may not exist */ }
-}
-
-// POST /api/translate — traduce testi al volo via DeepL con cache Supabase
+// POST /api/translate
 export async function POST(req: NextRequest) {
   if (!DEEPL_API_KEY) {
     return NextResponse.json({ error: 'DeepL API key not configured' }, { status: 500 })
@@ -84,27 +71,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Language ${targetLang} not supported` }, { status: 400 })
   }
 
-  await ensureTable()
-
   const textArray: string[] = Array.isArray(texts) ? texts : [texts]
 
-  // 1. Check Supabase cache first
-  const cached = await getCachedTranslations(textArray, targetLang)
+  // 1. Load cache from Supabase Storage
+  const cacheMap = await loadStorageCache(targetLang)
 
-  // 2. Find texts NOT in cache
-  const missing: { index: number; text: string }[] = []
+  // 2. Separate cached vs missing
   const results: string[] = new Array(textArray.length)
+  const missing: { index: number; text: string }[] = []
+  let cachedCount = 0
 
   textArray.forEach((text, i) => {
-    const cachedTranslation = cached.get(text)
-    if (cachedTranslation) {
-      results[i] = cachedTranslation
+    const cached = cacheMap.get(text)
+    if (cached) {
+      results[i] = cached
+      cachedCount++
     } else {
       missing.push({ index: i, text })
     }
   })
 
-  // 3. Translate only missing texts via DeepL
+  // 3. Translate missing via DeepL
   if (missing.length > 0) {
     try {
       const body: Record<string, unknown> = {
@@ -124,41 +111,30 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify(body),
       })
 
-      if (!res.ok) {
-        // If DeepL fails, return cached + originals for missing
-        missing.forEach(m => { results[m.index] = m.text })
-        return NextResponse.json({
-          translations: Array.isArray(texts) ? results : results[0],
+      if (res.ok) {
+        const data = await res.json()
+        const translations = data.translations.map((t: { text: string }) => t.text)
+
+        missing.forEach((m, j) => {
+          const translated = translations[j] || m.text
+          results[m.index] = translated
+          cacheMap.set(m.text, translated)
         })
+
+        // 4. Save updated cache to Supabase Storage (non-blocking)
+        saveStorageCache(targetLang, cacheMap).catch(() => {})
+      } else {
+        // DeepL failed - return originals for missing
+        missing.forEach(m => { results[m.index] = m.text })
       }
-
-      const data = await res.json()
-      const translations = data.translations.map((t: { text: string }) => t.text)
-
-      // Fill results and prepare cache entries
-      const toCache: { text: string; translation: string }[] = []
-      missing.forEach((m, j) => {
-        const translated = translations[j] || m.text
-        results[m.index] = translated
-        toCache.push({ text: m.text, translation: translated })
-      })
-
-      // 4. Save new translations to Supabase (non-blocking)
-      saveCachedTranslations(toCache, targetLang).catch(() => {})
-
-    } catch (err) {
-      // On error, fill missing with originals
+    } catch {
       missing.forEach(m => { results[m.index] = m.text })
-      return NextResponse.json({
-        translations: Array.isArray(texts) ? results : results[0],
-        error: String(err),
-      })
     }
   }
 
   return NextResponse.json({
     translations: Array.isArray(texts) ? results : results[0],
-    cached: textArray.length - missing.length,
+    cached: cachedCount,
     translated: missing.length,
   })
 }

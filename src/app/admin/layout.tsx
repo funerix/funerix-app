@@ -122,7 +122,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <>
       <RealtimeNotifiche />
 
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen" data-admin>
         {/* Sidebar Desktop */}
         <aside className={`hidden md:flex flex-col bg-primary-dark text-white/80 transition-all duration-300 ${sidebarOpen ? 'w-56' : 'w-16'}`}>
           {/* Logo + Toggle */}

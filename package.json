@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "translate": "node --env-file=.env.local scripts/translate.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.0",

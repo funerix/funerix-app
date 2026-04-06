@@ -10,6 +10,7 @@ import {
   FileText, Download, Upload, Send, User, Calendar, MapPin, Euro,
   Loader2, Eye, Edit2, Save, Plus, Trash2, X, Heart
 } from 'lucide-react'
+import { ChatTranslator } from '@/components/admin/ChatTranslator'
 
 // Types
 interface Richiesta {
@@ -1092,7 +1093,7 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
 
         {/* Tab: Comunicazioni */}
         {tab === 'comunicazioni' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Note interne */}
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">Note interne</h2>
@@ -1156,6 +1157,9 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
                 </>
               )}
             </div>
+
+            {/* Traduttore */}
+            <ChatTranslator />
           </div>
         )}
 

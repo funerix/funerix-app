@@ -122,7 +122,7 @@ export function Header() {
             </a>
             <LanguageSelector />
             <Link href="/assistenza" className="btn-accent text-sm py-2 px-4">
-              Assistenza
+              {t('assistenza')}
             </Link>
           </div>
 
@@ -168,7 +168,7 @@ export function Header() {
                   <Phone size={16} /> {impostazioni.telefono}
                 </a>
                 <Link href="/assistenza" onClick={() => setMobileOpen(false)}
-                  className="btn-accent w-full text-sm py-2.5 justify-center">Richiedi Assistenza</Link>
+                  className="btn-accent w-full text-sm py-2.5 justify-center">{t('richiediAssistenza')}</Link>
               </div>
             </nav>
           </motion.div>

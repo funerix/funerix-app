@@ -19,7 +19,9 @@
     "catalogo": "उत्पाद सूची",
     "catalogoDesc": "ताबूत, कलश, फूल, अंत्येष्टि वाहन",
     "prezzi": "प्रांत अनुसार मूल्य",
-    "prezziDesc": "कैम्पानिया में लागत की तुलना करें"
+    "prezziDesc": "कैम्पानिया में लागत की तुलना करें",
+    "assistenza": "सहायता",
+    "richiediAssistenza": "सहायता का अनुरोध करें"
   },
   "home": {
     "heroTitolo": "कैम्पानिया में अंत्येष्टि सेवाएं",
@@ -169,6 +171,15 @@
     "orarioContatto": "पसंदीदा समय",
     "invioSuccesso": "अनुरोध सफलतापूर्वक भेजा गया!",
     "invioSuccessoDesc": "हमारा एक सलाहकार 30 मिनट के भीतर आपसे संपर्क करेगा।",
+    "stepServizio": "सेवा",
+    "stepBaraUrna": "ताबूत / अस्थि कलश",
+    "stepTrasporto": "परिवहन",
+    "stepCerimonia": "समारोह",
+    "stepFiori": "फूल",
+    "stepExtra": "अतिरिक्त",
+    "stepRiepilogo": "सारांश",
+    "stepContatto": "संपर्क",
+    "passo": "चरण",
     "tipoServizioFunebre": "अंत्येष्टि सेवा",
     "tipoServizioFunebreDesc": "किसी प्रियजन के लिए",
     "tipoServizioAnimale": "पशु दाह-संस्कार",

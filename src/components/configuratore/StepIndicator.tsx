@@ -3,32 +3,33 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { TOTAL_STEPS } from '@/store/configuratore'
-
-const stepLabels = [
-  'Servizio',
-  'Bara / Urna',
-  'Trasporto',
-  'Cerimonia',
-  'Fiori',
-  'Extra',
-  'Riepilogo',
-  'Contatto',
-]
+import { useTranslations } from 'next-intl'
 
 export function StepIndicator({ currentStep }: { currentStep: number }) {
+  const t = useTranslations('configuratore')
+
+  const stepLabels = [
+    t('stepServizio'),
+    t('stepBaraUrna'),
+    t('stepTrasporto'),
+    t('stepCerimonia'),
+    t('stepFiori'),
+    t('stepExtra'),
+    t('stepRiepilogo'),
+    t('stepContatto'),
+  ]
+
   return (
     <div className="w-full mb-10">
-      {/* Mobile: simple text */}
       <div className="md:hidden text-center mb-2">
         <span className="text-sm text-text-light">
-          Passo {currentStep} di {TOTAL_STEPS}
+          {t('passo')} {currentStep} / {TOTAL_STEPS}
         </span>
         <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary">
           {stepLabels[currentStep - 1]}
         </h3>
       </div>
 
-      {/* Progress bar mobile */}
       <div className="md:hidden w-full h-1.5 bg-border rounded-full overflow-hidden">
         <motion.div
           className="h-full bg-secondary rounded-full"
@@ -38,7 +39,6 @@ export function StepIndicator({ currentStep }: { currentStep: number }) {
         />
       </div>
 
-      {/* Desktop: full step indicator */}
       <div className="hidden md:flex items-center justify-between">
         {Array.from({ length: TOTAL_STEPS }, (_, i) => {
           const step = i + 1

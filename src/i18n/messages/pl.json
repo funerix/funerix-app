@@ -19,7 +19,9 @@
     "catalogo": "Katalog Produktów",
     "catalogoDesc": "Trumny, urny, kwiaty, karawany",
     "prezzi": "Ceny według Prowincji",
-    "prezziDesc": "Porównaj koszty w Kampanii"
+    "prezziDesc": "Porównaj koszty w Kampanii",
+    "assistenza": "Pomoc",
+    "richiediAssistenza": "Poproś o pomoc"
   },
   "home": {
     "heroTitolo": "Usługi Pogrzebowe w Kampanii",
@@ -169,6 +171,15 @@
     "orarioContatto": "Preferowana godzina",
     "invioSuccesso": "Zapytanie zostało wysłane pomyślnie!",
     "invioSuccessoDesc": "Nasz doradca skontaktuje się z Tobą w ciągu 30 minut.",
+    "stepServizio": "Usługa",
+    "stepBaraUrna": "Trumna / Urna",
+    "stepTrasporto": "Transport",
+    "stepCerimonia": "Ceremonia",
+    "stepFiori": "Kwiaty",
+    "stepExtra": "Dodatki",
+    "stepRiepilogo": "Podsumowanie",
+    "stepContatto": "Kontakt",
+    "passo": "Krok",
     "tipoServizioFunebre": "Usługi Pogrzebowe",
     "tipoServizioFunebreDesc": "Dla bliskiej osoby",
     "tipoServizioAnimale": "Kremacja Zwierzęcia",

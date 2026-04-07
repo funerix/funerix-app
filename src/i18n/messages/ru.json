@@ -19,7 +19,9 @@
     "catalogo": "Каталог продукции",
     "catalogoDesc": "Гробы, урны, цветы, катафалки",
     "prezzi": "Цены по провинциям",
-    "prezziDesc": "Сравните стоимость в Кампании"
+    "prezziDesc": "Сравните стоимость в Кампании",
+    "assistenza": "Поддержка",
+    "richiediAssistenza": "Запросить помощь"
   },
   "home": {
     "heroTitolo": "Похоронные службы в Кампании",
@@ -169,6 +171,15 @@
     "orarioContatto": "Предпочтительное время",
     "invioSuccesso": "Запрос успешно отправлен!",
     "invioSuccessoDesc": "Наш консультант свяжется с вами в течение 30 минут.",
+    "stepServizio": "Услуга",
+    "stepBaraUrna": "Гроб / Урна",
+    "stepTrasporto": "Транспорт",
+    "stepCerimonia": "Церемония",
+    "stepFiori": "Цветы",
+    "stepExtra": "Дополнительно",
+    "stepRiepilogo": "Итог",
+    "stepContatto": "Контакт",
+    "passo": "Шаг",
     "tipoServizioFunebre": "Похоронная служба",
     "tipoServizioFunebreDesc": "Для близкого человека",
     "tipoServizioAnimale": "Кремация животного",

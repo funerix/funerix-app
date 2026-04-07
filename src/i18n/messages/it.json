@@ -19,7 +19,9 @@
     "catalogo": "Catalogo Prodotti",
     "catalogoDesc": "Bare, urne, fiori, auto funebri",
     "prezzi": "Prezzi per Provincia",
-    "prezziDesc": "Confronta i costi in Campania"
+    "prezziDesc": "Confronta i costi in Campania",
+    "assistenza": "Assistenza",
+    "richiediAssistenza": "Richiedi Assistenza"
   },
   "home": {
     "heroTitolo": "Onoranze Funebri in Campania",
@@ -169,6 +171,15 @@
     "orarioContatto": "Orario preferito",
     "invioSuccesso": "Richiesta inviata con successo!",
     "invioSuccessoDesc": "Un nostro consulente vi contatterà entro 30 minuti.",
+    "stepServizio": "Servizio",
+    "stepBaraUrna": "Bara / Urna",
+    "stepTrasporto": "Trasporto",
+    "stepCerimonia": "Cerimonia",
+    "stepFiori": "Fiori",
+    "stepExtra": "Extra",
+    "stepRiepilogo": "Riepilogo",
+    "stepContatto": "Contatto",
+    "passo": "Passo",
     "tipoServizioFunebre": "Servizio Funebre",
     "tipoServizioFunebreDesc": "Per una persona cara",
     "tipoServizioAnimale": "Cremazione Animale",

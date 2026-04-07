@@ -19,7 +19,9 @@
     "catalogo": "Catálogo de Produtos",
     "catalogoDesc": "Caixões, urnas, flores, carros fúnebres",
     "prezzi": "Preços por Província",
-    "prezziDesc": "Compare os custos na Campânia"
+    "prezziDesc": "Compare os custos na Campânia",
+    "assistenza": "Assistência",
+    "richiediAssistenza": "Solicitar assistência"
   },
   "home": {
     "heroTitolo": "Serviços Funerários na Campânia",
@@ -169,6 +171,15 @@
     "orarioContatto": "Horário preferido",
     "invioSuccesso": "Solicitação enviada com sucesso!",
     "invioSuccessoDesc": "Um de nossos consultores entrará em contato em até 30 minutos.",
+    "stepServizio": "Serviço",
+    "stepBaraUrna": "Caixão / Urna",
+    "stepTrasporto": "Transporte",
+    "stepCerimonia": "Cerimônia",
+    "stepFiori": "Flores",
+    "stepExtra": "Extras",
+    "stepRiepilogo": "Resumo",
+    "stepContatto": "Contato",
+    "passo": "Passo",
     "tipoServizioFunebre": "Serviço Funerário",
     "tipoServizioFunebreDesc": "Para um ente querido",
     "tipoServizioAnimale": "Cremação de Animal",

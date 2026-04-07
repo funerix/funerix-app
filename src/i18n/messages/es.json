@@ -19,7 +19,9 @@
     "catalogo": "Catálogo de Productos",
     "catalogoDesc": "Ataúdes, urnas, flores, coches fúnebres",
     "prezzi": "Precios por Provincia",
-    "prezziDesc": "Compare los costes en Campania"
+    "prezziDesc": "Compare los costes en Campania",
+    "assistenza": "Asistencia",
+    "richiediAssistenza": "Solicitar asistencia"
   },
   "home": {
     "heroTitolo": "Servicios Funerarios en Campania",
@@ -169,6 +171,15 @@
     "orarioContatto": "Horario preferido",
     "invioSuccesso": "¡Solicitud enviada con éxito!",
     "invioSuccessoDesc": "Uno de nuestros asesores se pondrá en contacto con usted en 30 minutos.",
+    "stepServizio": "Servicio",
+    "stepBaraUrna": "Ataúd / Urna",
+    "stepTrasporto": "Transporte",
+    "stepCerimonia": "Ceremonia",
+    "stepFiori": "Flores",
+    "stepExtra": "Extras",
+    "stepRiepilogo": "Resumen",
+    "stepContatto": "Contacto",
+    "passo": "Paso",
     "tipoServizioFunebre": "Servicio Funerario",
     "tipoServizioFunebreDesc": "Para un ser querido",
     "tipoServizioAnimale": "Cremación Animal",

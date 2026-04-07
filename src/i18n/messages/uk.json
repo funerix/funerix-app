@@ -19,7 +19,9 @@
     "catalogo": "Каталог Продуктів",
     "catalogoDesc": "Труни, урни, квіти, катафалки",
     "prezzi": "Ціни по Провінції",
-    "prezziDesc": "Порівняйте ціни в Кампанії"
+    "prezziDesc": "Порівняйте ціни в Кампанії",
+    "assistenza": "Підтримка",
+    "richiediAssistenza": "Запросити допомогу"
   },
   "home": {
     "heroTitolo": "Похоронне Бюро в Кампанії",
@@ -169,6 +171,15 @@
     "orarioContatto": "Зручний час",
     "invioSuccesso": "Запит успішно надіслано!",
     "invioSuccessoDesc": "Наш консультант зв'яжеться з вами протягом 30 хвилин.",
+    "stepServizio": "Послуга",
+    "stepBaraUrna": "Труна / Урна",
+    "stepTrasporto": "Транспорт",
+    "stepCerimonia": "Церемонія",
+    "stepFiori": "Квіти",
+    "stepExtra": "Додатково",
+    "stepRiepilogo": "Підсумок",
+    "stepContatto": "Контакт",
+    "passo": "Крок",
     "tipoServizioFunebre": "Похоронні Послуги",
     "tipoServizioFunebreDesc": "Для близької людини",
     "tipoServizioAnimale": "Кремація Тварини",

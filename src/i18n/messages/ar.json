@@ -19,7 +19,9 @@
     "catalogo": "كتالوج المنتجات",
     "catalogoDesc": "توابيت، جرار، زهور، سيارات جنائزية",
     "prezzi": "الأسعار حسب المقاطعة",
-    "prezziDesc": "قارن التكاليف في منطقة كامبانيا"
+    "prezziDesc": "قارن التكاليف في منطقة كامبانيا",
+    "assistenza": "المساعدة",
+    "richiediAssistenza": "طلب المساعدة"
   },
   "home": {
     "heroTitolo": "خدمات الجنازة في كامبانيا",
@@ -169,6 +171,15 @@
     "orarioContatto": "الوقت المفضل",
     "invioSuccesso": "تم إرسال الطلب بنجاح!",
     "invioSuccessoDesc": "سيتصل بك أحد مستشارينا خلال 30 دقيقة.",
+    "stepServizio": "الخدمة",
+    "stepBaraUrna": "التابوت / الجرة",
+    "stepTrasporto": "النقل",
+    "stepCerimonia": "المراسم",
+    "stepFiori": "الزهور",
+    "stepExtra": "إضافات",
+    "stepRiepilogo": "ملخص",
+    "stepContatto": "اتصال",
+    "passo": "خطوة",
     "tipoServizioFunebre": "خدمة الجنازة",
     "tipoServizioFunebreDesc": "لشخص عزيز",
     "tipoServizioAnimale": "حرق جثث الحيوانات",

@@ -19,7 +19,9 @@
     "catalogo": "Katalogu i Produkteve",
     "catalogoDesc": "Arkivole, urna, lule, makina funebre",
     "prezzi": "Çmimet sipas Provincës",
-    "prezziDesc": "Krahasoni kostot në Campania"
+    "prezziDesc": "Krahasoni kostot në Campania",
+    "assistenza": "Ndihmë",
+    "richiediAssistenza": "Kërko ndihmë"
   },
   "home": {
     "heroTitolo": "Shërbime Funerore në Campania",
@@ -169,6 +171,15 @@
     "orarioContatto": "Orari i preferuar",
     "invioSuccesso": "Kërkesa u dërgua me sukses!",
     "invioSuccessoDesc": "Një këshilltar ynë do t'ju kontaktojë brenda 30 minutave.",
+    "stepServizio": "Shërbimi",
+    "stepBaraUrna": "Arkivol / Urnë",
+    "stepTrasporto": "Transporti",
+    "stepCerimonia": "Ceremonia",
+    "stepFiori": "Lule",
+    "stepExtra": "Ekstra",
+    "stepRiepilogo": "Përmbledhje",
+    "stepContatto": "Kontakt",
+    "passo": "Hapi",
     "tipoServizioFunebre": "Shërbime Funerore",
     "tipoServizioFunebreDesc": "Për një person të dashur",
     "tipoServizioAnimale": "Kremim Kafshe",

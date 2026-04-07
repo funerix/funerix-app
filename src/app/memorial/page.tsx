@@ -20,8 +20,9 @@ const fadeUp = {
 
 // I necrologi vengono dallo store globale (gestiti dall'admin)
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('it-IT', {
+function formatDate(dateStr: string, locale: string) {
+  const map: Record<string, string> = { uk: 'uk-UA', zh: 'zh-CN', sq: 'sq-AL', tl: 'fil-PH' }
+  return new Date(dateStr).toLocaleDateString(map[locale] || locale, {
     day: 'numeric', month: 'long', year: 'numeric',
   })
 }
@@ -120,7 +121,7 @@ export default function MemorialPage() {
                         <div className="flex flex-wrap items-center gap-3 mt-1 text-sm text-text-muted">
                           <span className="flex items-center gap-1">
                             <Calendar size={14} />
-                            {formatDate(necrologio.dataNascita)} — {formatDate(necrologio.dataMorte)}
+                            {formatDate(necrologio.dataNascita, locale)} — {formatDate(necrologio.dataMorte, locale)}
                           </span>
                           <span>{necrologio.comune}</span>
                         </div>

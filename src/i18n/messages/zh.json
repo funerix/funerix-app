@@ -19,7 +19,9 @@
     "catalogo": "产品目录",
     "catalogoDesc": "棺木、骨灰罐、鲜花、灵车",
     "prezzi": "各省份价格",
-    "prezziDesc": "比较坎帕尼亚大区各地费用"
+    "prezziDesc": "比较坎帕尼亚大区各地费用",
+    "assistenza": "帮助",
+    "richiediAssistenza": "请求帮助"
   },
   "home": {
     "heroTitolo": "坎帕尼亚大区殡葬服务",
@@ -169,6 +171,15 @@
     "orarioContatto": "首选时间",
     "invioSuccesso": "请求提交成功！",
     "invioSuccessoDesc": "我们的顾问将在30分钟内联系您。",
+    "stepServizio": "服务",
+    "stepBaraUrna": "棺材 / 骨灰盒",
+    "stepTrasporto": "运输",
+    "stepCerimonia": "仪式",
+    "stepFiori": "鲜花",
+    "stepExtra": "附加服务",
+    "stepRiepilogo": "摘要",
+    "stepContatto": "联系",
+    "passo": "步骤",
     "tipoServizioFunebre": "殡葬服务",
     "tipoServizioFunebreDesc": "为亲人",
     "tipoServizioAnimale": "宠物火化",

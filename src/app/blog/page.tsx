@@ -49,7 +49,7 @@ export default function BlogPage() {
                 <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary group-hover:text-secondary transition-colors mb-2">{tTitoli[posts.indexOf(post)] || post.titolo}</h2>
                 <p className="text-text-light text-sm line-clamp-3 mb-3">{tExcerpt[posts.indexOf(post)] || post.excerpt}</p>
                 <span className="flex items-center gap-1 text-xs text-text-muted">
-                  <Calendar size={12} /> {new Date(post.created_at).toLocaleDateString('it-IT')}
+                  <Calendar size={12} /> {new Date(post.created_at).toLocaleDateString(locale)}
                 </span>
               </Link>
             ))}

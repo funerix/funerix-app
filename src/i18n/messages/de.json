@@ -19,7 +19,9 @@
     "catalogo": "Produktkatalog",
     "catalogoDesc": "Särge, Urnen, Blumen, Leichenwagen",
     "prezzi": "Preise nach Provinz",
-    "prezziDesc": "Kosten in Kampanien vergleichen"
+    "prezziDesc": "Kosten in Kampanien vergleichen",
+    "assistenza": "Hilfe",
+    "richiediAssistenza": "Hilfe anfordern"
   },
   "home": {
     "heroTitolo": "Bestattungsunternehmen in Kampanien",
@@ -169,6 +171,15 @@
     "orarioContatto": "Bevorzugte Zeit",
     "invioSuccesso": "Anfrage erfolgreich gesendet!",
     "invioSuccessoDesc": "Einer unserer Berater wird Sie innerhalb von 30 Minuten kontaktieren.",
+    "stepServizio": "Service",
+    "stepBaraUrna": "Sarg / Urne",
+    "stepTrasporto": "Transport",
+    "stepCerimonia": "Zeremonie",
+    "stepFiori": "Blumen",
+    "stepExtra": "Extras",
+    "stepRiepilogo": "Zusammenfassung",
+    "stepContatto": "Kontakt",
+    "passo": "Schritt",
     "tipoServizioFunebre": "Bestattungsservice",
     "tipoServizioFunebreDesc": "Für einen geliebten Menschen",
     "tipoServizioAnimale": "Tiereinäscherung",

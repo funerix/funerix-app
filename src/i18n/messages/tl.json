@@ -19,7 +19,9 @@
     "catalogo": "Katalogo ng Produkto",
     "catalogoDesc": "Kabaong, urn, bulaklak, sasakyan ng libing",
     "prezzi": "Presyo ayon sa Lalawigan",
-    "prezziDesc": "Ikumpara ang gastos sa Campania"
+    "prezziDesc": "Ikumpara ang gastos sa Campania",
+    "assistenza": "Tulong",
+    "richiediAssistenza": "Humiling ng tulong"
   },
   "home": {
     "heroTitolo": "Mga Serbisyo ng Libing sa Campania",
@@ -169,6 +171,15 @@
     "orarioContatto": "Gustong oras",
     "invioSuccesso": "Matagumpay na naipadala ang kahilingan!",
     "invioSuccessoDesc": "Ang isa sa aming mga consultant ay makikipag-ugnayan sa inyo sa loob ng 30 minuto.",
+    "stepServizio": "Serbisyo",
+    "stepBaraUrna": "Kabaong / Urna",
+    "stepTrasporto": "Transportasyon",
+    "stepCerimonia": "Seremonya",
+    "stepFiori": "Bulaklak",
+    "stepExtra": "Dagdag",
+    "stepRiepilogo": "Buod",
+    "stepContatto": "Kontak",
+    "passo": "Hakbang",
     "tipoServizioFunebre": "Serbisyo ng Libing",
     "tipoServizioFunebreDesc": "Para sa isang mahal sa buhay",
     "tipoServizioAnimale": "Kremasyón ng Hayop",

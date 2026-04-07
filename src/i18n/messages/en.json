@@ -19,7 +19,9 @@
     "catalogo": "Product Catalogue",
     "catalogoDesc": "Coffins, urns, flowers, hearses",
     "prezzi": "Prices by Province",
-    "prezziDesc": "Compare costs in Campania"
+    "prezziDesc": "Compare costs in Campania",
+    "assistenza": "Support",
+    "richiediAssistenza": "Request Support"
   },
   "home": {
     "heroTitolo": "Funeral Services in Campania",
@@ -169,6 +171,15 @@
     "orarioContatto": "Preferred time",
     "invioSuccesso": "Request sent successfully!",
     "invioSuccessoDesc": "One of our consultants will contact you within 30 minutes.",
+    "stepServizio": "Service",
+    "stepBaraUrna": "Coffin / Urn",
+    "stepTrasporto": "Transport",
+    "stepCerimonia": "Ceremony",
+    "stepFiori": "Flowers",
+    "stepExtra": "Extras",
+    "stepRiepilogo": "Summary",
+    "stepContatto": "Contact",
+    "passo": "Step",
     "tipoServizioFunebre": "Funeral Service",
     "tipoServizioFunebreDesc": "For a loved one",
     "tipoServizioAnimale": "Pet Cremation",

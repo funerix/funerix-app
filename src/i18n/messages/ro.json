@@ -19,7 +19,9 @@
     "catalogo": "Catalog Produse",
     "catalogoDesc": "Sicrie, urne, flori, mașini funerare",
     "prezzi": "Prețuri pe Județ",
-    "prezziDesc": "Comparați costurile în Campania"
+    "prezziDesc": "Comparați costurile în Campania",
+    "assistenza": "Asistență",
+    "richiediAssistenza": "Solicită asistență"
   },
   "home": {
     "heroTitolo": "Servicii Funerare în Campania",
@@ -169,6 +171,15 @@
     "orarioContatto": "Orar preferat",
     "invioSuccesso": "Cerere trimisă cu succes!",
     "invioSuccessoDesc": "Unul dintre consultanții noștri vă va contacta în 30 de minute.",
+    "stepServizio": "Serviciu",
+    "stepBaraUrna": "Sicriu / Urnă",
+    "stepTrasporto": "Transport",
+    "stepCerimonia": "Ceremonie",
+    "stepFiori": "Flori",
+    "stepExtra": "Extra",
+    "stepRiepilogo": "Rezumat",
+    "stepContatto": "Contact",
+    "passo": "Pasul",
     "tipoServizioFunebre": "Serviciu Funerar",
     "tipoServizioFunebreDesc": "Pentru o persoană dragă",
     "tipoServizioAnimale": "Cremarea Animalului",

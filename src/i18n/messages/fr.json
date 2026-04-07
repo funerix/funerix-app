@@ -19,7 +19,9 @@
     "catalogo": "Catalogue Produits",
     "catalogoDesc": "Cercueils, urnes, fleurs, corbillards",
     "prezzi": "Prix par Province",
-    "prezziDesc": "Comparez les coûts en Campanie"
+    "prezziDesc": "Comparez les coûts en Campanie",
+    "assistenza": "Assistance",
+    "richiediAssistenza": "Demander de l'aide"
   },
   "home": {
     "heroTitolo": "Services Funèbres en Campanie",
@@ -169,6 +171,15 @@
     "orarioContatto": "Horaire préféré",
     "invioSuccesso": "Demande envoyée avec succès !",
     "invioSuccessoDesc": "L'un de nos conseillers vous contactera dans les 30 minutes.",
+    "stepServizio": "Service",
+    "stepBaraUrna": "Cercueil / Urne",
+    "stepTrasporto": "Transport",
+    "stepCerimonia": "Cérémonie",
+    "stepFiori": "Fleurs",
+    "stepExtra": "Extras",
+    "stepRiepilogo": "Résumé",
+    "stepContatto": "Contact",
+    "passo": "Étape",
     "tipoServizioFunebre": "Service Funèbre",
     "tipoServizioFunebreDesc": "Pour un être cher",
     "tipoServizioAnimale": "Crémation Animal",

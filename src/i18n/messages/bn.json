@@ -19,7 +19,9 @@
     "catalogo": "পণ্য তালিকা",
     "catalogoDesc": "কফিন, কলস, ফুল, শবযান",
     "prezzi": "প্রদেশ অনুযায়ী মূল্য",
-    "prezziDesc": "ক্যাম্পানিয়ায় খরচ তুলনা করুন"
+    "prezziDesc": "ক্যাম্পানিয়ায় খরচ তুলনা করুন",
+    "assistenza": "সহায়তা",
+    "richiediAssistenza": "সহায়তা অনুরোধ করুন"
   },
   "home": {
     "heroTitolo": "ক্যাম্পানিয়ায় অন্ত্যেষ্টি সেবা",
@@ -169,6 +171,15 @@
     "orarioContatto": "পছন্দের সময়",
     "invioSuccesso": "অনুরোধ সফলভাবে পাঠানো হয়েছে!",
     "invioSuccessoDesc": "আমাদের একজন পরামর্শদাতা ৩০ মিনিটের মধ্যে আপনার সাথে যোগাযোগ করবেন।",
+    "stepServizio": "সেবা",
+    "stepBaraUrna": "কফিন / কলস",
+    "stepTrasporto": "পরিবহন",
+    "stepCerimonia": "অনুষ্ঠান",
+    "stepFiori": "ফুল",
+    "stepExtra": "অতিরিক্ত",
+    "stepRiepilogo": "সারসংক্ষেপ",
+    "stepContatto": "যোগাযোগ",
+    "passo": "ধাপ",
     "tipoServizioFunebre": "অন্ত্যেষ্টি সেবা",
     "tipoServizioFunebreDesc": "কোনো প্রিয়জনের জন্য",
     "tipoServizioAnimale": "পশু দাহ সংস্কার",

@@ -23,22 +23,20 @@ const lingue = [
 ]
 
 function triggerGoogleTranslate(googleCode: string) {
-  const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null
-  if (!select) return
+  const domain = window.location.hostname
 
   if (!googleCode) {
-    // Torna a italiano: resetta
-    select.value = ''
-    select.dispatchEvent(new Event('change'))
-    // Pulisci cookie
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
-    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`
+    // Torna a italiano
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain}`
     window.location.reload()
     return
   }
 
-  select.value = googleCode
-  select.dispatchEvent(new Event('change'))
+  // Setta cookie e ricarica
+  document.cookie = `googtrans=/it/${googleCode}; path=/`
+  document.cookie = `googtrans=/it/${googleCode}; path=/; domain=.${domain}`
+  window.location.reload()
 }
 
 export function LanguageSelector() {

@@ -100,9 +100,6 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
 
-/* Google Translate — hide top bar but keep widget functional */
+/* Google Translate — hide top bar only */
 .goog-te-banner-frame { display: none !important; }
-#goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
-body { top: 0 !important; position: static !important; }
-.skiptranslate:not(#google_translate_element) { display: none !important; }
-#google_translate_element { position: absolute; top: -9999px; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+body { top: 0 !important; }

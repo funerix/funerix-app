@@ -60,13 +60,16 @@ export default function RootLayout({
             new google.translate.TranslateElement({
               pageLanguage: 'it',
               includedLanguages: 'en,fr,es,de,pt,ro,ar,ru,zh-CN,uk,pl,sq,hi,bn,tl',
-              layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-              autoDisplay: false,
-              multilanguagePage: false
+              layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+              autoDisplay: false
             }, 'google_translate_element');
           }
+          (function() {
+            var s = document.createElement('script');
+            s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            document.head.appendChild(s);
+          })();
         `}} />
-        <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-text">
         <div id="google_translate_element" />

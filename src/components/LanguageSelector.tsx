@@ -37,6 +37,20 @@ function getCountryFromCookie(): string | null {
   return match ? match[1] : null
 }
 
+// Overlay di caricamento
+function showOverlay() {
+  if (document.getElementById('ft-overlay')) return
+  const div = document.createElement('div')
+  div.id = 'ft-overlay'
+  div.style.cssText = 'position:fixed;inset:0;background:rgba(255,255,255,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;'
+  div.innerHTML = '<div style="text-align:center"><div style="width:40px;height:40px;border:3px solid #8B7355;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px"></div><p style="color:#2C3E50;font-size:14px;font-family:sans-serif">Translating...</p></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style>'
+  document.body.appendChild(div)
+}
+
+function hideOverlay() {
+  document.getElementById('ft-overlay')?.remove()
+}
+
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
   const [current, setCurrent] = useState('it')
@@ -44,30 +58,33 @@ export function LanguageSelector() {
   const ref = useRef<HTMLDivElement>(null)
   const initialized = useRef(false)
 
-  // Applica traduzione
   const applyLanguage = async (lang: string) => {
     if (lang === 'it') {
       restoreOriginals()
+      hideOverlay()
       return
     }
+    showOverlay()
     setLoading(true)
     saveOriginals()
     await translatePage(lang)
+    hideOverlay()
     setLoading(false)
   }
 
-  // Init: leggi lingua salvata o rileva IP
   useEffect(() => {
     if (initialized.current) return
     initialized.current = true
 
-    // Aspetta che la pagina sia completamente renderizzata
     const timer = setTimeout(async () => {
       const saved = localStorage.getItem('funerix-lang')
 
       if (saved && saved !== 'it') {
         setCurrent(saved)
-        await applyLanguage(saved)
+        showOverlay()
+        saveOriginals()
+        await translatePage(saved)
+        hideOverlay()
         return
       }
 
@@ -88,17 +105,19 @@ export function LanguageSelector() {
         if (lang) {
           localStorage.setItem('funerix-lang', lang)
           setCurrent(lang)
-          await applyLanguage(lang)
+          showOverlay()
+          saveOriginals()
+          await translatePage(lang)
+          hideOverlay()
           return
         }
       }
       localStorage.setItem('funerix-lang', 'it')
-    }, 1000) // 1s delay per lasciare React renderizzare
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [])
 
-  // Chiudi dropdown
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -115,20 +134,14 @@ export function LanguageSelector() {
     setCurrent(code)
 
     if (code === 'it') {
-      // Torna italiano: ripristina originali
       restoreOriginals()
       return
     }
 
-    // Traduci in nuova lingua
-    setLoading(true)
-    // Prima ripristina originali (se era già tradotto in altra lingua)
+    // Se era già in un'altra lingua, ripristina prima
     restoreOriginals()
-    // Poi salva nuovi originali e traduci
-    await new Promise(r => setTimeout(r, 100)) // breve pausa per DOM update
-    saveOriginals()
-    await translatePage(code)
-    setLoading(false)
+    await new Promise(r => setTimeout(r, 50))
+    await applyLanguage(code)
   }
 
   const flag = LINGUE.find(l => l.code === current)?.flag || '🇮🇹'

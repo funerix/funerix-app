@@ -1,67 +1,120 @@
 /**
- * Traduzione via Google Translate API gratuita.
- * Traduce batch di testi e cacha tutto in localStorage.
+ * Sistema traduzione Funerix
+ * - Google Translate API gratuita
+ * - Cache localStorage (client) + Supabase Storage (server)
+ * - Batch unico: tutti i testi in una sola chiamata API
  */
 
-const CACHE_KEY = 'funerix-gt-cache'
+const LOCAL_CACHE_KEY = 'funerix-gt-cache'
 const API_URL = 'https://translate.googleapis.com/translate_a/single'
+const SEPARATOR = '\n§§§\n' // separatore unico per split
 
 // Cache in memoria
-const memCache = new Map<string, string>()
+const cache = new Map<string, string>()
 
 // Carica cache da localStorage
 if (typeof window !== 'undefined') {
   try {
-    const saved = localStorage.getItem(CACHE_KEY)
+    const saved = localStorage.getItem(LOCAL_CACHE_KEY)
     if (saved) {
-      const entries = JSON.parse(saved) as Record<string, string>
-      Object.entries(entries).forEach(([k, v]) => memCache.set(k, v))
+      Object.entries(JSON.parse(saved) as Record<string, string>).forEach(([k, v]) => cache.set(k, v))
     }
   } catch { /* ignore */ }
 }
 
-function saveCache() {
+function saveLocalCache() {
   try {
     const obj: Record<string, string> = {}
-    memCache.forEach((v, k) => { obj[k] = v })
-    localStorage.setItem(CACHE_KEY, JSON.stringify(obj))
+    cache.forEach((v, k) => { obj[k] = v })
+    localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(obj))
   } catch { /* ignore */ }
 }
 
-function cacheKey(text: string, lang: string) {
-  return `${lang}:${text}`
+/** Carica cache da Supabase Storage per una lingua */
+async function loadServerCache(lang: string): Promise<boolean> {
+  try {
+    const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/translations/cache-${lang}.json`
+    const res = await fetch(url, { signal: AbortSignal.timeout(3000) })
+    if (!res.ok) return false
+    const data = await res.json() as Record<string, string>
+    let loaded = 0
+    Object.entries(data).forEach(([k, v]) => {
+      const key = `${lang}:${k}`
+      if (!cache.has(key)) {
+        cache.set(key, v)
+        loaded++
+      }
+    })
+    if (loaded > 0) saveLocalCache()
+    return loaded > 0
+  } catch { return false }
 }
 
-/** Traduce un singolo testo via Google */
-async function translateOne(text: string, targetLang: string): Promise<string> {
-  const key = cacheKey(text, targetLang)
-  const cached = memCache.get(key)
-  if (cached) return cached
+/** Salva cache su Supabase Storage */
+async function saveServerCache(lang: string) {
+  try {
+    const obj: Record<string, string> = {}
+    const prefix = `${lang}:`
+    cache.forEach((v, k) => {
+      if (k.startsWith(prefix)) obj[k.slice(prefix.length)] = v
+    })
+    if (Object.keys(obj).length === 0) return
+
+    const sbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const sbKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    if (!sbUrl || !sbKey) return
+
+    const blob = new Blob([JSON.stringify(obj)], { type: 'application/json' })
+    await fetch(`${sbUrl}/storage/v1/object/translations/cache-${lang}.json`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${sbKey}`,
+        'x-upsert': 'true',
+      },
+      body: blob,
+    })
+  } catch { /* ignore */ }
+}
+
+/** Traduce un batch di testi in UNA SOLA chiamata Google */
+async function translateBatch(texts: string[], targetLang: string): Promise<string[]> {
+  // Concatena tutto con separatore
+  const combined = texts.join(SEPARATOR)
 
   try {
-    const url = `${API_URL}?client=gtx&sl=it&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
+    const url = `${API_URL}?client=gtx&sl=it&tl=${targetLang}&dt=t&q=${encodeURIComponent(combined)}`
     const res = await fetch(url)
     const data = await res.json()
-    // La risposta è un array annidato: [[["translated text","original text",...],...],...]
+
+    // Ricostruisci il testo tradotto
     const translated = (data[0] as Array<Array<string>>).map(s => s[0]).join('')
-    if (translated) {
-      memCache.set(key, translated)
-      return translated
-    }
-  } catch { /* fallback */ }
-  return text
+
+    // Split per separatore
+    const parts = translated.split(/\s*§§§\s*/)
+
+    // Mappa risultati
+    return texts.map((original, i) => {
+      const t = parts[i]?.trim()
+      if (t) {
+        cache.set(`${targetLang}:${original}`, t)
+        return t
+      }
+      return original
+    })
+  } catch {
+    return texts
+  }
 }
 
-/** Traduce un array di testi. Usa cache, chiama API solo per mancanti. */
+/** Traduce un array di testi. Cache first, poi Google API. */
 export async function translateTexts(texts: string[], targetLang: string): Promise<string[]> {
   if (targetLang === 'it') return texts
 
   const results: string[] = new Array(texts.length)
   const toFetch: { idx: number; text: string }[] = []
 
-  // Check cache
   texts.forEach((text, i) => {
-    const cached = memCache.get(cacheKey(text, targetLang))
+    const cached = cache.get(`${targetLang}:${text}`)
     if (cached) {
       results[i] = cached
     } else if (text.trim().length < 2) {
@@ -71,34 +124,36 @@ export async function translateTexts(texts: string[], targetLang: string): Promi
     }
   })
 
-  // Fetch mancanti in batch (max 20 alla volta per non sovraccaricare)
-  const BATCH = 20
-  for (let i = 0; i < toFetch.length; i += BATCH) {
-    const batch = toFetch.slice(i, i + BATCH)
-    const promises = batch.map(b => translateOne(b.text, targetLang))
-    const translated = await Promise.all(promises)
-    batch.forEach((b, j) => {
-      results[b.idx] = translated[j]
-    })
-  }
+  if (toFetch.length === 0) return results
 
-  saveCache()
+  // Traduci tutti i mancanti in un batch unico
+  const batchTexts = toFetch.map(f => f.text)
+  const translated = await translateBatch(batchTexts, targetLang)
+
+  toFetch.forEach((f, j) => {
+    results[f.idx] = translated[j] || f.text
+  })
+
+  saveLocalCache()
+  // Salva su server in background (non blocca)
+  saveServerCache(targetLang).catch(() => {})
+
   return results
 }
 
-/** Traduce tutto il testo visibile nella pagina */
-export async function translatePage(targetLang: string) {
-  if (targetLang === 'it') return
+// ============================================
+// DOM Translation
+// ============================================
 
-  const SKIP = new Set(['SCRIPT', 'STYLE', 'CODE', 'PRE', 'SVG', 'INPUT', 'TEXTAREA', 'SELECT', 'OPTION', 'NOSCRIPT', 'IMG'])
+const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'CODE', 'PRE', 'SVG', 'INPUT', 'TEXTAREA', 'SELECT', 'OPTION', 'NOSCRIPT', 'IMG'])
 
-  // Raccogli tutti i nodi testo
+function collectTextNodes(): { node: Text; text: string }[] {
   const nodes: { node: Text; text: string }[] = []
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
       const el = node.parentElement
       if (!el) return NodeFilter.FILTER_REJECT
-      if (SKIP.has(el.tagName)) return NodeFilter.FILTER_REJECT
+      if (SKIP_TAGS.has(el.tagName)) return NodeFilter.FILTER_REJECT
       if (el.closest('[data-admin]') || el.closest('.notranslate')) return NodeFilter.FILTER_REJECT
       const txt = node.textContent?.trim()
       if (!txt || txt.length < 2) return NodeFilter.FILTER_REJECT
@@ -110,14 +165,22 @@ export async function translatePage(targetLang: string) {
     const t = walker.currentNode as Text
     nodes.push({ node: t, text: t.textContent || '' })
   }
+  return nodes
+}
 
+/** Traduce tutta la pagina */
+export async function translatePage(targetLang: string) {
+  if (targetLang === 'it') return
+
+  // Prima prova a caricare cache dal server
+  await loadServerCache(targetLang)
+
+  const nodes = collectTextNodes()
   if (nodes.length === 0) return
 
-  // Traduci tutti i testi
   const originals = nodes.map(n => n.text)
   const translated = await translateTexts(originals, targetLang)
 
-  // Applica al DOM
   nodes.forEach((n, i) => {
     if (translated[i] && translated[i] !== n.text) {
       n.node.textContent = translated[i]
@@ -125,27 +188,14 @@ export async function translatePage(targetLang: string) {
   })
 }
 
-/** Salva gli originali per poter ripristinare */
+// ============================================
+// Save/Restore originals
+// ============================================
+
 let savedOriginals: { node: Text; text: string }[] = []
 
 export function saveOriginals() {
-  const SKIP = new Set(['SCRIPT', 'STYLE', 'CODE', 'PRE', 'SVG', 'INPUT', 'TEXTAREA', 'SELECT', 'OPTION', 'NOSCRIPT', 'IMG'])
-  savedOriginals = []
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-    acceptNode(node) {
-      const el = node.parentElement
-      if (!el) return NodeFilter.FILTER_REJECT
-      if (SKIP.has(el.tagName)) return NodeFilter.FILTER_REJECT
-      if (el.closest('[data-admin]') || el.closest('.notranslate')) return NodeFilter.FILTER_REJECT
-      const txt = node.textContent?.trim()
-      if (!txt || txt.length < 2) return NodeFilter.FILTER_REJECT
-      return NodeFilter.FILTER_ACCEPT
-    },
-  })
-  while (walker.nextNode()) {
-    const t = walker.currentNode as Text
-    savedOriginals.push({ node: t, text: t.textContent || '' })
-  }
+  savedOriginals = collectTextNodes()
 }
 
 export function restoreOriginals() {

@@ -100,8 +100,15 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
 
-/* Google Translate: hide banner, keep widget offscreen but in DOM */
-body { top: 0 !important; }
+/* Google Translate: hide ALL visible Google UI */
+body { top: 0 !important; position: static !important; }
 .goog-te-banner-frame { display: none !important; }
+.skiptranslate:not(#google_translate_element) { display: none !important; height: 0 !important; }
+.goog-te-spinner-pos { display: none !important; }
+#goog-gt-tt { display: none !important; }
+.goog-te-balloon-frame { display: none !important; }
+.goog-tooltip { display: none !important; }
+.goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
 
 

@@ -31,19 +31,17 @@ const COUNTRY_MAP: Record<string, string> = {
   PL: 'pl', AL: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
-// Attende che Google Translate sia pronto, poi chiama fn
-function onGoogleReady(fn: () => void) {
-  if ((window as any).__gtReady) { fn(); return }
-  (window as any).__gtOnReady = fn
-}
-
-// Cambia lingua usando il select di Google Translate
-function changeLanguage(code: string) {
-  const sel = document.querySelector('.goog-te-combo') as HTMLSelectElement
-  if (!sel) return false
-  sel.value = code === 'it' ? '' : code
-  sel.dispatchEvent(new Event('change'))
-  return true
+function setGoogleCookie(lang: string) {
+  const h = window.location.hostname
+  // Pulisci tutti
+  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
+  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${h}`
+  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${h}`
+  // Setta nuovo
+  if (lang && lang !== 'it') {
+    document.cookie = `googtrans=/it/${lang}; path=/`
+    document.cookie = `googtrans=/it/${lang}; path=/; domain=.${h}`
+  }
 }
 
 export function LanguageSelector() {
@@ -52,56 +50,28 @@ export function LanguageSelector() {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Leggi lingua salvata
-    const saved = localStorage.getItem('funerix-lang') || ''
-
-    // Funzione da eseguire quando Google è pronto
-    const init = () => {
-      if (saved && saved !== 'it') {
-        // Utente ha già scelto una lingua → applicala
-        setCurrent(saved)
-        changeLanguage(saved)
-      } else if (!saved) {
-        // Prima visita → rileva IP
-        fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
-          .then(r => r.json())
-          .then(data => {
-            const lang = COUNTRY_MAP[data?.country_code]
-            if (lang && data.country_code !== 'IT') {
-              localStorage.setItem('funerix-lang', lang)
-              setCurrent(lang)
-              changeLanguage(lang)
-            } else {
-              localStorage.setItem('funerix-lang', 'it')
-            }
-          })
-          .catch(() => localStorage.setItem('funerix-lang', 'it'))
-      } else {
-        setCurrent('it')
-      }
-
-      // Precache: cicla tutte le lingue in background per popolare la cache Google
-      const lingueToCache = LINGUE.filter(l => l.code !== 'it').map(l => l.code)
-      let i = 0
-      const precache = () => {
-        if (i >= lingueToCache.length) {
-          // Torna alla lingua corrente
-          const cur = localStorage.getItem('funerix-lang') || 'it'
-          changeLanguage(cur)
-          return
-        }
-        changeLanguage(lingueToCache[i])
-        i++
-        setTimeout(precache, 300)
-      }
-      // Avvia precache dopo 5 secondi (non blocca l'utente)
-      setTimeout(precache, 5000)
+    const saved = localStorage.getItem('funerix-lang')
+    if (saved) {
+      setCurrent(saved)
+      return
     }
-
-    onGoogleReady(init)
+    // Prima visita: IP
+    fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
+      .then(r => r.json())
+      .then(data => {
+        const lang = COUNTRY_MAP[data?.country_code]
+        if (lang && data.country_code !== 'IT') {
+          localStorage.setItem('funerix-lang', lang)
+          setCurrent(lang)
+          setGoogleCookie(lang)
+          window.location.reload()
+        } else {
+          localStorage.setItem('funerix-lang', 'it')
+        }
+      })
+      .catch(() => localStorage.setItem('funerix-lang', 'it'))
   }, [])
 
-  // Chiudi dropdown
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -114,8 +84,8 @@ export function LanguageSelector() {
     setOpen(false)
     if (code === current) return
     localStorage.setItem('funerix-lang', code)
-    setCurrent(code)
-    changeLanguage(code)
+    setGoogleCookie(code)
+    window.location.reload()
   }
 
   const flag = LINGUE.find(l => l.code === current)?.flag || '🇮🇹'

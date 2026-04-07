@@ -24,48 +24,35 @@ const LINGUE = [
 
 const COUNTRY_TO_LANG: Record<string, string> = {
   GB: 'en', US: 'en', AU: 'en', CA: 'en', IE: 'en', NZ: 'en',
-  FR: 'fr', BE: 'fr',
-  ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es', PE: 'es', VE: 'es',
-  DE: 'de', AT: 'de', CH: 'de',
-  PT: 'pt', BR: 'pt',
-  RO: 'ro', MD: 'ro',
-  SA: 'ar', EG: 'ar', MA: 'ar', DZ: 'ar', TN: 'ar', LY: 'ar', AE: 'ar', IQ: 'ar', JO: 'ar',
-  RU: 'ru',
-  CN: 'zh-CN', TW: 'zh-CN', HK: 'zh-CN',
-  UA: 'uk',
-  PL: 'pl',
-  AL: 'sq', XK: 'sq',
-  IN: 'hi',
-  BD: 'bn',
-  PH: 'tl',
+  FR: 'fr', BE: 'fr', ES: 'es', MX: 'es', AR: 'es', CO: 'es',
+  DE: 'de', AT: 'de', CH: 'de', PT: 'pt', BR: 'pt',
+  RO: 'ro', MD: 'ro', SA: 'ar', EG: 'ar', MA: 'ar', DZ: 'ar',
+  TN: 'ar', AE: 'ar', RU: 'ru', CN: 'zh-CN', TW: 'zh-CN',
+  UA: 'uk', PL: 'pl', AL: 'sq', XK: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
-// Legge la lingua corrente dal cookie googtrans
-function readCurrentLang(): string {
+function clearCookies() {
+  const d = window.location.hostname
+  const exp = 'expires=Thu, 01 Jan 1970 00:00:00 UTC'
+  document.cookie = `googtrans=; ${exp}; path=/`
+  document.cookie = `googtrans=; ${exp}; path=/; domain=${d}`
+  document.cookie = `googtrans=; ${exp}; path=/; domain=.${d}`
+}
+
+function setLangCookie(lang: string) {
+  const d = window.location.hostname
+  document.cookie = `googtrans=/it/${lang}; path=/`
+  document.cookie = `googtrans=/it/${lang}; path=/; domain=.${d}`
+}
+
+function getCurrentLang(): string {
+  // Prima controlla localStorage (scelta utente)
+  const saved = localStorage.getItem('funerix-lang')
+  if (saved) return saved
+  // Poi cookie
   const match = document.cookie.match(/googtrans=\/it\/([^;]+)/)
-  return match ? match[1] : 'it'
-}
-
-// Setta la lingua via cookie e ricarica
-function switchLanguage(googleCode: string) {
-  const domain = window.location.hostname
-
-  // Pulisci TUTTI i cookie googtrans
-  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
-  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain}`
-  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain}`
-
-  if (googleCode !== 'it') {
-    // Setta nuovo cookie
-    document.cookie = `googtrans=/it/${googleCode}; path=/`
-    document.cookie = `googtrans=/it/${googleCode}; path=/; domain=.${domain}`
-  }
-
-  // Salva scelta utente
-  localStorage.setItem('funerix-lang', googleCode)
-
-  // Ricarica pagina
-  window.location.href = window.location.pathname + window.location.search
+  if (match) return match[1]
+  return 'it'
 }
 
 export function LanguageSelector() {
@@ -73,56 +60,30 @@ export function LanguageSelector() {
   const [currentLang, setCurrentLang] = useState('it')
   const ref = useRef<HTMLDivElement>(null)
 
+  // On mount: leggi lingua salvata o rileva da IP
   useEffect(() => {
-    // 1. Leggi lingua dal cookie Google Translate
-    const cookieLang = readCurrentLang()
+    const lang = getCurrentLang()
+    setCurrentLang(lang)
 
-    // 2. Se l'utente ha già scelto manualmente, usa quella
-    const savedLang = localStorage.getItem('funerix-lang')
-
-    if (savedLang) {
-      setCurrentLang(savedLang)
-      // Se il cookie non corrisponde alla scelta salvata, correggi
-      if (savedLang !== cookieLang && savedLang !== 'it') {
-        switchLanguage(savedLang)
-        return
-      }
-      if (savedLang === 'it' && cookieLang !== 'it') {
-        switchLanguage('it')
-        return
-      }
-      return
+    // Se non c'è scelta salvata, rileva da IP (una sola volta)
+    if (!localStorage.getItem('funerix-lang')) {
+      fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
+        .then(r => r.json())
+        .then(data => {
+          const countryLang = COUNTRY_TO_LANG[data?.country_code]
+          if (countryLang && data.country_code !== 'IT') {
+            localStorage.setItem('funerix-lang', countryLang)
+            setLangCookie(countryLang)
+            window.location.reload()
+          } else {
+            localStorage.setItem('funerix-lang', 'it')
+          }
+        })
+        .catch(() => localStorage.setItem('funerix-lang', 'it'))
     }
-
-    // 3. Se c'è già un cookie, usalo
-    if (cookieLang !== 'it') {
-      setCurrentLang(cookieLang)
-      localStorage.setItem('funerix-lang', cookieLang)
-      return
-    }
-
-    // 4. Prima visita: rileva lingua da IP
-    fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
-      .then(r => r.json())
-      .then(data => {
-        if (!data.country_code || data.country_code === 'IT') {
-          localStorage.setItem('funerix-lang', 'it')
-          return
-        }
-        const detectedLang = COUNTRY_TO_LANG[data.country_code]
-        if (detectedLang) {
-          localStorage.setItem('funerix-lang', detectedLang)
-          switchLanguage(detectedLang)
-        } else {
-          localStorage.setItem('funerix-lang', 'it')
-        }
-      })
-      .catch(() => {
-        localStorage.setItem('funerix-lang', 'it')
-      })
   }, [])
 
-  // Chiudi dropdown al click fuori
+  // Chiudi dropdown
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -130,6 +91,25 @@ export function LanguageSelector() {
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [])
+
+  const handleSelect = (lang: string) => {
+    setOpen(false)
+    if (lang === currentLang) return
+
+    // Salva scelta
+    localStorage.setItem('funerix-lang', lang)
+
+    // Pulisci cookie vecchi
+    clearCookies()
+
+    // Se non italiano, setta cookie Google Translate
+    if (lang !== 'it') {
+      setLangCookie(lang)
+    }
+
+    // Ricarica
+    window.location.reload()
+  }
 
   const current = LINGUE.find(l => l.google === currentLang) || LINGUE[0]
 
@@ -149,11 +129,7 @@ export function LanguageSelector() {
           {LINGUE.map(l => (
             <button
               key={l.code}
-              onClick={() => {
-                setOpen(false)
-                if (l.google === currentLang) return // già selezionata
-                switchLanguage(l.google)
-              }}
+              onClick={() => handleSelect(l.google)}
               className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2.5 transition-colors ${
                 l.google === currentLang ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
               }`}

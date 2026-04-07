@@ -6,17 +6,23 @@ import { getSupabase } from '@/lib/supabase-client'
 import { useEffect, useState } from 'react'
 import { Calendar } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useLocale } from '@/i18n/provider'
+import { useTranslateDB } from '@/lib/useTranslateDB'
 
 interface Post { id: string; titolo: string; slug: string; excerpt: string; immagine: string; created_at: string }
 
 export default function BlogPage() {
   const t = useTranslations('blog')
+  const { locale } = useLocale()
   const [posts, setPosts] = useState<Post[]>([])
 
   useEffect(() => {
     getSupabase().from('blog_posts').select('*').eq('pubblicato', true).order('created_at', { ascending: false })
       .then(({ data }: { data: unknown[] | null }) => setPosts((data || []) as Post[]))
   }, [])
+
+  const tTitoli = useTranslateDB(posts.map(p => p.titolo), locale)
+  const tExcerpt = useTranslateDB(posts.map(p => p.excerpt), locale)
 
   return (
     <div className="min-h-screen bg-background">
@@ -40,8 +46,8 @@ export default function BlogPage() {
                     <Image src={post.immagine} alt={post.titolo} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="300px" />
                   </div>
                 )}
-                <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary group-hover:text-secondary transition-colors mb-2">{post.titolo}</h2>
-                <p className="text-text-light text-sm line-clamp-3 mb-3">{post.excerpt}</p>
+                <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary group-hover:text-secondary transition-colors mb-2">{tTitoli[posts.indexOf(post)] || post.titolo}</h2>
+                <p className="text-text-light text-sm line-clamp-3 mb-3">{tExcerpt[posts.indexOf(post)] || post.excerpt}</p>
                 <span className="flex items-center gap-1 text-xs text-text-muted">
                   <Calendar size={12} /> {new Date(post.created_at).toLocaleDateString('it-IT')}
                 </span>

@@ -100,9 +100,10 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
 
-/* Google Translate — hide all UI, keep functionality */
+/* Google Translate — hide ALL visible UI, keep select in DOM */
 .goog-te-banner-frame { display: none !important; }
 body { top: 0 !important; }
-#google_translate_element { position: fixed; top: -9999px; left: -9999px; }
-.goog-te-gadget { margin: 0 !important; }
-.VIpgJd-ZVi9od-ORHb-OEVmcd, .VIpgJd-ZVi9od-SmfZ-OEVmcd { display: none !important; }
+#google_translate_element { overflow: hidden !important; height: 0 !important; width: 0 !important; position: absolute !important; left: -9999px !important; }
+.skiptranslate:not(#google_translate_element) { display: none !important; }
+#goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+.VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; }

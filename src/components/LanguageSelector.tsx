@@ -31,19 +31,6 @@ const COUNTRY_MAP: Record<string, string> = {
   PL: 'pl', AL: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
-function setGoogleCookie(lang: string) {
-  const h = window.location.hostname
-  // Pulisci tutti
-  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
-  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${h}`
-  document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${h}`
-  // Setta nuovo
-  if (lang && lang !== 'it') {
-    document.cookie = `googtrans=/it/${lang}; path=/`
-    document.cookie = `googtrans=/it/${lang}; path=/; domain=.${h}`
-  }
-}
-
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
   const [current, setCurrent] = useState('it')
@@ -53,23 +40,24 @@ export function LanguageSelector() {
     const saved = localStorage.getItem('funerix-lang')
     if (saved) {
       setCurrent(saved)
-      return
+    } else {
+      // Prima visita: IP detection
+      fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
+        .then(r => r.json())
+        .then(data => {
+          const lang = COUNTRY_MAP[data?.country_code]
+          if (lang && data.country_code !== 'IT') {
+            localStorage.setItem('funerix-lang', lang)
+            setCurrent(lang)
+            // Applica traduzione
+            window.location.hash = `googtrans(it|${lang})`
+            window.location.reload()
+          } else {
+            localStorage.setItem('funerix-lang', 'it')
+          }
+        })
+        .catch(() => localStorage.setItem('funerix-lang', 'it'))
     }
-    // Prima visita: IP
-    fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
-      .then(r => r.json())
-      .then(data => {
-        const lang = COUNTRY_MAP[data?.country_code]
-        if (lang && data.country_code !== 'IT') {
-          localStorage.setItem('funerix-lang', lang)
-          setCurrent(lang)
-          setGoogleCookie(lang)
-          window.location.reload()
-        } else {
-          localStorage.setItem('funerix-lang', 'it')
-        }
-      })
-      .catch(() => localStorage.setItem('funerix-lang', 'it'))
   }, [])
 
   useEffect(() => {
@@ -84,8 +72,16 @@ export function LanguageSelector() {
     setOpen(false)
     if (code === current) return
     localStorage.setItem('funerix-lang', code)
-    setGoogleCookie(code)
-    window.location.reload()
+
+    if (code === 'it') {
+      // Torna italiano: rimuovi hash e reload
+      window.location.hash = ''
+      window.location.reload()
+    } else {
+      // Cambia lingua: setta hash Google Translate e reload
+      window.location.hash = `googtrans(it|${code})`
+      window.location.reload()
+    }
   }
 
   const flag = LINGUE.find(l => l.code === current)?.flag || '🇮🇹'

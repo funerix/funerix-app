@@ -31,6 +31,25 @@ const COUNTRY_MAP: Record<string, string> = {
   PL: 'pl', AL: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
+function doTranslate(code: string) {
+  const sel = document.querySelector('select.goog-te-combo') as HTMLSelectElement
+  if (!sel) return false
+  sel.value = code === 'it' ? '' : code
+  sel.dispatchEvent(new Event('change'))
+  return true
+}
+
+function waitAndTranslate(code: string) {
+  // Se il select è già nel DOM, usalo subito
+  if (doTranslate(code)) return
+
+  // Altrimenti aspetta che Google lo crei
+  let tries = 0
+  const iv = setInterval(() => {
+    if (doTranslate(code) || ++tries > 20) clearInterval(iv)
+  }, 500)
+}
+
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
   const [current, setCurrent] = useState('it')
@@ -40,8 +59,9 @@ export function LanguageSelector() {
     const saved = localStorage.getItem('funerix-lang')
     if (saved) {
       setCurrent(saved)
+      if (saved !== 'it') waitAndTranslate(saved)
     } else {
-      // Prima visita: IP detection
+      // IP detection
       fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
         .then(r => r.json())
         .then(data => {
@@ -49,9 +69,7 @@ export function LanguageSelector() {
           if (lang && data.country_code !== 'IT') {
             localStorage.setItem('funerix-lang', lang)
             setCurrent(lang)
-            // Applica traduzione
-            window.location.hash = `googtrans(it|${lang})`
-            window.location.reload()
+            waitAndTranslate(lang)
           } else {
             localStorage.setItem('funerix-lang', 'it')
           }
@@ -72,16 +90,8 @@ export function LanguageSelector() {
     setOpen(false)
     if (code === current) return
     localStorage.setItem('funerix-lang', code)
-
-    if (code === 'it') {
-      // Torna italiano: rimuovi hash e reload
-      window.location.hash = ''
-      window.location.reload()
-    } else {
-      // Cambia lingua: setta hash Google Translate e reload
-      window.location.hash = `googtrans(it|${code})`
-      window.location.reload()
-    }
+    setCurrent(code)
+    doTranslate(code)
   }
 
   const flag = LINGUE.find(l => l.code === current)?.flag || '🇮🇹'

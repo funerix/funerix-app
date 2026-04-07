@@ -44,13 +44,50 @@ export function LanguageSelector() {
   const [current, setCurrent] = useState(lingue[0])
   const ref = useRef<HTMLDivElement>(null)
 
-  // Detect current language from Google Translate cookie
+  // Detect current language from cookie OR auto-detect from IP (first visit only)
   useEffect(() => {
     const match = document.cookie.match(/googtrans=\/it\/([^;]+)/)
     if (match) {
       const found = lingue.find(l => l.google === match[1])
       if (found) setCurrent(found)
+      return
     }
+
+    // First visit: detect country from IP and set language
+    const alreadyDetected = localStorage.getItem('funerix-lang-detected')
+    if (alreadyDetected) return
+
+    fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
+      .then(r => r.json())
+      .then(data => {
+        localStorage.setItem('funerix-lang-detected', '1')
+        const countryToLang: Record<string, string> = {
+          GB: 'en', US: 'en', AU: 'en', CA: 'en', IE: 'en',
+          FR: 'fr', BE: 'fr', CH: 'fr',
+          ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es',
+          DE: 'de', AT: 'de',
+          PT: 'pt', BR: 'pt',
+          RO: 'ro', MD: 'ro',
+          SA: 'ar', EG: 'ar', MA: 'ar', DZ: 'ar', TN: 'ar', LY: 'ar', AE: 'ar',
+          RU: 'ru',
+          CN: 'zh-CN', TW: 'zh-CN',
+          UA: 'uk',
+          PL: 'pl',
+          AL: 'sq', XK: 'sq',
+          IN: 'hi',
+          BD: 'bn',
+          PH: 'tl',
+        }
+        const lang = countryToLang[data.country_code]
+        if (lang && data.country_code !== 'IT') {
+          const found = lingue.find(l => l.google === lang)
+          if (found) {
+            setCurrent(found)
+            triggerGoogleTranslate(found.google)
+          }
+        }
+      })
+      .catch(() => { /* timeout or error, stay in Italian */ })
   }, [])
 
   useEffect(() => {

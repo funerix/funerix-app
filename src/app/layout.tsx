@@ -55,8 +55,22 @@ export default function RootLayout({
             });
           }
         `}} />
+        <meta name="google" content="notranslate" />
+        <script dangerouslySetInnerHTML={{ __html: `
+          function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+              pageLanguage: 'it',
+              includedLanguages: 'en,fr,es,de,pt,ro,ar,ru,zh-CN,uk,pl,sq,hi,bn,tl',
+              layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+              autoDisplay: false,
+              multilanguagePage: false
+            }, 'google_translate_element');
+          }
+        `}} />
+        <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async />
       </head>
-      <body className="min-h-screen flex flex-col bg-background text-text">
+      <body className="min-h-screen flex flex-col bg-background text-text notranslate">
+        <div id="google_translate_element" className="hidden" />
         <SitoProvider>
           <I18nProvider>
             <Header />

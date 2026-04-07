@@ -99,3 +99,10 @@ html { scroll-behavior: smooth; }
   border: 2px solid var(--color-secondary); padding: 1.5rem;
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
+
+/* Google Translate — hide ugly top bar, keep functionality */
+.goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+body { top: 0 !important; }
+.skiptranslate { display: none !important; }
+.goog-te-gadget { font-size: 0 !important; }
+.goog-te-combo { font-size: 14px !important; }

@@ -5,24 +5,49 @@ import { Globe } from 'lucide-react'
 import { useLocale } from '@/i18n/provider'
 import { type Locale } from '@/i18n/config'
 
-const lingue: { code: Locale; label: string; flag: string }[] = [
-  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'ar', label: 'العربية', flag: '🇸🇦' },
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-  { code: 'es', label: 'Español', flag: '🇪🇸' },
-  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
-  { code: 'pt', label: 'Português', flag: '🇧🇷' },
-  { code: 'ro', label: 'Română', flag: '🇷🇴' },
-  { code: 'uk', label: 'Українська', flag: '🇺🇦' },
-  { code: 'pl', label: 'Polski', flag: '🇵🇱' },
-  { code: 'sq', label: 'Shqip', flag: '🇦🇱' },
-  { code: 'zh', label: '中文', flag: '🇨🇳' },
-  { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
-  { code: 'bn', label: 'বাংলা', flag: '🇧🇩' },
-  { code: 'tl', label: 'Filipino', flag: '🇵🇭' },
-  { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+const lingue: { code: Locale; label: string; flag: string; google: string }[] = [
+  { code: 'it', label: 'Italiano', flag: '🇮🇹', google: 'it' },
+  { code: 'en', label: 'English', flag: '🇬🇧', google: 'en' },
+  { code: 'ar', label: 'العربية', flag: '🇸🇦', google: 'ar' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷', google: 'fr' },
+  { code: 'es', label: 'Español', flag: '🇪🇸', google: 'es' },
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪', google: 'de' },
+  { code: 'pt', label: 'Português', flag: '🇧🇷', google: 'pt' },
+  { code: 'ro', label: 'Română', flag: '🇷🇴', google: 'ro' },
+  { code: 'uk', label: 'Українська', flag: '🇺🇦', google: 'uk' },
+  { code: 'pl', label: 'Polski', flag: '🇵🇱', google: 'pl' },
+  { code: 'sq', label: 'Shqip', flag: '🇦🇱', google: 'sq' },
+  { code: 'zh', label: '中文', flag: '🇨🇳', google: 'zh-CN' },
+  { code: 'hi', label: 'हिन्दी', flag: '🇮🇳', google: 'hi' },
+  { code: 'bn', label: 'বাংলা', flag: '🇧🇩', google: 'bn' },
+  { code: 'tl', label: 'Filipino', flag: '🇵🇭', google: 'tl' },
+  { code: 'ru', label: 'Русский', flag: '🇷🇺', google: 'ru' },
 ]
+
+// Trigger Google Translate programmatically
+function triggerGoogleTranslate(langCode: string) {
+  // Set cookie that Google Translate reads
+  const domain = window.location.hostname
+  if (langCode === 'it') {
+    // Reset to original
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain}`
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
+    window.location.reload()
+    return
+  }
+  document.cookie = `googtrans=/it/${langCode}; path=/; domain=${domain}`
+  document.cookie = `googtrans=/it/${langCode}; path=/`
+
+  // Try to use the Google Translate API directly
+  const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null
+  if (select) {
+    select.value = langCode
+    select.dispatchEvent(new Event('change'))
+  } else {
+    // If widget not loaded yet, reload to pick up the cookie
+    window.location.reload()
+  }
+}
 
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
@@ -37,10 +62,16 @@ export function LanguageSelector() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
+  const handleChange = (l: typeof lingue[0]) => {
+    setLocale(l.code)           // Update next-intl (for JSON-based translations)
+    triggerGoogleTranslate(l.google)  // Trigger Google Translate (for DB content)
+    setOpen(false)
+  }
+
   const current = lingue.find(l => l.code === locale) || lingue[0]
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative notranslate">
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 text-primary/70 hover:text-primary transition-colors"
@@ -55,7 +86,7 @@ export function LanguageSelector() {
           {lingue.map(l => (
             <button
               key={l.code}
-              onClick={() => { setLocale(l.code); setOpen(false) }}
+              onClick={() => handleChange(l)}
               className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2.5 transition-colors ${
                 l.code === locale ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
               }`}

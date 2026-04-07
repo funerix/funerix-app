@@ -55,7 +55,6 @@ export default function RootLayout({
             });
           }
         `}} />
-        <meta name="google" content="notranslate" />
         <script dangerouslySetInnerHTML={{ __html: `
           function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -69,8 +68,8 @@ export default function RootLayout({
         `}} />
         <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async />
       </head>
-      <body className="min-h-screen flex flex-col bg-background text-text notranslate">
-        <div id="google_translate_element" className="hidden" />
+      <body className="min-h-screen flex flex-col bg-background text-text">
+        <div id="google_translate_element" />
         <SitoProvider>
           <I18nProvider>
             <Header />

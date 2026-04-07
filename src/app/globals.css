@@ -100,9 +100,16 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
 
-/* Google Translate: hide only the top banner bar */
+/* Google Translate: hide UI, keep widget functional */
 body { top: 0 !important; }
 iframe.goog-te-banner-frame { display: none !important; }
 #goog-gt-tt { display: none !important; }
+.goog-te-balloon-frame { display: none !important; }
+.goog-tooltip { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+#google_translate_element {
+  clip-path: inset(50%) !important;
+  pointer-events: none !important;
+}
 
 

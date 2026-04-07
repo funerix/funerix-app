@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Globe } from 'lucide-react'
 
 const LINGUE = [
@@ -31,53 +31,132 @@ const COUNTRY_MAP: Record<string, string> = {
   PL: 'pl', AL: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
-function doTranslate(code: string) {
-  const sel = document.querySelector('select.goog-te-combo') as HTMLSelectElement
+/**
+ * Triggera Google Translate in modo affidabile.
+ * Google usa sel.onchange = fn (NON addEventListener),
+ * quindi dispatchEvent da solo non basta.
+ */
+function triggerGoogleTranslate(code: string): boolean {
+  const sel = document.querySelector<HTMLSelectElement>('select.goog-te-combo')
   if (!sel) return false
-  sel.value = code === 'it' ? '' : code
-  sel.dispatchEvent(new Event('change'))
+
+  const value = code === 'it' ? '' : code
+
+  // Usa il setter nativo per bypassare framework
+  const nativeSetter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value')?.set
+  if (nativeSetter) nativeSetter.call(sel, value)
+  else sel.value = value
+
+  // Chiama onchange direttamente (Google lo setta così)
+  if (typeof sel.onchange === 'function') {
+    sel.onchange(new Event('change') as unknown as Event)
+  }
+
+  // Belt-and-suspenders: dispatcha anche l'evento DOM
+  sel.dispatchEvent(new Event('change', { bubbles: true }))
+
   return true
 }
 
-function waitAndTranslate(code: string) {
-  // Se il select è già nel DOM, usalo subito
-  if (doTranslate(code)) return
+/** Aspetta che Google crei il select nel DOM */
+function waitForSelect(): Promise<boolean> {
+  return new Promise(resolve => {
+    // Già pronto?
+    const sel = document.querySelector<HTMLSelectElement>('select.goog-te-combo')
+    if (sel && sel.options.length > 1) { resolve(true); return }
 
-  // Altrimenti aspetta che Google lo crei
-  let tries = 0
-  const iv = setInterval(() => {
-    if (doTranslate(code) || ++tries > 20) clearInterval(iv)
-  }, 500)
+    // Osserva il DOM
+    let done = false
+    const target = document.getElementById('google_translate_element') || document.body
+    const observer = new MutationObserver(() => {
+      const s = document.querySelector<HTMLSelectElement>('select.goog-te-combo')
+      if (s && s.options.length > 1 && !done) {
+        done = true
+        observer.disconnect()
+        resolve(true)
+      }
+    })
+    observer.observe(target, { childList: true, subtree: true })
+
+    // Timeout 10s
+    setTimeout(() => { if (!done) { done = true; observer.disconnect(); resolve(false) } }, 10000)
+  })
+}
+
+/** Pulisce cookie googtrans e ricarica per tornare a italiano */
+function restoreItalian() {
+  const h = window.location.hostname
+  for (const domain of ['', h, `.${h}`]) {
+    const d = domain ? `; domain=${domain}` : ''
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${d}`
+  }
+  window.location.reload()
+}
+
+/** Legge country dal cookie Vercel middleware */
+function getCountryFromCookie(): string | null {
+  const match = document.cookie.match(/funerix-country=([A-Z]{2})/)
+  return match ? match[1] : null
 }
 
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
   const [current, setCurrent] = useState('it')
   const ref = useRef<HTMLDivElement>(null)
+  const initialized = useRef(false)
 
-  useEffect(() => {
+  const init = useCallback(async () => {
+    if (initialized.current) return
+    initialized.current = true
+
     const saved = localStorage.getItem('funerix-lang')
-    if (saved) {
+
+    if (saved && saved !== 'it') {
+      // Lingua salvata → applica
       setCurrent(saved)
-      if (saved !== 'it') waitAndTranslate(saved)
-    } else {
-      // IP detection
-      fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
-        .then(r => r.json())
-        .then(data => {
-          const lang = COUNTRY_MAP[data?.country_code]
-          if (lang && data.country_code !== 'IT') {
-            localStorage.setItem('funerix-lang', lang)
-            setCurrent(lang)
-            waitAndTranslate(lang)
-          } else {
-            localStorage.setItem('funerix-lang', 'it')
-          }
-        })
-        .catch(() => localStorage.setItem('funerix-lang', 'it'))
+      const ready = await waitForSelect()
+      if (ready) triggerGoogleTranslate(saved)
+      return
+    }
+
+    if (saved === 'it') return // Già italiano, niente da fare
+
+    // Prima visita: rileva paese
+    const country = getCountryFromCookie() // Da Vercel middleware
+    if (country) {
+      const lang = COUNTRY_MAP[country]
+      if (lang && country !== 'IT') {
+        localStorage.setItem('funerix-lang', lang)
+        setCurrent(lang)
+        const ready = await waitForSelect()
+        if (ready) triggerGoogleTranslate(lang)
+      } else {
+        localStorage.setItem('funerix-lang', 'it')
+      }
+      return
+    }
+
+    // Fallback: ipapi.co
+    try {
+      const res = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
+      const data = await res.json()
+      const lang = COUNTRY_MAP[data?.country_code]
+      if (lang && data.country_code !== 'IT') {
+        localStorage.setItem('funerix-lang', lang)
+        setCurrent(lang)
+        const ready = await waitForSelect()
+        if (ready) triggerGoogleTranslate(lang)
+      } else {
+        localStorage.setItem('funerix-lang', 'it')
+      }
+    } catch {
+      localStorage.setItem('funerix-lang', 'it')
     }
   }, [])
 
+  useEffect(() => { init() }, [init])
+
+  // Chiudi dropdown
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -86,25 +165,20 @@ export function LanguageSelector() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const handleSelect = (code: string) => {
+  const handleSelect = async (code: string) => {
     setOpen(false)
     if (code === current) return
+
     localStorage.setItem('funerix-lang', code)
     setCurrent(code)
 
-    // Prova traduzione inline
-    const ok = doTranslate(code)
-    if (!ok) {
-      // Select non trovato — fallback: setta cookie e reload
-      const h = window.location.hostname
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${h}`
-      if (code !== 'it') {
-        document.cookie = `googtrans=/it/${code}; path=/`
-        document.cookie = `googtrans=/it/${code}; path=/; domain=.${h}`
-      }
-      window.location.reload()
+    if (code === 'it') {
+      restoreItalian()
+      return
     }
+
+    const ready = await waitForSelect()
+    if (ready) triggerGoogleTranslate(code)
   }
 
   const flag = LINGUE.find(l => l.code === current)?.flag || '🇮🇹'

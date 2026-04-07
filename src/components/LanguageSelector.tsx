@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Globe } from 'lucide-react'
 
 const LINGUE = [
@@ -31,20 +31,35 @@ const COUNTRY_TO_GOOGLE: Record<string, string> = {
   UA: 'uk', PL: 'pl', AL: 'sq', XK: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
-// Usa il select nativo di Google Translate (funziona sempre)
-function changeGoogleLanguage(langCode: string) {
-  const select = document.querySelector('.goog-te-combo') as HTMLSelectElement
+function getGoogleSelect(): HTMLSelectElement | null {
+  return document.querySelector('.goog-te-combo') as HTMLSelectElement | null
+}
+
+function applyLanguage(langCode: string, retries = 0) {
+  const select = getGoogleSelect()
   if (!select) {
-    // Google Translate non ancora caricato, riprova dopo 500ms
-    setTimeout(() => changeGoogleLanguage(langCode), 500)
+    if (retries < 10) setTimeout(() => applyLanguage(langCode, retries + 1), 500)
     return
   }
+
   if (langCode === 'it') {
-    // Per tornare a italiano: seleziona vuoto e triggera change
+    // Restore originale: Google Translate usa stringa vuota per la lingua originale
     select.value = ''
     select.dispatchEvent(new Event('change'))
+    // Backup: se change non funziona, forza restore via iframe
+    try {
+      const frame = document.querySelector('.goog-te-banner-frame') as HTMLIFrameElement
+      const btn = frame?.contentDocument?.querySelector('.goog-close-link') as HTMLElement
+      btn?.click()
+    } catch { /* ok */ }
+    // Pulisci cookie come ulteriore fallback
+    const h = window.location.hostname
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${h}`
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${h}`
     return
   }
+
   select.value = langCode
   select.dispatchEvent(new Event('change'))
 }
@@ -53,38 +68,42 @@ export function LanguageSelector() {
   const [open, setOpen] = useState(false)
   const [currentLang, setCurrentLang] = useState('it')
   const ref = useRef<HTMLDivElement>(null)
+  const initialized = useRef(false)
 
+  // Init: leggi lingua salvata, applica, rileva IP se prima visita
   useEffect(() => {
-    // Leggi lingua salvata
+    if (initialized.current) return
+    initialized.current = true
+
     const saved = localStorage.getItem('funerix-lang')
-    if (saved && saved !== 'it') {
+
+    if (saved) {
       setCurrentLang(saved)
-      // Applica traduzione Google dopo che il widget è pronto
-      const timer = setTimeout(() => changeGoogleLanguage(saved), 1000)
-      return () => clearTimeout(timer)
+      if (saved !== 'it') {
+        applyLanguage(saved)
+      }
+      return
     }
 
-    // Prima visita: rileva IP
-    if (!saved) {
-      fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
-        .then(r => r.json())
-        .then(data => {
-          if (data?.country_code && data.country_code !== 'IT') {
-            const lang = COUNTRY_TO_GOOGLE[data.country_code]
-            if (lang) {
-              localStorage.setItem('funerix-lang', lang)
-              setCurrentLang(lang)
-              setTimeout(() => changeGoogleLanguage(lang), 1000)
-              return
-            }
+    // Prima visita: rileva da IP
+    fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
+      .then(r => r.json())
+      .then(data => {
+        if (data?.country_code && data.country_code !== 'IT') {
+          const lang = COUNTRY_TO_GOOGLE[data.country_code]
+          if (lang) {
+            localStorage.setItem('funerix-lang', lang)
+            setCurrentLang(lang)
+            applyLanguage(lang)
+            return
           }
-          localStorage.setItem('funerix-lang', 'it')
-        })
-        .catch(() => localStorage.setItem('funerix-lang', 'it'))
-    }
+        }
+        localStorage.setItem('funerix-lang', 'it')
+      })
+      .catch(() => localStorage.setItem('funerix-lang', 'it'))
   }, [])
 
-  // Chiudi dropdown
+  // Chiudi dropdown al click fuori
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -93,14 +112,14 @@ export function LanguageSelector() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const handleSelect = (googleCode: string) => {
+  const handleSelect = useCallback((googleCode: string) => {
     setOpen(false)
     if (googleCode === currentLang) return
 
     setCurrentLang(googleCode)
     localStorage.setItem('funerix-lang', googleCode)
-    changeGoogleLanguage(googleCode)
-  }
+    applyLanguage(googleCode)
+  }, [currentLang])
 
   const current = LINGUE.find(l => l.google === currentLang) || LINGUE[0]
 

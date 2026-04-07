@@ -91,7 +91,20 @@ export function LanguageSelector() {
     if (code === current) return
     localStorage.setItem('funerix-lang', code)
     setCurrent(code)
-    doTranslate(code)
+
+    // Prova traduzione inline
+    const ok = doTranslate(code)
+    if (!ok) {
+      // Select non trovato — fallback: setta cookie e reload
+      const h = window.location.hostname
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${h}`
+      if (code !== 'it') {
+        document.cookie = `googtrans=/it/${code}; path=/`
+        document.cookie = `googtrans=/it/${code}; path=/; domain=.${h}`
+      }
+      window.location.reload()
+    }
   }
 
   const flag = LINGUE.find(l => l.code === current)?.flag || '🇮🇹'

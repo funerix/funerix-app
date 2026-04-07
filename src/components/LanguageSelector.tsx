@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Globe, Loader2 } from 'lucide-react'
+import { Globe } from 'lucide-react'
 
 const LINGUE = [
   { code: 'it', label: 'Italiano', flag: '🇮🇹' },
@@ -22,7 +22,7 @@ const LINGUE = [
   { code: 'tl', label: 'Filipino', flag: '🇵🇭' },
 ]
 
-const COUNTRY_TO_LANG: Record<string, string> = {
+const COUNTRY_MAP: Record<string, string> = {
   GB: 'en', US: 'en', AU: 'en', CA: 'en', IE: 'en',
   FR: 'fr', BE: 'fr', ES: 'es', MX: 'es', AR: 'es',
   DE: 'de', AT: 'de', CH: 'de', PT: 'pt', BR: 'pt',
@@ -31,66 +31,74 @@ const COUNTRY_TO_LANG: Record<string, string> = {
   PL: 'pl', AL: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
-// Aspetta che il select di Google Translate sia nel DOM, poi esegui callback
-function waitForGoogleSelect(cb: (sel: HTMLSelectElement) => void) {
-  let tries = 0
-  const interval = setInterval(() => {
-    const sel = document.querySelector('.goog-te-combo') as HTMLSelectElement
-    if (sel) {
-      clearInterval(interval)
-      cb(sel)
-    }
-    if (++tries > 30) clearInterval(interval) // max 15 secondi
-  }, 500)
+// Attende che Google Translate sia pronto, poi chiama fn
+function onGoogleReady(fn: () => void) {
+  if ((window as any).__gtReady) { fn(); return }
+  (window as any).__gtOnReady = fn
+}
+
+// Cambia lingua usando il select di Google Translate
+function changeLanguage(code: string) {
+  const sel = document.querySelector('.goog-te-combo') as HTMLSelectElement
+  if (!sel) return false
+  sel.value = code === 'it' ? '' : code
+  sel.dispatchEvent(new Event('change'))
+  return true
 }
 
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
-  const [currentLang, setCurrentLang] = useState('it')
-  const [ready, setReady] = useState(false)
+  const [current, setCurrent] = useState('it')
   const ref = useRef<HTMLDivElement>(null)
 
-  // Al mount: aspetta Google, poi rileva lingua o applica IP
   useEffect(() => {
-    waitForGoogleSelect((sel) => {
-      setReady(true)
+    // Leggi lingua salvata
+    const saved = localStorage.getItem('funerix-lang') || ''
 
-      // Se Google ha già una lingua attiva (da cookie precedente)
-      if (sel.value) {
-        setCurrentLang(sel.value)
-        localStorage.setItem('funerix-lang', sel.value)
-        return
-      }
-
-      // Controlla scelta salvata
-      const saved = localStorage.getItem('funerix-lang')
+    // Funzione da eseguire quando Google è pronto
+    const init = () => {
       if (saved && saved !== 'it') {
-        sel.value = saved
-        sel.dispatchEvent(new Event('change'))
-        setCurrentLang(saved)
-        return
-      }
-
-      // Prima visita: IP detection
-      if (!saved) {
+        // Utente ha già scelto una lingua → applicala
+        setCurrent(saved)
+        changeLanguage(saved)
+      } else if (!saved) {
+        // Prima visita → rileva IP
         fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
           .then(r => r.json())
           .then(data => {
-            if (data?.country_code && data.country_code !== 'IT') {
-              const lang = COUNTRY_TO_LANG[data.country_code]
-              if (lang) {
-                localStorage.setItem('funerix-lang', lang)
-                setCurrentLang(lang)
-                sel.value = lang
-                sel.dispatchEvent(new Event('change'))
-                return
-              }
+            const lang = COUNTRY_MAP[data?.country_code]
+            if (lang && data.country_code !== 'IT') {
+              localStorage.setItem('funerix-lang', lang)
+              setCurrent(lang)
+              changeLanguage(lang)
+            } else {
+              localStorage.setItem('funerix-lang', 'it')
             }
-            localStorage.setItem('funerix-lang', 'it')
           })
           .catch(() => localStorage.setItem('funerix-lang', 'it'))
+      } else {
+        setCurrent('it')
       }
-    })
+
+      // Precache: cicla tutte le lingue in background per popolare la cache Google
+      const lingueToCache = LINGUE.filter(l => l.code !== 'it').map(l => l.code)
+      let i = 0
+      const precache = () => {
+        if (i >= lingueToCache.length) {
+          // Torna alla lingua corrente
+          const cur = localStorage.getItem('funerix-lang') || 'it'
+          changeLanguage(cur)
+          return
+        }
+        changeLanguage(lingueToCache[i])
+        i++
+        setTimeout(precache, 300)
+      }
+      // Avvia precache dopo 5 secondi (non blocca l'utente)
+      setTimeout(precache, 5000)
+    }
+
+    onGoogleReady(init)
   }, [])
 
   // Chiudi dropdown
@@ -102,27 +110,15 @@ export function LanguageSelector() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const handleSelect = (langCode: string) => {
+  const handleSelect = (code: string) => {
     setOpen(false)
-    if (langCode === currentLang) return
-
-    localStorage.setItem('funerix-lang', langCode)
-    setCurrentLang(langCode)
-
-    const sel = document.querySelector('.goog-te-combo') as HTMLSelectElement
-    if (!sel) return
-
-    if (langCode === 'it') {
-      // Per tornare a italiano: svuota il select e triggera change
-      sel.value = ''
-      sel.dispatchEvent(new Event('change'))
-    } else {
-      sel.value = langCode
-      sel.dispatchEvent(new Event('change'))
-    }
+    if (code === current) return
+    localStorage.setItem('funerix-lang', code)
+    setCurrent(code)
+    changeLanguage(code)
   }
 
-  const current = LINGUE.find(l => l.code === currentLang) || LINGUE[0]
+  const flag = LINGUE.find(l => l.code === current)?.flag || '🇮🇹'
 
   return (
     <div ref={ref} className="relative notranslate">
@@ -131,18 +127,18 @@ export function LanguageSelector() {
         className="flex items-center gap-1.5 text-primary/70 hover:text-primary transition-colors"
         aria-label="Lingua"
       >
-        {ready ? <Globe size={16} /> : <Loader2 size={16} className="animate-spin" />}
-        <span className="text-sm hidden md:inline">{current.flag}</span>
+        <Globe size={16} />
+        <span className="text-sm hidden md:inline">{flag}</span>
       </button>
 
-      {open && ready && (
+      {open && (
         <div className="absolute right-0 top-full mt-2 bg-surface rounded-xl border border-border shadow-xl py-2 min-w-[160px] max-h-72 overflow-y-auto z-[9999]">
           {LINGUE.map(l => (
             <button
               key={l.code}
               onClick={() => handleSelect(l.code)}
               className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2.5 transition-colors ${
-                l.code === currentLang ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
+                l.code === current ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
               }`}
             >
               <span className="text-base">{l.flag}</span>

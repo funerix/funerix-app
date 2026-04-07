@@ -49,12 +49,8 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/logo.png" />
         <script dangerouslySetInnerHTML={{ __html: `
           if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/sw.js').catch(() => {});
-            });
+            window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
           }
-        `}} />
-        <script dangerouslySetInnerHTML={{ __html: `
           function googleTranslateElementInit() {
             new google.translate.TranslateElement({
               pageLanguage: 'it',
@@ -62,16 +58,14 @@ export default function RootLayout({
               layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
               autoDisplay: false
             }, 'google_translate_element');
+            window.__gtReady = true;
+            if (window.__gtOnReady) window.__gtOnReady();
           }
-          (function() {
-            var s = document.createElement('script');
-            s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(s);
-          })();
         `}} />
+        <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-text">
-        <div id="google_translate_element" style={{ position: 'fixed', top: '-200px', left: 0, zIndex: -1 }} />
+        <div id="google_translate_element" style={{ position: 'absolute', top: -9999, left: -9999, visibility: 'hidden' as const }} />
         <SitoProvider>
           <Header />
           <main className="flex-1">{children}</main>

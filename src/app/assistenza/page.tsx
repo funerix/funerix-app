@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Send, Bot, User, Phone, MessageCircle, ChevronDown, ChevronRight, Heart } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
-import { useTranslations } from 'next-intl'
 
 // FAQ database — il chatbot risponde da qui
 const faqDatabase = [
@@ -83,7 +82,6 @@ function trovaRisposta(domanda: string): string {
 }
 
 export default function AssistenzaPage() {
-  const t = useTranslations('assistenza')
   const { impostazioni } = useSitoStore()
   const [messaggi, setMessaggi] = useState<Messaggio[]>([
     { autore: 'bot', testo: 'Buongiorno, sono l\'assistente Funerix. Come posso aiutarvi?\n\nPotete farmi domande su costi, documenti, cremazione, tempistiche, o qualsiasi altra informazione.\n\nOppure cliccate su una delle domande frequenti qui sotto.', timestamp: new Date() },
@@ -119,10 +117,10 @@ export default function AssistenzaPage() {
         <Image src="/images/candele.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white">
-            {t('titolo')}
+            Come possiamo aiutarvi?
           </h1>
           <p className="mt-3 text-white/80">
-            {t('sottotitolo')}
+            Chiedete all&apos;assistente o contattate direttamente un consulente
           </p>
         </div>
       </section>
@@ -138,8 +136,8 @@ export default function AssistenzaPage() {
                   <Bot size={16} className="text-white" />
                 </div>
                 <div>
-                  <p className="text-white text-sm font-medium">{t('assistenteNome')}</p>
-                  <p className="text-white/60 text-[10px]">{t('assistenteStato')}</p>
+                  <p className="text-white text-sm font-medium">Assistente Funerix</p>
+                  <p className="text-white/60 text-[10px]">Risponde subito alle vostre domande</p>
                 </div>
               </div>
 
@@ -170,7 +168,7 @@ export default function AssistenzaPage() {
 
               {/* Suggerimenti rapidi */}
               <div className="px-4 py-2 border-t border-border flex gap-2 overflow-x-auto">
-                {[t('suggerimentiRapidi1'), t('suggerimentiRapidi2'), t('suggerimentiRapidi3'), t('suggerimentiRapidi4'), t('suggerimentiRapidi5')].map(s => (
+                {['Quanto costa?', 'Quali documenti?', 'Cremazione', 'Zone coperte', 'Memorial'].map(s => (
                   <button key={s} onClick={() => inviaMessaggio(s)}
                     className="text-[10px] px-3 py-1.5 bg-secondary/10 text-secondary rounded-full whitespace-nowrap hover:bg-secondary/20 transition-colors">
                     {s}
@@ -182,7 +180,7 @@ export default function AssistenzaPage() {
               <div className="p-3 border-t border-border flex gap-2">
                 <input
                   type="text" className="input-field flex-1 text-sm py-2"
-                  placeholder={t('inputPlaceholder')}
+                  placeholder="Scrivete la vostra domanda..."
                   value={input} onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && inviaMessaggio(input)}
                 />
@@ -197,14 +195,14 @@ export default function AssistenzaPage() {
           <div className="space-y-6">
             {/* Contatto diretto */}
             <div className="card">
-              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">{t('contattoTitolo')}</h3>
+              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">Contatto diretto</h3>
               <p className="text-text-light text-sm mb-4">
-                {t('contattoDesc')}
+                Preferite parlare con un consulente? Siamo disponibili 24/7.
               </p>
               <div className="space-y-2">
                 <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
                   className="btn-primary w-full text-sm py-3 justify-center">
-                  <Phone size={16} className="mr-2" /> {t('chiama')} {impostazioni.telefono}
+                  <Phone size={16} className="mr-2" /> Chiama {impostazioni.telefono}
                 </a>
                 <a href={`https://wa.me/${impostazioni.whatsapp.replace(/\s/g, '')}`} target="_blank" rel="noopener noreferrer"
                   className="btn-secondary w-full text-sm py-3 justify-center border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white">
@@ -212,14 +210,14 @@ export default function AssistenzaPage() {
                 </a>
                 <Link href="/configuratore"
                   className="btn-secondary w-full text-sm py-3 justify-center">
-                  <Heart size={16} className="mr-2" /> {t('configuraServizio')}
+                  <Heart size={16} className="mr-2" /> Configura il Servizio
                 </Link>
               </div>
             </div>
 
             {/* FAQ */}
             <div className="card">
-              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">{t('faqTitolo')}</h3>
+              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">Domande frequenti</h3>
               <div className="space-y-1 max-h-72 overflow-y-auto">
                 {faqDatabase.map((faq, i) => (
                   <div key={i}>

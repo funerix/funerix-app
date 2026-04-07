@@ -14,7 +14,6 @@ import { useSearchParams } from 'next/navigation'
 import { getSupabase } from '@/lib/supabase-client'
 import { TipoServizio, TipoCerimonia } from '@/types'
 import { useState, useEffect, Suspense } from 'react'
-import { useTranslations } from 'next-intl'
 
 const slideVariants = {
   enter: (direction: number) => ({ x: direction > 0 ? 200 : -200, opacity: 0 }),
@@ -27,7 +26,6 @@ export default function ConfiguratorePageWrapper() {
 }
 
 function ConfiguratorePage() {
-  const t = useTranslations('configuratore')
   const store = useConfiguratoreStore()
   const { prodotti, categorie } = useSitoStore()
   const totale = store.totale()
@@ -66,20 +64,20 @@ function ConfiguratorePage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
         {/* Selettore tipo servizio */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-8">
-          {([
-            { id: 'funebre' as const, labelKey: 'tipoServizioFunebre', descKey: 'tipoServizioFunebreDesc' },
-            { id: 'animale' as const, labelKey: 'tipoServizioAnimale', descKey: 'tipoServizioAnimaleDesc' },
-            { id: 'rimpatrio' as const, labelKey: 'tipoServizioRimpatrio', descKey: 'tipoServizioRimpatrioDesc' },
-            { id: 'previdenza' as const, labelKey: 'tipoServizioPrevidenza', descKey: 'tipoServizioPrevidenzaDesc' },
-          ] as const).map(tab => (
-            <button key={tab.id} onClick={() => setTipoConfigurazione(tab.id)}
+          {[
+            { id: 'funebre' as const, label: 'Servizio Funebre', desc: 'Per una persona cara' },
+            { id: 'animale' as const, label: 'Cremazione Animale', desc: 'Per un animale domestico' },
+            { id: 'rimpatrio' as const, label: 'Rimpatrio / Espatrio', desc: 'Trasporto internazionale' },
+            { id: 'previdenza' as const, label: 'Previdenza Funerix', desc: 'Pianifica e paga a rate' },
+          ].map(t => (
+            <button key={t.id} onClick={() => setTipoConfigurazione(t.id)}
               className={`px-3 md:px-5 py-3 rounded-xl text-center transition-all ${
-                tipoConfigurazione === tab.id
+                tipoConfigurazione === t.id
                   ? 'bg-primary text-white shadow-lg'
                   : 'bg-surface border border-border text-text-light'
               }`}>
-              <span className="block text-xs md:text-sm font-medium">{t(tab.labelKey)}</span>
-              <span className={`block text-[9px] md:text-[10px] mt-0.5 ${tipoConfigurazione === tab.id ? 'text-white/70' : 'text-text-muted'}`}>{t(tab.descKey)}</span>
+              <span className="block text-xs md:text-sm font-medium">{t.label}</span>
+              <span className={`block text-[9px] md:text-[10px] mt-0.5 ${tipoConfigurazione === t.id ? 'text-white/70' : 'text-text-muted'}`}>{t.desc}</span>
             </button>
           ))}
         </div>
@@ -96,8 +94,8 @@ function ConfiguratorePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 to-primary/60" />
           <div className="relative text-center py-10 px-6">
             <Cross size={28} className="mx-auto mb-3 text-secondary-light" />
-            <h1 className="font-[family-name:var(--font-serif)] text-2xl md:text-3xl text-white">{t('configuraServizioFunebre')}</h1>
-            <p className="mt-2 text-white/80 text-sm max-w-lg mx-auto">{t('nessunObbligo')}</p>
+            <h1 className="font-[family-name:var(--font-serif)] text-2xl md:text-3xl text-white">Configura il Servizio Funebre</h1>
+            <p className="mt-2 text-white/80 text-sm max-w-lg mx-auto">Personalizzate ogni aspetto con calma. Nessun obbligo, nessuna fretta.</p>
           </div>
         </div>
 
@@ -120,13 +118,13 @@ function ConfiguratorePage() {
                 {store.step === 1 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
-                      {t('step1Titolo')}
+                      Tipo di servizio
                     </h2>
                     <div className="grid grid-cols-3 gap-2 md:gap-4">
                       {([
-                        { value: 'inumazione', labelKey: 'inumazione', descKey: 'inumazioneDesc' },
-                        { value: 'tumulazione', labelKey: 'tumulazione', descKey: 'tumuazioneDesc' },
-                        { value: 'cremazione', labelKey: 'cremazione', descKey: 'cremazioneDesc' },
+                        { value: 'inumazione', label: 'Inumazione', desc: 'Sepoltura in terra' },
+                        { value: 'tumulazione', label: 'Tumulazione', desc: 'Sepoltura in loculo' },
+                        { value: 'cremazione', label: 'Cremazione', desc: 'Con scelta urna' },
                       ] as const).map((tipo) => (
                         <div
                           key={tipo.value}
@@ -138,9 +136,9 @@ function ConfiguratorePage() {
                           }
                         >
                           <h3 className="font-[family-name:var(--font-serif)] text-sm md:text-lg text-primary mb-1">
-                            {t(tipo.labelKey)}
+                            {tipo.label}
                           </h3>
-                          <p className="text-text-light text-[10px] md:text-sm">{t(tipo.descKey)}</p>
+                          <p className="text-text-light text-[10px] md:text-sm">{tipo.desc}</p>
                         </div>
                       ))}
                     </div>
@@ -151,7 +149,7 @@ function ConfiguratorePage() {
                 {store.step === 2 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
-                      {store.tipoServizio === 'cremazione' ? t('step2TitoloBaraUrna') : t('step2TitoloBara')}
+                      {store.tipoServizio === 'cremazione' ? 'Scelta della bara e dell\'urna' : 'Scelta della bara'}
                     </h2>
                     <ProductSelector
                       prodotti={bare}
@@ -161,7 +159,7 @@ function ConfiguratorePage() {
                     {store.tipoServizio === 'cremazione' && (
                       <div className="mt-10">
                         <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">
-                          {t('urnaCineraria')}
+                          Urna cineraria
                         </h3>
                         <ProductSelector
                           prodotti={urne}
@@ -177,7 +175,7 @@ function ConfiguratorePage() {
                 {store.step === 3 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
-                      {t('step3Titolo')}
+                      Trasporto funebre
                     </h2>
                     <ProductSelector
                       prodotti={auto}
@@ -186,12 +184,12 @@ function ConfiguratorePage() {
                     />
                     <div className="mt-8 card">
                       <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">
-                        {t('percorso')}
+                        Percorso
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input
                           type="text"
-                          placeholder={t('partenzaPlaceholder')}
+                          placeholder="Luogo di partenza (es. ospedale, abitazione)"
                           className="input-field"
                           value={store.percorso?.partenza || ''}
                           onChange={(e) =>
@@ -205,7 +203,7 @@ function ConfiguratorePage() {
                         />
                         <input
                           type="text"
-                          placeholder={t('chiesaPlaceholder')}
+                          placeholder="Chiesa o luogo cerimonia"
                           className="input-field"
                           value={store.percorso?.chiesa || ''}
                           onChange={(e) =>
@@ -219,7 +217,7 @@ function ConfiguratorePage() {
                         />
                         <input
                           type="text"
-                          placeholder={t('destinazionePlaceholder')}
+                          placeholder="Cimitero o crematorio di destinazione"
                           className="input-field"
                           value={store.percorso?.destinazione || ''}
                           onChange={(e) =>
@@ -234,7 +232,7 @@ function ConfiguratorePage() {
                         <div>
                           <input
                             type="number"
-                            placeholder={t('distanzaPlaceholder')}
+                            placeholder="Distanza stimata (km)"
                             className="input-field"
                             value={store.percorso?.distanzaKm || ''}
                             onChange={(e) =>
@@ -247,7 +245,7 @@ function ConfiguratorePage() {
                             }
                           />
                           <p className="text-xs text-text-muted mt-1">
-                            {t('kmInclusi')}
+                            Primi 20 km inclusi. Oltre: 3 &euro;/km
                           </p>
                         </div>
                       </div>
@@ -259,16 +257,16 @@ function ConfiguratorePage() {
                 {store.step === 4 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
-                      {t('step4Titolo')}
+                      Cerimonia
                     </h2>
                     <div className="space-y-6">
                       <div>
-                        <label className="block text-sm font-medium text-text mb-3">{t('tipoCerimonia')}</label>
+                        <label className="block text-sm font-medium text-text mb-3">Tipo di cerimonia</label>
                         <div className="grid grid-cols-3 gap-2 md:gap-4">
                           {([
-                            { value: 'cattolica', labelKey: 'cattolica' },
-                            { value: 'altra_confessione', labelKey: 'altraConfessione' },
-                            { value: 'laica', labelKey: 'laica' },
+                            { value: 'cattolica', label: 'Cattolica' },
+                            { value: 'altra_confessione', label: 'Altra confessione' },
+                            { value: 'laica', label: 'Laica' },
                           ] as const).map((tipo) => (
                             <div
                               key={tipo.value}
@@ -286,17 +284,17 @@ function ConfiguratorePage() {
                                   : 'product-card text-center py-5 md:py-8'
                               }
                             >
-                              <span className="font-medium text-primary">{t(tipo.labelKey)}</span>
+                              <span className="font-medium text-primary">{tipo.label}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-text mb-2">{t('luogoCerimonia')}</label>
+                        <label className="block text-sm font-medium text-text mb-2">Luogo della cerimonia</label>
                         <input
                           type="text"
-                          placeholder={t('luogoCerimoniaPlaceholder')}
+                          placeholder="Es. Chiesa di San Gennaro, Casa funeraria..."
                           className="input-field"
                           value={store.cerimonia?.luogo || ''}
                           onChange={(e) =>
@@ -325,7 +323,7 @@ function ConfiguratorePage() {
                             }
                             className="w-5 h-5 rounded border-border text-secondary focus:ring-secondary"
                           />
-                          <span className="text-text">{t('musicaCerimonia')}</span>
+                          <span className="text-text">Musica durante la cerimonia</span>
                         </label>
                         <label className="flex items-center gap-3 cursor-pointer">
                           <input
@@ -341,7 +339,7 @@ function ConfiguratorePage() {
                             }
                             className="w-5 h-5 rounded border-border text-secondary focus:ring-secondary"
                           />
-                          <span className="text-text">{t('libroFirme')}</span>
+                          <span className="text-text">Libro delle firme</span>
                         </label>
                       </div>
                     </div>
@@ -352,10 +350,10 @@ function ConfiguratorePage() {
                 {store.step === 5 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">
-                      {t('step5Titolo')}
+                      Fiori e addobbi
                     </h2>
                     <p className="text-text-light text-sm mb-6">
-                      {t('step5Desc')}
+                      Potete selezionare pi&ugrave; composizioni floreali
                     </p>
                     <ProductSelector
                       prodotti={fiori}
@@ -370,10 +368,10 @@ function ConfiguratorePage() {
                 {store.step === 6 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">
-                      {t('step6Titolo')}
+                      Servizi aggiuntivi
                     </h2>
                     <p className="text-text-light text-sm mb-6">
-                      {t('step6Desc')}
+                      Selezionate i servizi di cui avete bisogno
                     </p>
                     <ProductSelector
                       prodotti={servizi}
@@ -388,39 +386,38 @@ function ConfiguratorePage() {
                 {store.step === 7 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
-                      {t('step7Titolo')}
+                      Riepilogo e preventivo
                     </h2>
                     <div className="space-y-4">
-                      <RiepilogoRow label={t('tipoServizio')} value={store.tipoServizio || '—'} onEdit={() => store.setStep(1)} nonSelezionatoLabel={t('nonSelezionato')} />
-                      <RiepilogoRow label={t('bara')} value={store.bara?.nome} prezzo={store.bara?.prezzo} onEdit={() => store.setStep(2)} nonSelezionatoLabel={t('nonSelezionato')} />
+                      <RiepilogoRow label="Tipo di servizio" value={store.tipoServizio || '—'} onEdit={() => store.setStep(1)} />
+                      <RiepilogoRow label="Bara" value={store.bara?.nome} prezzo={store.bara?.prezzo} onEdit={() => store.setStep(2)} />
                       {store.tipoServizio === 'cremazione' && (
-                        <RiepilogoRow label={t('urna')} value={store.urna?.nome} prezzo={store.urna?.prezzo} onEdit={() => store.setStep(2)} nonSelezionatoLabel={t('nonSelezionato')} />
+                        <RiepilogoRow label="Urna" value={store.urna?.nome} prezzo={store.urna?.prezzo} onEdit={() => store.setStep(2)} />
                       )}
-                      <RiepilogoRow label={t('autoFunebre')} value={store.autoFunebre?.nome} prezzo={store.autoFunebre?.prezzo} onEdit={() => store.setStep(3)} nonSelezionatoLabel={t('nonSelezionato')} />
+                      <RiepilogoRow label="Auto funebre" value={store.autoFunebre?.nome} prezzo={store.autoFunebre?.prezzo} onEdit={() => store.setStep(3)} />
                       {store.percorso && store.percorso.distanzaKm > 20 && (
-                        <RiepilogoRow label={t('supplementoKm')} value={`${store.percorso.distanzaKm - 20} km extra`} prezzo={(store.percorso.distanzaKm - 20) * 3} />
+                        <RiepilogoRow label="Supplemento km" value={`${store.percorso.distanzaKm - 20} km extra`} prezzo={(store.percorso.distanzaKm - 20) * 3} />
                       )}
                       <RiepilogoRow
-                        label={t('cerimonia')}
+                        label="Cerimonia"
                         value={store.cerimonia?.tipo ? `${store.cerimonia.tipo} — ${store.cerimonia.luogo || 'luogo da definire'}` : undefined}
                         onEdit={() => store.setStep(4)}
-                        nonSelezionatoLabel={t('nonSelezionato')}
                       />
                       {store.fiori.map((f) => (
-                        <RiepilogoRow key={f.id} label={t('fiori')} value={f.nome} prezzo={f.prezzo} onEdit={() => store.setStep(5)} nonSelezionatoLabel={t('nonSelezionato')} />
+                        <RiepilogoRow key={f.id} label="Fiori" value={f.nome} prezzo={f.prezzo} onEdit={() => store.setStep(5)} />
                       ))}
                       {store.serviziExtra.map((s) => (
-                        <RiepilogoRow key={s.id} label={t('servizioExtra')} value={s.nome} prezzo={s.prezzo} onEdit={() => store.setStep(6)} nonSelezionatoLabel={t('nonSelezionato')} />
+                        <RiepilogoRow key={s.id} label="Servizio extra" value={s.nome} prezzo={s.prezzo} onEdit={() => store.setStep(6)} />
                       ))}
 
                       {referralSconto > 0 && (
                         <div className="mt-4 p-3 bg-accent/10 border border-accent/20 rounded-lg flex justify-between items-center">
-                          <span className="text-accent text-sm font-medium">{t('scontoReferral')} ({referralCode}): -{referralSconto}%</span>
+                          <span className="text-accent text-sm font-medium">Sconto referral ({referralCode}): -{referralSconto}%</span>
                           <span className="text-accent font-bold">-&euro; {(totale - totaleConSconto).toLocaleString('it-IT')}</span>
                         </div>
                       )}
                       <div className="border-t-2 border-primary pt-4 mt-4 flex justify-between items-center">
-                        <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">{t('totaleIndicativo')}</span>
+                        <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">Totale indicativo</span>
                         <div className="text-right">
                           {referralSconto > 0 && <span className="text-text-muted text-sm line-through block">&euro; {totale.toLocaleString('it-IT')}</span>}
                           <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totaleConSconto.toLocaleString('it-IT')}</span>
@@ -428,13 +425,20 @@ function ConfiguratorePage() {
                       </div>
                       <div className="mt-6 p-4 bg-background-dark rounded-lg border border-border">
                         <p className="text-xs font-semibold text-primary mb-2 uppercase tracking-wider">
-                          {t('avvisoLegaleTitolo')}
+                          Avviso legale
                         </p>
                         <p className="text-xs text-text-light leading-relaxed">
-                          {t('avvisoLegale1')}
+                          Il presente preventivo ha valore meramente indicativo e informativo ai sensi
+                          dell&apos;art. 1336 del Codice Civile e <strong>non costituisce offerta al pubblico
+                          n&eacute; proposta contrattuale vincolante</strong>. I prezzi indicati sono orientativi
+                          e possono variare in base alle specifiche circostanze del servizio, alle disposizioni
+                          dell&apos;autorit&agrave; comunale competente e alla normativa vigente.
                         </p>
                         <p className="text-xs text-text-light leading-relaxed mt-2">
-                          {t('avvisoLegale2')}
+                          Il preventivo definitivo sar&agrave; formulato esclusivamente a seguito di un colloquio
+                          diretto con la famiglia e della verifica di tutti gli elementi necessari, nel rispetto
+                          della L.R. Campania n. 12/2001 e s.m.i. e del D.Lgs. 206/2005 (Codice del Consumo).
+                          Nessun impegno contrattuale sorge dalla consultazione del presente configuratore.
                         </p>
                       </div>
                     </div>
@@ -445,10 +449,12 @@ function ConfiguratorePage() {
                 {store.step === 8 && (
                   <div>
                     <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">
-                      {t('step8Titolo')}
+                      Richiesta di contatto
                     </h2>
                     <p className="text-text-light mb-6 leading-relaxed">
-                      {t('step8Desc')}
+                      State richiedendo informazioni per il servizio che avete appena configurato.
+                      Un nostro consulente dedicato vi accompagner&agrave; in ogni fase del percorso,
+                      dalla conferma dei dettagli fino alla completa organizzazione del servizio.
                     </p>
 
                     <form
@@ -458,7 +464,7 @@ function ConfiguratorePage() {
                         const form = e.target as HTMLFormElement
                         const modalita = form.querySelector('input[name="modalita"]:checked') as HTMLInputElement
                         if (!modalita) {
-                          alert(t('selezionaModalita'))
+                          alert('Selezionate la modalit\u00e0 di contatto preferita.')
                           return
                         }
 
@@ -523,19 +529,19 @@ function ConfiguratorePage() {
                       {/* Modalit&agrave; di contatto — obbligatoria */}
                       <div>
                         <label className="block text-sm font-medium text-text mb-3">
-                          {t('comePreferite')}
+                          Come preferite essere contattati? *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                           {[
-                            { value: 'telefonata', labelKey: 'chiamataLabel', descKey: 'chiamataDesc' },
-                            { value: 'videochiamata', labelKey: 'videochimataLabel', descKey: 'videochimataDesc' },
-                            { value: 'whatsapp', labelKey: 'whatsappLabel', descKey: 'whatsappDesc' },
+                            { value: 'telefonata', label: 'Chiamata telefonica', desc: 'Un consulente vi chiamer\u00e0 direttamente' },
+                            { value: 'videochiamata', label: 'Videochiamata', desc: 'Colloquio in video per maggiore vicinanza' },
+                            { value: 'whatsapp', label: 'WhatsApp', desc: 'Messaggi e aggiornamenti via WhatsApp' },
                           ].map((opt) => (
                             <label key={opt.value} className="cursor-pointer">
                               <input type="radio" name="modalita" value={opt.value} className="peer sr-only" required />
                               <div className="product-card py-4 px-4 text-center peer-checked:border-secondary peer-checked:border-2 peer-checked:bg-secondary/5">
-                                <span className="block font-medium text-primary text-sm">{t(opt.labelKey)}</span>
-                                <span className="block text-text-muted text-xs mt-1">{t(opt.descKey)}</span>
+                                <span className="block font-medium text-primary text-sm">{opt.label}</span>
+                                <span className="block text-text-muted text-xs mt-1">{opt.desc}</span>
                               </div>
                             </label>
                           ))}
@@ -544,65 +550,66 @@ function ConfiguratorePage() {
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-text mb-1">{t('nomeCognome')}</label>
+                          <label className="block text-sm font-medium text-text mb-1">Nome e Cognome *</label>
                           <input type="text" name="nome" required className="input-field" placeholder="Mario Rossi" />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-text mb-1">{t('telefonoLabel')}</label>
+                          <label className="block text-sm font-medium text-text mb-1">Telefono *</label>
                           <input type="tel" name="telefono" required className="input-field" placeholder="333 1234567" />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-text mb-1">{t('emailLabel')}</label>
+                          <label className="block text-sm font-medium text-text mb-1">Email</label>
                           <input type="email" name="email" className="input-field" placeholder="mario.rossi@email.com" />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-text mb-1">{t('quandoContatto')}</label>
+                          <label className="block text-sm font-medium text-text mb-1">Quando preferite essere contattati? *</label>
                           <select
                             name="orario"
                             required
                             className="input-field"
                             onChange={(e) => setMostraOrarioSpecifico(e.target.value === 'orario_specifico')}
                           >
-                            <option value="">{t('selezionate')}</option>
-                            <option value="Entro 30 minuti">{t('entro30min')}</option>
-                            <option value="Entro 1 ora">{t('entro1ora')}</option>
-                            <option value="Entro 2 ore">{t('entro2ore')}</option>
-                            <option value="orario_specifico">{t('orarioSpecifico')}</option>
+                            <option value="">Selezionate...</option>
+                            <option value="Entro 30 minuti">Entro 30 minuti</option>
+                            <option value="Entro 1 ora">Entro 1 ora</option>
+                            <option value="Entro 2 ore">Entro 2 ore</option>
+                            <option value="orario_specifico">Scelgo un orario specifico</option>
                           </select>
                         </div>
                         {mostraOrarioSpecifico && (
                           <div>
-                            <label className="block text-sm font-medium text-text mb-1">{t('orarioPreferito')}</label>
+                            <label className="block text-sm font-medium text-text mb-1">Orario preferito</label>
                             <input type="time" name="orario_specifico" required className="input-field" />
                           </div>
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-text mb-1">{t('noteAggiuntive')}</label>
+                        <label className="block text-sm font-medium text-text mb-1">Note aggiuntive</label>
                         <textarea
                           name="note"
                           rows={4}
                           className="input-field"
-                          placeholder={t('notePlaceholder')}
+                          placeholder="Indicazioni particolari, richieste speciali o domande..."
                         />
                       </div>
                       <label className="flex items-start gap-3 cursor-pointer">
                         <input type="checkbox" required className="w-5 h-5 mt-0.5 rounded border-border text-secondary focus:ring-secondary" />
                         <span className="text-sm text-text-light">
-                          {t('gdprConsento')}
+                          Acconsento al trattamento dei dati personali ai sensi del GDPR (Reg. UE 2016/679).
+                          Ho letto e accetto l&apos;informativa sulla privacy. *
                         </span>
                       </label>
                       <button type="submit" className="btn-accent w-full py-4 text-base">
-                        {t('inviaRichiestaContatto')}
+                        Invia Richiesta di Contatto
                       </button>
 
                       {/* Promessa di risposta */}
                       <div className="bg-primary/5 border border-primary/10 rounded-lg p-4 text-center">
                         <p className="text-primary font-medium text-sm">
-                          {t('promessaRisposta')}
+                          Un nostro consulente vi contatter&agrave; entro 30 minuti dall&apos;invio della richiesta.
                         </p>
                         <p className="text-text-muted text-xs mt-1">
-                          {t('servizioDisponibile')}
+                          Servizio disponibile 24 ore su 24, 7 giorni su 7. Siamo sempre al vostro fianco.
                         </p>
                       </div>
                     </form>
@@ -619,18 +626,18 @@ function ConfiguratorePage() {
                 className="btn-secondary disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <ChevronLeft size={18} className="mr-1" />
-                {t('indietro')}
+                Indietro
               </button>
               <button
                 onClick={store.reset}
                 className="text-text-muted hover:text-error text-sm flex items-center gap-1 transition-colors"
               >
                 <RotateCcw size={14} />
-                {t('ricomincia')}
+                Ricomincia
               </button>
               {store.step < TOTAL_STEPS && (
                 <button onClick={() => { store.nextStep(); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className="btn-primary">
-                  {t('avanti')}
+                  Avanti
                   <ChevronRight size={18} className="ml-1" />
                 </button>
               )}
@@ -641,32 +648,32 @@ function ConfiguratorePage() {
           <div className="hidden lg:block">
             <div className="sticky top-24 card">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">
-                {t('ilTuoPreventivo')}
+                Il tuo preventivo
               </h3>
               <div className="space-y-3 text-sm">
                 {store.tipoServizio && (
-                  <SidebarItem label={t('servizio')} value={store.tipoServizio} />
+                  <SidebarItem label="Servizio" value={store.tipoServizio} />
                 )}
-                {store.bara && <SidebarItem label={t('bara')} value={store.bara.nome} prezzo={store.bara.prezzo} />}
-                {store.urna && <SidebarItem label={t('urna')} value={store.urna.nome} prezzo={store.urna.prezzo} />}
-                {store.autoFunebre && <SidebarItem label={t('trasporto')} value={store.autoFunebre.nome} prezzo={store.autoFunebre.prezzo} />}
+                {store.bara && <SidebarItem label="Bara" value={store.bara.nome} prezzo={store.bara.prezzo} />}
+                {store.urna && <SidebarItem label="Urna" value={store.urna.nome} prezzo={store.urna.prezzo} />}
+                {store.autoFunebre && <SidebarItem label="Trasporto" value={store.autoFunebre.nome} prezzo={store.autoFunebre.prezzo} />}
                 {store.fiori.map((f) => (
-                  <SidebarItem key={f.id} label={t('fiori')} value={f.nome} prezzo={f.prezzo} />
+                  <SidebarItem key={f.id} label="Fiori" value={f.nome} prezzo={f.prezzo} />
                 ))}
                 {store.serviziExtra.map((s) => (
-                  <SidebarItem key={s.id} label={t('extra')} value={s.nome} prezzo={s.prezzo} />
+                  <SidebarItem key={s.id} label="Extra" value={s.nome} prezzo={s.prezzo} />
                 ))}
 
                 {totale > 0 && (
                   <>
                   {referralSconto > 0 && (
                     <div className="border-t border-border pt-2 mt-2 text-xs text-accent flex justify-between">
-                      <span>{t('sconto')} {referralSconto}%</span>
+                      <span>Sconto {referralSconto}%</span>
                       <span>-&euro; {(totale - totaleConSconto).toLocaleString('it-IT')}</span>
                     </div>
                   )}
                   <div className={`${referralSconto > 0 ? 'pt-1' : 'border-t border-border pt-3 mt-3'} flex justify-between font-semibold text-primary`}>
-                    <span>{t('totale')}</span>
+                    <span>Totale</span>
                     <span className="font-[family-name:var(--font-serif)] text-lg">
                       &euro; {totaleConSconto.toLocaleString('it-IT')}
                     </span>
@@ -676,12 +683,13 @@ function ConfiguratorePage() {
 
                 {totale === 0 && (
                   <p className="text-text-muted text-xs italic">
-                    {t('sceltaAppariranno')}
+                    Le vostre scelte appariranno qui man mano che configurate il servizio.
                   </p>
                 )}
 
                 <p className="text-[10px] text-text-muted mt-4 leading-relaxed border-t border-border pt-3">
-                  {t('preventivoIndicativo')}
+                  Preventivo indicativo a solo scopo informativo. Non costituisce proposta
+                  contrattuale ai sensi dell&apos;art. 1336 C.C.
                 </p>
               </div>
             </div>
@@ -699,7 +707,7 @@ function ConfiguratorePage() {
               </div>
 
               <h2 className="font-[family-name:var(--font-serif)] text-2xl md:text-3xl text-primary mb-3">
-                {t('richiestaInviata')}
+                Richiesta inviata
               </h2>
 
               <p className="text-text-light text-lg leading-relaxed mb-6">
@@ -708,18 +716,21 @@ function ConfiguratorePage() {
                 ) : tempoAttesa.startsWith('Alle ore') ? (
                   <>Un nostro consulente vi contatter&agrave; <strong className="text-primary">{tempoAttesa.toLowerCase()}</strong> come da vostra preferenza.</>
                 ) : (
-                  <>{t('consulenteCiContatta')}</>
+                  <>Un nostro consulente vi contatter&agrave; al pi&ugrave; presto.</>
                 )}
               </p>
 
               <div className="bg-background rounded-xl p-5 mb-6 text-left">
                 <p className="text-sm text-text-light leading-relaxed">
-                  {t('dettagliConfigurazioni')} <strong className="text-primary">&euro; {totaleConSconto.toLocaleString('it-IT')}</strong>.
+                  Il consulente avr&agrave; gi&agrave; tutti i dettagli della vostra configurazione
+                  e del preventivo indicativo di <strong className="text-primary">&euro; {totaleConSconto.toLocaleString('it-IT')}</strong>.
+                  Non dovrete ripetere nulla.
                 </p>
               </div>
 
               <p className="text-text-muted text-sm mb-6">
-                {t('urgenze')}
+                Per qualsiasi urgenza potete contattarci direttamente al numero indicato nel sito.
+                Siamo disponibili 24 ore su 24.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -727,13 +738,13 @@ function ConfiguratorePage() {
                   onClick={() => { setRichiestaInviata(false); store.reset(); window.location.href = '/' }}
                   className="btn-primary flex-1"
                 >
-                  {t('tornaHome')}
+                  Torna alla Home
                 </button>
                 <button
                   onClick={() => { setRichiestaInviata(false) }}
                   className="btn-secondary flex-1"
                 >
-                  {t('modificaConfigurazione')}
+                  Modifica configurazione
                 </button>
               </div>
           </div>
@@ -748,21 +759,17 @@ function RiepilogoRow({
   value,
   prezzo,
   onEdit,
-  nonSelezionatoLabel = '— Non selezionato',
-  modificaLabel = 'Modifica',
 }: {
   label: string
   value?: string | null
   prezzo?: number
   onEdit?: () => void
-  nonSelezionatoLabel?: string
-  modificaLabel?: string
 }) {
   return (
     <div className="flex items-center justify-between py-3 border-b border-border">
       <div>
         <span className="text-xs text-text-muted uppercase tracking-wider">{label}</span>
-        <p className="text-text font-medium">{value || nonSelezionatoLabel}</p>
+        <p className="text-text font-medium">{value || '— Non selezionato'}</p>
       </div>
       <div className="flex items-center gap-4">
         {prezzo != null && (
@@ -772,7 +779,7 @@ function RiepilogoRow({
         )}
         {onEdit && (
           <button onClick={onEdit} className="text-secondary text-sm hover:underline">
-            {modificaLabel}
+            Modifica
           </button>
         )}
       </div>

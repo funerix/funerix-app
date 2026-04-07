@@ -4,13 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
-import { useTranslations } from 'next-intl'
-import { useLocale } from '@/i18n/provider'
 
 export function Footer() {
-  const t = useTranslations('footer')
-  const { locale } = useLocale()
-  const isIt = locale === 'it'
   const { impostazioni, contenuti } = useSitoStore()
   return (
     <footer className="bg-primary text-white/80">
@@ -20,40 +15,40 @@ export function Footer() {
           <div className="md:col-span-4">
             <Image src="/images/logo-white.png" alt="Funerix" width={280} height={84} className="h-16 w-auto -mt-3 mb-1" />
             <p className="text-sm leading-relaxed text-white/70">
-              {isIt ? contenuti.footerDescrizione : t('descrizione')}
+              {contenuti.footerDescrizione}
             </p>
           </div>
 
           {/* Servizi — 2 colonne */}
           <div className="md:col-span-2">
             <h4 className="text-white font-semibold mb-4 text-xs uppercase tracking-wider">
-              {t('servizi')}
+              Servizi
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/configuratore" className="hover:text-white transition-colors">{t('configuraServizio')}</Link></li>
-              <li><Link href="/catalogo" className="hover:text-white transition-colors">{t('catalogoProdotti')}</Link></li>
-              <li><Link href="/memorial" className="hover:text-white transition-colors">{t('memorialOnline')}</Link></li>
-              <li><Link href="/contatti" className="hover:text-white transition-colors">{t('contatti')}</Link></li>
+              <li><Link href="/configuratore" className="hover:text-white transition-colors">Configura il Servizio</Link></li>
+              <li><Link href="/catalogo" className="hover:text-white transition-colors">Catalogo Prodotti</Link></li>
+              <li><Link href="/memorial" className="hover:text-white transition-colors">Memorial Online</Link></li>
+              <li><Link href="/contatti" className="hover:text-white transition-colors">Richiedi Assistenza</Link></li>
             </ul>
           </div>
 
           {/* Info — 2 colonne */}
           <div className="md:col-span-2">
             <h4 className="text-white font-semibold mb-4 text-xs uppercase tracking-wider">
-              {t('azienda')}
+              Informazioni
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/chi-siamo" className="hover:text-white transition-colors">{t('chiSiamo')}</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition-colors">{t('privacy')}</Link></li>
-              <li><Link href="/cookie" className="hover:text-white transition-colors">{t('cookie')}</Link></li>
-              <li><Link href="/termini" className="hover:text-white transition-colors">{t('termini')}</Link></li>
+              <li><Link href="/chi-siamo" className="hover:text-white transition-colors">Chi Siamo</Link></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/cookie" className="hover:text-white transition-colors">Cookie Policy</Link></li>
+              <li><Link href="/termini" className="hover:text-white transition-colors">Termini e Condizioni</Link></li>
             </ul>
           </div>
 
           {/* Contatti — 4 colonne */}
           <div className="md:col-span-4">
             <h4 className="text-white font-semibold mb-4 text-xs uppercase tracking-wider">
-              {t('contatti')}
+              Contatti
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li className="flex items-center gap-2.5">
@@ -70,17 +65,18 @@ export function Footer() {
               </li>
             </ul>
             <p className="text-xs text-white/50 mt-4">
-              {t('disponibili247')}
+              Disponibili 24 ore su 24, 7 giorni su 7
             </p>
           </div>
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-xs text-white/50">
-            &copy; {new Date().getFullYear()} Funerix — {t('diritti')}
+            &copy; {new Date().getFullYear()} {contenuti.footerCopyright}
+            {impostazioni.registroRegionale && ` — Registro Regionale Campania n. ${impostazioni.registroRegionale}`}
           </p>
           <p className="text-xs text-white/40">
-            {isIt ? contenuti.footerNotaPreventivi : t('notaPreventivi')}
+            {contenuti.footerNotaPreventivi}
           </p>
         </div>
       </div>

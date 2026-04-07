@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Shield, Clock, Lock, Heart, ChevronRight, Phone, Check, Euro, Calendar, Users } from 'lucide-react'
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -13,7 +12,6 @@ const fadeUp = {
 }
 
 export default function PrevidenzaPage() {
-  const t = useTranslations('previdenza')
   const [rate, setRate] = useState(36)
   const totaleEsempio = 5000
   const rataMensile = Math.ceil(totaleEsempio / rate)
@@ -27,23 +25,25 @@ export default function PrevidenzaPage() {
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible">
             <motion.div variants={fadeUp} custom={0} className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-light text-xs px-4 py-2 rounded-full mb-5 border border-secondary/20">
-              <Shield size={14} /> {t('badgeFondi')}
+              <Shield size={14} /> Fondi protetti su conto dedicato separato
             </motion.div>
             <motion.h1 variants={fadeUp} custom={1} className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white leading-tight">
-              {t('titolo')}
+              Previdenza Funerix
             </motion.h1>
             <motion.p variants={fadeUp} custom={2} className="mt-4 text-xl text-secondary-light font-medium">
-              {t('sottotitoloAccento')}
+              Pianificate oggi, vivete sereni
             </motion.p>
             <motion.p variants={fadeUp} custom={3} className="mt-4 text-white/80 text-lg max-w-2xl mx-auto">
-              {t('sottotitolo')}
+              Configurate il servizio funebre per voi o per un familiare, bloccate il prezzo
+              e pagate comodamente a rate mensili. Quando il momento arriver&agrave;,
+              tutto sar&agrave; gi&agrave; organizzato.
             </motion.p>
             <motion.div variants={fadeUp} custom={4} className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/configuratore?tipo=previdenza" className="btn-accent text-base py-4 px-8">
-                {t('configuraPiano')} <ChevronRight size={18} className="ml-2" />
+                Configura il tuo piano <ChevronRight size={18} className="ml-2" />
               </Link>
               <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
-                <Phone size={18} className="mr-2" /> {t('parlaConsulente')}
+                <Phone size={18} className="mr-2" /> Parla con un consulente
               </a>
             </motion.div>
           </motion.div>
@@ -53,20 +53,20 @@ export default function PrevidenzaPage() {
       {/* Simulatore rate */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">{t('simulatoreTitolo')}</h2>
-          <p className="text-text-light text-center mb-10">{t('simulatoreDesc')}</p>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">Quanto costa al mese?</h2>
+          <p className="text-text-light text-center mb-10">Simulate il costo mensile per un servizio funebre completo</p>
 
           <div className="card p-8">
             <div className="text-center mb-8">
-              <p className="text-text-muted text-sm">{t('esempiServizio')}</p>
+              <p className="text-text-muted text-sm">Esempio servizio funebre completo</p>
               <p className="font-[family-name:var(--font-serif)] text-4xl text-primary font-bold">&euro; {totaleEsempio.toLocaleString('it-IT')}</p>
             </div>
 
             <div className="mb-8">
               <div className="flex justify-between text-sm text-text-muted mb-2">
-                <span>{t('mesi12')}</span>
-                <span>{rate} {t('mesi')}</span>
-                <span>{t('mesi60')}</span>
+                <span>12 mesi</span>
+                <span>{rate} mesi</span>
+                <span>60 mesi</span>
               </div>
               <input
                 type="range" min={12} max={60} step={6} value={rate}
@@ -77,25 +77,25 @@ export default function PrevidenzaPage() {
 
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="bg-background rounded-xl p-4">
-                <p className="text-text-muted text-xs">{t('rate')}</p>
+                <p className="text-text-muted text-xs">Rate</p>
                 <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{rate}</p>
-                <p className="text-text-muted text-xs">{t('mesi')}</p>
+                <p className="text-text-muted text-xs">mesi</p>
               </div>
               <div className="bg-secondary/10 rounded-xl p-4">
-                <p className="text-secondary text-xs font-medium">{t('alMese')}</p>
+                <p className="text-secondary text-xs font-medium">Al mese</p>
                 <p className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}</p>
-                <p className="text-secondary/60 text-xs">{t('alMese').toLowerCase()}</p>
+                <p className="text-secondary/60 text-xs">al mese</p>
               </div>
               <div className="bg-background rounded-xl p-4">
-                <p className="text-text-muted text-xs">{t('durata')}</p>
+                <p className="text-text-muted text-xs">Durata</p>
                 <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{Math.ceil(rate / 12)}</p>
-                <p className="text-text-muted text-xs">{rate <= 12 ? t('anno') : t('anni')}</p>
+                <p className="text-text-muted text-xs">{rate <= 12 ? 'anno' : 'anni'}</p>
               </div>
             </div>
 
             <div className="mt-6 text-center">
               <Link href="/configuratore?tipo=previdenza" className="btn-primary">
-                {t('configuraPianoPersonalizzato')} <ChevronRight size={16} className="ml-1" />
+                Configura il tuo piano personalizzato <ChevronRight size={16} className="ml-1" />
               </Link>
             </div>
           </div>
@@ -105,13 +105,13 @@ export default function PrevidenzaPage() {
       {/* Come funziona */}
       <section className="py-16 bg-background-dark">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-12">{t('comeFunzionaTitolo')}</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { n: '01', icon: Heart, t: t('cf1Titolo'), d: t('cf1Desc') },
-              { n: '02', icon: Calendar, t: t('cf2Titolo'), d: t('cf2Desc') },
-              { n: '03', icon: Euro, t: t('cf3Titolo'), d: t('cf3Desc') },
-              { n: '04', icon: Shield, t: t('cf4Titolo'), d: t('cf4Desc') },
+              { n: '01', icon: Heart, t: 'Configurate', d: 'Scegliete ogni dettaglio del servizio: bara, fiori, cerimonia, trasporto.' },
+              { n: '02', icon: Calendar, t: 'Scegliete il piano', d: 'Da 12 a 60 rate mensili. Prezzo bloccato per sempre.' },
+              { n: '03', icon: Euro, t: 'Pagate a rate', d: 'Addebito automatico mensile su carta o conto corrente.' },
+              { n: '04', icon: Shield, t: 'Vivete sereni', d: 'Quando il momento arriva, tutto è già organizzato e pagato.' },
             ].map((s, i) => (
               <motion.div key={s.n} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="text-center">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
@@ -129,12 +129,12 @@ export default function PrevidenzaPage() {
       {/* Garanzie */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">{t('garanzieTitolo')}</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Le nostre garanzie</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: Lock, t: t('fondiProtettiTitolo'), d: t('fondiProtettiDesc') },
-              { icon: Shield, t: t('prezzoBloccatoTitolo'), d: t('prezzoBloccatoDesc') },
-              { icon: Users, t: t('trasferibileTitolo'), d: t('trasferibleDesc') },
+              { icon: Lock, t: 'Fondi protetti', d: 'I versamenti sono depositati su un conto bancario dedicato e separato, non aggredibile. Rimborsabili in qualsiasi momento.' },
+              { icon: Shield, t: 'Prezzo bloccato', d: 'Il prezzo che configurate oggi resta invariato per tutta la durata del piano, indipendentemente dall\'inflazione.' },
+              { icon: Users, t: 'Trasferibile', d: 'Il piano può essere trasferito a un altro familiare o modificato in qualsiasi momento senza costi aggiuntivi.' },
             ].map((g, i) => (
               <motion.div key={g.t} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="card text-center">
                 <g.icon size={28} className="mx-auto mb-3 text-accent" />
@@ -147,8 +147,8 @@ export default function PrevidenzaPage() {
             <div className="flex flex-col md:flex-row items-center gap-4">
               <Shield size={32} className="text-accent flex-shrink-0" />
               <div>
-                <h3 className="font-medium text-primary">{t('dirittoDiRecessoTitolo')}</h3>
-                <p className="text-text-muted text-sm">{t('dirittoDiRecessoDesc')}</p>
+                <h3 className="font-medium text-primary">Diritto di recesso</h3>
+                <p className="text-text-muted text-sm">Potete annullare il piano in qualsiasi momento. Entro 14 giorni: rimborso totale. Dopo 14 giorni: rimborso del versato meno 5% di spese amministrative.</p>
               </div>
             </div>
           </div>
@@ -158,20 +158,20 @@ export default function PrevidenzaPage() {
       {/* Per chi */}
       <section className="py-16 bg-background-dark">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">{t('perChiTitolo')}</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Per chi &egrave; pensato</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card">
-              <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">{t('perVoiTitolo')}</h3>
-              <p className="text-text-light text-sm mb-4">{t('perVoiDesc')}</p>
-              <ul className="space-y-2">{[t('perVoi1'), t('perVoi2'), t('perVoi3'), t('perVoi4')].map(item=>
-                <li key={item} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{item}</li>
+              <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Per voi stessi</h3>
+              <p className="text-text-light text-sm mb-4">Decidete oggi come volete essere ricordati, senza lasciare il peso delle scelte e delle spese ai vostri cari.</p>
+              <ul className="space-y-2">{['Scegliete ogni dettaglio con calma','Il prezzo non aumenterà mai','La vostra famiglia non dovrà decidere nulla','Potete modificare le scelte in qualsiasi momento'].map(t=>
+                <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
               )}</ul>
             </div>
             <div className="card">
-              <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">{t('perFamiliareTitolo')}</h3>
-              <p className="text-text-light text-sm mb-4">{t('perFamiliareDesc')}</p>
-              <ul className="space-y-2">{[t('perFamiliare1'), t('perFamiliare2'), t('perFamiliare3'), t('perFamiliare4')].map(item=>
-                <li key={item} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{item}</li>
+              <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Per un familiare</h3>
+              <p className="text-text-light text-sm mb-4">Organizzate in anticipo per un genitore anziano o un familiare, garantendogli il servizio che merita.</p>
+              <ul className="space-y-2">{['Ideale per genitori anziani','Perfetto per ospiti di RSA e case di cura','Nessuna decisione da prendere nel dolore','Il servizio è garantito qualsiasi cosa accada'].map(t=>
+                <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
               )}</ul>
             </div>
           </div>
@@ -181,21 +181,22 @@ export default function PrevidenzaPage() {
       {/* RSA */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">{t('rsaTitolo')}</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Sei una RSA o casa di cura?</h2>
           <p className="text-text-light mb-6 max-w-xl mx-auto">
-            {t('rsaDesc')}
+            Offri ai familiari dei tuoi ospiti la tranquillit&agrave; di un piano previdenza funeraria.
+            Diventa partner convenzionato Funerix.
           </p>
-          <Link href="/convenzioni" className="btn-secondary">{t('scopriConvenzione')} <ChevronRight size={14} className="ml-1" /></Link>
+          <Link href="/convenzioni" className="btn-secondary">Scopri la convenzione <ChevronRight size={14} className="ml-1" /></Link>
         </div>
       </section>
 
       {/* CTA */}
       <section className="bg-primary py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">{t('ctaTitolo')}</h2>
-          <p className="text-white/80 mb-8">{t('ctaDesc')}</p>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Iniziate oggi</h2>
+          <p className="text-white/80 mb-8">Configurate il piano in 5 minuti. Un consulente vi contatter&agrave; entro 30 minuti.</p>
           <Link href="/configuratore?tipo=previdenza" className="btn-accent text-lg py-4 px-10">
-            {t('configuraPiano')} <ChevronRight size={18} className="ml-2" />
+            Configura il tuo piano <ChevronRight size={18} className="ml-2" />
           </Link>
         </div>
       </section>

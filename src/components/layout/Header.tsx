@@ -7,27 +7,25 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, ChevronDown, Cross, Globe, PawPrint, BookOpen, Euro, ShoppingBag, Shovel, Plane, Shield } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { LanguageSelector } from '@/components/LanguageSelector'
-import { useTranslations } from 'next-intl'
 
-const serviziMenuKeys = [
-  { href: '/configuratore', labelKey: 'configuraServizio', descKey: 'configuraDesc', icon: Cross },
-  { href: '/rimpatri', labelKey: 'rimpatri', descKey: 'rimpatriDesc', icon: Plane },
-  { href: '/cremazione-animali', labelKey: 'cremazioneAnimali', descKey: 'cremazioneAnimaliDesc', icon: PawPrint },
-  { href: '/previdenza', labelKey: 'previdenza', descKey: 'previdenzaDesc', icon: Shield },
-  { href: '/esumazione', labelKey: 'esumazione', descKey: 'esumazioneDesc', icon: Shovel },
-  { href: '/catalogo', labelKey: 'catalogo', descKey: 'catalogoDesc', icon: ShoppingBag },
-  { href: '/prezzi', labelKey: 'prezzi', descKey: 'prezziDesc', icon: Euro },
+const serviziMenu = [
+  { href: '/configuratore', label: 'Configura Servizio Funebre', desc: 'Preventivo personalizzato in 5 minuti', icon: Cross },
+  { href: '/rimpatri', label: 'Rimpatri ed Espatri', desc: 'Trasporto internazionale salme in tutto il mondo', icon: Plane },
+  { href: '/cremazione-animali', label: 'Cremazione Animali', desc: 'Servizio per animali domestici', icon: PawPrint },
+  { href: '/previdenza', label: 'Previdenza Funerix', desc: 'Pianificate oggi, pagate a rate mensili', icon: Shield },
+  { href: '/esumazione', label: 'Esumazione e Riesumazione', desc: 'Trasferimento resti e cremazione', icon: Shovel },
+  { href: '/catalogo', label: 'Catalogo Prodotti', desc: 'Bare, urne, fiori, auto funebri', icon: ShoppingBag },
+  { href: '/prezzi', label: 'Prezzi per Provincia', desc: 'Confronta i costi in Campania', icon: Euro },
 ]
 
-const navLinkKeys = [
-  { href: '/memorial', key: 'necrologi' },
-  { href: '/blog', key: 'blog' },
-  { href: '/guida', key: 'guide' },
-  { href: '/contatti', key: 'contatti' },
+const navLinks = [
+  { href: '/memorial', label: 'Necrologi' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/guida', label: 'Guide' },
+  { href: '/contatti', label: 'Contatti' },
 ]
 
 export function Header() {
-  const t = useTranslations('header')
   const { impostazioni } = useSitoStore()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [serviziOpen, setServiziOpen] = useState(false)
@@ -61,7 +59,7 @@ export function Header() {
                 onClick={() => setServiziOpen(!serviziOpen)}
                 className="flex items-center gap-1 text-primary/70 hover:text-primary transition-colors text-sm font-medium"
               >
-                {t('servizi')} <ChevronDown size={14} className={`transition-transform ${serviziOpen ? 'rotate-180' : ''}`} />
+                Servizi <ChevronDown size={14} className={`transition-transform ${serviziOpen ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
@@ -74,7 +72,7 @@ export function Header() {
                     className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[480px] bg-surface rounded-xl border border-border shadow-xl p-4"
                   >
                     <div className="grid grid-cols-2 gap-1">
-                      {serviziMenuKeys.map((s) => (
+                      {serviziMenu.map((s) => (
                         <Link
                           key={s.href}
                           href={s.href}
@@ -85,8 +83,8 @@ export function Header() {
                             <s.icon size={16} className="text-secondary" />
                           </div>
                           <div>
-                            <span className="text-sm font-medium text-primary block group-hover:text-secondary transition-colors">{t(s.labelKey)}</span>
-                            <span className="text-[11px] text-text-muted">{t(s.descKey)}</span>
+                            <span className="text-sm font-medium text-primary block group-hover:text-secondary transition-colors">{s.label}</span>
+                            <span className="text-[11px] text-text-muted">{s.desc}</span>
                           </div>
                         </Link>
                       ))}
@@ -102,10 +100,10 @@ export function Header() {
               </AnimatePresence>
             </div>
 
-            {navLinkKeys.map((link) => (
+            {navLinks.map((link) => (
               <Link key={link.href} href={link.href}
                 className="text-primary/70 hover:text-primary transition-colors text-sm font-medium">
-                {t(link.key)}
+                {link.label}
               </Link>
             ))}
           </nav>
@@ -122,7 +120,7 @@ export function Header() {
             </a>
             <LanguageSelector />
             <Link href="/assistenza" className="btn-accent text-sm py-2 px-4">
-              {t('assistenza')}
+              Assistenza
             </Link>
           </div>
 
@@ -142,23 +140,23 @@ export function Header() {
               <Link href="/" onClick={() => setMobileOpen(false)}
                 className="block py-2.5 px-3 text-primary/70 hover:text-primary hover:bg-background rounded-lg font-medium">Home</Link>
 
-              <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 pt-3 pb-1">{t('servizi')}</p>
-              {serviziMenuKeys.map((s) => (
+              <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 pt-3 pb-1">Servizi</p>
+              {serviziMenu.map((s) => (
                 <Link key={s.href} href={s.href} onClick={() => setMobileOpen(false)}
                   className="flex items-center gap-3 py-2.5 px-3 hover:bg-background rounded-lg">
                   <s.icon size={16} className="text-secondary flex-shrink-0" />
                   <div>
-                    <span className="text-sm font-medium text-primary block">{t(s.labelKey)}</span>
-                    <span className="text-[10px] text-text-muted">{t(s.descKey)}</span>
+                    <span className="text-sm font-medium text-primary block">{s.label}</span>
+                    <span className="text-[10px] text-text-muted">{s.desc}</span>
                   </div>
                 </Link>
               ))}
 
-              <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 pt-3 pb-1">Info</p>
-              {navLinkKeys.map((link) => (
+              <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 pt-3 pb-1">Informazioni</p>
+              {navLinks.map((link) => (
                 <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
                   className="block py-2.5 px-3 text-primary/70 hover:text-primary hover:bg-background rounded-lg font-medium">
-                  {t(link.key)}
+                  {link.label}
                 </Link>
               ))}
 
@@ -168,7 +166,7 @@ export function Header() {
                   <Phone size={16} /> {impostazioni.telefono}
                 </a>
                 <Link href="/assistenza" onClick={() => setMobileOpen(false)}
-                  className="btn-accent w-full text-sm py-2.5 justify-center">{t('richiediAssistenza')}</Link>
+                  className="btn-accent w-full text-sm py-2.5 justify-center">Richiedi Assistenza</Link>
               </div>
             </nav>
           </motion.div>

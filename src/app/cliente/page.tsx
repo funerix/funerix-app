@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Mail, MessageCircle, FileCheck, Clock, CheckCircle2, Circle, ChevronRight, Send, Heart, Upload, FileText, Loader2, PenTool } from 'lucide-react'
 import { FirmaDigitale } from '@/components/FirmaDigitale'
-import { useTranslations } from 'next-intl'
 
 interface ClienteData {
   id: string
@@ -31,6 +30,13 @@ interface ClienteData {
   } | null
 }
 
+const statiTimeline = [
+  { key: 'richiesta', label: 'Richiesta ricevuta', desc: 'La vostra richiesta è stata presa in carico' },
+  { key: 'confermata', label: 'Servizio confermato', desc: 'I dettagli sono stati concordati con il consulente' },
+  { key: 'in_corso', label: 'In preparazione', desc: 'Stiamo organizzando tutti gli aspetti del servizio' },
+  { key: 'completata', label: 'Servizio completato', desc: 'Il servizio è stato completato con cura' },
+]
+
 export default function ClientePageWrapper() {
   return (
     <Suspense fallback={
@@ -51,26 +57,18 @@ function ClientePage() {
   const [errore, setErrore] = useState('')
   const [nuovoMessaggio, setNuovoMessaggio] = useState('')
   const [uploading, setUploading] = useState<string | null>(null)
-  const t = useTranslations('cliente')
-
-  const statiTimeline = [
-    { key: 'richiesta', label: t('statoRichiesta'), desc: t('statoRichiestaDesc') },
-    { key: 'confermata', label: t('statoConfermata'), desc: t('statoConfermataDesc') },
-    { key: 'in_corso', label: t('statoInCorso'), desc: t('statoInCorsoDesc') },
-    { key: 'completata', label: t('statoCompletata'), desc: t('statoCompletataDesc') },
-  ]
 
   useEffect(() => {
-    if (!token) { setErrore(t('linkNonValido')); setLoading(false); return }
+    if (!token) { setErrore('Link non valido'); setLoading(false); return }
 
     fetch(`/api/cliente?token=${token}`)
       .then(r => r.json())
       .then(data => {
         if (data.success) setCliente(data.cliente)
-        else setErrore(t('accessoNonAutorizzato'))
+        else setErrore('Accesso non autorizzato. Contattate il vostro consulente.')
         setLoading(false)
       })
-      .catch(() => { setErrore(t('erroreConnessione')); setLoading(false) })
+      .catch(() => { setErrore('Errore di connessione'); setLoading(false) })
   }, [token])
 
   if (loading) {
@@ -78,7 +76,7 @@ function ClientePage() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-secondary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-text-muted">{t('caricamentoInCorso')}</p>
+          <p className="text-text-muted">Caricamento...</p>
         </div>
       </div>
     )
@@ -89,9 +87,9 @@ function ClientePage() {
       <div className="min-h-screen flex items-center justify-center bg-background px-4">
         <div className="card max-w-md w-full text-center">
           <Heart size={40} className="mx-auto mb-4 text-secondary" />
-          <h1 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-3">{t('areaRiservata')}</h1>
-          <p className="text-text-light mb-6">{errore || t('accessoNonValido')}</p>
-          <Link href="/contatti" className="btn-primary">{t('contattaci')}</Link>
+          <h1 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-3">Area Riservata</h1>
+          <p className="text-text-light mb-6">{errore || 'Accesso non valido'}</p>
+          <Link href="/contatti" className="btn-primary">Contattaci</Link>
         </div>
       </div>
     )
@@ -122,12 +120,12 @@ function ClientePage() {
       <section className="bg-primary py-10 relative overflow-hidden">
         <Image src="/images/candele.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4">
-          <p className="text-white/60 text-sm mb-1">{t('areaRiservataBadge')}</p>
+          <p className="text-white/60 text-sm mb-1">Area riservata</p>
           <h1 className="font-[family-name:var(--font-serif)] text-3xl text-white">
-            {t('benvenuti')} {cliente.nome.split(' ').pop()}
+            Benvenuti, famiglia {cliente.nome.split(' ').pop()}
           </h1>
           <p className="text-white/80 mt-2">
-            {t('seguitoStato')}
+            Qui potete seguire lo stato del servizio e comunicare con il vostro consulente.
           </p>
         </div>
       </section>
@@ -139,7 +137,7 @@ function ClientePage() {
             {/* Timeline */}
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-6">
-                {t('statoServizio')}
+                Stato del servizio
               </h2>
               <div className="space-y-6">
                 {statiTimeline.map((stato, i) => {
@@ -171,19 +169,19 @@ function ClientePage() {
             {richiesta && (
               <div className="card">
                 <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">
-                  {t('riepilogoServizio')}
+                  Riepilogo servizio
                 </h2>
                 <pre className="text-text-light text-sm whitespace-pre-wrap bg-background rounded-lg p-4 mb-4">
                   {richiesta.configurazione}
                 </pre>
                 <div className="flex justify-between items-center pt-4 border-t border-border">
-                  <span className="text-text-muted">{t('preventivoIndicativo')}</span>
+                  <span className="text-text-muted">Preventivo indicativo</span>
                   <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">
                     &euro; {Number(richiesta.totale).toLocaleString('it-IT')}
                   </span>
                 </div>
                 <p className="text-xs text-text-muted mt-2">
-                  {t('prezzoDefinitoDesc')}
+                  Il prezzo definitivo &egrave; stato concordato con il consulente e potrebbe variare.
                 </p>
               </div>
             )}
@@ -191,19 +189,17 @@ function ClientePage() {
             {/* Chat con consulente */}
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">
-                {t('messaggiConsulente')}
+                Messaggi con il consulente
               </h2>
               <div className="space-y-3 max-h-80 overflow-y-auto mb-4">
                 {(!cliente.messaggi_chat || cliente.messaggi_chat.length === 0) ? (
                   <p className="text-text-muted text-sm text-center py-8">
-                    {t('nessunMessaggio')}
+                    Nessun messaggio ancora. Scrivete al consulente per qualsiasi necessit&agrave;.
                   </p>
                 ) : (
-                  cliente.messaggi_chat.map((msg, i) => {
-                    const isCliente = msg.autore === cliente.nome
-                    return (
+                  cliente.messaggi_chat.map((msg, i) => (
                     <div key={i} className={`p-3 rounded-lg text-sm ${
-                      isCliente
+                      msg.autore === cliente.nome
                         ? 'bg-primary/5 border border-primary/10 ml-8'
                         : 'bg-secondary/5 border border-secondary/10 mr-8'
                     }`}>
@@ -215,14 +211,14 @@ function ClientePage() {
                       </div>
                       <p className="text-text-light">{msg.testo}</p>
                     </div>
-                  )})
+                  ))
                 )}
               </div>
               <div className="flex gap-2">
                 <input
                   type="text"
                   className="input-field flex-1"
-                  placeholder={t('scriveciMessaggio')}
+                  placeholder="Scrivete un messaggio..."
                   value={nuovoMessaggio}
                   onChange={e => setNuovoMessaggio(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && inviaMessaggio()}
@@ -240,7 +236,7 @@ function ClientePage() {
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">
                 <FileCheck size={18} className="inline mr-2 text-secondary" />
-                {t('documentiNecessari')}
+                Documenti necessari
               </h2>
               <div className="space-y-3">
                 {(cliente.documenti_checklist || []).map((doc, i) => {
@@ -263,7 +259,7 @@ function ClientePage() {
                       {fileCaricato ? (
                         <div className="ml-6 flex items-center gap-2 text-xs text-text-muted">
                           <FileText size={12} />
-                          <span>{t('caricatoIl')} {new Date(fileCaricato.data).toLocaleDateString('it-IT')}</span>
+                          <span>Caricato il {new Date(fileCaricato.data).toLocaleDateString('it-IT')}</span>
                         </div>
                       ) : (
                         <div className="ml-6 mt-2">
@@ -308,15 +304,15 @@ function ClientePage() {
                             />
                             {uploading === doc.nome ? (
                               <span className="inline-flex items-center gap-1.5 text-xs text-secondary">
-                                <Loader2 size={12} className="animate-spin" /> {t('caricamentoInCorso')}
+                                <Loader2 size={12} className="animate-spin" /> Caricamento...
                               </span>
                             ) : (
                               <span className="inline-flex items-center gap-1.5 text-xs text-secondary hover:text-secondary-dark cursor-pointer">
-                                <Upload size={12} /> {t('caricaDocumento')}
+                                <Upload size={12} /> Carica documento
                               </span>
                             )}
                           </label>
-                          <p className="text-[10px] text-text-muted mt-1">{t('formatiAccettati')}</p>
+                          <p className="text-[10px] text-text-muted mt-1">PDF, JPG o PNG (max 10MB)</p>
                         </div>
                       )}
                     </div>
@@ -332,7 +328,7 @@ function ClientePage() {
                 return (
                   <div className="mt-4 pt-3 border-t border-border">
                     <div className="flex justify-between text-xs text-text-muted mb-2">
-                      <span>{completati} {t('documentiCaricati')} {totali} {t('documentiCaricatiSuffix')}</span>
+                      <span>{completati} di {totali} documenti caricati</span>
                       <span>{totali > 0 ? Math.round((completati / totali) * 100) : 0}%</span>
                     </div>
                     <div className="w-full h-2 bg-border rounded-full overflow-hidden">
@@ -350,12 +346,12 @@ function ClientePage() {
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">
                 <PenTool size={16} className="inline mr-2 text-secondary" />
-                {t('firmaMandate')}
+                Firma mandato funebre
               </h2>
               {cliente.dati_defunto && (cliente.dati_defunto as Record<string,string>).firma ? (
                 <div className="text-center">
                   <img src={(cliente.dati_defunto as Record<string,string>).firma} alt="Firma" className="mx-auto border border-border rounded h-16" />
-                  <p className="text-xs text-accent mt-2 flex items-center justify-center gap-1"><CheckCircle2 size={12} /> {t('firmato')}</p>
+                  <p className="text-xs text-accent mt-2 flex items-center justify-center gap-1"><CheckCircle2 size={12} /> Firmato</p>
                 </div>
               ) : (
                 <FirmaDigitale onSave={async (dataUrl) => {
@@ -365,7 +361,7 @@ function ClientePage() {
                     body: JSON.stringify({ token, messaggio: '[FIRMA DIGITALE RICEVUTA]', autore: 'Sistema' }),
                   })
                   // Salva nel localStorage per ora (in prod va nel DB)
-                  alert(t('firmaSalvata'))
+                  alert('Firma salvata con successo. Il consulente è stato notificato.')
                 }} />
               )}
             </div>
@@ -373,17 +369,17 @@ function ClientePage() {
             {/* Contatto rapido */}
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">
-                {t('contattoRapido')}
+                Contatto rapido
               </h2>
               <div className="space-y-3">
                 <a href="tel:0815551234" className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
-                  <Phone size={16} className="text-secondary" /> {t('chiamaConsulente')}
+                  <Phone size={16} className="text-secondary" /> Chiama il consulente
                 </a>
                 <a href="https://wa.me/393331234567" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
                   <MessageCircle size={16} className="text-[#25D366]" /> WhatsApp
                 </a>
                 <a href="mailto:info@funerix.com" className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
-                  <Mail size={16} className="text-secondary" /> {t('scriveciEmail')}
+                  <Mail size={16} className="text-secondary" /> Scrivi email
                 </a>
               </div>
             </div>
@@ -391,18 +387,18 @@ function ClientePage() {
             {/* Info richiesta */}
             {richiesta && (
               <div className="card">
-                <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">{t('dettagli')}</h2>
+                <h2 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Dettagli</h2>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-text-muted">{t('richiestaDel')}</span>
+                    <span className="text-text-muted">Richiesta del</span>
                     <span className="text-text">{new Date(richiesta.created_at).toLocaleDateString('it-IT')}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">{t('modalita')}</span>
+                    <span className="text-text-muted">Modalit&agrave;</span>
                     <span className="text-text">{richiesta.modalita}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">{t('stato')}</span>
+                    <span className="text-text-muted">Stato</span>
                     <span className="text-accent font-medium">{cliente.stato_servizio.replace('_', ' ')}</span>
                   </div>
                 </div>

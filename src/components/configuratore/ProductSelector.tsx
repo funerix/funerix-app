@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { Prodotto } from '@/types'
-import { useTranslations } from 'next-intl'
 
 interface ProductSelectorProps {
   prodotti: Prodotto[]
@@ -23,8 +22,6 @@ interface ProductSelectorMultipleProps {
 type Props = ProductSelectorProps | ProductSelectorMultipleProps
 
 export function ProductSelector(props: Props) {
-  const t = useTranslations('catalogo')
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {props.prodotti.map((prodotto, i) => {
@@ -52,7 +49,7 @@ export function ProductSelector(props: Props) {
                 <Image src={prodotto.immagini[0]} alt={prodotto.nome} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-text-muted text-sm">{t('fotoProdotto')}</span>
+                  <span className="text-text-muted text-sm">Foto prodotto</span>
                 </div>
               )}
               {isSelected && (
@@ -73,12 +70,12 @@ export function ProductSelector(props: Props) {
 
             {prodotto.materiale && (
               <p className="text-xs text-text-muted mb-1">
-                {t('materiale')} {prodotto.materiale}
+                Materiale: {prodotto.materiale}
               </p>
             )}
             {prodotto.dimensioni && (
               <p className="text-xs text-text-muted mb-3">
-                {prodotto.dimensioni}
+                Dimensioni: {prodotto.dimensioni}
               </p>
             )}
 
@@ -87,7 +84,7 @@ export function ProductSelector(props: Props) {
                 &euro; {prodotto.prezzo.toLocaleString('it-IT')}
               </span>
               {isSelected && (
-                <span className="text-accent text-sm font-medium">✓</span>
+                <span className="text-accent text-sm font-medium">Selezionato</span>
               )}
             </div>
           </motion.div>

@@ -22,7 +22,7 @@ const LINGUE = [
   { code: 'tl', label: 'Filipino', flag: '🇵🇭', google: 'tl' },
 ]
 
-const COUNTRY_TO_LANG: Record<string, string> = {
+const COUNTRY_TO_GOOGLE: Record<string, string> = {
   GB: 'en', US: 'en', AU: 'en', CA: 'en', IE: 'en', NZ: 'en',
   FR: 'fr', BE: 'fr', ES: 'es', MX: 'es', AR: 'es', CO: 'es',
   DE: 'de', AT: 'de', CH: 'de', PT: 'pt', BR: 'pt',
@@ -31,28 +31,22 @@ const COUNTRY_TO_LANG: Record<string, string> = {
   UA: 'uk', PL: 'pl', AL: 'sq', XK: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
 
-function clearCookies() {
-  const d = window.location.hostname
-  const exp = 'expires=Thu, 01 Jan 1970 00:00:00 UTC'
-  document.cookie = `googtrans=; ${exp}; path=/`
-  document.cookie = `googtrans=; ${exp}; path=/; domain=${d}`
-  document.cookie = `googtrans=; ${exp}; path=/; domain=.${d}`
-}
-
-function setLangCookie(lang: string) {
-  const d = window.location.hostname
-  document.cookie = `googtrans=/it/${lang}; path=/`
-  document.cookie = `googtrans=/it/${lang}; path=/; domain=.${d}`
-}
-
-function getCurrentLang(): string {
-  // Prima controlla localStorage (scelta utente)
-  const saved = localStorage.getItem('funerix-lang')
-  if (saved) return saved
-  // Poi cookie
-  const match = document.cookie.match(/googtrans=\/it\/([^;]+)/)
-  if (match) return match[1]
-  return 'it'
+// Usa il select nativo di Google Translate (funziona sempre)
+function changeGoogleLanguage(langCode: string) {
+  const select = document.querySelector('.goog-te-combo') as HTMLSelectElement
+  if (!select) {
+    // Google Translate non ancora caricato, riprova dopo 500ms
+    setTimeout(() => changeGoogleLanguage(langCode), 500)
+    return
+  }
+  if (langCode === 'it') {
+    // Per tornare a italiano: seleziona vuoto e triggera change
+    select.value = ''
+    select.dispatchEvent(new Event('change'))
+    return
+  }
+  select.value = langCode
+  select.dispatchEvent(new Event('change'))
 }
 
 export function LanguageSelector() {
@@ -60,24 +54,31 @@ export function LanguageSelector() {
   const [currentLang, setCurrentLang] = useState('it')
   const ref = useRef<HTMLDivElement>(null)
 
-  // On mount: leggi lingua salvata o rileva da IP
   useEffect(() => {
-    const lang = getCurrentLang()
-    setCurrentLang(lang)
+    // Leggi lingua salvata
+    const saved = localStorage.getItem('funerix-lang')
+    if (saved && saved !== 'it') {
+      setCurrentLang(saved)
+      // Applica traduzione Google dopo che il widget è pronto
+      const timer = setTimeout(() => changeGoogleLanguage(saved), 1000)
+      return () => clearTimeout(timer)
+    }
 
-    // Se non c'è scelta salvata, rileva da IP (una sola volta)
-    if (!localStorage.getItem('funerix-lang')) {
+    // Prima visita: rileva IP
+    if (!saved) {
       fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
         .then(r => r.json())
         .then(data => {
-          const countryLang = COUNTRY_TO_LANG[data?.country_code]
-          if (countryLang && data.country_code !== 'IT') {
-            localStorage.setItem('funerix-lang', countryLang)
-            setLangCookie(countryLang)
-            window.location.reload()
-          } else {
-            localStorage.setItem('funerix-lang', 'it')
+          if (data?.country_code && data.country_code !== 'IT') {
+            const lang = COUNTRY_TO_GOOGLE[data.country_code]
+            if (lang) {
+              localStorage.setItem('funerix-lang', lang)
+              setCurrentLang(lang)
+              setTimeout(() => changeGoogleLanguage(lang), 1000)
+              return
+            }
           }
+          localStorage.setItem('funerix-lang', 'it')
         })
         .catch(() => localStorage.setItem('funerix-lang', 'it'))
     }
@@ -92,23 +93,13 @@ export function LanguageSelector() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const handleSelect = (lang: string) => {
+  const handleSelect = (googleCode: string) => {
     setOpen(false)
-    if (lang === currentLang) return
+    if (googleCode === currentLang) return
 
-    // Salva scelta
-    localStorage.setItem('funerix-lang', lang)
-
-    // Pulisci cookie vecchi
-    clearCookies()
-
-    // Se non italiano, setta cookie Google Translate
-    if (lang !== 'it') {
-      setLangCookie(lang)
-    }
-
-    // Ricarica
-    window.location.reload()
+    setCurrentLang(googleCode)
+    localStorage.setItem('funerix-lang', googleCode)
+    changeGoogleLanguage(googleCode)
   }
 
   const current = LINGUE.find(l => l.google === currentLang) || LINGUE[0]

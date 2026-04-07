@@ -65,7 +65,7 @@ export default function RootLayout({
         <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-text">
-        <div id="google_translate_element" style={{ position: 'absolute', top: -100, left: 0, opacity: 0 }} />
+        <div id="google_translate_element" style={{ position: 'absolute', top: -100, left: -9999, width: 0, height: 0, overflow: 'hidden' }} />
         <SitoProvider>
           <Header />
           <main className="flex-1">{children}</main>

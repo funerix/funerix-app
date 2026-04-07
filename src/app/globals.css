@@ -100,6 +100,9 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
 
-/* Google Translate — hide top bar only */
+/* Google Translate — hide all UI, keep functionality */
 .goog-te-banner-frame { display: none !important; }
 body { top: 0 !important; }
+#google_translate_element { position: fixed; top: -9999px; left: -9999px; }
+.goog-te-gadget { margin: 0 !important; }
+.VIpgJd-ZVi9od-ORHb-OEVmcd, .VIpgJd-ZVi9od-SmfZ-OEVmcd { display: none !important; }

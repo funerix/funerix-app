@@ -2,11 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Globe } from 'lucide-react'
-import { useLocale } from '@/i18n/provider'
-import { type Locale } from '@/i18n/config'
 
-const lingue: { code: Locale; label: string; flag: string; google: string }[] = [
-  { code: 'it', label: 'Italiano', flag: '🇮🇹', google: 'it' },
+const lingue = [
+  { code: 'it', label: 'Italiano', flag: '🇮🇹', google: '' },
   { code: 'en', label: 'English', flag: '🇬🇧', google: 'en' },
   { code: 'ar', label: 'العربية', flag: '🇸🇦', google: 'ar' },
   { code: 'fr', label: 'Français', flag: '🇫🇷', google: 'fr' },
@@ -24,35 +22,38 @@ const lingue: { code: Locale; label: string; flag: string; google: string }[] = 
   { code: 'ru', label: 'Русский', flag: '🇷🇺', google: 'ru' },
 ]
 
-// Trigger Google Translate programmatically
-function triggerGoogleTranslate(langCode: string) {
-  // Set cookie that Google Translate reads
-  const domain = window.location.hostname
-  if (langCode === 'it') {
-    // Reset to original
-    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain}`
-    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
+function triggerGoogleTranslate(googleCode: string) {
+  const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null
+  if (!select) return
+
+  if (!googleCode) {
+    // Torna a italiano: resetta
+    select.value = ''
+    select.dispatchEvent(new Event('change'))
+    // Pulisci cookie
+    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`
     window.location.reload()
     return
   }
-  document.cookie = `googtrans=/it/${langCode}; path=/; domain=${domain}`
-  document.cookie = `googtrans=/it/${langCode}; path=/`
 
-  // Try to use the Google Translate API directly
-  const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null
-  if (select) {
-    select.value = langCode
-    select.dispatchEvent(new Event('change'))
-  } else {
-    // If widget not loaded yet, reload to pick up the cookie
-    window.location.reload()
-  }
+  select.value = googleCode
+  select.dispatchEvent(new Event('change'))
 }
 
 export function LanguageSelector() {
   const [open, setOpen] = useState(false)
-  const { locale, setLocale } = useLocale()
+  const [current, setCurrent] = useState(lingue[0])
   const ref = useRef<HTMLDivElement>(null)
+
+  // Detect current language from Google Translate cookie
+  useEffect(() => {
+    const match = document.cookie.match(/googtrans=\/it\/([^;]+)/)
+    if (match) {
+      const found = lingue.find(l => l.google === match[1])
+      if (found) setCurrent(found)
+    }
+  }, [])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -63,12 +64,11 @@ export function LanguageSelector() {
   }, [])
 
   const handleChange = (l: typeof lingue[0]) => {
-    setLocale(l.code)           // Update next-intl (for JSON-based translations)
-    triggerGoogleTranslate(l.google)  // Trigger Google Translate (for DB content)
+    setCurrent(l)
     setOpen(false)
+    localStorage.setItem('funerix-lang', l.code)
+    triggerGoogleTranslate(l.google)
   }
-
-  const current = lingue.find(l => l.code === locale) || lingue[0]
 
   return (
     <div ref={ref} className="relative notranslate">
@@ -88,7 +88,7 @@ export function LanguageSelector() {
               key={l.code}
               onClick={() => handleChange(l)}
               className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2.5 transition-colors ${
-                l.code === locale ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
+                l.code === current.code ? 'bg-secondary/10 text-primary font-medium' : 'text-text-light hover:bg-background'
               }`}
             >
               <span className="text-base">{l.flag}</span>

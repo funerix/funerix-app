@@ -51,21 +51,9 @@ export default function RootLayout({
           if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
           }
-          function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-              pageLanguage: 'it',
-              includedLanguages: 'en,fr,es,de,pt,ro,ar,ru,zh-CN,uk,pl,sq,hi,bn,tl',
-              layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-              autoDisplay: false
-            }, 'google_translate_element');
-            window.__gtReady = true;
-            if (window.__gtOnReady) window.__gtOnReady();
-          }
         `}} />
-        <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-text">
-        <div id="google_translate_element" aria-hidden="true" style={{ position: 'fixed', top: 0, left: 0, width: 300, height: 40, clipPath: 'inset(50%)', overflow: 'hidden', pointerEvents: 'none', zIndex: -1, opacity: 0.01 }} />
         <SitoProvider>
           <Header />
           <main className="flex-1">{children}</main>

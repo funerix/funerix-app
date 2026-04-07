@@ -6,8 +6,6 @@ import { motion } from 'framer-motion'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useLocale } from '@/i18n/provider'
-import { useTranslateDB } from '@/lib/useTranslateDB'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -19,24 +17,11 @@ const fadeUp = {
 
 export default function CatalogoPage() {
   const t = useTranslations('catalogo')
-  const { locale } = useLocale()
   const { prodotti, categorie } = useSitoStore()
   const [categoriaAttiva, setCategoriaAttiva] = useState<string | null>(null)
   const [ordinamento, setOrdinamento] = useState<'prezzo_asc' | 'prezzo_desc' | 'nome'>('prezzo_asc')
 
   const attivi = prodotti.filter(p => p.attivo)
-
-  // Translate all DB texts
-  const tNomi = useTranslateDB(attivi.map(p => p.nome), locale)
-  const tDesc = useTranslateDB(attivi.map(p => p.descrizioneBreve), locale)
-  const tMat = useTranslateDB(attivi.map(p => p.materiale || ''), locale)
-  const tCat = useTranslateDB(categorie.map(c => c.nome), locale)
-
-  // Build lookup maps
-  const nomeMap = new Map(attivi.map((p, i) => [p.id, tNomi[i] || p.nome]))
-  const descMap = new Map(attivi.map((p, i) => [p.id, tDesc[i] || p.descrizioneBreve]))
-  const matMap = new Map(attivi.map((p, i) => [p.id, tMat[i] || p.materiale || '']))
-  const catMap = new Map(categorie.map((c, i) => [c.id, tCat[i] || c.nome]))
 
   const prodottiFiltrati = attivi
     .filter(p => !categoriaAttiva || p.categoriaId === categoriaAttiva)
@@ -77,7 +62,7 @@ export default function CatalogoPage() {
                   categoriaAttiva === cat.id ? 'bg-primary text-white' : 'bg-surface text-text-light border border-border hover:bg-background-dark'
                 }`}
               >
-                {catMap.get(cat.id)}
+                {cat.nome}
               </button>
             ))}
           </div>
@@ -106,7 +91,7 @@ export default function CatalogoPage() {
             >
               <div className="w-full h-48 bg-background-dark rounded-lg mb-4 relative overflow-hidden">
                 {prodotto.immagini[0] ? (
-                  <Image src={prodotto.immagini[0]} alt={nomeMap.get(prodotto.id) || prodotto.nome} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={prodotto.immagini[0]} alt={prodotto.nome} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <span className="text-text-muted text-sm">{t('fotoProdotto')}</span>
@@ -115,19 +100,19 @@ export default function CatalogoPage() {
               </div>
               <div className="flex items-start justify-between gap-2 mb-2">
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary">
-                  {nomeMap.get(prodotto.id)}
+                  {prodotto.nome}
                 </h3>
               </div>
-              <p className="text-text-light text-sm mb-3">{descMap.get(prodotto.id)}</p>
+              <p className="text-text-light text-sm mb-3">{prodotto.descrizioneBreve}</p>
               {prodotto.materiale && (
-                <p className="text-xs text-text-muted">{t('materiale')} {matMap.get(prodotto.id)}</p>
+                <p className="text-xs text-text-muted">{t('materiale')} {prodotto.materiale}</p>
               )}
               <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
                 <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-semibold">
                   &euro; {prodotto.prezzo.toLocaleString('it-IT')}
                 </span>
                 <span className="text-xs text-text-muted">
-                  {catMap.get(prodotto.categoriaId)}
+                  {categorie.find(c => c.id === prodotto.categoriaId)?.nome}
                 </span>
               </div>
             </motion.div>

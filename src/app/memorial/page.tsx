@@ -8,7 +8,6 @@ import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useLocale } from '@/i18n/provider'
-import { useTranslateDB } from '@/lib/useTranslateDB'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -38,9 +37,6 @@ export default function MemorialPage() {
     messaggiCount: m.messaggi.length,
     bio: m.biografia,
   }))
-
-  // Translate biographies from DB
-  const tBio = useTranslateDB(necrologi.map(n => n.bio || ''), locale)
 
   const necrologiFiltrati = necrologi.filter(n =>
     n.nome.toLowerCase().includes(ricerca.toLowerCase()) ||
@@ -125,7 +121,7 @@ export default function MemorialPage() {
                           </span>
                           <span>{necrologio.comune}</span>
                         </div>
-                        <p className="text-text-light text-sm mt-2 line-clamp-2">{tBio[necrologi.indexOf(necrologio)] || necrologio.bio}</p>
+                        <p className="text-text-light text-sm mt-2 line-clamp-2">{necrologio.bio}</p>
                       </div>
 
                       {/* Messaggi count */}

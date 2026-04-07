@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Mail, MessageCircle, FileCheck, Clock, CheckCircle2, Circle, ChevronRight, Send, Heart, Upload, FileText, Loader2, PenTool } from 'lucide-react'
 import { FirmaDigitale } from '@/components/FirmaDigitale'
-import { useAutoTranslate } from '@/lib/useAutoTranslate'
 import { useTranslations } from 'next-intl'
 
 interface ClienteData {
@@ -53,7 +52,6 @@ function ClientePage() {
   const [nuovoMessaggio, setNuovoMessaggio] = useState('')
   const [uploading, setUploading] = useState<string | null>(null)
   const t = useTranslations('cliente')
-  const userLang = typeof window !== 'undefined' ? (localStorage.getItem('funerix-lang') || 'it') : 'it'
 
   const statiTimeline = [
     { key: 'richiesta', label: t('statoRichiesta'), desc: t('statoRichiestaDesc') },
@@ -61,12 +59,6 @@ function ClientePage() {
     { key: 'in_corso', label: t('statoInCorso'), desc: t('statoInCorsoDesc') },
     { key: 'completata', label: t('statoCompletata'), desc: t('statoCompletataDesc') },
   ]
-
-  // Auto-translate consultant messages to user's language
-  const consulenteMessages = (cliente?.messaggi_chat || [])
-    .filter(m => m.autore !== cliente?.nome)
-    .map(m => m.testo)
-  const translatedConsulente = useAutoTranslate(consulenteMessages, userLang)
 
   useEffect(() => {
     if (!token) { setErrore(t('linkNonValido')); setLoading(false); return }
@@ -209,16 +201,6 @@ function ClientePage() {
                 ) : (
                   cliente.messaggi_chat.map((msg, i) => {
                     const isCliente = msg.autore === cliente.nome
-                    // Find translated version for consultant messages
-                    let displayText = msg.testo
-                    if (!isCliente && userLang !== 'it') {
-                      const cIdx = (cliente.messaggi_chat || [])
-                        .filter(m => m.autore !== cliente.nome)
-                        .indexOf(msg)
-                      if (cIdx >= 0 && translatedConsulente[cIdx]) {
-                        displayText = translatedConsulente[cIdx]
-                      }
-                    }
                     return (
                     <div key={i} className={`p-3 rounded-lg text-sm ${
                       isCliente
@@ -231,7 +213,7 @@ function ClientePage() {
                           {new Date(msg.data).toLocaleString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </div>
-                      <p className="text-text-light">{displayText}</p>
+                      <p className="text-text-light">{msg.testo}</p>
                     </div>
                   )})
                 )}

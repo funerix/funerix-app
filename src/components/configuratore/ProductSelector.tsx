@@ -5,8 +5,6 @@ import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { Prodotto } from '@/types'
 import { useTranslations } from 'next-intl'
-import { useLocale } from '@/i18n/provider'
-import { useTranslateDB } from '@/lib/useTranslateDB'
 
 interface ProductSelectorProps {
   prodotti: Prodotto[]
@@ -26,12 +24,6 @@ type Props = ProductSelectorProps | ProductSelectorMultipleProps
 
 export function ProductSelector(props: Props) {
   const t = useTranslations('catalogo')
-  const { locale } = useLocale()
-
-  // Translate product names, descriptions, materials from DB
-  const tNomi = useTranslateDB(props.prodotti.map(p => p.nome), locale)
-  const tDesc = useTranslateDB(props.prodotti.map(p => p.descrizioneBreve), locale)
-  const tMat = useTranslateDB(props.prodotti.map(p => p.materiale || ''), locale)
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -57,7 +49,7 @@ export function ProductSelector(props: Props) {
           >
             <div className="w-full h-40 bg-background-dark rounded-lg mb-4 relative overflow-hidden">
               {prodotto.immagini[0] ? (
-                <Image src={prodotto.immagini[0]} alt={tNomi[i] || prodotto.nome} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image src={prodotto.immagini[0]} alt={prodotto.nome} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
                   <span className="text-text-muted text-sm">{t('fotoProdotto')}</span>
@@ -75,13 +67,13 @@ export function ProductSelector(props: Props) {
             </div>
 
             <h4 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-1">
-              {tNomi[i] || prodotto.nome}
+              {prodotto.nome}
             </h4>
-            <p className="text-text-light text-sm mb-3">{tDesc[i] || prodotto.descrizioneBreve}</p>
+            <p className="text-text-light text-sm mb-3">{prodotto.descrizioneBreve}</p>
 
             {prodotto.materiale && (
               <p className="text-xs text-text-muted mb-1">
-                {t('materiale')} {tMat[i] || prodotto.materiale}
+                {t('materiale')} {prodotto.materiale}
               </p>
             )}
             {prodotto.dimensioni && (

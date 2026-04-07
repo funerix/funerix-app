@@ -100,3 +100,6 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
 
+body { top: 0 !important; }
+.goog-te-banner-frame { display: none !important; }
+

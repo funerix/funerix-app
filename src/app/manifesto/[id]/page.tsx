@@ -3,11 +3,13 @@
 import { useEffect, useState, use } from 'react'
 import { getSupabase } from '@/lib/supabase-client'
 import { corniciManifesto, fontManifesto } from '@/lib/cornici-manifesto'
+import { useTranslations } from 'next-intl'
 
 export default function ManifestoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const [dati, setDati] = useState<Record<string, string> | null>(null)
   const [loading, setLoading] = useState(true)
+  const t = useTranslations('manifesto')
 
   useEffect(() => {
     const sb = getSupabase()
@@ -19,7 +21,7 @@ export default function ManifestoPage({ params }: { params: Promise<{ id: string
   }, [id])
 
   if (loading) return <div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-3 border-secondary border-t-transparent rounded-full animate-spin" /></div>
-  if (!dati) return <div className="min-h-screen flex items-center justify-center text-text-muted">Manifesto non trovato</div>
+  if (!dati) return <div className="min-h-screen flex items-center justify-center text-text-muted">{t('nonTrovato')}</div>
 
   const cornice = corniciManifesto.find(c => c.id === (dati.manifesto_cornice || '01')) || corniciManifesto[0]
   const font = fontManifesto.find(f => f.id === (dati.manifesto_font || 'serif')) || fontManifesto[0]
@@ -40,10 +42,10 @@ export default function ManifestoPage({ params }: { params: Promise<{ id: string
           </p>
           {dati.soprannome && (
             <p style={{ fontSize: sizeMap[sz], color: '#8B7355', fontStyle: 'italic', marginTop: 4 }}>
-              detto &ldquo;{dati.soprannome}&rdquo;
+              {t('detto')} &ldquo;{dati.soprannome}&rdquo;
             </p>
           )}
-          {dati.eta && <p style={{ fontSize: '0.9rem', color: '#9CA3AF', marginTop: 4 }}>di anni {dati.eta}</p>}
+          {dati.eta && <p style={{ fontSize: '0.9rem', color: '#9CA3AF', marginTop: 4 }}>{t('diAnni')} {dati.eta}</p>}
           {(dati.data_nascita || dati.data_decesso) && (
             <p style={{ fontSize: '0.8rem', color: '#9CA3AF', marginTop: 2 }}>
               {dati.data_nascita && new Date(dati.data_nascita).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -74,7 +76,7 @@ export default function ManifestoPage({ params }: { params: Promise<{ id: string
 
       <div className="fixed bottom-6 right-6 print:hidden flex gap-2">
         <button onClick={() => window.print()} className="btn-primary text-sm shadow-lg">
-          Stampa
+          {t('stampa')}
         </button>
       </div>
     </div>

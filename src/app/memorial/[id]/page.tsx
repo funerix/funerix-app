@@ -6,6 +6,7 @@ import { Heart, MapPin, Gift, Calendar, Send } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { useSitoStore } from '@/store/sito'
 import { useState, use } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function MemorialDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -13,8 +14,9 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
   const memorial = allMemorial.find(m => m.id === id) || allMemorial[0]
   const [nuovoMessaggio, setNuovoMessaggio] = useState('')
   const [autore, setAutore] = useState('')
+  const t = useTranslations('memorialDettaglio')
 
-  if (!memorial) return <div className="min-h-screen flex items-center justify-center text-text-muted">Memorial non trovato</div>
+  if (!memorial) return <div className="min-h-screen flex items-center justify-center text-text-muted">{t('nonTrovato')}</div>
 
   const messaggi = memorial.messaggi
 
@@ -64,7 +66,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
               {formatDate(memorial.dataNascita)} — {formatDate(memorial.dataMorte)}
             </p>
             <p className="text-white/60 text-sm mt-1">
-              {anniFra(memorial.dataNascita, memorial.dataMorte)} anni
+              {anniFra(memorial.dataNascita, memorial.dataMorte)} {t('anni')}
             </p>
           </motion.div>
         </div>
@@ -82,7 +84,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
                 className="card"
               >
                 <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">
-                  In ricordo
+                  {t('inRicordo')}
                 </h2>
                 <p className="text-text-light leading-relaxed">{memorial.biografia}</p>
               </motion.div>
@@ -91,7 +93,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
             {/* Messaggi */}
             <div>
               <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-6">
-                Messaggi di cordoglio ({messaggi.length})
+                {t('messaggiCordoglioTitolo')} ({messaggi.length})
               </h2>
               <div className="space-y-4">
                 {messaggi.map((msg, i) => (
@@ -116,12 +118,12 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
               {/* Form nuovo messaggio */}
               <form onSubmit={handleInviaMessaggio} className="mt-8 card">
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">
-                  Lascia un pensiero
+                  {t('lasciaUnPensiero')}
                 </h3>
                 <div className="space-y-4">
                   <input
                     type="text"
-                    placeholder="Il tuo nome"
+                    placeholder={t('ilTuoNome')}
                     className="input-field"
                     value={autore}
                     onChange={(e) => setAutore(e.target.value)}
@@ -129,7 +131,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
                   />
                   <textarea
                     rows={3}
-                    placeholder="Scrivi un messaggio di cordoglio o condividi un ricordo..."
+                    placeholder={t('scrivi')}
                     className="input-field"
                     value={nuovoMessaggio}
                     onChange={(e) => setNuovoMessaggio(e.target.value)}
@@ -137,7 +139,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
                   />
                   <button type="submit" className="btn-primary">
                     <Send size={16} className="mr-2" />
-                    Invia messaggio
+                    {t('inviaMessaggio')}
                   </button>
                 </div>
               </form>
@@ -149,7 +151,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
             {/* QR Code */}
             <div className="card text-center">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">
-                QR Code Memorial
+                {t('qrCodeTitolo')}
               </h3>
               <div className="flex justify-center mb-4">
                 <QRCodeSVG
@@ -160,8 +162,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
                 />
               </div>
               <p className="text-xs text-text-muted">
-                Scansiona per visitare questa pagina.
-                Stampalo su santino o lapide.
+                {t('qrCodeDesc')}
               </p>
             </div>
 
@@ -171,7 +172,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin size={16} className="text-secondary" />
                   <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary">
-                    Luogo di sepoltura
+                    {t('luogoSepoltura')}
                   </h3>
                 </div>
                 <p className="text-text-light text-sm">{memorial.luogoSepoltura}</p>
@@ -184,7 +185,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
                 <div className="flex items-center gap-2 mb-3">
                   <Gift size={16} className="text-secondary" />
                   <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary">
-                    Donazioni in memoria
+                    {t('donazioniTitolo')}
                   </h3>
                 </div>
                 <p className="text-text-light text-sm mb-4">{memorial.donazioneDescrizione}</p>
@@ -194,7 +195,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
                   rel="noopener noreferrer"
                   className="btn-secondary text-sm w-full"
                 >
-                  Dona in memoria di {memorial.nome.split(' ')[0]}
+                  {t('donaTesto')} {memorial.nome.split(' ')[0]}
                 </a>
               </div>
             )}
@@ -204,20 +205,20 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
               <div className="flex items-center gap-2 mb-3">
                 <Calendar size={16} className="text-secondary" />
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary">
-                  Date da ricordare
+                  {t('dateRicordare')}
                 </h3>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Nascita</span>
+                  <span className="text-text-muted">{t('nascita')}</span>
                   <span className="text-text">{formatDate(memorial.dataNascita)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Scomparsa</span>
+                  <span className="text-text-muted">{t('scomparsa')}</span>
                   <span className="text-text">{formatDate(memorial.dataMorte)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Primo anniversario</span>
+                  <span className="text-text-muted">{t('primoAnniversario')}</span>
                   <span className="text-text">
                     {formatDate(
                       new Date(new Date(memorial.dataMorte).setFullYear(

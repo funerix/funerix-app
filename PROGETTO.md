@@ -15,77 +15,110 @@
 - **Grafici**: Recharts
 - **Mappe**: Leaflet + React-Leaflet
 - **QR Code**: qrcode.react
+- **i18n**: next-intl (16 lingue, JSON statici)
+- **Traduzioni**: DeepL API Free (sync script) + traduzione manuale Claude
+- **Test**: Vitest (29 test)
 - **Deploy**: Vercel (auto-deploy da GitHub)
 - **Dominio**: funerix.com (DNS su Register.it → Vercel)
 
 ---
 
-## Database: 21 tabelle Supabase
+## Sistema Multi-Lingua
 
-| Tabella | Rows | Collegata a Frontend | Admin UI |
+### Come funziona
+- Ogni pagina usa `useTranslations('sezione')` da next-intl
+- Tutte le stringhe visibili sono chiavi in file JSON (`src/i18n/messages/{lingua}.json`)
+- 16 lingue supportate: IT, EN, FR, ES, DE, PT, RO, AR, RU, ZH, UK, PL, SQ, HI, BN, TL
+- Rilevamento automatico lingua browser al primo accesso
+- Selettore lingua nel header (16 bandiere)
+- Supporto RTL per arabo
+
+### Come aggiornare le traduzioni
+1. **Modificare un testo**: cambiare il valore in `it.json`, poi aggiornare gli altri 15 file
+2. **Aggiungere una feature/pagina**: aggiungere le chiavi in `it.json` sotto una nuova sezione, poi tradurre in tutti i file
+3. **Script automatico**: `npm run translate` (quando quota DeepL disponibile) traduce da it.json a tutte le lingue
+4. **Contenuti da DB**: quando lingua != IT, il frontend usa le traduzioni JSON; quando lingua = IT, usa i dati dal database Supabase
+
+### Sezioni JSON (it.json)
+header, home, footer, cookie, configuratore, common, catalogo, chiSiamo, contatti, cremazioneAnimali, esumazione, prezzi, rimpatri, previdenza, assistenza, memorial, convenzioni, guida, blog + 12 guide singole + cliente, memorialDettaglio, blogPost, onoranzeComune, manifesto
+
+### Variabili d'ambiente
+- `DEEPL_API_KEY` — chiave DeepL API Free per script npm run translate
+- Deve essere configurata anche su Vercel (Settings → Environment Variables)
+
+---
+
+## Database: 22 tabelle Supabase
+
+| Tabella | Rows | Frontend | Admin |
 |---|---|---|---|
 | categorie | 5 | ✅ Catalogo + Configuratore | ❌ |
-| prodotti | 18 | ✅ Catalogo + Configuratore | ✅ CRUD completo |
+| prodotti | 36 | ✅ Catalogo + Configuratore | ✅ CRUD (via API route) |
 | memorial | 4 | ✅ /memorial | ✅ CRUD |
-| messaggi_memorial | 5 | ✅ /memorial/[id] | ✅ (in scheda) |
-| richieste | 6 | ✅ Configuratore → Admin | ✅ Lista + Scheda 6 tab |
-| clienti | 3 | ✅ /cliente?token= | ✅ (in scheda richiesta) |
-| pagamenti | 0 | ❌ NON COLLEGATA | ❌ |
-| impostazioni | 1 | ✅ Header, Footer, Contatti | ✅ Impostazioni |
-| contenuti | 1 | ✅ Homepage hero, footer | ✅ Contenuti |
+| messaggi_memorial | 5 | ✅ /memorial/[id] | ✅ |
+| richieste | 6+ | ✅ Configuratore → Admin | ✅ Lista + Scheda 6 tab |
+| clienti | 3+ | ✅ /cliente?token= | ✅ |
+| pagamenti | 0 | ❌ | ❌ (attesa Stripe) |
+| impostazioni | 1 | ✅ Header, Footer, Contatti | ✅ |
+| contenuti | 1 | ✅ Homepage, Footer (solo IT) | ✅ |
 | blog_posts | 5 | ✅ /blog | ✅ CRUD |
-| comunicazioni | 0 | ✅ (in scheda richiesta) | ✅ (in scheda) |
-| agenzie | 1 | ✅ Manifesto | ✅ CRUD |
+| comunicazioni | 0+ | ✅ Chat consulente-cliente | ✅ |
+| agenzie | 1 | ✅ Manifesto | ✅ |
 | appuntamenti | 0 | ❌ Solo admin | ✅ Calendario |
-| referral | 0 | ❌ NON collegato al config | ✅ CRUD |
-| admin_users | 1 | ✅ /admin/login | ❌ Solo 1 utente |
-| servizi_homepage | 6 | ✅ Homepage card | ❌ MANCA ADMIN |
-| faq | 6 | ✅ Homepage FAQ | ❌ MANCA ADMIN |
-| testimonianze | 3 | ✅ Homepage testimonianze | ❌ MANCA ADMIN |
-| piani_previdenza | 0 | ✅ /previdenza | ✅ Lista (base) |
-| pagamenti_piano | 0 | ❌ NON COLLEGATA | ❌ |
+| referral | 0+ | ✅ Sconto in configuratore | ✅ CRUD |
+| admin_users | 3+ | ✅ /admin/login | ✅ CRUD con ruoli |
+| servizi_homepage | 6 | ✅ Homepage card (solo IT) | ✅ CRUD |
+| faq | 6 | ✅ Homepage FAQ (solo IT) | ✅ CRUD |
+| testimonianze | 3 | ✅ Homepage (solo IT) | ✅ CRUD |
+| piani_previdenza | 0 | ✅ /previdenza | ✅ Lista |
+| pagamenti_piano | 0 | ❌ | ❌ (attesa Stripe) |
 | rsa_convenzionate | 0 | ✅ /convenzioni | ✅ CRUD |
+| log_attivita | 0+ | ❌ | ✅ Log azioni admin |
+
+Supabase Storage:
+- Bucket `translations` — cache traduzioni per lingua (file JSON)
 
 ---
 
 ## Pagine Frontend (48+)
 
 ### Pubbliche
-| Pagina | URL | Stato |
+| Pagina | URL | Tradotta |
 |---|---|---|
-| Homepage | / | ✅ Hero + 6 servizi + prezzi + FAQ + testimonianze |
-| Configuratore (4 tipi) | /configuratore | ✅ Funebre 8 step, Animali 7, Rimpatri 6, Previdenza 8 |
-| Catalogo | /catalogo | ✅ Filtri + immagini |
-| Prezzi | /prezzi | ✅ Per provincia + dettaglio |
-| Rimpatri | /rimpatri | ✅ Zone, costi, documenti |
-| Cremazione Animali | /cremazione-animali | ✅ Listino + procedura |
-| Esumazione | /esumazione | ✅ Servizi + listino |
-| Previdenza | /previdenza | ✅ Landing + simulatore rate |
-| Convenzioni RSA | /convenzioni | ✅ Landing B2B |
-| Memorial lista | /memorial | ✅ Necrologi pubblici |
-| Memorial singolo | /memorial/[id] | ✅ QR Code + messaggi |
-| Manifesto | /manifesto/[id] | ✅ Cornici + stampa |
-| Blog | /blog | ✅ 5 articoli |
-| Blog articolo | /blog/[slug] | ✅ |
-| Guide indice | /guida | ✅ 12 guide |
-| 12 guide singole | /guida/* | ✅ SEO |
-| Chi Siamo | /chi-siamo | ✅ Storia 1920 + foto |
-| Contatti | /contatti | ✅ Form + info |
-| Assistenza | /assistenza | ✅ Chatbot FAQ + contatti |
-| Area Cliente | /cliente?token= | ✅ Timeline + chat + documenti + firma |
-| SEO comuni | /onoranze-funebri/[comune] | ✅ 37 pagine |
+| Homepage | / | ✅ 100% |
+| Configuratore (4 tipi) | /configuratore | ✅ 100% |
+| Catalogo | /catalogo | ✅ 100% |
+| Prezzi | /prezzi | ✅ 100% |
+| Rimpatri | /rimpatri | ✅ 100% |
+| Cremazione Animali | /cremazione-animali | ✅ 100% |
+| Esumazione | /esumazione | ✅ 100% |
+| Previdenza | /previdenza | ✅ 100% |
+| Convenzioni RSA | /convenzioni | ✅ 100% |
+| Memorial lista | /memorial | ✅ 100% |
+| Memorial singolo | /memorial/[id] | ✅ In corso |
+| Manifesto | /manifesto/[id] | ✅ In corso |
+| Blog | /blog | ✅ 100% |
+| Blog articolo | /blog/[slug] | ✅ In corso |
+| Guide indice | /guida | ✅ 100% |
+| 12 guide singole | /guida/* | ✅ In corso |
+| Chi Siamo | /chi-siamo | ✅ 100% |
+| Contatti | /contatti | ✅ 100% |
+| Assistenza | /assistenza | ✅ 100% |
+| Area Cliente | /cliente?token= | ✅ In corso |
+| SEO comuni | /onoranze-funebri/[comune] | ✅ In corso |
 | Sitemap | /sitemap.xml | ✅ |
 | Robots | /robots.txt | ✅ |
-| PWA Manifest | /manifest.json | ✅ |
 
-### Admin (16 pagine)
+### Admin (16 pagine — NON tradotte, solo italiano)
 | Pagina | URL | Stato |
 |---|---|---|
 | Login | /admin/login | ✅ |
 | Dashboard | /admin | ✅ Stats reali |
 | Richieste lista | /admin/richieste | ✅ |
-| Scheda cliente | /admin/richieste/[id] | ✅ 6 tab |
-| Prodotti | /admin/prodotti | ✅ CRUD + upload |
+| Scheda cliente | /admin/richieste/[id] | ✅ 6 tab + traduttore chat |
+| Prodotti | /admin/prodotti | ✅ CRUD (via API route) |
+| Consulenti | /admin/consulenti | ✅ 3 ruoli + permessi |
+| Homepage | /admin/homepage | ✅ CRUD servizi/FAQ/testimonianze |
 | Memorial | /admin/memorial | ✅ CRUD |
 | Blog | /admin/blog | ✅ CRUD |
 | Contenuti | /admin/contenuti | ✅ Editor testi |
@@ -100,7 +133,7 @@
 
 ---
 
-## API Routes (10)
+## API Routes (12)
 | Endpoint | Metodo | Funzione |
 |---|---|---|
 | /api/auth | POST/GET/DELETE | Login, check sessione, logout |
@@ -108,42 +141,81 @@
 | /api/cliente/chat | POST | Messaggi chat cliente-consulente |
 | /api/cliente/documenti | POST/GET | Upload/download documenti |
 | /api/memorial | POST/PUT | CRUD memorial |
-| /api/notifica | POST | Notifica consulente (WhatsApp Business API) |
+| /api/notifica | POST | Notifica consulente (WhatsApp Business) |
 | /api/notifica-stato | POST | Email cambio stato (Resend predisposto) |
+| /api/prodotti | GET/POST/PUT/DELETE | CRUD prodotti (service role key) |
 | /api/richieste | POST/GET | CRUD richieste |
+| /api/translate | POST | Traduzione testi via DeepL + cache Storage |
 | /api/upload | POST | Upload immagini Supabase Storage |
 | /api/whatsapp | POST | Invio WhatsApp Business API |
 
 ---
 
-## COSA FARE — Priorità
+## FASI COMPLETATE
 
-### FASE 1: Backend Admin (URGENTE)
-1. ⬜ **Sidebar admin** — sostituire top-bar con sidebar laterale
-2. ⬜ **Gestione consulenti** — CRUD utenti admin con ruoli (admin/consulente)
-3. ⬜ **Dashboard consulente** — vista limitata alle proprie pratiche
-4. ⬜ **Assegnazione pratiche** — admin assegna richiesta a consulente
-5. ⬜ **CRUD servizi homepage** — gestire card servizi dalla admin
-6. ⬜ **CRUD FAQ** — gestire domande frequenti
-7. ⬜ **CRUD testimonianze** — gestire recensioni
-8. ⬜ **Collegare referral al configuratore** — applicare sconto
+### FASE 1: Backend Admin ✅ COMPLETATA
+1. ✅ Sidebar admin con navigazione raggruppata
+2. ✅ Gestione consulenti — 3 ruoli (admin/manager/consulente) + permessi personalizzabili
+3. ✅ Dashboard consulente — vista filtrata per pratiche assegnate
+4. ✅ Assegnazione pratiche — con notifiche e log attività
+5. ✅ CRUD servizi homepage — tab servizi in /admin/homepage
+6. ✅ CRUD FAQ — tab FAQ in /admin/homepage
+7. ✅ CRUD testimonianze — tab testimonianze in /admin/homepage
+8. ✅ Referral collegato al configuratore — sconto automatico con codice URL
 
-### FASE 2: Integrazioni (servono API key)
-9. ⬜ **Stripe pagamenti** — acconto, rate previdenza, link pagamento
-10. ⬜ **Resend email** — conferma cliente, notifiche stato, email consulente
-11. ⬜ **OpenAI chatbot** — assistente AI invece di keyword match
+### FASE 3: Completamento ✅ COMPLETATA
+9. ✅ Fix salvataggio prodotti DB — API route con service role key (bypassa RLS)
+10. ✅ 18 prodotti nuovi aggiunti al DB (totale 36 prodotti)
+11. ✅ Cookie banner GDPR — 3 livelli (necessari/analytics/marketing)
+12. ✅ Multi-lingua completa — next-intl, 16 lingue, ogni pagina tradotta
+13. ✅ Test automatici — Vitest, 29 test (i18n, types, utils, API)
+14. ✅ DeepL integrato — script npm run translate + API route con cache
+15. ✅ Traduttore chat admin — widget real-time in tab Comunicazioni
 
-### FASE 3: Completamento
-12. ⬜ **61 immagini AI** — prodotti, servizi, sfondi (prompt pronti)
-13. ⬜ **14 prodotti nuovi** — bare, urne, auto, fiori da aggiungere al DB
-14. ⬜ **Multi-lingua routing** — next-intl, traduzione pagine reale
-15. ⬜ **Cookie banner GDPR** — consenso + privacy policy
-16. ⬜ **Test automatici** — Vitest, flusso configuratore
-17. ⬜ **Piani previdenza flusso completo** — pagamento ricorrente, dashboard rate
+---
 
-### FASE 4: Crescita
-18. ⬜ **Google Reviews widget** — recensioni reali
-19. ⬜ **Google Calendar sync** — appuntamenti
-20. ⬜ **SMS automatici** — Twilio per cambio stato
-21. ⬜ **App mobile consulente** — React Native
-22. ⬜ **A/B testing** — landing page
+## COSA FARE — Prossimi step
+
+### FASE 2: Integrazioni esterne ⏸️ IN STANDBY (servono API key)
+1. ⬜ **Stripe pagamenti** — acconto, rate previdenza, link pagamento
+2. ⬜ **Resend email** — conferma cliente, notifiche stato, email consulente
+3. ⬜ **OpenAI chatbot** — assistente AI invece di keyword match
+
+### FASE 4: Contenuti e media
+4. ⬜ **61 immagini AI** — prodotti, servizi, sfondi (prompt pronti)
+5. ⬜ **Piani previdenza flusso completo** — pagamento ricorrente Stripe, dashboard rate
+
+### FASE 5: Crescita
+6. ⬜ **Google Reviews widget** — recensioni reali
+7. ⬜ **Google Calendar sync** — appuntamenti
+8. ⬜ **SMS automatici** — Twilio per cambio stato
+9. ⬜ **App mobile consulente** — React Native
+10. ⬜ **A/B testing** — landing page
+
+---
+
+## Componenti chiave
+
+### Store (Zustand)
+- `src/store/sito.ts` — Store principale: prodotti, categorie, memorial, richieste, impostazioni, contenuti, servizi homepage, FAQ, testimonianze. Carica da Supabase via `loadFromSupabase()`.
+- `src/store/configuratore.ts` — Stato del configuratore: step, selezioni, totale.
+
+### Hooks
+- `src/lib/useAdminUser.ts` — Ruolo e permessi utente admin
+- `src/lib/useAutoTranslate.ts` — Traduzione automatica contenuti DB (per chat cliente)
+- `src/lib/useTranslateContent.ts` — Hook traduzione con cache localStorage
+
+### i18n
+- `src/i18n/config.ts` — Lista 16 lingue e default locale
+- `src/i18n/provider.tsx` — Context provider con lazy loading messaggi + detect browser language
+- `src/i18n/messages/*.json` — File traduzione per lingua (30+ sezioni, 600+ chiavi)
+
+### Admin
+- `src/components/admin/ChatTranslator.tsx` — Traduttore real-time per comunicazioni con clienti stranieri
+- `src/app/admin/layout.tsx` — Sidebar con filtro per ruolo/permessi + `data-admin` per esclusione traduzioni
+
+### Scripts
+- `scripts/translate.mjs` — Sync traduzioni da it.json a tutte le lingue via DeepL API
+  - Uso: `npm run translate`
+  - Richiede: DEEPL_API_KEY in .env.local
+  - Limite: 500.000 caratteri/mese (Free tier)

@@ -5,12 +5,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getSupabase } from '@/lib/supabase-client'
 import { ArrowLeft, Calendar, ChevronRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface Post { titolo: string; contenuto: string; immagine: string; created_at: string }
 
 export default function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
   const [post, setPost] = useState<Post | null>(null)
+  const t = useTranslations('blogPost')
 
   useEffect(() => {
     getSupabase().from('blog_posts').select('*').eq('slug', slug).eq('pubblicato', true).single()
@@ -29,7 +31,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
       )}
       <div className="max-w-3xl mx-auto px-4 py-10">
         <Link href="/blog" className="flex items-center gap-1 text-secondary text-sm mb-6 hover:underline">
-          <ArrowLeft size={14} /> Torna al blog
+          <ArrowLeft size={14} /> {t('tornaAlBlog')}
         </Link>
         <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-3">{post.titolo}</h1>
         <span className="flex items-center gap-1 text-sm text-text-muted mb-8">
@@ -38,8 +40,8 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
         <div className="prose prose-lg max-w-none text-text-light leading-relaxed" dangerouslySetInnerHTML={{ __html: post.contenuto.replace(/\n/g, '<br/>') }} />
 
         <div className="mt-12 pt-8 border-t border-border text-center">
-          <p className="text-text-muted mb-4">Avete bisogno di assistenza?</p>
-          <Link href="/configuratore" className="btn-primary">Configura il Servizio <ChevronRight size={16} className="ml-1" /></Link>
+          <p className="text-text-muted mb-4">{t('assistenzaTitolo')}</p>
+          <Link href="/configuratore" className="btn-primary">{t('configuraServizio')} <ChevronRight size={16} className="ml-1" /></Link>
         </div>
       </div>
     </div>

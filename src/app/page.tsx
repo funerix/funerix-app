@@ -138,8 +138,8 @@ export default function HomePage() {
 
       {/* ═══════════════ 3.5. PREVIDENZA ═══════════════ */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-[0.04]" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/95 to-transparent" />
+        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-[0.12]" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-background-dark/60" />
         <div className="relative max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
@@ -177,20 +177,47 @@ export default function HomePage() {
                 </Link>
               </motion.div>
             </motion.div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon: Lock, t: 'Prezzo bloccato', d: 'Il prezzo non cambia mai, indipendentemente dall\'inflazione.' },
-                { icon: Shield, t: 'Fondi protetti', d: 'Depositati su conto dedicato e separato.' },
-                { icon: Users, t: 'Trasferibile', d: 'Il piano pu\u00F2 essere trasferito a un familiare.' },
-                { icon: Check, t: 'Annullabile', d: 'Recesso in qualsiasi momento con rimborso.' },
-              ].map((g, i) => (
-                <motion.div key={g.t} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="card text-center p-4">
-                  <g.icon size={20} className="mx-auto mb-2 text-accent" />
-                  <h3 className="font-medium text-primary text-sm mb-1">{g.t}</h3>
-                  <p className="text-text-muted text-[11px]">{g.d}</p>
-                </motion.div>
-              ))}
-            </div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}>
+              {/* Visual: esempio piano previdenza */}
+              <div className="card p-6 border-2 border-secondary/20 bg-gradient-to-br from-surface to-background">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center">
+                    <Shield size={16} className="text-secondary" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-primary text-sm">Piano Comfort</p>
+                    <p className="text-text-muted text-[10px]">Il piu scelto</p>
+                  </div>
+                </div>
+                <div className="text-center py-4 mb-4 bg-primary/5 rounded-xl">
+                  <p className="text-text-muted text-xs">Totale servizio</p>
+                  <p className="font-[family-name:var(--font-serif)] text-3xl text-primary font-bold">&euro; 5.500</p>
+                  <p className="text-secondary font-medium text-sm mt-1">36 rate da &euro; 153/mese</p>
+                </div>
+                <div className="space-y-2 mb-4">
+                  {['Bara premium', 'Auto funebre di lusso', 'Cerimonia con musica', 'Manifesto + Memorial', 'Trasporto entro 50km'].map(s => (
+                    <div key={s} className="flex items-center gap-2 text-xs text-text-light">
+                      <Check size={12} className="text-accent flex-shrink-0" /> {s}
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {[
+                    { icon: Lock, t: 'Prezzo bloccato' },
+                    { icon: Shield, t: 'Fondi protetti' },
+                    { icon: Users, t: 'Trasferibile' },
+                    { icon: Check, t: 'Annullabile' },
+                  ].map(g => (
+                    <div key={g.t} className="flex items-center gap-1.5 text-[10px] text-text-muted">
+                      <g.icon size={10} className="text-accent flex-shrink-0" /> {g.t}
+                    </div>
+                  ))}
+                </div>
+                <Link href="/previdenza/configuratore" className="btn-accent w-full text-sm py-2.5 justify-center">
+                  Configura il tuo piano <ChevronRight size={14} className="ml-1" />
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -236,20 +263,20 @@ export default function HomePage() {
 
       {/* ═══════════════ 4.5. FUNERIX PET ═══════════════ */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-[0.04]" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-l from-background-dark via-background-dark/95 to-transparent" />
+        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-[0.12]" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-l from-background-dark via-background-dark/80 to-background-dark/60" />
         <div className="relative max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: PawPrint, t: 'Cremazione', d: 'Individuale con restituzione ceneri', prezzo: 'da \u20AC120', cardClass: 'bg-secondary/5 border-secondary/20', iconClass: 'text-secondary' },
-                  { icon: Shield, t: 'Previdenza Pet', d: 'Pianifica e paga a rate', prezzo: 'da \u20AC10/mese', cardClass: '', iconClass: 'text-accent' },
-                  { icon: Heart, t: 'Memorial Pet', d: 'Ricordo digitale per sempre', prezzo: '', cardClass: '', iconClass: 'text-secondary' },
-                  { icon: MapPin, t: 'Veterinari Partner', d: 'Rete convenzionata', prezzo: '', cardClass: '', iconClass: 'text-secondary' },
+                  { icon: PawPrint, t: 'Cremazione', d: 'Individuale con restituzione ceneri', prezzo: 'da \u20AC120', iconClass: 'text-secondary' },
+                  { icon: Shield, t: 'Previdenza Pet', d: 'Pianifica e paga a rate', prezzo: 'da \u20AC10/mese', iconClass: 'text-accent' },
+                  { icon: Heart, t: 'Memorial Pet', d: 'Ricordo digitale per sempre', prezzo: '', iconClass: 'text-secondary' },
+                  { icon: MapPin, t: 'Veterinari Partner', d: 'Rete convenzionata', prezzo: '', iconClass: 'text-secondary' },
                 ].map((c, i) => (
                   <motion.div key={c.t} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                    className={`card text-center p-5 ${c.cardClass}`}>
+                    className="card text-center p-5">
                     <c.icon size={24} className={`mx-auto mb-2 ${c.iconClass}`} />
                     <h3 className="font-medium text-primary text-sm">{c.t}</h3>
                     <p className="text-text-muted text-xs">{c.d}</p>
@@ -311,7 +338,7 @@ export default function HomePage() {
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-[0.03]" sizes="100vw" />
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-[0.10]" sizes="100vw" />
         <div className="relative max-w-6xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
             Le famiglie che abbiamo accompagnato

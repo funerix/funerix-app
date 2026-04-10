@@ -111,9 +111,9 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 3. COME FUNZIONA ═══════════════ */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-center text-white mb-12">Come funziona</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-center text-primary mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { n: '01', t: 'Configurate online', d: 'Scegliete tipo di servizio, prodotti e dettagli. Ricevete un preventivo indicativo in 5 minuti.' },
@@ -121,14 +121,14 @@ export default function HomePage() {
               { n: '03', t: 'Ci occupiamo di tutto', d: 'Dalla burocrazia alla cerimonia, gestiamo ogni aspetto con cura e rispetto.' },
             ].map((s, i) => (
               <motion.div key={s.n} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                <span className="font-[family-name:var(--font-serif)] text-5xl font-bold text-white/10">{s.n}</span>
-                <h3 className="font-[family-name:var(--font-serif)] text-xl text-white mt-1 mb-2">{s.t}</h3>
-                <p className="text-white/70 text-sm leading-relaxed">{s.d}</p>
+                <span className="font-[family-name:var(--font-serif)] text-5xl font-bold text-primary/10">{s.n}</span>
+                <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mt-1 mb-2">{s.t}</h3>
+                <p className="text-text-muted text-sm leading-relaxed">{s.d}</p>
               </motion.div>
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link href="/configuratore" className="btn-accent text-base py-4 px-8">
+            <Link href="/configuratore" className="btn-primary text-base py-4 px-8">
               Inizia la Configurazione <ChevronRight size={18} className="ml-2" />
             </Link>
           </div>
@@ -301,25 +301,26 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
-      <section className="py-16 bg-background-dark">
+      <section className="py-16 bg-primary">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white text-center mb-10">
             Le famiglie che abbiamo accompagnato
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonianzeDaMostrare.map((t, i) => (
-              <motion.div key={t.nome} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="card">
+              <motion.div key={t.nome} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
                 <div className="flex gap-0.5 mb-4">
                   {Array.from({ length: t.stelle }).map((_, j) => <Star key={j} size={14} className="text-secondary fill-secondary" />)}
                 </div>
-                <p className="text-text-light text-sm leading-relaxed italic mb-5">&ldquo;{t.testo}&rdquo;</p>
-                <div className="pt-4 border-t border-border flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="font-[family-name:var(--font-serif)] text-primary font-bold text-sm">{t.nome.charAt(0)}{t.nome.split(' ').pop()?.charAt(0)}</span>
+                <p className="text-white/80 text-sm leading-relaxed italic mb-5">&ldquo;{t.testo}&rdquo;</p>
+                <div className="pt-4 border-t border-white/10 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                    <span className="font-[family-name:var(--font-serif)] text-white font-bold text-sm">{t.nome.charAt(0)}{t.nome.split(' ').pop()?.charAt(0)}</span>
                   </div>
                   <div>
-                    <p className="font-medium text-primary text-sm">{t.nome}</p>
-                    <p className="text-text-muted text-xs">{t.citta}</p>
+                    <p className="font-medium text-white text-sm">{t.nome}</p>
+                    <p className="text-white/50 text-xs">{t.citta}</p>
                   </div>
                 </div>
               </motion.div>

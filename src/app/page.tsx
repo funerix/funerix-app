@@ -21,12 +21,12 @@ const fadeUp = {
 
 const servizi = [
   { href: '/configuratore', img: '/images/card-servizio-funebre.jpg', titolo: 'Servizio Funebre', desc: 'Configurate il funerale online. Preventivo immediato, nessun obbligo.', icon: Cross },
-  { href: '/previdenza', img: '/images/card-previdenza.jpg', titolo: 'Previdenza Funerix', desc: 'Pianificate oggi, pagate a rate. Prezzo bloccato per sempre.', icon: Shield },
+  { href: '/previdenza', img: '/images/famiglia.jpg', titolo: 'Previdenza Funerix', desc: 'Pianificate oggi, pagate a rate. Prezzo bloccato per sempre.', icon: Shield },
   { href: '/pet', img: '/images/card-cremazione-animali.jpg', titolo: 'Funerix Pet', desc: 'Cremazione animali domestici. Servizio immediato o piano previdenza.', icon: PawPrint },
   { href: '/rimpatri', img: '/images/card-rimpatri.jpg', titolo: 'Rimpatri ed Espatri', desc: 'Trasporto internazionale salme da e verso qualsiasi paese del mondo.', icon: Plane },
-  { href: '/servizi-ricorrenti', img: '/images/card-fiori.jpg', titolo: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori freschi, pulizia e manutenzione monumento.', icon: Flower2 },
-  { href: '/successione', img: '/images/card-successione.jpg', titolo: 'Successione', desc: 'Assistenza dichiarazione successione ereditaria. Ci pensiamo noi.', icon: FileText },
-  { href: '/servizi', img: '/images/card-servizi-extra.jpg', titolo: 'Servizi Aggiuntivi', desc: 'Video tributo, stampa ricordo, cerimonia laica, disbrigo pratiche.', icon: Package },
+  { href: '/servizi-ricorrenti', img: '/images/fiori-bianchi.jpg', titolo: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori freschi, pulizia e manutenzione monumento.', icon: Flower2 },
+  { href: '/successione', img: '/images/mani.jpg', titolo: 'Successione', desc: 'Assistenza dichiarazione successione ereditaria. Ci pensiamo noi.', icon: FileText },
+  { href: '/servizi', img: '/images/candele.jpg', titolo: 'Servizi Aggiuntivi', desc: 'Video tributo, stampa ricordo, cerimonia laica, disbrigo pratiche.', icon: Package },
   { href: '/prezzi', img: '/images/card-prezzi.jpg', titolo: 'Prezzi', desc: 'Confronta i costi in Italia, Europa e nel mondo.', icon: Euro },
 ]
 
@@ -138,7 +138,7 @@ export default function HomePage() {
 
       {/* ═══════════════ 3.5. PREVIDENZA ═══════════════ */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-[0.12]" sizes="100vw" />
+        <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-[0.15]" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-background-dark/60" />
         <div className="relative max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -263,7 +263,7 @@ export default function HomePage() {
 
       {/* ═══════════════ 4.5. FUNERIX PET ═══════════════ */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-[0.12]" sizes="100vw" />
+        <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-[0.15]" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-l from-background-dark via-background-dark/80 to-background-dark/60" />
         <div className="relative max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

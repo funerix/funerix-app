@@ -49,7 +49,7 @@ export default async function RimpatriPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/hero.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <Image src="/images/config-rimpatri-hero.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-sm px-4 py-2 rounded-full mb-6">

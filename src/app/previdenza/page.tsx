@@ -32,7 +32,7 @@ export default function PrevidenzaPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative bg-primary py-20 md:py-28 overflow-hidden">
-        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible">

@@ -27,11 +27,13 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-text);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 { font-family: var(--font-serif); }
+p { line-height: 1.7; }
+h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; }
 ::selection { background-color: var(--color-secondary); color: white; }
 html { scroll-behavior: smooth; }
 ::-webkit-scrollbar { width: 8px; }
@@ -122,4 +124,17 @@ html { scroll-behavior: smooth; }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .table-wrap::-webkit-scrollbar { height: 4px; }
 .table-wrap::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+/* Alternating table rows */
+table tbody tr:nth-child(even) { background-color: rgb(248 246 243 / 0.5); }
+
+/* Section with background image overlay */
+.section-bg {
+  position: relative; overflow: hidden;
+}
+.section-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0.06; pointer-events: none;
+}
 

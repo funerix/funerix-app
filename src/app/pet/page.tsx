@@ -22,6 +22,7 @@ export default function PetPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 to-primary/80" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-light text-xs px-4 py-2 rounded-full mb-5 border border-secondary/20">
@@ -46,7 +47,7 @@ export default function PetPage() {
       </section>
 
       {/* Servizi */}
-      <section className="py-16">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">I nostri servizi</h2>
           <p className="text-text-light text-center mb-10 max-w-2xl mx-auto">
@@ -68,8 +69,9 @@ export default function PetPage() {
       </section>
 
       {/* Come funziona */}
-      <section className="py-16 bg-background-dark">
-        <div className="max-w-5xl mx-auto px-4">
+      <section className="py-16 bg-background-dark relative overflow-hidden">
+        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
+        <div className="relative max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[

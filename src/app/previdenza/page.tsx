@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Shield, Lock, Heart, ChevronRight, Phone, Check, Euro, Calendar, Users } from 'lucide-react'
 import { useState, useEffect } from 'react'
@@ -31,6 +32,7 @@ export default function PrevidenzaPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative bg-primary py-20 md:py-28 overflow-hidden">
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible">
@@ -153,8 +155,9 @@ export default function PrevidenzaPage() {
       </section>
 
       {/* Garanzie */}
-      <section className="py-16">
-        <div className="max-w-5xl mx-auto px-4">
+      <section className="py-16 relative overflow-hidden">
+        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
+        <div className="relative max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Le nostre garanzie</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[

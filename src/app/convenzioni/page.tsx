@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Shield, Euro, Users, Phone, ChevronRight, Check, Building2 } from 'lucide-react'
 import type { Metadata } from 'next'
 
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
 export default function ConvenzioniPage() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Building2 size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">Convenzioni RSA e Case di Cura</h1>
           <p className="text-white/85 text-lg max-w-2xl mx-auto">
@@ -21,7 +23,7 @@ export default function ConvenzioniPage() {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {[
@@ -37,7 +39,7 @@ export default function ConvenzioniPage() {
             ))}
           </div>
 
-          <div className="card mb-12">
+          <div className="card bg-background-dark mb-12">
             <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Come funziona la convenzione</h2>
             <div className="space-y-4">
               {[
@@ -57,6 +59,11 @@ export default function ConvenzioniPage() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-4">
           <div className="card mb-12">
             <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Vantaggi per la struttura</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -75,13 +82,18 @@ export default function ConvenzioniPage() {
             </div>
           </div>
 
-          <div className="card bg-secondary/5 border-secondary/20 text-center">
-            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">Diventa partner</h2>
-            <p className="text-text-light mb-6 max-w-lg mx-auto">Contattateci per attivare la convenzione. Vi ricontatteremo entro 24 ore.</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="tel:+390815551234" className="btn-primary"><Phone size={16} className="mr-2" /> Chiama Ora</a>
-              <Link href="/contatti" className="btn-secondary">Compila il form</Link>
-            </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-3">Diventa partner</h2>
+          <p className="text-white/80 mb-6 max-w-lg mx-auto">Contattateci per attivare la convenzione. Vi ricontatteremo entro 24 ore.</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="tel:+390815551234" className="btn-accent text-lg py-4 px-10"><Phone size={16} className="mr-2" /> Chiama Ora</a>
+            <Link href="/contatti" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">Compila il form</Link>
           </div>
         </div>
       </section>

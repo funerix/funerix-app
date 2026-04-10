@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { FileText, Phone, ChevronRight, Check, Euro, Clock, Shield } from 'lucide-react'
 import type { Metadata } from 'next'
 
@@ -47,12 +48,12 @@ export default function SuccessionePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <div>
               <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Cos&apos;e la successione?</h2>
-              <p className="text-text-light text-sm leading-relaxed mb-4">
+              <p className="text-text-light text-base leading-relaxed mb-4">
                 La dichiarazione di successione e&apos; un obbligo fiscale che gli eredi devono presentare
                 all&apos;Agenzia delle Entrate entro 12 mesi dal decesso. Serve per trasferire
                 ufficialmente i beni del defunto (immobili, conti, veicoli) agli eredi.
               </p>
-              <p className="text-text-light text-sm leading-relaxed">
+              <p className="text-text-light text-base leading-relaxed">
                 E&apos; una pratica complessa che richiede la raccolta di numerosi documenti,
                 il calcolo delle imposte dovute e la presentazione telematica. Funerix si occupa
                 di tutto, dalla raccolta documenti alla voltura catastale.
@@ -70,9 +71,15 @@ export default function SuccessionePage() {
             </div>
           </div>
 
-          {/* Tipologie e prezzi */}
+        </div>
+      </section>
+
+      {/* Tipologie e prezzi */}
+      <section className="py-16 bg-background-dark relative overflow-hidden">
+        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
+        <div className="relative max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Tipologie e costi</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {pratiche.map((p, i) => (
               <div key={p.tipo} className={`card flex flex-col ${i === 1 ? 'border-2 border-secondary relative' : ''}`}>
                 {i === 1 && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white text-xs px-3 py-1 rounded-full font-medium">Piu comune</div>}
@@ -89,10 +96,14 @@ export default function SuccessionePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Cosa include */}
+      {/* Cosa include */}
+      <section className="py-16 bg-background-dark">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Cosa include il servizio</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               'Raccolta e verifica di tutti i documenti necessari',
               'Visure catastali e ipotecarie',
@@ -108,10 +119,14 @@ export default function SuccessionePage() {
               <div key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Documenti necessari */}
+      {/* Documenti necessari */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Documenti necessari</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {documenti.map(d => (
               <div key={d} className="flex items-start gap-2 text-sm text-text-light">
                 <FileText size={14} className="text-secondary mt-0.5 flex-shrink-0" /> {d}
@@ -121,6 +136,7 @@ export default function SuccessionePage() {
           </div>
         </div>
       </section>
+
 
       {/* CTA */}
       <section className="bg-primary py-16">

@@ -1,5 +1,6 @@
 import { Flower2, Sparkles, Wrench, Camera, Package, Phone, ChevronRight, Check } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 
@@ -24,8 +25,9 @@ export default async function ServiziRicorrentiPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="bg-primary py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Flower2 size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
             Fiori e Cura della Tomba

@@ -238,7 +238,7 @@ export default function HomePage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               className="relative hidden lg:block order-2 lg:order-1">
               <div className="relative h-[420px] rounded-2xl overflow-hidden shadow-xl">
-                <Image src="/images/card-cremazione-animali.jpg" alt="Cremazione animali" fill className="object-cover" sizes="50vw" />
+                <Image src="/images/card-pet-cremazione.png" alt="Cremazione animali" fill className="object-cover" sizes="50vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <p className="text-white font-[family-name:var(--font-serif)] text-xl">Cremazione da &euro;120</p>
@@ -307,13 +307,18 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonianzeDaMostrare.map((t, i) => (
               <motion.div key={t.nome} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="card">
-                <div className="flex gap-0.5 mb-3">
+                <div className="flex gap-0.5 mb-4">
                   {Array.from({ length: t.stelle }).map((_, j) => <Star key={j} size={14} className="text-secondary fill-secondary" />)}
                 </div>
-                <p className="text-text-light text-sm leading-relaxed italic mb-4">&ldquo;{t.testo}&rdquo;</p>
-                <div className="pt-3 border-t border-border">
-                  <p className="font-medium text-primary text-sm">{t.nome}</p>
-                  <p className="text-text-muted text-xs">{t.citta}</p>
+                <p className="text-text-light text-sm leading-relaxed italic mb-5">&ldquo;{t.testo}&rdquo;</p>
+                <div className="pt-4 border-t border-border flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <span className="font-[family-name:var(--font-serif)] text-primary font-bold text-sm">{t.nome.charAt(0)}{t.nome.split(' ').pop()?.charAt(0)}</span>
+                  </div>
+                  <div>
+                    <p className="font-medium text-primary text-sm">{t.nome}</p>
+                    <p className="text-text-muted text-xs">{t.citta}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}

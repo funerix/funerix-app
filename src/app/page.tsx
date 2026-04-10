@@ -111,9 +111,8 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 3. COME FUNZIONA ═══════════════ */}
-      <section className="py-16 bg-primary text-white relative overflow-hidden">
-        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
-        <div className="relative max-w-5xl mx-auto px-4">
+      <section className="py-16 bg-primary text-white">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-center text-white mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[

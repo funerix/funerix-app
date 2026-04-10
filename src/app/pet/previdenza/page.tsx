@@ -50,7 +50,7 @@ export default function PrevidenzaPetPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative bg-primary py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
+        <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-light text-xs px-4 py-2 rounded-full mb-5 border border-secondary/20">
             <Shield size={14} /> Prezzo bloccato, rate flessibili
@@ -224,6 +224,19 @@ export default function PrevidenzaPetPage() {
                 <Check size={14} className="text-accent mt-0.5 flex-shrink-0" /> {t}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-12">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="bg-primary/5 border border-primary/10 rounded-xl p-5 flex items-start gap-3">
+            <Euro size={20} className="text-primary mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="font-medium text-primary">Non &egrave; un finanziamento</p>
+              <p className="text-sm text-text-muted">&Egrave; un semplice prepagamento rateale per un servizio futuro. Nessun interesse, nessuna segnalazione, nessun prodotto finanziario.</p>
+            </div>
           </div>
         </div>
       </section>

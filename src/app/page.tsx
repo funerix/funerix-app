@@ -350,12 +350,12 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 7. CTA FINALE ═══════════════ */}
-      <section className="py-16 bg-primary">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-3">
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">
             Avete bisogno di assistenza?
           </h2>
-          <p className="text-white/80 mb-8">
+          <p className="text-text-light mb-8">
             Siamo disponibili 24 ore su 24, 7 giorni su 7. Configurate online o chiamateci.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -363,7 +363,7 @@ export default function HomePage() {
               Configura il Servizio <ChevronRight size={18} className="ml-2" />
             </Link>
             <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
-              className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-10">
+              className="btn-secondary text-base py-4 px-10">
               <Phone size={18} className="mr-2" /> {impostazioni.telefono}
             </a>
             <a href={`https://wa.me/${impostazioni.whatsapp.replace(/\s/g, '')}`} target="_blank" rel="noopener noreferrer"

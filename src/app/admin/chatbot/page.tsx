@@ -4,10 +4,10 @@ import { Bot } from 'lucide-react'
 
 export default function AdminChatbot() {
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">AI Chatbot Config</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">AI Chatbot Config</h1>
           <p className="text-text-muted text-sm">Configurazione assistente virtuale e risposte automatiche</p>
         </div>
       </div>

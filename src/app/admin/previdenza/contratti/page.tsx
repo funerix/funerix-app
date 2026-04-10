@@ -4,10 +4,10 @@ import { FileSignature } from 'lucide-react'
 
 export default function AdminPrevidenzaContratti() {
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Contratti</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Contratti</h1>
           <p className="text-text-muted text-sm">Gestione contratti e documenti previdenziali</p>
         </div>
       </div>

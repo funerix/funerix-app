@@ -4,10 +4,10 @@ import { Bell } from 'lucide-react'
 
 export default function AdminNotifiche() {
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Notifiche Template</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Notifiche Template</h1>
           <p className="text-text-muted text-sm">Configurazione template email, SMS e push notification</p>
         </div>
       </div>

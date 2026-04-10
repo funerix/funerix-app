@@ -100,5 +100,26 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); transition: all 0.3s; cursor: pointer;
 }
 
+/* Admin sidebar scrollbar — thin */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.1) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar { width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgb(255 255 255 / 0.1); border-radius: 2px; }
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgb(255 255 255 / 0.2); }
 
+/* Admin content area — disable card hover in data-admin context */
+[data-admin] .card { box-shadow: 0 1px 3px rgb(0 0 0 / 0.04); }
+[data-admin] .card:hover { box-shadow: 0 1px 3px rgb(0 0 0 / 0.04); }
+
+/* Responsive padding for admin pages */
+[data-admin] main .p-6 { padding: 1rem; }
+@media (min-width: 768px) { [data-admin] main .p-6 { padding: 1.5rem; } }
+
+/* Table responsive wrapper */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-wrap::-webkit-scrollbar { height: 4px; }
+.table-wrap::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
 

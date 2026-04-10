@@ -59,10 +59,10 @@ export default function AdminPrevidenzaBeneficiari() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Beneficiari</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Beneficiari</h1>
           <p className="text-text-muted text-sm">{filtered.length} beneficiari</p>
         </div>
       </div>

@@ -60,10 +60,10 @@ export default function AdminRimpatriConsolati() {
   const getPaese = (id: string) => paesi.find(p => p.id === id)
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Consolati</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Consolati</h1>
           <p className="text-text-muted text-sm">{consolati.length} consolati e ambasciate</p>
         </div>
         <button onClick={() => { resetForm(); setShowForm(true) }} className="btn-primary text-sm">

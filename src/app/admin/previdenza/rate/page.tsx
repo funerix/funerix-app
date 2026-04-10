@@ -53,10 +53,10 @@ export default function AdminPrevidenzaRate() {
   const scadute = items.filter(r => r.stato === 'scaduto').length
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Rate e Pagamenti</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Rate e Pagamenti</h1>
           <p className="text-text-muted text-sm">{filtered.length} rate</p>
         </div>
       </div>

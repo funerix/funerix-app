@@ -63,13 +63,13 @@ export default function AdminRimpatriPratiche() {
     const documenti = selected.documenti_checklist || []
 
     return (
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <button onClick={() => setSelected(null)} className="text-secondary text-sm mb-4 hover:underline flex items-center gap-1">
           <ArrowLeft size={14} /> Torna alla lista
         </button>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-primary">{selected.defunto_nome} {selected.defunto_cognome}</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-primary">{selected.defunto_nome} {selected.defunto_cognome}</h1>
             <p className="text-text-muted text-sm">
               {selected.rimpatri_paesi?.bandiera_emoji || ''} {selected.rimpatri_paesi?.nome || 'N/D'} &mdash; {selected.direzione || 'rimpatrio'}
             </p>
@@ -219,10 +219,10 @@ export default function AdminRimpatriPratiche() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Pratiche Rimpatrio</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Pratiche Rimpatrio</h1>
           <p className="text-text-muted text-sm">{pratiche.length} pratiche totali</p>
         </div>
       </div>

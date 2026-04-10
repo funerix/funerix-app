@@ -72,19 +72,19 @@ export default function AdminPetDashboard() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center">
           <PawPrint size={20} className="text-secondary" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-primary">Funerix Pet</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Funerix Pet</h1>
           <p className="text-text-muted text-sm">Dashboard cremazione animali</p>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {statCards.map(s => (
           <div key={s.label} className="card p-4">
             <div className="flex items-center gap-2 mb-2">
@@ -93,7 +93,7 @@ export default function AdminPetDashboard() {
               </div>
             </div>
             <p className="text-text-muted text-xs">{s.label}</p>
-            <p className="text-2xl font-bold text-primary">{loading ? '...' : s.value}</p>
+            <p className="text-xl md:text-2xl font-bold text-primary">{loading ? '...' : s.value}</p>
           </div>
         ))}
       </div>

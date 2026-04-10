@@ -206,6 +206,11 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                   <Lock size={18} className="text-accent mt-0.5 flex-shrink-0" />
                   <div><p className="text-sm font-medium text-primary">I vostri fondi sono protetti</p>
                   <p className="text-xs text-text-muted">Depositati su conto bancario dedicato e separato. Rimborsabili in qualsiasi momento. Prezzo bloccato per sempre.</p></div>
+                </div>
+                <div className="bg-primary/5 border border-primary/10 rounded-xl p-4 flex items-start gap-3 mt-3">
+                  <Euro size={18} className="text-primary mt-0.5 flex-shrink-0" />
+                  <div><p className="text-sm font-medium text-primary">Non &egrave; un finanziamento</p>
+                  <p className="text-xs text-text-muted">&Egrave; un prepagamento rateale. Nessun interesse, nessuna segnalazione, nessun prodotto finanziario.</p></div>
                 </div></div>
               )}
 

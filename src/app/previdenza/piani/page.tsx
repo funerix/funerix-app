@@ -1,4 +1,4 @@
-import { Shield, Check, ChevronRight } from 'lucide-react'
+import { Shield, Check, ChevronRight, Euro } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
@@ -78,6 +78,13 @@ export default async function PianiPrevidenzaPage() {
           <p className="text-text-muted text-center text-sm mt-8">
             Tutti i piani sono personalizzabili nel configuratore. I prezzi mostrati sono indicativi.
           </p>
+          <div className="mt-6 bg-primary/5 border border-primary/10 rounded-xl p-4 max-w-2xl mx-auto flex items-start gap-3">
+            <Euro size={18} className="text-primary mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-primary">Non &egrave; un finanziamento</p>
+              <p className="text-xs text-text-muted">&Egrave; un semplice prepagamento rateale per un servizio futuro. Nessun interesse, nessuna segnalazione a centrali rischi, nessun prodotto finanziario. Non serve autorizzazione IVASS.</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>

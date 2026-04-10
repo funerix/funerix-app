@@ -117,6 +117,14 @@ export default function PrevidenzaPage() {
               </div>
             </div>
 
+            <div className="mt-6 bg-primary/5 border border-primary/10 rounded-xl p-4 flex items-start gap-3">
+              <Euro size={18} className="text-primary mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-medium text-primary">Non &egrave; un finanziamento</p>
+                <p className="text-xs text-text-muted">&Egrave; un semplice prepagamento rateale per un servizio futuro. Nessun interesse, nessuna segnalazione, nessun prodotto finanziario.</p>
+              </div>
+            </div>
+
             <div className="mt-6 text-center">
               <Link href={`/previdenza/piani`} className="btn-secondary text-sm mr-3">
                 Confronta i piani

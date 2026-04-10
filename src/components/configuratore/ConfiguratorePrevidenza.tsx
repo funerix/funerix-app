@@ -175,6 +175,33 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                     <div className="bg-background rounded-xl p-4"><p className="text-text-muted text-xs">Durata</p><p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{Math.ceil(numRate/12)} {numRate<=12?'anno':'anni'}</p></div>
                   </div>
                 </div>
+                {/* Piano pagamento con date */}
+                <div className="card p-4 mb-6">
+                  <p className="text-xs text-text-muted font-medium mb-2">Piano di pagamento dettagliato</p>
+                  <div className="grid grid-cols-1 gap-y-0.5 text-xs max-h-48 overflow-y-auto">
+                    {Array.from({ length: numRate }, (_, i) => {
+                      const isLast = i === numRate - 1
+                      const importo = isLast ? Math.round((totale - rataMensile * (numRate - 1)) * 100) / 100 : rataMensile
+                      const dataRata = new Date()
+                      dataRata.setMonth(dataRata.getMonth() + i)
+                      const meseAnno = dataRata.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })
+                      return (
+                        <div key={i} className={`flex items-center justify-between py-1.5 px-2 rounded ${i === 0 ? 'bg-secondary/10' : i % 2 === 0 ? 'bg-background' : ''}`}>
+                          <div className="flex items-center gap-2">
+                            <span className="w-6 h-6 rounded-full bg-border flex items-center justify-center text-[10px] font-bold text-text-muted">{i + 1}</span>
+                            <span className="text-text capitalize">{meseAnno}</span>
+                            {i === 0 && <span className="text-[9px] bg-secondary/20 text-secondary px-1.5 py-0.5 rounded-full font-medium">Prima rata</span>}
+                          </div>
+                          <span className="font-medium text-primary">&euro; {importo.toFixed(2)}</span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  <div className="flex justify-between mt-2 pt-2 border-t border-border text-xs font-medium">
+                    <span className="text-text-muted">Totale {numRate} rate</span>
+                    <span className="text-primary">&euro; {totale.toFixed(2)}</span>
+                  </div>
+                </div>
                 <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 flex items-start gap-3">
                   <Lock size={18} className="text-accent mt-0.5 flex-shrink-0" />
                   <div><p className="text-sm font-medium text-primary">I vostri fondi sono protetti</p>

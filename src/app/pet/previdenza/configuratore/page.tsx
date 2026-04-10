@@ -35,6 +35,9 @@ export default function ConfiguratorePrevidenzaPet() {
   const [ritiroDomicilio, setRitiroDomicilio] = useState(true)
   const [numRate, setNumRate] = useState(12)
   const [metodoPagamento, setMetodoPagamento] = useState<'carta' | 'iban'>('carta')
+  const [indirizzo, setIndirizzo] = useState('')
+  const [citta, setCitta] = useState('')
+  const [modalitaAttivazione, setModalitaAttivazione] = useState<'subito' | 'consulente'>('subito')
   const [inviato, setInviato] = useState(false)
 
   // DB data
@@ -248,11 +251,11 @@ export default function ConfiguratorePrevidenzaPet() {
                 </div>
               )}
 
-              {/* Step 5: Extra (ritiro) */}
+              {/* Step 5: Ritiro + Indirizzo */}
               {step === 5 && (
                 <div>
-                  <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Ritiro</h2>
-                  <div className="grid grid-cols-2 gap-4">
+                  <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Ritiro e indirizzo</h2>
+                  <div className="grid grid-cols-2 gap-4 mb-6">
                     <div onClick={() => setRitiroDomicilio(true)}
                       className={ritiroDomicilio ? 'product-card-selected text-center py-6' : 'product-card text-center py-6'}>
                       <span className="block font-medium text-primary">Ritiro a domicilio</span>
@@ -264,6 +267,20 @@ export default function ConfiguratorePrevidenzaPet() {
                       <span className="block font-medium text-primary">Presso struttura</span>
                       <p className="text-text-light text-xs">Portate voi o il veterinario</p>
                       <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">Gratuito</span>
+                    </div>
+                  </div>
+                  <div className="card p-4">
+                    <p className="text-sm font-medium text-primary mb-3">Dove vive il vostro animale?</p>
+                    <p className="text-xs text-text-muted mb-3">Ci serve per organizzare il ritiro e trovare il veterinario partner piu vicino.</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-xs text-text-muted">Indirizzo</label>
+                        <input type="text" value={indirizzo} onChange={e => setIndirizzo(e.target.value)} placeholder="Via Roma 123" className="input-field text-sm mt-1" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-text-muted">Citta</label>
+                        <input type="text" value={citta} onChange={e => setCitta(e.target.value)} placeholder="Napoli" className="input-field text-sm mt-1" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -312,21 +329,32 @@ export default function ConfiguratorePrevidenzaPet() {
                       </div>
                     </div>
 
-                    {/* Piano pagamento dettagliato */}
+                    {/* Piano pagamento dettagliato con date */}
                     {numRate > 1 && (
                       <div className="mt-6 pt-4 border-t border-border">
                         <p className="text-xs text-text-muted font-medium mb-2">Piano di pagamento</p>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs max-h-40 overflow-y-auto">
+                        <div className="grid grid-cols-1 gap-y-0.5 text-xs max-h-48 overflow-y-auto">
                           {Array.from({ length: numRate }, (_, i) => {
                             const isLast = i === numRate - 1
-                            const importoRata = isLast ? (totale - rataMensile * (numRate - 1)) : rataMensile
+                            const importoRata = isLast ? Math.round((totale - rataMensile * (numRate - 1)) * 100) / 100 : rataMensile
+                            const dataRata = new Date()
+                            dataRata.setMonth(dataRata.getMonth() + i)
+                            const meseAnno = dataRata.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })
                             return (
-                              <div key={i} className="flex justify-between py-1 border-b border-border/30">
-                                <span className="text-text-muted">Rata {i + 1}{i === 0 ? ' (attivazione)' : ''}</span>
+                              <div key={i} className={`flex items-center justify-between py-1.5 px-2 rounded ${i === 0 ? 'bg-secondary/10' : i % 2 === 0 ? 'bg-background' : ''}`}>
+                                <div className="flex items-center gap-2">
+                                  <span className="w-6 h-6 rounded-full bg-border flex items-center justify-center text-[10px] font-bold text-text-muted">{i + 1}</span>
+                                  <span className="text-text capitalize">{meseAnno}</span>
+                                  {i === 0 && <span className="text-[9px] bg-secondary/20 text-secondary px-1.5 py-0.5 rounded-full font-medium">Attivazione</span>}
+                                </div>
                                 <span className="font-medium text-primary">&euro; {importoRata.toFixed(2)}</span>
                               </div>
                             )
                           })}
+                        </div>
+                        <div className="flex justify-between mt-2 pt-2 border-t border-border text-xs font-medium">
+                          <span className="text-text-muted">Totale {numRate} rate</span>
+                          <span className="text-primary">&euro; {totale.toFixed(2)}</span>
                         </div>
                       </div>
                     )}
@@ -381,7 +409,7 @@ export default function ConfiguratorePrevidenzaPet() {
               {step === 8 && (
                 <div>
                   <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">I vostri dati</h2>
-                  <p className="text-text-light mb-6">Compilate i dati per attivare il piano. La prima rata verr&agrave; addebitata alla conferma.</p>
+                  <p className="text-text-light mb-6">Compilate i dati per attivare il piano.</p>
                   <form className="space-y-5" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div><label className="block text-sm font-medium text-text mb-1">Nome e Cognome *</label><input name="nome" required className="input-field" /></div>
@@ -389,24 +417,51 @@ export default function ConfiguratorePrevidenzaPet() {
                       <div><label className="block text-sm font-medium text-text mb-1">Email *</label><input name="email" type="email" required className="input-field" /></div>
                     </div>
 
+                    {/* Scelta: attiva subito o consulente */}
+                    <div>
+                      <p className="text-sm font-medium text-text mb-3">Come volete procedere?</p>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div onClick={() => setModalitaAttivazione('subito')}
+                          className={modalitaAttivazione === 'subito' ? 'product-card-selected py-4 text-center' : 'product-card py-4 text-center'}>
+                          <CreditCard size={20} className="mx-auto mb-1 text-secondary" />
+                          <span className="block font-medium text-primary text-sm">Attiva subito</span>
+                          <p className="text-text-muted text-[10px]">Paga la prima rata e attiva il piano</p>
+                        </div>
+                        <div onClick={() => setModalitaAttivazione('consulente')}
+                          className={modalitaAttivazione === 'consulente' ? 'product-card-selected py-4 text-center' : 'product-card py-4 text-center'}>
+                          <PawPrint size={20} className="mx-auto mb-1 text-secondary" />
+                          <span className="block font-medium text-primary text-sm">Parla con noi</span>
+                          <p className="text-text-muted text-[10px]">Un consulente vi chiamera per confermare</p>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="bg-secondary/10 rounded-xl p-4">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="font-medium text-primary">Prima rata (attivazione)</p>
-                          <p className="text-xs text-text-muted">{numRate === 1 ? 'Pagamento unico' : `Poi ${numRate - 1} rate da €${rataMensile}`} — {metodoPagamento === 'carta' ? 'Carta' : 'IBAN'}</p>
+                          <p className="font-medium text-primary">{modalitaAttivazione === 'subito' ? 'Prima rata (attivazione)' : 'Piano da attivare'}</p>
+                          <p className="text-xs text-text-muted">{numRate === 1 ? 'Pagamento unico' : `${numRate} rate da €${rataMensile}`} — {metodoPagamento === 'carta' ? 'Carta' : 'IBAN'}</p>
                         </div>
-                        <span className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}</span>
+                        <span className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}{numRate > 1 ? '/mese' : ''}</span>
                       </div>
                     </div>
 
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input type="checkbox" required className="w-5 h-5 mt-0.5 rounded" />
-                      <span className="text-sm text-text-light">Acconsento al trattamento dei dati personali e alle condizioni del servizio. Il prezzo e&apos; bloccato. Annullabile con rimborso del versato (meno 5% spese). *</span>
+                      <span className="text-sm text-text-light">Acconsento al trattamento dei dati personali e alle condizioni del servizio. Prezzo bloccato. Annullabile con rimborso del versato (meno 5% spese). *</span>
                     </label>
                     <button type="submit" className="btn-accent w-full py-4 text-base">
-                      <Shield size={18} className="mr-2" /> Attiva Piano — &euro; {rataMensile} {numRate > 1 ? '/mese' : ''}
+                      {modalitaAttivazione === 'subito' ? (
+                        <><CreditCard size={18} className="mr-2" /> Attiva Piano — &euro; {rataMensile}{numRate > 1 ? '/mese' : ''}</>
+                      ) : (
+                        <><PawPrint size={18} className="mr-2" /> Richiedi Chiamata Consulente</>
+                      )}
                     </button>
-                    <p className="text-[10px] text-text-muted text-center">La prima rata viene addebitata alla conferma del consulente. Zero interessi.</p>
+                    <p className="text-[10px] text-text-muted text-center">
+                      {modalitaAttivazione === 'subito'
+                        ? 'La prima rata viene addebitata immediatamente. Zero interessi.'
+                        : 'Un consulente vi contattara entro 30 minuti per confermare il piano.'}
+                    </p>
                   </form>
                 </div>
               )}

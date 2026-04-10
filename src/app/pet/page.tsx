@@ -23,7 +23,6 @@ export default function PetPage() {
       {/* Hero */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
         <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 to-primary/80" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-light text-xs px-4 py-2 rounded-full mb-5 border border-secondary/20">
             <PawPrint size={14} /> Funerix Pet
@@ -69,9 +68,8 @@ export default function PetPage() {
       </section>
 
       {/* Come funziona */}
-      <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/config-animali-hero.jpg" alt="" fill className="object-cover opacity-10" sizes="100vw" />
-        <div className="relative max-w-5xl mx-auto px-4">
+      <section className="py-16 bg-background-dark">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
@@ -114,8 +112,9 @@ export default function PetPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <PawPrint size={32} className="mx-auto mb-4 text-secondary-light" />
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">
             Configurate il servizio in pochi minuti

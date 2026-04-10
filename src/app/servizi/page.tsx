@@ -50,9 +50,8 @@ export default async function ServiziPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="relative bg-primary py-20 md:py-28 overflow-hidden">
-        <Image src="/images/card-servizi-extra.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/card-servizi-extra.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <Package size={48} className="mx-auto mb-6 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white leading-tight">
@@ -112,8 +111,9 @@ export default async function ServiziPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/card-servizi-extra.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Avete bisogno di un servizio aggiuntivo?</h2>
           <p className="text-white/80 mb-8">Contattateci per aggiungere uno o piu servizi al vostro preventivo. Un consulente vi guidera nella scelta.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

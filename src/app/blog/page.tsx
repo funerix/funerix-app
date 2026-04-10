@@ -19,7 +19,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-background">
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/candele.jpg" alt="" fill className="object-cover opacity-25" sizes="100vw" />
+        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white">Guida e Informazioni</h1>
           <p className="mt-4 text-white/80 text-lg">Articoli utili per orientarsi nei momenti difficili</p>

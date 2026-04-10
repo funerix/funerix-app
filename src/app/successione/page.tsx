@@ -29,8 +29,9 @@ export default function SuccessionePage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="bg-primary py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/card-successione.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <FileText size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
             Dichiarazione di Successione
@@ -43,9 +44,8 @@ export default function SuccessionePage() {
       </section>
 
       {/* Cos'e */}
-      <section className="py-16 relative overflow-hidden">
-        <Image src="/images/card-successione.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
-        <div className="relative max-w-5xl mx-auto px-4">
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <div>
               <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Cos&apos;e la successione?</h2>
@@ -76,9 +76,8 @@ export default function SuccessionePage() {
       </section>
 
       {/* Tipologie e prezzi */}
-      <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
-        <div className="relative max-w-5xl mx-auto px-4">
+      <section className="py-16 bg-background-dark">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Tipologie e costi</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {pratiche.map((p, i) => (
@@ -140,8 +139,9 @@ export default function SuccessionePage() {
 
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/card-successione.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Avete bisogno di assistenza?</h2>
           <p className="text-white/80 mb-8">Contattateci per un preventivo gratuito. Vi guideremo in ogni passo della pratica.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

@@ -12,7 +12,7 @@ export default function ConvenzioniPage() {
   return (
     <div className="min-h-screen bg-background">
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Building2 size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">Convenzioni RSA e Case di Cura</h1>
@@ -62,9 +62,8 @@ export default function ConvenzioniPage() {
         </div>
       </section>
 
-      <section className="py-16 relative overflow-hidden">
-        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
-        <div className="relative max-w-5xl mx-auto px-4">
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-4">
           <div className="card mb-12">
             <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Vantaggi per la struttura</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -88,7 +87,7 @@ export default function ConvenzioniPage() {
 
       {/* CTA */}
       <section className="bg-primary py-16 relative overflow-hidden">
-        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-3">Diventa partner</h2>
           <p className="text-white/80 mb-6 max-w-lg mx-auto">Contattateci per attivare la convenzione. Vi ricontatteremo entro 24 ore.</p>

@@ -50,7 +50,6 @@ export default async function RimpatriPage() {
       {/* Hero */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
         <Image src="/images/config-rimpatri-hero.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-sm px-4 py-2 rounded-full mb-6">
             <Globe size={16} /> {paesi.length} paesi serviti in tutto il mondo
@@ -226,8 +225,9 @@ export default async function RimpatriPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/config-rimpatri-hero.jpg" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">
             Avete bisogno di un rimpatrio urgente?
           </h2>

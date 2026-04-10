@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, ChevronRight, BookOpen } from "lucide-react"
 import type { Metadata } from "next"
 export const metadata: Metadata = { title: "Inumazione o Tumulazione: le differenze", description: "Differenza tra inumazione e tumulazione: costi, tempistiche, concessioni cimiteriali. Come scegliere la sepoltura giusta.", keywords: "inumazione tumulazione differenze, sepoltura in terra, loculo cimitero, concessione cimiteriale napoli" }

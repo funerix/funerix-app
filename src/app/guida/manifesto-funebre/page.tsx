@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, ScrollText } from "lucide-react"
 import type { Metadata } from "next"
 export const metadata: Metadata = { title: "Il Manifesto Funebre — Come scriverlo, costi, dove affiggerlo", description: "Guida al manifesto funebre: come scrivere il testo, formato, dove affiggerlo a Napoli, costi stampa e affissione. Esempi e modelli.", keywords: "manifesto funebre, necrologi napoli, come scrivere manifesto funebre, costo manifesto funebre, affissione manifesti" }

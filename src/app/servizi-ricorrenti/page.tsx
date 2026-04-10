@@ -128,8 +128,9 @@ export default async function ServiziRicorrentiPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/hero-fiori.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Attivate il servizio</h2>
           <p className="text-white/80 mb-8">Contattateci per attivare l&apos;abbonamento o per un servizio una tantum.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

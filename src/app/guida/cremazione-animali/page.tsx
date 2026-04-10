@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, ChevronRight, Heart, Phone, Dog, Cat } from "lucide-react"
 import type { Metadata } from "next"
 

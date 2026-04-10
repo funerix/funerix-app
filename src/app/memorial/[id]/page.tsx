@@ -43,7 +43,7 @@ export default function MemorialDetailPage({ params }: { params: Promise<{ id: s
     <div className="min-h-screen bg-background">
       {/* Header memorial */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/tramonto-sereno.png" alt="" fill className="object-cover opacity-25" sizes="100vw" />
+        <Image src="/images/tramonto-sereno.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             {/* Foto defunto */}

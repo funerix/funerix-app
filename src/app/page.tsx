@@ -137,41 +137,39 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 3.5. PREVIDENZA ═══════════════ */}
-      <section className="py-16 md:py-20 bg-primary relative overflow-hidden">
-        <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 via-primary/60 to-primary-dark/80" />
-        <div className="relative max-w-5xl mx-auto px-4 text-center">
+      <section className="py-16 md:py-20 bg-background-dark">
+        <div className="max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <motion.div variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs px-4 py-2 rounded-full mb-5 backdrop-blur-sm border border-white/10">
+              className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-xs px-4 py-2 rounded-full mb-5 border border-secondary/20">
               <Shield size={14} /> Previdenza Funerix
             </motion.div>
             <motion.h2 variants={fadeUp} custom={1}
-              className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-4">
+              className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
               Pianificate oggi, vivete sereni
             </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-white/80 mb-8 max-w-2xl mx-auto">
+            <motion.p variants={fadeUp} custom={2} className="text-text-light mb-8 max-w-2xl mx-auto">
               Configurate il servizio funebre per voi o per un familiare. Bloccate il prezzo di oggi e pagate comodamente a rate mensili. Zero interessi.
             </motion.p>
             <motion.div variants={fadeUp} custom={3} className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">da &euro;97</p>
-                <p className="text-white/50 text-xs">al mese</p>
+              <div className="card p-3 text-center">
+                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">da &euro;97</p>
+                <p className="text-text-muted text-xs">al mese</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">12-60</p>
-                <p className="text-white/50 text-xs">rate mensili</p>
+              <div className="card p-3 text-center">
+                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">12-60</p>
+                <p className="text-text-muted text-xs">rate mensili</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">0%</p>
-                <p className="text-white/50 text-xs">interessi</p>
+              <div className="card p-3 text-center">
+                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">0%</p>
+                <p className="text-text-muted text-xs">interessi</p>
               </div>
             </motion.div>
             <motion.div variants={fadeUp} custom={4} className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/previdenza/configuratore" className="btn-accent text-sm py-3 px-8">
+              <Link href="/previdenza/configuratore" className="btn-primary text-sm py-3 px-8">
                 Configura il Piano <ChevronRight size={14} className="ml-1" />
               </Link>
-              <Link href="/previdenza/piani" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm py-3 px-8">
+              <Link href="/previdenza/piani" className="btn-secondary text-sm py-3 px-8">
                 Confronta i Piani
               </Link>
             </motion.div>
@@ -180,10 +178,8 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 4. PREZZI RAPIDI ═══════════════ */}
-      <section className="py-16 relative overflow-hidden">
-        <Image src="/images/allestimento-funebre.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background/90" />
-        <div className="relative max-w-4xl mx-auto px-4">
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-4">
               <div className="text-center mb-8">
                 <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">Prezzi chiari, senza sorprese</h2>
                 <p className="mt-2 text-text-light">Funerale completo a partire da — per provincia</p>
@@ -222,8 +218,7 @@ export default function HomePage() {
 
       {/* ═══════════════ 4.5. FUNERIX PET ═══════════════ */}
       <section className="py-16 md:py-20 bg-primary relative overflow-hidden">
-        <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-25" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a2a]/80 via-[#2a4a3a]/60 to-[#1a3a2a]/80" />
+        <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <motion.div variants={fadeUp} custom={0}
@@ -289,10 +284,8 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
-      <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/sala-funebre.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background-dark/90 to-background-dark/80" />
-        <div className="relative max-w-6xl mx-auto px-4">
+      <section className="py-16 bg-background-dark">
+        <div className="max-w-6xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
             Le famiglie che abbiamo accompagnato
           </h2>
@@ -339,9 +332,8 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 7. CTA FINALE ═══════════════ */}
-      <section className="relative py-16 overflow-hidden">
-        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
-        <div className="absolute inset-0 bg-primary/90" />
+      <section className="py-16 bg-primary relative overflow-hidden">
+        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-3">
             Avete bisogno di assistenza?

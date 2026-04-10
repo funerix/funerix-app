@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, FileText } from "lucide-react"
 import type { Metadata } from "next"
 export const metadata: Metadata = { title: "Testamento e Volontà — Disposizioni anticipate", description: "Come redigere un testamento, disposizioni anticipate sulla cerimonia funebre, testamento biologico, DAT. Cosa sapere per pianificare.", keywords: "testamento funebre, disposizioni anticipate, testamento biologico, DAT, volontà cerimonia funebre" }

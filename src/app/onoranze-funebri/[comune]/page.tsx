@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Phone, ChevronRight, MapPin, Clock, Shield } from 'lucide-react'
 import { comuniCampania } from '@/lib/comuni-campania'
 import type { Metadata } from 'next'
@@ -28,10 +27,8 @@ export default async function ComunePage({ params }: { params: Promise<{ comune:
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="relative bg-primary py-20 md:py-28 overflow-hidden">
-        <Image src="/images/hero.jpg" alt="" fill className="object-cover opacity-30" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/80 to-primary/60" />
-        <div className="relative max-w-4xl mx-auto px-4 text-center">
+      <section className="bg-primary py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
             Onoranze Funebri a {nome}
           </h1>

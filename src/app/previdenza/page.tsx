@@ -31,9 +31,8 @@ export default function PrevidenzaPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="relative bg-primary py-20 md:py-28 overflow-hidden">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
         <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible">
             <motion.div variants={fadeUp} custom={0} className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-light text-xs px-4 py-2 rounded-full mb-5 border border-secondary/20">
@@ -155,9 +154,8 @@ export default function PrevidenzaPage() {
       </section>
 
       {/* Garanzie */}
-      <section className="py-16 relative overflow-hidden">
-        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
-        <div className="relative max-w-5xl mx-auto px-4">
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Le nostre garanzie</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -220,8 +218,9 @@ export default function PrevidenzaPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Iniziate oggi</h2>
           <p className="text-white/80 mb-8">Configurate il piano in 5 minuti. Un consulente vi contatter&agrave; entro 30 minuti.</p>
           <Link href="/previdenza/configuratore" className="btn-accent text-lg py-4 px-10">

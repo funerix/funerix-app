@@ -2,8 +2,8 @@
 
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Phone, Mail, MessageCircle, FileCheck, Clock, CheckCircle2, Circle, ChevronRight, Send, Heart, Upload, FileText, Loader2, PenTool } from 'lucide-react'
 import { FirmaDigitale } from '@/components/FirmaDigitale'
 
@@ -118,7 +118,7 @@ function ClientePage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/candele.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4">
           <p className="text-white/60 text-sm mb-1">Area riservata</p>
           <h1 className="font-[family-name:var(--font-serif)] text-3xl text-white">

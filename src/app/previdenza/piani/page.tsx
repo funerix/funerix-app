@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import { Shield, Check, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 

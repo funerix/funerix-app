@@ -137,42 +137,50 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 3.5. PREVIDENZA ═══════════════ */}
-      <section className="py-16 md:py-20 bg-background-dark">
-        <div className="max-w-5xl mx-auto px-4 text-center">
+      <section className="py-16 md:py-20 bg-primary relative overflow-hidden">
+        <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-5xl mx-auto px-4">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <motion.div variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-xs px-4 py-2 rounded-full mb-5 border border-secondary/20">
-              <Shield size={14} /> Previdenza Funerix
-            </motion.div>
-            <motion.h2 variants={fadeUp} custom={1}
-              className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
-              Pianificate oggi, vivete sereni
-            </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-text-light mb-8 max-w-2xl mx-auto">
-              Configurate il servizio funebre per voi o per un familiare. Bloccate il prezzo di oggi e pagate comodamente a rate mensili. Zero interessi.
-            </motion.p>
-            <motion.div variants={fadeUp} custom={3} className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
-              <div className="card p-3 text-center">
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">da &euro;97</p>
-                <p className="text-text-muted text-xs">al mese</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+              <div>
+                <motion.div variants={fadeUp} custom={0}
+                  className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs px-4 py-2 rounded-full mb-5 backdrop-blur-sm border border-white/10">
+                  <Shield size={14} /> Previdenza Funerix
+                </motion.div>
+                <motion.h2 variants={fadeUp} custom={1}
+                  className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-4">
+                  Pianificate oggi, vivete sereni
+                </motion.h2>
+                <motion.p variants={fadeUp} custom={2} className="text-white/80 mb-8">
+                  Configurate il servizio funebre per voi o per un familiare. Bloccate il prezzo di oggi e pagate comodamente a rate mensili. Zero interessi.
+                </motion.p>
+                <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-3">
+                  <Link href="/previdenza/configuratore" className="btn-accent text-sm py-3 px-8">
+                    Configura il Piano <ChevronRight size={14} className="ml-1" />
+                  </Link>
+                  <Link href="/previdenza/piani" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm py-3 px-8">
+                    Confronta i Piani
+                  </Link>
+                </motion.div>
               </div>
-              <div className="card p-3 text-center">
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">12-60</p>
-                <p className="text-text-muted text-xs">rate mensili</p>
-              </div>
-              <div className="card p-3 text-center">
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">0%</p>
-                <p className="text-text-muted text-xs">interessi</p>
-              </div>
-            </motion.div>
-            <motion.div variants={fadeUp} custom={4} className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/previdenza/configuratore" className="btn-primary text-sm py-3 px-8">
-                Configura il Piano <ChevronRight size={14} className="ml-1" />
-              </Link>
-              <Link href="/previdenza/piani" className="btn-secondary text-sm py-3 px-8">
-                Confronta i Piani
-              </Link>
-            </motion.div>
+              <motion.div variants={fadeUp} custom={2} className="grid grid-cols-3 gap-3">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <Lock size={20} className="mx-auto mb-2 text-secondary-light" />
+                  <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">da &euro;97</p>
+                  <p className="text-white/60 text-xs">al mese</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <Clock size={20} className="mx-auto mb-2 text-secondary-light" />
+                  <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">12-60</p>
+                  <p className="text-white/60 text-xs">rate mensili</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <Euro size={20} className="mx-auto mb-2 text-secondary-light" />
+                  <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">0%</p>
+                  <p className="text-white/60 text-xs">interessi</p>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -259,23 +267,33 @@ export default function HomePage() {
 
       {/* ═══════════════ 4.7. SERVIZI EXTRA ═══════════════ */}
       <section className="py-16">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
+        <div className="max-w-5xl mx-auto px-4">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
             <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">Non solo funerali</motion.h2>
-            <motion.p variants={fadeUp} custom={1} className="text-text-light mb-10 max-w-xl mx-auto">Una piattaforma completa per ogni esigenza legata al fine vita.</motion.p>
+            <motion.p variants={fadeUp} custom={1} className="text-text-light max-w-xl mx-auto">Una piattaforma completa per ogni esigenza legata al fine vita.</motion.p>
           </motion.div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[
-              { href: '/servizi-ricorrenti', icon: Flower2, t: 'Fiori e Cura Tomba', d: 'Abbonamento mensile' },
-              { href: '/successione', icon: FileText, t: 'Successione', d: 'Assistenza completa' },
-              { href: '/rimpatri', icon: Plane, t: 'Rimpatri Salme', d: 'Trasporto internazionale' },
-              { href: '/servizi', icon: Package, t: 'Video e Stampa', d: 'Tributo, ricordi' },
+              { href: '/servizi-ricorrenti', img: '/images/card-fiori.png', icon: Flower2, t: 'Fiori e Cura Tomba', d: 'Abbonamento mensile per fiori freschi, pulizia e manutenzione del monumento funebre.' },
+              { href: '/successione', img: '/images/card-successione.png', icon: FileText, t: 'Successione', d: 'Assistenza completa per la dichiarazione di successione ereditaria. Ci pensiamo noi.' },
+              { href: '/rimpatri', img: '/images/card-rimpatri.jpg', icon: Plane, t: 'Rimpatri Salme', d: 'Trasporto internazionale salme da e verso qualsiasi paese del mondo. 24/7.' },
+              { href: '/servizi', img: '/images/card-servizi-extra.png', icon: Package, t: 'Servizi Aggiuntivi', d: 'Video tributo, stampa ricordo, cerimonia laica, disbrigo pratiche burocratiche.' },
             ].map((s, i) => (
               <motion.div key={s.href} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                <Link href={s.href} className="card text-center p-4 hover:border-secondary/30 transition-colors group block">
-                  <s.icon size={22} className="mx-auto mb-2 text-secondary" />
-                  <h3 className="font-medium text-primary text-sm group-hover:text-secondary transition-colors">{s.t}</h3>
-                  <p className="text-text-muted text-[11px]">{s.d}</p>
+                <Link href={s.href} className="group block overflow-hidden rounded-xl border border-border bg-surface hover:shadow-md transition-all duration-300 h-full flex flex-row">
+                  <div className="relative w-32 md:w-40 flex-shrink-0 overflow-hidden">
+                    <Image src={s.img} alt={s.t} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="160px" />
+                  </div>
+                  <div className="p-4 flex-1 flex flex-col justify-center">
+                    <div className="flex items-center gap-2 mb-1">
+                      <s.icon size={16} className="text-secondary flex-shrink-0" />
+                      <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary group-hover:text-secondary transition-colors">{s.t}</h3>
+                    </div>
+                    <p className="text-text-light text-sm leading-relaxed">{s.d}</p>
+                    <span className="mt-2 inline-flex items-center gap-1 text-secondary text-sm font-medium group-hover:gap-2 transition-all">
+                      Scopri <ChevronRight size={14} />
+                    </span>
+                  </div>
                 </Link>
               </motion.div>
             ))}

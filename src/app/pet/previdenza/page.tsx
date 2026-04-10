@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { PawPrint, ChevronRight, Phone, Check, Heart, Calendar, Euro, Shield, Stethoscope } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
@@ -228,8 +229,9 @@ export default function PrevidenzaPetPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-primary py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="bg-primary py-16 relative overflow-hidden">
+        <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Proteggete il vostro amico</h2>
           <p className="text-white/80 mb-8">Contattateci per attivare il piano. Un consulente vi guidera nella scelta migliore.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

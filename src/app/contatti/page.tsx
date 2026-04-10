@@ -84,28 +84,50 @@ export default function ContattiPage() {
                   </motion.div>
                 ) : (
                   <form
-                    onSubmit={(e) => { e.preventDefault(); setInviato(true) }}
+                    onSubmit={async (e) => {
+                      e.preventDefault()
+                      const form = e.target as HTMLFormElement
+                      const data = {
+                        nome: (form.querySelector('[name=nome]') as HTMLInputElement).value,
+                        telefono: (form.querySelector('[name=telefono]') as HTMLInputElement).value,
+                        email: (form.querySelector('[name=email]') as HTMLInputElement)?.value || '',
+                        modalita: 'form_contatti',
+                        orario: 'Quando possibile',
+                        note: `Oggetto: ${(form.querySelector('[name=oggetto]') as HTMLSelectElement).value}\n\n${(form.querySelector('[name=messaggio]') as HTMLTextAreaElement).value}`,
+                        configurazione: 'Messaggio dal form contatti',
+                        totale: 0,
+                        stato: 'nuova',
+                        createdAt: new Date().toISOString(),
+                      }
+                      try {
+                        await fetch('/api/richieste', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                      } catch {}
+                      setInviato(true)
+                    }}
                     className="space-y-5"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Nome e Cognome *</label>
-                        <input type="text" required className="input-field" />
+                        <input name="nome" type="text" required className="input-field" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Telefono *</label>
-                        <input type="tel" required className="input-field" />
+                        <input name="telefono" type="tel" required className="input-field" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Email</label>
-                        <input type="email" className="input-field" />
+                        <input name="email" type="email" className="input-field" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Oggetto</label>
-                        <select className="input-field">
+                        <select name="oggetto" className="input-field">
                           <option>Richiesta informazioni</option>
                           <option>Richiesta preventivo</option>
-                          <option>Assistenza in corso</option>
+                          <option>Cremazione animali</option>
+                          <option>Previdenza funeraria</option>
+                          <option>Rimpatrio salma</option>
+                          <option>Esumazione</option>
                           <option>Memorial online</option>
                           <option>Altro</option>
                         </select>
@@ -113,7 +135,7 @@ export default function ContattiPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Messaggio *</label>
-                      <textarea rows={5} required className="input-field" />
+                      <textarea name="messaggio" rows={5} required className="input-field" />
                     </div>
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input type="checkbox" required className="w-5 h-5 mt-0.5 rounded border-border" />

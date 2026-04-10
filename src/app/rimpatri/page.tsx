@@ -1,20 +1,18 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Globe, Plane, FileText, Phone, ChevronRight, Shield, Clock, MapPin } from 'lucide-react'
+import { Globe, Plane, FileText, Phone, ChevronRight, Shield, Clock } from 'lucide-react'
+import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Rimpatrio e Espatrio Salme — Trasporto Internazionale',
-  description: 'Servizio di rimpatrio salme dall\'estero e espatrio dall\'Italia. Trasporto internazionale in tutto il mondo. Assistenza completa 24/7.',
+  description: 'Servizio di rimpatrio salme dall\'estero e espatrio dall\'Italia. Trasporto internazionale in tutto il mondo con 18 paesi serviti. Assistenza completa 24/7.',
 }
 
-const paesi = [
-  { zona: 'Europa', paesi: 'Germania, Francia, Svizzera, Belgio, Olanda, Regno Unito, Spagna, Romania, Albania, Ucraina, Polonia', costo: '1.800 — 4.500' },
-  { zona: 'Nord Africa', paesi: 'Marocco, Tunisia, Egitto, Algeria, Libia', costo: '2.500 — 5.500' },
-  { zona: 'Americhe', paesi: 'USA, Canada, Brasile, Argentina, Venezuela', costo: '4.000 — 10.000' },
-  { zona: 'Asia', paesi: 'Cina, India, Pakistan, Bangladesh, Filippine', costo: '5.000 — 12.000' },
-  { zona: 'Africa Sub-Sahariana', paesi: 'Nigeria, Senegal, Ghana, Costa d\'Avorio', costo: '4.500 — 9.000' },
-]
+const zoneLabel: Record<string, string> = {
+  europa: 'Europa', nord_africa: 'Nord Africa e Medio Oriente', americhe: 'Americhe',
+  asia: 'Asia', africa_subsahariana: 'Africa Sub-Sahariana', oceania: 'Oceania',
+}
 
 const steps = [
   { n: '01', titolo: 'Contattateci', desc: 'Chiamate 24/7. Raccogliamo tutte le informazioni necessarie sul luogo del decesso e la destinazione.' },
@@ -24,7 +22,29 @@ const steps = [
   { n: '05', titolo: 'Consegna', desc: 'Accoglienza nel paese di destinazione con impresa funebre locale. Assistenza fino alla sepoltura.' },
 ]
 
-export default function RimpatriPage() {
+async function getPaesi() {
+  const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  const { data } = await sb.from('rimpatri_paesi').select('*').eq('attivo', true).order('zona').order('nome')
+  return data || []
+}
+
+async function getServizi() {
+  const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  const { data } = await sb.from('rimpatri_prezzi').select('*').eq('attivo', true).is('zona', null).order('nome_servizio')
+  return data || []
+}
+
+export default async function RimpatriPage() {
+  const paesi = await getPaesi()
+  const serviziExtra = await getServizi()
+
+  // Raggruppa per zona
+  const perZona: Record<string, any[]> = {}
+  paesi.forEach(p => {
+    if (!perZona[p.zona]) perZona[p.zona] = []
+    perZona[p.zona].push(p)
+  })
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
@@ -33,7 +53,7 @@ export default function RimpatriPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-sm px-4 py-2 rounded-full mb-6">
-            <Globe size={16} /> Servizio internazionale in tutto il mondo
+            <Globe size={16} /> {paesi.length} paesi serviti in tutto il mondo
           </div>
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
             Rimpatrio e Espatrio Salme
@@ -75,7 +95,6 @@ export default function RimpatriPage() {
                 <li className="flex gap-2"><Shield size={14} className="text-accent mt-0.5 flex-shrink-0" /> Accoglienza in aeroporto italiano</li>
               </ul>
             </div>
-
             <div className="card">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
@@ -110,29 +129,76 @@ export default function RimpatriPage() {
             ))}
           </div>
 
-          {/* Tabella costi per zona */}
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-6">Costi indicativi per zona</h2>
+          {/* Paesi per zona — DA DB */}
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-3">Paesi serviti e costi indicativi</h2>
           <p className="text-text-muted text-center text-sm mb-8">I prezzi variano in base alla distanza, al paese e alle pratiche necessarie.</p>
-          <div className="card overflow-x-auto mb-16">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-text-muted font-medium">Zona</th>
-                  <th className="text-left py-3 px-4 text-text-muted font-medium">Paesi principali</th>
-                  <th className="text-right py-3 px-4 text-text-muted font-medium">Costo indicativo (&euro;)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paesi.map(p => (
-                  <tr key={p.zona} className="border-b border-border/50">
-                    <td className="py-3 px-4 font-medium text-primary">{p.zona}</td>
-                    <td className="py-3 px-4 text-text-light">{p.paesi}</td>
-                    <td className="py-3 px-4 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">&euro; {p.costo}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+          <div className="space-y-8 mb-16">
+            {Object.entries(perZona).map(([zona, items]) => (
+              <div key={zona}>
+                <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3 flex items-center gap-2">
+                  {zoneLabel[zona] || zona}
+                  <span className="text-xs bg-background-dark text-text-muted px-2 py-0.5 rounded-full">{items.length} paesi</span>
+                </h3>
+                <div className="card overflow-x-auto p-0">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border bg-background-dark/50">
+                        <th className="text-left py-2.5 px-4 text-text-muted font-medium">Paese</th>
+                        <th className="text-right py-2.5 px-4 text-text-muted font-medium hidden sm:table-cell">Tempo medio</th>
+                        <th className="text-right py-2.5 px-4 text-text-muted font-medium">Costo da</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {items.map((p: any) => (
+                        <tr key={p.id} className="border-b border-border/50">
+                          <td className="py-2.5 px-4">
+                            <span className="mr-2">{p.bandiera_emoji}</span>
+                            <span className="font-medium text-primary">{p.nome}</span>
+                          </td>
+                          <td className="py-2.5 px-4 text-right text-text-muted hidden sm:table-cell">
+                            {p.tempo_medio_giorni ? (
+                              <span className="flex items-center justify-end gap-1"><Clock size={12} /> {p.tempo_medio_giorni} giorni</span>
+                            ) : '—'}
+                          </td>
+                          <td className="py-2.5 px-4 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">
+                            &euro; {Number(p.prezzo_base).toLocaleString('it-IT')}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
           </div>
+
+          {/* Servizi extra — DA DB */}
+          {serviziExtra.length > 0 && (
+            <>
+              <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-6">Servizi aggiuntivi</h2>
+              <div className="card overflow-x-auto mb-16 p-0">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border bg-background-dark/50">
+                      <th className="text-left py-2.5 px-4 text-text-muted font-medium">Servizio</th>
+                      <th className="text-right py-2.5 px-4 text-text-muted font-medium">Costo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {serviziExtra.map((s: any) => (
+                      <tr key={s.id} className="border-b border-border/50">
+                        <td className="py-2.5 px-4 text-text">{s.nome_servizio}</td>
+                        <td className="py-2.5 px-4 text-right font-[family-name:var(--font-serif)] font-medium text-primary">
+                          &euro; {Number(s.prezzo).toLocaleString('it-IT')}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
 
           {/* Documenti necessari */}
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Documenti necessari</h2>
@@ -140,7 +206,7 @@ export default function RimpatriPage() {
             {[
               'Certificato di morte (originale + traduzione)',
               'Passaporto mortuario (rilasciato dal Comune)',
-              'Nulla osta dell\'autorità consolare',
+              'Nulla osta dell\'autorita consolare',
               'Autorizzazione al trasporto internazionale',
               'Certificato di imbalsamazione (se richiesto)',
               'Dichiarazione di non contenere oggetti estranei',
@@ -184,7 +250,7 @@ export default function RimpatriPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'Service',
         name: 'Rimpatrio e Espatrio Salme — Funerix',
-        description: 'Servizio di trasporto internazionale salme da e verso qualsiasi paese del mondo.',
+        description: `Servizio di trasporto internazionale salme da e verso ${paesi.length} paesi nel mondo.`,
         provider: { '@type': 'FuneralHome', name: 'Funerix', telephone: '+390815551234' },
         areaServed: { '@type': 'Place', name: 'Worldwide' },
       })}} />

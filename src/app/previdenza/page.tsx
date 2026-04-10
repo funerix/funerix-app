@@ -1,10 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Shield, Clock, Lock, Heart, ChevronRight, Phone, Check, Euro, Calendar, Users } from 'lucide-react'
-import { useState } from 'react'
+import { Shield, Lock, Heart, ChevronRight, Phone, Check, Euro, Calendar, Users } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -12,15 +11,26 @@ const fadeUp = {
 }
 
 export default function PrevidenzaPage() {
+  const [piani, setPiani] = useState<any[]>([])
+  const [pianoSelezionato, setPianoSelezionato] = useState<any>(null)
   const [rate, setRate] = useState(36)
-  const totaleEsempio = 5000
-  const rataMensile = Math.ceil(totaleEsempio / rate)
+
+  useEffect(() => {
+    fetch('/api/previdenza/tipi-piano').then(r => r.json()).then((data: any[]) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setPiani(data)
+        setPianoSelezionato(data.find(p => p.slug === 'comfort') || data[1] || data[0])
+      }
+    }).catch(() => {})
+  }, [])
+
+  const totale = pianoSelezionato ? Number(pianoSelezionato.prezzo_base) : 5000
+  const rataMensile = Math.ceil(totale / rate)
 
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative bg-primary py-20 md:py-28 overflow-hidden">
-        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible">
@@ -35,8 +45,7 @@ export default function PrevidenzaPage() {
             </motion.p>
             <motion.p variants={fadeUp} custom={3} className="mt-4 text-white/80 text-lg max-w-2xl mx-auto">
               Configurate il servizio funebre per voi o per un familiare, bloccate il prezzo
-              e pagate comodamente a rate mensili. Quando il momento arriver&agrave;,
-              tutto sar&agrave; gi&agrave; organizzato.
+              e pagate comodamente a rate mensili.
             </motion.p>
             <motion.div variants={fadeUp} custom={4} className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/previdenza/configuratore" className="btn-accent text-base py-4 px-8">
@@ -50,22 +59,36 @@ export default function PrevidenzaPage() {
         </div>
       </section>
 
-      {/* Simulatore rate */}
+      {/* Simulatore rate — DA DB */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">Quanto costa al mese?</h2>
-          <p className="text-text-light text-center mb-10">Simulate il costo mensile per un servizio funebre completo</p>
+          <p className="text-text-light text-center mb-10">Scegliete un piano e simulate il costo mensile</p>
 
-          <div className="card p-8">
+          <div className="card p-6 md:p-8">
+            {/* Piano selector */}
+            {piani.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                {piani.map(p => (
+                  <button key={p.id} onClick={() => setPianoSelezionato(p)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      pianoSelezionato?.id === p.id ? 'bg-primary text-white' : 'bg-background-dark text-text-muted hover:text-primary'
+                    }`}>
+                    {p.nome} — &euro; {Number(p.prezzo_base).toLocaleString('it-IT')}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <div className="text-center mb-8">
-              <p className="text-text-muted text-sm">Esempio servizio funebre completo</p>
-              <p className="font-[family-name:var(--font-serif)] text-4xl text-primary font-bold">&euro; {totaleEsempio.toLocaleString('it-IT')}</p>
+              <p className="text-text-muted text-sm">{pianoSelezionato?.nome || 'Piano'} — {pianoSelezionato?.descrizione || 'Servizio funebre completo'}</p>
+              <p className="font-[family-name:var(--font-serif)] text-4xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</p>
             </div>
 
             <div className="mb-8">
               <div className="flex justify-between text-sm text-text-muted mb-2">
                 <span>12 mesi</span>
-                <span>{rate} mesi</span>
+                <span className="font-medium text-primary">{rate} mesi</span>
                 <span>60 mesi</span>
               </div>
               <input
@@ -94,8 +117,11 @@ export default function PrevidenzaPage() {
             </div>
 
             <div className="mt-6 text-center">
-              <Link href="/previdenza/configuratore" className="btn-primary">
-                Configura il tuo piano personalizzato <ChevronRight size={16} className="ml-1" />
+              <Link href={`/previdenza/piani`} className="btn-secondary text-sm mr-3">
+                Confronta i piani
+              </Link>
+              <Link href="/previdenza/configuratore" className="btn-primary text-sm">
+                Configura il tuo piano <ChevronRight size={14} className="ml-1" />
               </Link>
             </div>
           </div>
@@ -111,7 +137,7 @@ export default function PrevidenzaPage() {
               { n: '01', icon: Heart, t: 'Configurate', d: 'Scegliete ogni dettaglio del servizio: bara, fiori, cerimonia, trasporto.' },
               { n: '02', icon: Calendar, t: 'Scegliete il piano', d: 'Da 12 a 60 rate mensili. Prezzo bloccato per sempre.' },
               { n: '03', icon: Euro, t: 'Pagate a rate', d: 'Addebito automatico mensile su carta o conto corrente.' },
-              { n: '04', icon: Shield, t: 'Vivete sereni', d: 'Quando il momento arriva, tutto è già organizzato e pagato.' },
+              { n: '04', icon: Shield, t: 'Vivete sereni', d: 'Quando il momento arriva, tutto e gia organizzato e pagato.' },
             ].map((s, i) => (
               <motion.div key={s.n} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="text-center">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
@@ -134,7 +160,7 @@ export default function PrevidenzaPage() {
             {[
               { icon: Lock, t: 'Fondi protetti', d: 'I versamenti sono depositati su un conto bancario dedicato e separato, non aggredibile. Rimborsabili in qualsiasi momento.' },
               { icon: Shield, t: 'Prezzo bloccato', d: 'Il prezzo che configurate oggi resta invariato per tutta la durata del piano, indipendentemente dall\'inflazione.' },
-              { icon: Users, t: 'Trasferibile', d: 'Il piano può essere trasferito a un altro familiare o modificato in qualsiasi momento senza costi aggiuntivi.' },
+              { icon: Users, t: 'Trasferibile', d: 'Il piano puo essere trasferito a un altro familiare o modificato in qualsiasi momento senza costi aggiuntivi.' },
             ].map((g, i) => (
               <motion.div key={g.t} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="card text-center">
                 <g.icon size={28} className="mx-auto mb-3 text-accent" />
@@ -163,14 +189,14 @@ export default function PrevidenzaPage() {
             <div className="card">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Per voi stessi</h3>
               <p className="text-text-light text-sm mb-4">Decidete oggi come volete essere ricordati, senza lasciare il peso delle scelte e delle spese ai vostri cari.</p>
-              <ul className="space-y-2">{['Scegliete ogni dettaglio con calma','Il prezzo non aumenterà mai','La vostra famiglia non dovrà decidere nulla','Potete modificare le scelte in qualsiasi momento'].map(t=>
+              <ul className="space-y-2">{['Scegliete ogni dettaglio con calma','Il prezzo non aumentera mai','La vostra famiglia non dovra decidere nulla','Potete modificare le scelte in qualsiasi momento'].map(t=>
                 <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
               )}</ul>
             </div>
             <div className="card">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Per un familiare</h3>
               <p className="text-text-light text-sm mb-4">Organizzate in anticipo per un genitore anziano o un familiare, garantendogli il servizio che merita.</p>
-              <ul className="space-y-2">{['Ideale per genitori anziani','Perfetto per ospiti di RSA e case di cura','Nessuna decisione da prendere nel dolore','Il servizio è garantito qualsiasi cosa accada'].map(t=>
+              <ul className="space-y-2">{['Ideale per genitori anziani','Perfetto per ospiti di RSA e case di cura','Nessuna decisione da prendere nel dolore','Il servizio e garantito qualsiasi cosa accada'].map(t=>
                 <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
               )}</ul>
             </div>
@@ -183,7 +209,7 @@ export default function PrevidenzaPage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Sei una RSA o casa di cura?</h2>
           <p className="text-text-light mb-6 max-w-xl mx-auto">
-            Offri ai familiari dei tuoi ospiti la tranquillit&agrave; di un piano previdenza funeraria.
+            Offri ai familiari dei tuoi ospiti la tranquillita di un piano previdenza funeraria.
             Diventa partner convenzionato Funerix.
           </p>
           <Link href="/convenzioni" className="btn-secondary">Scopri la convenzione <ChevronRight size={14} className="ml-1" /></Link>

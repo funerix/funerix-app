@@ -45,8 +45,13 @@ export default function EsumazionePage() {
             ))}
           </div>
 
-          <div className="text-center">
-            <Link href="/contatti" className="btn-primary">Richiedi Preventivo Esumazione</Link>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/configuratore" className="btn-primary">
+              Configura il Servizio <ChevronRight size={16} className="ml-1" />
+            </Link>
+            <a href="tel:+390815551234" className="btn-secondary">
+              <Phone size={16} className="mr-2" /> Chiama per Preventivo
+            </a>
           </div>
         </div>
       </section>

@@ -11,11 +11,13 @@
 ### Numeri piattaforma
 | Metrica | Valore |
 |---|---|
-| Pagine totali | **169** |
-| API endpoints | **24** |
-| Tabelle DB Supabase | **~65** |
+| Pagine totali | **170** |
+| API endpoints | **26** |
+| Tabelle DB Supabase | **~68** |
+| Configuratori | 4 (funerale, previdenza umana, pet cremazione, pet previdenza) |
 | Verticali attivi | 4 (Funebre, Pet, Previdenza, Rimpatri) |
-| Servizi aggiuntivi | Fiori/Tomba, Successione, 6 Servizi Extra |
+| Servizi aggiuntivi | Fiori/Tomba, Successione, 6 Servizi Extra, Previdenza Pet |
+| Sezioni homepage | 10 (Hero, Servizi, Come funziona, Previdenza, Prezzi, Pet, Extra, Testimonianze, FAQ, CTA) |
 
 ### Fasi completate
 | Fase | Stato | Cosa |
@@ -29,6 +31,40 @@
 | Fix Pagine | ✅ | Rimpatri da DB, previdenza simulatore DB, form contatti funzionante |
 | Nuovi Servizi | ✅ | Fiori/tomba, successione, 6 servizi extra, previdenza pet |
 | Piano Protezione | ✅ | Predisposto per polizza esterna (non assicurazione diretta) |
+| Configuratore Pet Previdenza | ✅ | 8 step, rate 1-24 mesi con date, indirizzo, attiva subito/consulente |
+| Homepage WOW | ✅ | 10 sezioni con Previdenza, Pet, Servizi Extra dedicati |
+| Navbar Mega Menu | ✅ | 3 dropdown (Servizi, Animali, Previdenza) + link diretti |
+| Rate con date | ✅ | Ogni rata mostra mese/anno (pet + umano) |
+
+### AUDIT VISUAL — Cosa migliorare (prima di Fase E)
+
+#### Pagine da fixare (ALTA priorita)
+| Pagina | Score | Problema | Fix |
+|---|---|---|---|
+| Esumazione | 3/5 | Bare-bones, solo lista servizi | Aggiungere sezioni Come funziona, FAQ, sfondi |
+| Convenzioni | 3.5/5 | Tutto bianco, zero visual | Alternare bg-background-dark, aggiungere immagini |
+| Successione | 3.5/5 | Muri di testo, nessun colore | Aggiungere bg alternati, immagini, card colorate |
+| Pet Landing | 4/5 | Dead zone nella sezione servizi | Aggiungere sfondo/immagine nelle sezioni centrali |
+| Previdenza | 4/5 | Simulatore piatto, nessuna immagine | Sfondo nel simulatore, immagine nella sezione garanzie |
+
+#### Pagine che mancano di sfondi/immagini (MEDIA priorita)
+- previdenza/page.tsx — Nessuna immagine
+- convenzioni/page.tsx — Nessuna immagine
+- servizi-ricorrenti/page.tsx — Servizio fiori senza foto fiori
+- successione/page.tsx — Nessuna immagine
+- servizi/page.tsx — Nessuna immagine
+- esumazione/page.tsx — Nessuna immagine
+- pet/page.tsx — Solo hero ha immagine
+
+#### Font e readability
+- Aggiungere `line-height: 1.6` al body in globals.css
+- Tabelle: text-sm e' ok ma aggiungere alternating row colors
+- Card labels text-xs (11px) difficili da leggere -> portare a text-[12px]
+
+#### Pagine gia eccellenti (nessun fix necessario)
+- Homepage (4.5/5), Chi Siamo (4.5/5), Contatti (4.5/5), Pet Previdenza (4.5/5), Rimpatri (4.5/5)
+
+---
 
 ### Cosa resta da fare — FASE E: Funzionalita Trasversali
 | # | Feature | Priorita | Stato |

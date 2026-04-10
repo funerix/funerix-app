@@ -35,6 +35,7 @@ const navGroups = [
       { href: '/admin/pet/veterinari', icon: Stethoscope, label: 'Veterinari', ruolo: 'perm:pet' },
       { href: '/admin/pet/memorial', icon: Heart, label: 'Memorial Pet', ruolo: 'perm:pet' },
       { href: '/admin/pet/contenuti', icon: Edit3, label: 'Contenuti Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/previdenza-pet', icon: Shield, label: 'Previdenza Pet', ruolo: 'perm:pet' },
     ],
   },
   {
@@ -90,6 +91,7 @@ const navGroups = [
     items: [
       { href: '/admin/servizi-ricorrenti', icon: Flower2, label: 'Fiori e Cura Tomba', ruolo: 'manager+' },
       { href: '/admin/successione', icon: FileText, label: 'Successione', ruolo: 'manager+' },
+      { href: '/admin/servizi-extra', icon: Package, label: 'Servizi Aggiuntivi', ruolo: 'manager+' },
     ],
   },
   {

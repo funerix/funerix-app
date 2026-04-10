@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Home, Building2, Globe, PawPrint, ChevronRight, Phone, Euro, FileText, Flame, BookOpen, ScrollText, Users } from 'lucide-react'
+import { Home, Building2, Globe, PawPrint, ChevronRight, Phone, Euro, FileText, Flame, BookOpen, ScrollText, Users, Shield, Plane } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -25,6 +25,8 @@ const guideInformative = [
   { href: '/guida/testamento-e-volonta', icon: FileText, titolo: 'Testamento e volontà', desc: 'Disposizioni anticipate, testamento biologico, volontà sulla cerimonia e la sepoltura.' },
   { href: '/guida/lutto-e-supporto', icon: Users, titolo: 'Elaborazione del lutto', desc: 'Come affrontare il dolore, supporto psicologico, gruppi di mutuo aiuto in Campania.' },
   { href: '/guida/cremazione-animali', icon: PawPrint, titolo: 'Cremazione animali domestici', desc: 'Cremazione cani, gatti e altri animali: individuale, collettiva, costi, urne, ritiro.' },
+  { href: '/guida/previdenza-funeraria', icon: Shield, titolo: 'Previdenza funeraria', desc: 'Come pianificare e pagare in anticipo il funerale. Piani, costi, diritto di recesso, Piano Protezione.' },
+  { href: '/guida/rimpatrio-salma', icon: Plane, titolo: 'Rimpatrio salma', desc: 'Guida al trasporto internazionale: documenti, procedure consolari, tempi e costi per zona.' },
 ]
 
 export default function GuidaPage() {

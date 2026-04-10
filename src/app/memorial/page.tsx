@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Heart, QrCode, MessageCircle, ImageIcon, Gift, Search, Calendar } from 'lucide-react'
+import { Heart, QrCode, MessageCircle, ImageIcon, Gift, Search, Calendar, PawPrint } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 
@@ -196,6 +196,26 @@ export default function MemorialPage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Pet Memorial Link */}
+      <section className="py-10">
+        <div className="max-w-4xl mx-auto px-4">
+          <Link href="/pet/memorial" className="block card bg-secondary/5 border-secondary/20 hover:bg-secondary/10 transition-colors group">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <PawPrint size={24} className="text-secondary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary group-hover:text-secondary transition-colors">
+                  Cerchi un memorial per il tuo animale?
+                </h3>
+                <p className="text-text-muted text-sm">Scopri il memorial dedicato ai nostri amici a quattro zampe.</p>
+              </div>
+              <span className="text-secondary text-sm font-medium hidden sm:block">Scopri &rarr;</span>
+            </div>
+          </Link>
         </div>
       </section>
 

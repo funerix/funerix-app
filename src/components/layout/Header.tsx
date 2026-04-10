@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Phone, ChevronDown, Cross, Globe, PawPrint, BookOpen, Euro, ShoppingBag, Shovel, Plane, Shield, Flower2, FileText } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, Cross, Globe, PawPrint, BookOpen, Euro, ShoppingBag, Shovel, Plane, Shield, Flower2, FileText, Package } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { LanguageSelector } from '@/components/LanguageSelector'
 
@@ -18,6 +18,7 @@ const serviziMenu = [
   { href: '/prezzi', label: 'Prezzi per Provincia', desc: 'Confronta i costi in Campania', icon: Euro },
   { href: '/servizi-ricorrenti', label: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori, pulizia e manutenzione', icon: Flower2 },
   { href: '/successione', label: 'Successione Ereditaria', desc: 'Assistenza completa dichiarazione successione', icon: FileText },
+  { href: '/servizi', label: 'Servizi Aggiuntivi', desc: 'Video tributo, stampa ricordo, disbrigo pratiche', icon: Package },
 ]
 
 const navLinks = [

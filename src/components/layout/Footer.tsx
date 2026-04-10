@@ -33,6 +33,7 @@ export function Footer() {
               <li><Link href="/rimpatri" className="hover:text-white transition-colors">Rimpatri</Link></li>
               <li><Link href="/servizi-ricorrenti" className="hover:text-white transition-colors">Fiori e Cura Tomba</Link></li>
               <li><Link href="/successione" className="hover:text-white transition-colors">Successione</Link></li>
+              <li><Link href="/servizi" className="hover:text-white transition-colors">Servizi Aggiuntivi</Link></li>
               <li><Link href="/contatti" className="hover:text-white transition-colors">Richiedi Assistenza</Link></li>
             </ul>
           </div>

@@ -192,40 +192,55 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 4. PREZZI RAPIDI ═══════════════ */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">Prezzi chiari, senza sorprese</h2>
-            <p className="mt-2 text-text-light">Funerale completo a partire da — per provincia</p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8">
-            {prezziRapidi.map(p => (
-              <div key={p.provincia} className="card text-center py-5">
-                <p className="text-text-muted text-[10px] uppercase tracking-wider">{p.provincia}</p>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold mt-1">
-                  &euro; {p.da}
-                </p>
-                <p className="text-text-muted text-[10px] mt-0.5">a partire da</p>
+      <section className="py-16 relative overflow-hidden">
+        <Image src="/images/allestimento2.jpg" alt="" fill className="object-cover opacity-[0.07]" sizes="100vw" />
+        <div className="relative max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+            {/* Immagine laterale */}
+            <div className="hidden lg:block relative h-[400px] rounded-2xl overflow-hidden shadow-lg">
+              <Image src="/images/allestimento2.jpg" alt="Servizio funebre" fill className="object-cover" sizes="33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <p className="text-white font-[family-name:var(--font-serif)] text-lg">Trasparenza totale</p>
+                <p className="text-white/70 text-sm">Nessun costo nascosto</p>
               </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-            {[
-              { servizio: 'Cremazione', da: '1.370' },
-              { servizio: 'Rimpatrio Europa', da: '1.800' },
-              { servizio: 'Cremazione animali', da: '120' },
-              { servizio: 'Esumazione', da: '400' },
-            ].map(s => (
-              <div key={s.servizio} className="bg-background-dark rounded-xl p-4 text-center">
-                <p className="text-text-muted text-xs">{s.servizio}</p>
-                <p className="font-[family-name:var(--font-serif)] text-lg text-primary font-bold">da &euro; {s.da}</p>
+            </div>
+            {/* Contenuto prezzi */}
+            <div className="lg:col-span-2">
+              <div className="text-center lg:text-left mb-8">
+                <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">Prezzi chiari, senza sorprese</h2>
+                <p className="mt-2 text-text-light">Funerale completo a partire da — per provincia</p>
               </div>
-            ))}
-          </div>
-          <div className="text-center">
-            <Link href="/prezzi" className="btn-secondary text-sm">
-              Vedi tutti i prezzi dettagliati <ChevronRight size={14} className="ml-1" />
-            </Link>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6">
+                {prezziRapidi.map(p => (
+                  <div key={p.provincia} className="card text-center py-4">
+                    <p className="text-text-muted text-[10px] uppercase tracking-wider">{p.provincia}</p>
+                    <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-1">
+                      &euro; {p.da}
+                    </p>
+                    <p className="text-text-muted text-[10px] mt-0.5">a partire da</p>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                {[
+                  { servizio: 'Cremazione', da: '1.370' },
+                  { servizio: 'Rimpatrio Europa', da: '1.800' },
+                  { servizio: 'Cremazione animali', da: '120' },
+                  { servizio: 'Esumazione', da: '400' },
+                ].map(s => (
+                  <div key={s.servizio} className="bg-background-dark rounded-xl p-3 text-center">
+                    <p className="text-text-muted text-xs">{s.servizio}</p>
+                    <p className="font-[family-name:var(--font-serif)] text-lg text-primary font-bold">da &euro; {s.da}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="text-center lg:text-left">
+                <Link href="/prezzi" className="btn-secondary text-sm">
+                  Vedi tutti i prezzi dettagliati <ChevronRight size={14} className="ml-1" />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -8,15 +8,58 @@
 
 ## Accessi e Deploy
 
-- **GitHub**: push su `main` -> auto-deploy Vercel (funerix-app.vercel.app + funerix.com)
-- **Supabase**: progetto `rnimsuoabbucrtmhhcqx` (regione: eu-west-1) — env vars in `.env.local`
-  - `NEXT_PUBLIC_SUPABASE_URL` — URL progetto
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — chiave pubblica (frontend)
+### GitHub
+- **Repo**: https://github.com/funerix/funerix-app
+- **Remote con token**: gia configurato in `.git/config` con token ghp_
+- **Push**: `git push origin main` -> auto-deploy Vercel
+- **Workflow**: modifica codice -> commit -> push -> Vercel builda e deploya in automatico
+
+### Supabase (Database PostgreSQL)
+- **Progetto**: `rnimsuoabbucrtmhhcqx` (regione: **eu-west-1**)
+- **Dashboard**: https://supabase.com/dashboard/project/rnimsuoabbucrtmhhcqx
+- **Env vars** (in `.env.local`):
+  - `NEXT_PUBLIC_SUPABASE_URL` — URL progetto (per client-side)
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — chiave pubblica (frontend, soggetta a RLS)
   - `SUPABASE_SERVICE_ROLE_KEY` — chiave admin (solo API server-side, bypassa RLS)
-  - **DB password**: `funerix2026` — per connessione diretta PostgreSQL
-  - **Pooler**: `aws-0-eu-west-1.pooler.supabase.com:5432` user `postgres.rnimsuoabbucrtmhhcqx`
-- **SQL da eseguire**: per nuove tabelle, script Node con `pg` oppure Supabase SQL Editor
-- **Vercel**: deploy automatico da GitHub, zero configurazione manuale
+- **Connessione diretta PostgreSQL** (per eseguire SQL/DDL):
+  - Host: `aws-0-eu-west-1.pooler.supabase.com`
+  - Porta: `5432`
+  - Database: `postgres`
+  - User: `postgres.rnimsuoabbucrtmhhcqx`
+  - Password: `funerix2026`
+
+### Come eseguire SQL su Supabase (creare tabelle, migrazioni)
+Il pacchetto `pg` e' gia installato. Usare questo pattern Node.js:
+```bash
+NODE_TLS_REJECT_UNAUTHORIZED=0 node -e "
+const { Pool } = require('pg');
+const fs = require('fs');
+const pool = new Pool({
+  host: 'aws-0-eu-west-1.pooler.supabase.com',
+  port: 5432, database: 'postgres',
+  user: 'postgres.rnimsuoabbucrtmhhcqx',
+  password: 'funerix2026',
+  ssl: true,
+});
+pool.query(fs.readFileSync('supabase/NOME-FILE.sql', 'utf8'))
+  .then(() => console.log('OK'))
+  .catch(e => console.error(e.message))
+  .finally(() => pool.end());
+"
+```
+In alternativa: copiare lo SQL nel Supabase Dashboard -> SQL Editor -> Run.
+
+### Come leggere dati via REST API (verifica)
+```bash
+source .env.local && curl -s "https://rnimsuoabbucrtmhhcqx.supabase.co/rest/v1/NOME_TABELLA?select=*&limit=5" \
+  -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
+  -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY"
+```
+
+### Vercel
+- **Deploy**: automatico su push a `main` (zero configurazione)
+- **URL**: funerix-app.vercel.app + funerix.com
+- **Env vars**: configurate su Vercel dashboard (stesse di .env.local)
 
 ---
 

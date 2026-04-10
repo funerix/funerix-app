@@ -158,7 +158,7 @@ export function Header() {
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.15 }}
                       className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-surface rounded-xl border border-border shadow-xl p-5 ${
-                        menu.cols.length > 1 ? 'w-[560px]' : 'w-[300px]'
+                        menu.cols.length > 1 ? 'w-[90vw] max-w-[560px]' : 'w-[85vw] max-w-[300px]'
                       }`}
                     >
                       <div className={`grid gap-6 ${menu.cols.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
@@ -263,11 +263,14 @@ export function Header() {
                 </Link>
               </div>
 
-              <div className="pt-3 border-t border-border mt-3 space-y-2">
-                <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
-                  className="flex items-center gap-2 py-2.5 px-3 text-secondary font-medium">
-                  <Phone size={16} /> {impostazioni.telefono}
-                </a>
+              <div className="pt-3 border-t border-border mt-3 space-y-3">
+                <div className="flex items-center justify-between px-3">
+                  <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
+                    className="flex items-center gap-2 text-secondary font-medium text-sm">
+                    <Phone size={16} /> {impostazioni.telefono}
+                  </a>
+                  <LanguageSelector />
+                </div>
                 <Link href="/configuratore" onClick={() => setMobileOpen(false)}
                   className="btn-accent w-full text-sm py-2.5 justify-center">Configura il Servizio</Link>
               </div>

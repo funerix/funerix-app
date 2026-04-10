@@ -134,20 +134,20 @@ export function HeroSlideshow({ telefono, heroBottone }: { telefono: string; her
             <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs px-4 py-2 rounded-full mb-5 backdrop-blur-sm border border-white/10">
               <slide.badgeIcon size={14} /> {slide.badge}
             </div>
-            <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white leading-[1.1]">
+            <h1 className="font-[family-name:var(--font-serif)] text-3xl sm:text-4xl md:text-5xl text-white leading-[1.1]">
               {slide.title}<br />
               <span className={slide.accentColor}>{slide.highlight}</span>
             </h1>
             <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-xl">
               {slide.desc}
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link href={slide.cta.href} className="btn-accent text-base py-4 px-8">
-                {slide.id === 0 ? heroBottone : slide.cta.label} <ChevronRight size={18} className="ml-2" />
+            <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <Link href={slide.cta.href} className="btn-accent text-sm md:text-base py-3 md:py-4 px-6 md:px-8">
+                {slide.id === 0 ? heroBottone : slide.cta.label} <ChevronRight size={16} className="ml-1" />
               </Link>
               {slide.ctaSecondary && (
                 <Link href={slide.ctaSecondary.href}
-                  className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
+                  className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm md:text-base py-3 md:py-4 px-6 md:px-8">
                   {slide.ctaSecondary.label}
                 </Link>
               )}
@@ -155,13 +155,13 @@ export function HeroSlideshow({ telefono, heroBottone }: { telefono: string; her
           </motion.div>
         </AnimatePresence>
 
-        {/* Navigation arrows */}
-        <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
-          <button onClick={prev} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors">
-            <ArrowLeft size={18} className="text-white" />
+        {/* Navigation arrows — hidden on small mobile, visible on md+ */}
+        <div className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 hidden sm:flex flex-col gap-2">
+          <button onClick={prev} className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors">
+            <ArrowLeft size={16} className="text-white" />
           </button>
-          <button onClick={next} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors">
-            <ArrowRight size={18} className="text-white" />
+          <button onClick={next} className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors">
+            <ArrowRight size={16} className="text-white" />
           </button>
         </div>
 

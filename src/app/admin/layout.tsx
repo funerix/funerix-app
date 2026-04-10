@@ -6,7 +6,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, Package, FileText, Heart, Edit3, Image as ImageIcon, Settings,
   Bell, Building2, LogOut, BookOpen, BarChart3, CalendarDays, Gift, Shield,
-  ChevronLeft, Menu, X, Users, Globe
+  ChevronLeft, Menu, X, Users, Globe, PawPrint, Plane, CreditCard, Star,
+  Stethoscope, MapPin, FileCheck, Megaphone, MessageSquare, Receipt
 } from 'lucide-react'
 import { RealtimeNotifiche } from '@/components/admin/RealtimeNotifiche'
 import { useSitoStore } from '@/store/sito'
@@ -21,6 +22,45 @@ const navGroups = [
       { href: '/admin/richieste', icon: FileText, label: 'Richieste', badge: true, ruolo: 'tutti' },
       { href: '/admin/calendario', icon: CalendarDays, label: 'Calendario', ruolo: 'tutti' },
       { href: '/admin/analytics', icon: BarChart3, label: 'Analytics', ruolo: 'perm:analytics_globali' },
+    ],
+  },
+  {
+    label: 'Funerix Pet',
+    items: [
+      { href: '/admin/pet', icon: PawPrint, label: 'Dashboard Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/ordini', icon: FileText, label: 'Ordini Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/catalogo', icon: Package, label: 'Catalogo Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/prezzi', icon: CreditCard, label: 'Prezzi Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/veterinari', icon: Stethoscope, label: 'Veterinari', ruolo: 'perm:pet' },
+      { href: '/admin/pet/memorial', icon: Heart, label: 'Memorial Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/contenuti', icon: Edit3, label: 'Contenuti Pet', ruolo: 'perm:pet' },
+    ],
+  },
+  {
+    label: 'Funerix Previdenza',
+    items: [
+      { href: '/admin/previdenza', icon: Shield, label: 'Dashboard', ruolo: 'perm:previdenza' },
+      { href: '/admin/previdenza/piani', icon: FileCheck, label: 'Piani Attivi', ruolo: 'perm:previdenza' },
+      { href: '/admin/previdenza/rate', icon: CreditCard, label: 'Rate e Pagamenti', ruolo: 'perm:previdenza' },
+      { href: '/admin/previdenza/tipi-piano', icon: Package, label: 'Tipi Piano', ruolo: 'perm:previdenza' },
+      { href: '/admin/previdenza/rsa', icon: Building2, label: 'RSA Partner', ruolo: 'manager+' },
+      { href: '/admin/previdenza/commissioni', icon: Receipt, label: 'Commissioni', ruolo: 'manager+' },
+      { href: '/admin/previdenza/beneficiari', icon: Users, label: 'Beneficiari', ruolo: 'perm:previdenza' },
+      { href: '/admin/previdenza/contratti', icon: FileText, label: 'Contratti', ruolo: 'perm:previdenza' },
+      { href: '/admin/previdenza/contenuti', icon: Edit3, label: 'Contenuti', ruolo: 'perm:previdenza' },
+    ],
+  },
+  {
+    label: 'Funerix Rimpatri',
+    items: [
+      { href: '/admin/rimpatri', icon: Plane, label: 'Dashboard', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/pratiche', icon: FileText, label: 'Pratiche', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/paesi', icon: Globe, label: 'Paesi e Zone', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/consolati', icon: Building2, label: 'Consolati', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/partner', icon: Users, label: 'Partner Esteri', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/prezzi', icon: CreditCard, label: 'Prezzi', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/documenti', icon: FileCheck, label: 'Documenti Template', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/contenuti', icon: Edit3, label: 'Contenuti', ruolo: 'perm:rimpatri' },
     ],
   },
   {
@@ -40,23 +80,19 @@ const navGroups = [
     ],
   },
   {
-    label: 'Previdenza',
-    items: [
-      { href: '/admin/previdenza', icon: Shield, label: 'Piani', ruolo: 'perm:previdenza' },
-      { href: '/admin/rsa', icon: Building2, label: 'RSA', ruolo: 'manager+' },
-    ],
-  },
-  {
     label: 'Marketing',
     items: [
       { href: '/admin/referral', icon: Gift, label: 'Referral', ruolo: 'manager+' },
       { href: '/admin/agenzie', icon: Globe, label: 'Agenzie', ruolo: 'admin' },
+      { href: '/admin/recensioni', icon: Star, label: 'Recensioni', ruolo: 'manager+' },
     ],
   },
   {
     label: 'Sistema',
     items: [
       { href: '/admin/consulenti', icon: Users, label: 'Consulenti', ruolo: 'admin' },
+      { href: '/admin/notifiche', icon: Megaphone, label: 'Notifiche Template', ruolo: 'admin' },
+      { href: '/admin/chatbot', icon: MessageSquare, label: 'AI Chatbot', ruolo: 'admin' },
       { href: '/admin/impostazioni', icon: Settings, label: 'Impostazioni', ruolo: 'admin' },
     ],
   },

@@ -10,9 +10,9 @@ import { LanguageSelector } from '@/components/LanguageSelector'
 
 const serviziMenu = [
   { href: '/configuratore', label: 'Configura Servizio Funebre', desc: 'Preventivo personalizzato in 5 minuti', icon: Cross },
-  { href: '/rimpatri', label: 'Rimpatri ed Espatri', desc: 'Trasporto internazionale salme in tutto il mondo', icon: Plane },
-  { href: '/cremazione-animali', label: 'Cremazione Animali', desc: 'Servizio per animali domestici', icon: PawPrint },
-  { href: '/previdenza', label: 'Previdenza Funerix', desc: 'Pianificate oggi, pagate a rate mensili', icon: Shield },
+  { href: '/pet', label: 'Funerix Pet', desc: 'Cremazione animali domestici', icon: PawPrint },
+  { href: '/previdenza', label: 'Funerix Previdenza', desc: 'Piani funerari prepagati a rate mensili', icon: Shield },
+  { href: '/rimpatri', label: 'Funerix Rimpatri', desc: 'Trasporto internazionale salme', icon: Plane },
   { href: '/esumazione', label: 'Esumazione e Riesumazione', desc: 'Trasferimento resti e cremazione', icon: Shovel },
   { href: '/catalogo', label: 'Catalogo Prodotti', desc: 'Bare, urne, fiori, auto funebri', icon: ShoppingBag },
   { href: '/prezzi', label: 'Prezzi per Provincia', desc: 'Confronta i costi in Campania', icon: Euro },

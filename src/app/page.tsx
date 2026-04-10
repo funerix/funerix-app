@@ -21,7 +21,7 @@ const fadeUp = {
 const servizi = [
   { href: '/configuratore', img: '/images/card-servizio-funebre.jpg', titolo: 'Servizio Funebre', desc: 'Configurate il funerale online. Preventivo immediato, nessun obbligo.', icon: Cross },
   { href: '/rimpatri', img: '/images/card-rimpatri.jpg', titolo: 'Rimpatri ed Espatri', desc: 'Trasporto internazionale salme da e verso qualsiasi paese del mondo.', icon: Plane },
-  { href: '/cremazione-animali', img: '/images/card-cremazione-animali.jpg', titolo: 'Cremazione Animali', desc: 'Un ultimo saluto dignitoso per il vostro compagno di vita.', icon: PawPrint },
+  { href: '/pet', img: '/images/card-cremazione-animali.jpg', titolo: 'Funerix Pet', desc: 'Cremazione animali domestici con restituzione ceneri.', icon: PawPrint },
   { href: '/esumazione', img: '/images/card-esumazione.jpg', titolo: 'Esumazione', desc: 'Trasferimento resti, ricollocazione e cremazione resti.', icon: Shovel },
   { href: '/catalogo', img: '/images/card-catalogo.jpg', titolo: 'Catalogo', desc: 'Bare, urne, fiori, auto funebri e servizi aggiuntivi.', icon: ShoppingBag },
   { href: '/prezzi', img: '/images/card-prezzi.jpg', titolo: 'Prezzi', desc: 'Trasparenza totale. Confrontate i costi per provincia.', icon: Euro },

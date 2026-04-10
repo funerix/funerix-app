@@ -39,7 +39,7 @@ export default function PrevidenzaPage() {
               tutto sar&agrave; gi&agrave; organizzato.
             </motion.p>
             <motion.div variants={fadeUp} custom={4} className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/configuratore?tipo=previdenza" className="btn-accent text-base py-4 px-8">
+              <Link href="/previdenza/configuratore" className="btn-accent text-base py-4 px-8">
                 Configura il tuo piano <ChevronRight size={18} className="ml-2" />
               </Link>
               <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
@@ -94,7 +94,7 @@ export default function PrevidenzaPage() {
             </div>
 
             <div className="mt-6 text-center">
-              <Link href="/configuratore?tipo=previdenza" className="btn-primary">
+              <Link href="/previdenza/configuratore" className="btn-primary">
                 Configura il tuo piano personalizzato <ChevronRight size={16} className="ml-1" />
               </Link>
             </div>
@@ -195,7 +195,7 @@ export default function PrevidenzaPage() {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Iniziate oggi</h2>
           <p className="text-white/80 mb-8">Configurate il piano in 5 minuti. Un consulente vi contatter&agrave; entro 30 minuti.</p>
-          <Link href="/configuratore?tipo=previdenza" className="btn-accent text-lg py-4 px-10">
+          <Link href="/previdenza/configuratore" className="btn-accent text-lg py-4 px-10">
             Configura il tuo piano <ChevronRight size={18} className="ml-2" />
           </Link>
         </div>

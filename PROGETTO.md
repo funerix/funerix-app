@@ -15,6 +15,7 @@
 | API endpoints | **26** |
 | Tabelle DB Supabase | **~68** |
 | Configuratori | 4 (funerale, previdenza umana, pet cremazione, pet previdenza) |
+| Immagini | 77 disponibili, ~50 usate, 19 da creare (vedi IMMAGINI.md) |
 | Verticali attivi | 4 (Funebre, Pet, Previdenza, Rimpatri) |
 | Servizi aggiuntivi | Fiori/Tomba, Successione, 6 Servizi Extra, Previdenza Pet |
 | Sezioni homepage | 10 (Hero, Servizi, Come funziona, Previdenza, Prezzi, Pet, Extra, Testimonianze, FAQ, CTA) |
@@ -56,10 +57,16 @@
 - esumazione/page.tsx — Nessuna immagine
 - pet/page.tsx — Solo hero ha immagine
 
-#### Font e readability
-- Aggiungere `line-height: 1.6` al body in globals.css
-- Tabelle: text-sm e' ok ma aggiungere alternating row colors
-- Card labels text-xs (11px) difficili da leggere -> portare a text-[12px]
+#### Font e readability — ✅ COMPLETATO
+- ✅ line-height 1.6 body, 1.7 paragrafi, 1.2 headings
+- ✅ Alternating row colors su tabelle
+- Card labels text-xs accettabili
+
+#### Immagini — PARZIALMENTE COMPLETATO
+- ✅ 50 immagini collegate a pagine (slideshow, card, sfondi, hero)
+- ⬜ 19 immagini da creare (13 guide + 3 pet + 3 previdenza/rimpatri)
+- ⬜ 25 immagini disponibili da collegare a catalogo/prodotti DB
+- Vedi **IMMAGINI.md** per mappa completa, prompt AI, e piano
 
 #### Pagine gia eccellenti (nessun fix necessario)
 - Homepage (4.5/5), Chi Siamo (4.5/5), Contatti (4.5/5), Pet Previdenza (4.5/5), Rimpatri (4.5/5)

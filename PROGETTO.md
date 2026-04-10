@@ -9,11 +9,13 @@
 ## Accessi e Deploy
 
 - **GitHub**: push su `main` -> auto-deploy Vercel (funerix-app.vercel.app + funerix.com)
-- **Supabase**: progetto `rnimsuoabbucrtmhhcqx` — env vars in `.env.local`
+- **Supabase**: progetto `rnimsuoabbucrtmhhcqx` (regione: eu-west-1) — env vars in `.env.local`
   - `NEXT_PUBLIC_SUPABASE_URL` — URL progetto
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — chiave pubblica (frontend)
   - `SUPABASE_SERVICE_ROLE_KEY` — chiave admin (solo API server-side, bypassa RLS)
-- **SQL da eseguire**: per attivare nuove tabelle, copia il file SQL indicato nel Supabase SQL Editor e eseguilo
+  - **DB password**: `funerix2026` — per connessione diretta PostgreSQL
+  - **Pooler**: `aws-0-eu-west-1.pooler.supabase.com:5432` user `postgres.rnimsuoabbucrtmhhcqx`
+- **SQL da eseguire**: per nuove tabelle, script Node con `pg` oppure Supabase SQL Editor
 - **Vercel**: deploy automatico da GitHub, zero configurazione manuale
 
 ---

@@ -6,9 +6,7 @@ import Image from 'next/image'
 import { useConfiguratoreStore, TOTAL_STEPS } from '@/store/configuratore'
 import { StepIndicator } from '@/components/configuratore/StepIndicator'
 import { ProductSelector } from '@/components/configuratore/ProductSelector'
-import { ConfiguratoreAnimale } from '@/components/configuratore/ConfiguratoreAnimale'
 import { ConfiguratoreRimpatrio } from '@/components/configuratore/ConfiguratoreRimpatrio'
-import { ConfiguratorePrevidenza } from '@/components/configuratore/ConfiguratorePrevidenza'
 import { useSitoStore } from '@/store/sito'
 import { useSearchParams } from 'next/navigation'
 import { getSupabase } from '@/lib/supabase-client'
@@ -57,24 +55,22 @@ function ConfiguratorePage() {
   const fiori = attivi.filter((p) => p.categoriaId === catId('fiori'))
   const servizi = attivi.filter((p) => p.categoriaId === catId('servizi'))
 
-  const [tipoConfigurazione, setTipoConfigurazione] = useState<'funebre' | 'animale' | 'rimpatrio' | 'previdenza'>('funebre')
+  const [tipoConfigurazione, setTipoConfigurazione] = useState<'funebre' | 'rimpatrio'>('funebre')
 
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
         {/* Selettore tipo servizio */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-8">
+        <div className="grid grid-cols-2 gap-2 md:gap-3 mb-8 max-w-lg mx-auto">
           {[
             { id: 'funebre' as const, label: 'Servizio Funebre', desc: 'Per una persona cara' },
-            { id: 'animale' as const, label: 'Cremazione Animale', desc: 'Per un animale domestico' },
             { id: 'rimpatrio' as const, label: 'Rimpatrio / Espatrio', desc: 'Trasporto internazionale' },
-            { id: 'previdenza' as const, label: 'Previdenza Funerix', desc: 'Pianifica e paga a rate' },
           ].map(t => (
             <button key={t.id} onClick={() => setTipoConfigurazione(t.id)}
               className={`px-3 md:px-5 py-3 rounded-xl text-center transition-all ${
                 tipoConfigurazione === t.id
                   ? 'bg-primary text-white shadow-lg'
-                  : 'bg-surface border border-border text-text-light'
+                  : 'bg-surface border border-border text-text-light hover:border-secondary/50'
               }`}>
               <span className="block text-xs md:text-sm font-medium">{t.label}</span>
               <span className={`block text-[9px] md:text-[10px] mt-0.5 ${tipoConfigurazione === t.id ? 'text-white/70' : 'text-text-muted'}`}>{t.desc}</span>
@@ -82,10 +78,8 @@ function ConfiguratorePage() {
           ))}
         </div>
 
-        {/* Redirect per animale e rimpatrio */}
-        {tipoConfigurazione === 'animale' && <ConfiguratoreAnimale embedded />}
+        {/* Rimpatrio embedded */}
         {tipoConfigurazione === 'rimpatrio' && <ConfiguratoreRimpatrio embedded />}
-        {tipoConfigurazione === 'previdenza' && <ConfiguratorePrevidenza embedded />}
 
         {tipoConfigurazione === 'funebre' && (<>
         {/* Hero card */}

@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 2. SERVIZI — 6 card cliccabili ═══════════════ */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-background-dark">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
             <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary">
@@ -276,7 +276,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 4.5. FUNERIX PET ═══════════════ */}
-      <section className="py-16">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
@@ -323,7 +323,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 4.7. SERVIZI EXTRA ═══════════════ */}
-      <section className="py-16 bg-background-dark">
+      <section className="py-16">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">Non solo funerali</motion.h2>

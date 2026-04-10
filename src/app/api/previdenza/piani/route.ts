@@ -88,9 +88,16 @@ export async function POST(req: NextRequest) {
   const numRate = body.num_rate || 36
   const importoRata = Math.ceil((saldoResiduo / numRate) * 100) / 100
 
+  // Popola anche campi legacy della tabella originale
+  const clienteNome = body.cliente ? `${body.cliente.nome} ${body.cliente.cognome}` : body.cliente_nome || ''
+  const clienteEmail = body.cliente?.email || body.cliente_email || ''
+  const clienteTelefono = body.cliente?.telefono || body.cliente_telefono || ''
+  const beneficiarioNome = body.beneficiario ? `${body.beneficiario.nome} ${body.beneficiario.cognome}` : body.beneficiario_nome || ''
+
   const { data: piano, error } = await sb
     .from('piani_previdenza')
     .insert({
+      // Campi nuovi
       cliente_id: clienteId,
       beneficiario_id: beneficiarioId,
       tipo_piano_id: body.tipo_piano_id || null,
@@ -106,6 +113,11 @@ export async function POST(req: NextRequest) {
       rsa_id: body.rsa_id || null,
       rsa_operatore: body.rsa_operatore || null,
       codice_convenzione: body.codice_convenzione || null,
+      // Campi legacy (tabella originale li richiede NOT NULL)
+      cliente_nome: clienteNome,
+      cliente_email: clienteEmail,
+      cliente_telefono: clienteTelefono,
+      beneficiario_nome: beneficiarioNome,
     })
     .select()
     .single()

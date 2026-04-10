@@ -20,7 +20,7 @@ const servizi = [
 export default function EsumazionePage() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-16 md:py-24">
+      <section className="bg-primary py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">Esumazione e Riesumazione</h1>
           <p className="text-white/90 text-lg max-w-2xl mx-auto">

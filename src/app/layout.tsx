@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { SitoProvider } from "@/components/SitoProvider"
 import { CookieBanner } from "@/components/CookieBanner"
+import { headers } from "next/headers"
 
 const playfair = Playfair_Display({
   variable: "--font-serif",
@@ -34,11 +35,16 @@ export const metadata: Metadata = {
   ],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Detect admin routes to hide public header/footer
+  const headersList = await headers()
+  const pathname = headersList.get('x-pathname') || headersList.get('x-invoke-path') || ''
+  const isAdmin = pathname.startsWith('/admin')
+
   return (
     <html lang="it" className={`${playfair.variable} ${inter.variable}`}>
       <head>
@@ -53,12 +59,12 @@ export default function RootLayout({
           }
         `}} />
       </head>
-      <body className="min-h-screen flex flex-col bg-background text-text">
+      <body className={`min-h-screen ${isAdmin ? '' : 'flex flex-col'} bg-background text-text`}>
         <SitoProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CookieBanner />
+          {!isAdmin && <Header />}
+          {isAdmin ? children : <main className="flex-1">{children}</main>}
+          {!isAdmin && <Footer />}
+          {!isAdmin && <CookieBanner />}
         </SitoProvider>
       </body>
     </html>

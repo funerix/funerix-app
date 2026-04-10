@@ -72,7 +72,7 @@ export default function HomePage() {
               <Shield size={14} /> Dal 1920 al servizio delle famiglie — Registro Regionale Campania
             </motion.div>
             <motion.h1 variants={fadeUp} custom={1}
-              className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1]">
+              className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white leading-[1.1]">
               La prima agenzia funebre<br />
               <span className="text-secondary-light">digitale in Italia</span>
             </motion.h1>
@@ -81,11 +81,11 @@ export default function HomePage() {
               Configurate il servizio funebre online in 5 minuti. Prezzi trasparenti, consulente dedicato entro 30 minuti, assistenza 24/7.
             </motion.p>
             <motion.div variants={fadeUp} custom={3} className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link href="/configuratore" className="btn-accent text-base py-3.5 px-7">
+              <Link href="/configuratore" className="btn-accent text-base py-4 px-8">
                 {contenuti.heroBottone} <ChevronRight size={18} className="ml-2" />
               </Link>
               <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
-                className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-3.5 px-7">
+                className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
                 <Phone size={18} className="mr-2" /> Chiama Ora
               </a>
             </motion.div>
@@ -120,7 +120,7 @@ export default function HomePage() {
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {serviziDaMostrare.map((s, i) => {
               const Icon = iconMap[s.icona || (s as any).icon?.name] || Cross
               const img = s.immagine || (s as any).img || '/images/hero.jpg'
@@ -170,7 +170,7 @@ export default function HomePage() {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link href="/configuratore" className="btn-accent text-base py-3.5 px-8">
+            <Link href="/configuratore" className="btn-accent text-base py-4 px-8">
               Inizia la Configurazione <ChevronRight size={18} className="ml-2" />
             </Link>
           </div>
@@ -271,15 +271,15 @@ export default function HomePage() {
             Siamo disponibili 24 ore su 24, 7 giorni su 7. Configurate online o chiamateci.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/configuratore" className="btn-accent text-base py-3.5 px-7">
+            <Link href="/configuratore" className="btn-accent text-base py-4 px-10">
               Configura il Servizio <ChevronRight size={18} className="ml-2" />
             </Link>
             <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
-              className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-3.5 px-7">
+              className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-10">
               <Phone size={18} className="mr-2" /> {impostazioni.telefono}
             </a>
             <a href={`https://wa.me/${impostazioni.whatsapp.replace(/\s/g, '')}`} target="_blank" rel="noopener noreferrer"
-              className="btn-secondary border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 text-base py-3.5 px-7">
+              className="btn-secondary border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 text-base py-4 px-10">
               <MessageCircle size={18} className="mr-2" /> WhatsApp
             </a>
           </div>

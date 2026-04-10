@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ConvenzioniPage() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-16 md:py-24">
+      <section className="bg-primary py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <Building2 size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">Convenzioni RSA e Case di Cura</h1>
@@ -38,7 +38,7 @@ export default function ConvenzioniPage() {
           </div>
 
           <div className="card mb-12">
-            <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Come funziona la convenzione</h2>
+            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Come funziona la convenzione</h2>
             <div className="space-y-4">
               {[
                 { n: '1', t: 'Registrazione', d: 'Compilate il form di adesione. Vi assegniamo un codice convenzione univoco e un link dedicato.' },
@@ -58,7 +58,7 @@ export default function ConvenzioniPage() {
           </div>
 
           <div className="card mb-12">
-            <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-4">Vantaggi per la struttura</h2>
+            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Vantaggi per la struttura</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
                 'Nessun costo di adesione',
@@ -76,7 +76,7 @@ export default function ConvenzioniPage() {
           </div>
 
           <div className="card bg-secondary/5 border-secondary/20 text-center">
-            <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-3">Diventa partner</h2>
+            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">Diventa partner</h2>
             <p className="text-text-light mb-6 max-w-lg mx-auto">Contattateci per attivare la convenzione. Vi ricontatteremo entro 24 ore.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a href="tel:+390815551234" className="btn-primary"><Phone size={16} className="mr-2" /> Chiama Ora</a>

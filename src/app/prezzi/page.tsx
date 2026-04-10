@@ -31,7 +31,7 @@ const costiDettaglio = [
 export default function PrezziPage() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-16 md:py-24">
+      <section className="bg-primary py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <Euro size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
@@ -106,7 +106,7 @@ export default function PrezziPage() {
           </div>
 
           <div className="text-center">
-            <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-4">Volete un preventivo personalizzato?</h2>
+            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Volete un preventivo personalizzato?</h2>
             <p className="text-text-light mb-6">Usate il configuratore per un preventivo dettagliato voce per voce, gratuito e senza impegno.</p>
             <Link href="/configuratore" className="btn-primary text-base py-4 px-10">
               Configura il Servizio <ChevronRight size={18} className="ml-2" />

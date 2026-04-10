@@ -12,7 +12,7 @@ export default function ContattiPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-16 md:py-24 relative overflow-hidden">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
         <Image src="/images/fiori-bianchi.jpg" alt="" fill className="object-cover opacity-25" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <motion.h1
@@ -66,7 +66,7 @@ export default function ContattiPage() {
             {/* Form contatto */}
             <div className="lg:col-span-2">
               <div className="card">
-                <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">
+                <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">
                   Scriveteci un messaggio
                 </h2>
 

@@ -161,14 +161,14 @@ export default function PrevidenzaPage() {
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Per chi &egrave; pensato</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card">
-              <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Per voi stessi</h3>
+              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Per voi stessi</h3>
               <p className="text-text-light text-sm mb-4">Decidete oggi come volete essere ricordati, senza lasciare il peso delle scelte e delle spese ai vostri cari.</p>
               <ul className="space-y-2">{['Scegliete ogni dettaglio con calma','Il prezzo non aumenterà mai','La vostra famiglia non dovrà decidere nulla','Potete modificare le scelte in qualsiasi momento'].map(t=>
                 <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
               )}</ul>
             </div>
             <div className="card">
-              <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Per un familiare</h3>
+              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Per un familiare</h3>
               <p className="text-text-light text-sm mb-4">Organizzate in anticipo per un genitore anziano o un familiare, garantendogli il servizio che merita.</p>
               <ul className="space-y-2">{['Ideale per genitori anziani','Perfetto per ospiti di RSA e case di cura','Nessuna decisione da prendere nel dolore','Il servizio è garantito qualsiasi cosa accada'].map(t=>
                 <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>

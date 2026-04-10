@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from 'next/server'
 export function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
+  // Pass pathname to layout for admin detection
+  response.headers.set('x-pathname', request.nextUrl.pathname)
+
   // Vercel fornisce x-vercel-ip-country automaticamente
   const country = request.headers.get('x-vercel-ip-country') || ''
 

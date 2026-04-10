@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 3. COME FUNZIONA ═══════════════ */}
-      <section className="py-16 bg-background-dark">
+      <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-center text-primary mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

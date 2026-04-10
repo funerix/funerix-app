@@ -350,9 +350,8 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 7. CTA FINALE ═══════════════ */}
-      <section className="py-16 bg-primary relative overflow-hidden">
-        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
-        <div className="relative max-w-3xl mx-auto px-4 text-center">
+      <section className="py-16 bg-primary">
+        <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-3">
             Avete bisogno di assistenza?
           </h2>

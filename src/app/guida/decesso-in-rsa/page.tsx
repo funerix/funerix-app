@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Phone, ChevronRight } from 'lucide-react'
 import type { Metadata } from 'next'
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/guida-decesso-in-rsa.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <h1 className="font-[family-name:var(--font-serif)] text-4xl text-white">Decesso in RSA</h1>
           <p className="mt-3 text-white/90">Quando il decesso avviene in casa di riposo</p>
         </div>

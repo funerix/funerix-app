@@ -1,10 +1,13 @@
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Users, Phone } from "lucide-react"
 import type { Metadata } from "next"
 export const metadata: Metadata = { title: "Elaborazione del lutto — Supporto psicologico", description: "Come affrontare il lutto: fasi del dolore, quando cercare aiuto, supporto psicologico, gruppi di mutuo aiuto in Campania.", keywords: "elaborazione lutto, supporto psicologico lutto, fasi del lutto, gruppi mutuo aiuto napoli, come superare un lutto" }
 export default function Page() { return (
 <div className="min-h-screen bg-background">
-<section className="bg-primary py-20 md:py-28"><div className="max-w-4xl mx-auto px-4 text-center"><Users size={36} className="mx-auto mb-3 text-secondary-light" /><h1 className="font-[family-name:var(--font-serif)] text-4xl text-white">Elaborazione del lutto</h1><p className="mt-3 text-white/85">Supporto e risorse per affrontare il dolore</p></div></section>
+<section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+<Image src="/images/guida-lutto-e-supporto.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+<div className="relative max-w-4xl mx-auto px-4 text-center"><Users size={36} className="mx-auto mb-3 text-secondary-light" /><h1 className="font-[family-name:var(--font-serif)] text-4xl text-white">Elaborazione del lutto</h1><p className="mt-3 text-white/85">Supporto e risorse per affrontare il dolore</p></div></section>
 <section className="py-16"><div className="max-w-3xl mx-auto px-4">
 <Link href="/guida" className="flex items-center gap-1 text-secondary text-sm mb-8 hover:underline"><ArrowLeft size={14} /> Tutte le guide</Link>
 <div className="space-y-4">

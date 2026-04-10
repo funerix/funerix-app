@@ -137,77 +137,54 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 3.5. PREVIDENZA ═══════════════ */}
-      <section className="py-16 bg-background-dark">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <motion.div variants={fadeUp} custom={0}
-                className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full mb-4">
-                <Shield size={14} /> Previdenza Funerix
-              </motion.div>
-              <motion.h2 variants={fadeUp} custom={1}
-                className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
-                Pianificate oggi,<br />vivete sereni
-              </motion.h2>
-              <motion.p variants={fadeUp} custom={2} className="text-text-light mb-6">
-                Configurate il servizio funebre per voi o per un familiare. Bloccate il prezzo di oggi e pagate comodamente a rate mensili. Quando il momento arriver&agrave;, tutto sar&agrave; gi&agrave; organizzato.
-              </motion.p>
-              <motion.div variants={fadeUp} custom={3} className="grid grid-cols-3 gap-4 mb-6">
-                <div className="text-center">
-                  <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">da &euro;97</p>
-                  <p className="text-text-muted text-xs">al mese</p>
-                </div>
-                <div className="text-center">
-                  <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">12-60</p>
-                  <p className="text-text-muted text-xs">rate mensili</p>
-                </div>
-                <div className="text-center">
-                  <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">0%</p>
-                  <p className="text-text-muted text-xs">interessi</p>
-                </div>
-              </motion.div>
-              <motion.div variants={fadeUp} custom={4} className="flex flex-col sm:flex-row gap-3">
-                <Link href="/previdenza/configuratore" className="btn-primary text-sm py-3 px-6">
-                  Configura il Piano <ChevronRight size={14} className="ml-1" />
-                </Link>
-                <Link href="/previdenza/piani" className="btn-secondary text-sm py-3 px-6">
-                  Confronta i Piani
-                </Link>
-              </motion.div>
+      <section className="py-16 md:py-20 bg-primary relative overflow-hidden">
+        <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 via-primary/60 to-primary-dark/80" />
+        <div className="relative max-w-5xl mx-auto px-4 text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.div variants={fadeUp} custom={0}
+              className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs px-4 py-2 rounded-full mb-5 backdrop-blur-sm border border-white/10">
+              <Shield size={14} /> Previdenza Funerix
             </motion.div>
-            {/* IMMAGINE REALE — colonna destra */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-              className="relative hidden lg:block">
-              <div className="relative h-[420px] rounded-2xl overflow-hidden shadow-xl">
-                <Image src="/images/hero-previdenza.png" alt="Famiglia serena" fill className="object-cover" sizes="50vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-white font-[family-name:var(--font-serif)] text-xl">Prezzo bloccato per sempre</p>
-                  <p className="text-white/70 text-sm">Zero interessi, fondi protetti, annullabile</p>
-                </div>
+            <motion.h2 variants={fadeUp} custom={1}
+              className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-4">
+              Pianificate oggi, vivete sereni
+            </motion.h2>
+            <motion.p variants={fadeUp} custom={2} className="text-white/80 mb-8 max-w-2xl mx-auto">
+              Configurate il servizio funebre per voi o per un familiare. Bloccate il prezzo di oggi e pagate comodamente a rate mensili. Zero interessi.
+            </motion.p>
+            <motion.div variants={fadeUp} custom={3} className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">da &euro;97</p>
+                <p className="text-white/50 text-xs">al mese</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">12-60</p>
+                <p className="text-white/50 text-xs">rate mensili</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">0%</p>
+                <p className="text-white/50 text-xs">interessi</p>
               </div>
             </motion.div>
-          </div>
+            <motion.div variants={fadeUp} custom={4} className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/previdenza/configuratore" className="btn-accent text-sm py-3 px-8">
+                Configura il Piano <ChevronRight size={14} className="ml-1" />
+              </Link>
+              <Link href="/previdenza/piani" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm py-3 px-8">
+                Confronta i Piani
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* ═══════════════ 4. PREZZI RAPIDI ═══════════════ */}
       <section className="py-16 relative overflow-hidden">
-        <Image src="/images/slide-1-funerale.png" alt="" fill className="object-cover opacity-[0.07]" sizes="100vw" />
-        <div className="relative max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-            {/* Immagine laterale */}
-            <div className="hidden lg:block relative h-[400px] rounded-2xl overflow-hidden shadow-lg">
-              <Image src="/images/slide-1-funerale.png" alt="Servizio funebre" fill className="object-cover" sizes="33vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <p className="text-white font-[family-name:var(--font-serif)] text-lg">Trasparenza totale</p>
-                <p className="text-white/70 text-sm">Nessun costo nascosto</p>
-              </div>
-            </div>
-            {/* Contenuto prezzi */}
-            <div className="lg:col-span-2">
-              <div className="text-center lg:text-left mb-8">
+        <Image src="/images/allestimento-funebre.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background/90" />
+        <div className="relative max-w-4xl mx-auto px-4">
+              <div className="text-center mb-8">
                 <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">Prezzi chiari, senza sorprese</h2>
                 <p className="mt-2 text-text-light">Funerale completo a partire da — per provincia</p>
               </div>
@@ -235,54 +212,53 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              <div className="text-center lg:text-left">
+              <div className="text-center">
                 <Link href="/prezzi" className="btn-secondary text-sm">
                   Vedi tutti i prezzi dettagliati <ChevronRight size={14} className="ml-1" />
                 </Link>
               </div>
-            </div>
-          </div>
         </div>
       </section>
 
       {/* ═══════════════ 4.5. FUNERIX PET ═══════════════ */}
-      <section className="py-16 bg-background-dark">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* IMMAGINE REALE — colonna sinistra */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="relative hidden lg:block order-2 lg:order-1">
-              <div className="relative h-[420px] rounded-2xl overflow-hidden shadow-xl">
-                <Image src="/images/card-pet-cremazione.png" alt="Cremazione animali" fill className="object-cover" sizes="50vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-white font-[family-name:var(--font-serif)] text-xl">Cremazione da &euro;120</p>
-                  <p className="text-white/70 text-sm">Individuale con restituzione ceneri</p>
+      <section className="py-16 md:py-20 bg-primary relative overflow-hidden">
+        <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-25" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a2a]/80 via-[#2a4a3a]/60 to-[#1a3a2a]/80" />
+        <div className="relative max-w-5xl mx-auto px-4 text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.div variants={fadeUp} custom={0}
+              className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs px-4 py-2 rounded-full mb-5 backdrop-blur-sm border border-white/10">
+              <PawPrint size={14} /> Funerix Pet
+            </motion.div>
+            <motion.h2 variants={fadeUp} custom={1}
+              className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-4">
+              Per il vostro compagno di vita
+            </motion.h2>
+            <motion.p variants={fadeUp} custom={2} className="text-white/80 mb-8 max-w-2xl mx-auto">
+              Cremazione individuale con restituzione ceneri, urne commemorative e memorial digitale. Servizio immediato o piano previdenza a rate.
+            </motion.p>
+            <motion.div variants={fadeUp} custom={3} className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-lg mx-auto">
+              {[
+                { t: 'Cremazione', d: 'da \u20AC120' },
+                { t: 'Previdenza', d: 'da \u20AC10/mese' },
+                { t: 'Memorial', d: 'Gratuito' },
+                { t: 'Veterinari', d: 'Convenzionati' },
+              ].map(c => (
+                <div key={c.t} className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+                  <p className="text-white font-medium text-xs">{c.t}</p>
+                  <p className="text-white/60 text-[10px]">{c.d}</p>
                 </div>
-              </div>
+              ))}
             </motion.div>
-            <motion.div className="order-1 lg:order-2" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <motion.div variants={fadeUp} custom={0}
-                className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full mb-4">
-                <PawPrint size={14} /> Funerix Pet
-              </motion.div>
-              <motion.h2 variants={fadeUp} custom={1}
-                className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
-                Per il vostro<br />compagno di vita
-              </motion.h2>
-              <motion.p variants={fadeUp} custom={2} className="text-text-light mb-6">
-                Un ultimo saluto dignitoso per il vostro animale domestico. Cremazione individuale con restituzione ceneri, urne commemorative e memorial digitale. Anche con piano previdenza a rate.
-              </motion.p>
-              <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-3">
-                <Link href="/pet/configuratore" className="btn-primary text-sm py-3 px-6">
-                  Cremazione Immediata <ChevronRight size={14} className="ml-1" />
-                </Link>
-                <Link href="/pet/previdenza" className="btn-secondary text-sm py-3 px-6">
-                  Piano Previdenza Pet
-                </Link>
-              </motion.div>
+            <motion.div variants={fadeUp} custom={4} className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/pet/configuratore" className="btn-accent text-sm py-3 px-8">
+                Cremazione Immediata <ChevronRight size={14} className="ml-1" />
+              </Link>
+              <Link href="/pet/previdenza" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm py-3 px-8">
+                Piano Previdenza Pet
+              </Link>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -314,7 +290,8 @@ export default function HomePage() {
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-[0.10]" sizes="100vw" />
+        <Image src="/images/sala-funebre.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background-dark/90 to-background-dark/80" />
         <div className="relative max-w-6xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
             Le famiglie che abbiamo accompagnato

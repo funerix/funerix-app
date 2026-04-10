@@ -1,10 +1,13 @@
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ChevronRight, BookOpen } from "lucide-react"
 import type { Metadata } from "next"
 export const metadata: Metadata = { title: "Inumazione o Tumulazione: le differenze", description: "Differenza tra inumazione e tumulazione: costi, tempistiche, concessioni cimiteriali. Come scegliere la sepoltura giusta.", keywords: "inumazione tumulazione differenze, sepoltura in terra, loculo cimitero, concessione cimiteriale napoli" }
 export default function Page() { return (
 <div className="min-h-screen bg-background">
-<section className="bg-primary py-20 md:py-28"><div className="max-w-4xl mx-auto px-4 text-center"><BookOpen size={36} className="mx-auto mb-3 text-secondary-light" /><h1 className="font-[family-name:var(--font-serif)] text-4xl text-white">Inumazione o Tumulazione?</h1><p className="mt-3 text-white/85">Le differenze spiegate — come scegliere</p></div></section>
+<section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+<Image src="/images/guida-inumazione-o-tumulazione.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+<div className="relative max-w-4xl mx-auto px-4 text-center"><BookOpen size={36} className="mx-auto mb-3 text-secondary-light" /><h1 className="font-[family-name:var(--font-serif)] text-4xl text-white">Inumazione o Tumulazione?</h1><p className="mt-3 text-white/85">Le differenze spiegate — come scegliere</p></div></section>
 <section className="py-16"><div className="max-w-3xl mx-auto px-4">
 <Link href="/guida" className="flex items-center gap-1 text-secondary text-sm mb-8 hover:underline"><ArrowLeft size={14} /> Tutte le guide</Link>
 <div className="space-y-4">

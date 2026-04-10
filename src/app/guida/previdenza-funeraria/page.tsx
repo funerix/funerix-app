@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Shield, Check, ChevronRight, Phone, AlertTriangle } from 'lucide-react'
 import type { Metadata } from 'next'
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
 export default function GuidaPrevidenzaPage() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/guida-previdenza-funeraria.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Shield size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-4">Guida alla Previdenza Funeraria</h1>
           <p className="text-white/80 text-lg">Tutto quello che dovete sapere per pianificare in anticipo.</p>

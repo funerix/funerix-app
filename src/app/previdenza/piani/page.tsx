@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Shield, Check, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { createClient } from '@supabase/supabase-js'
@@ -28,8 +29,9 @@ export default async function PianiPrevidenzaPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
+        <Image src="/images/hero-previdenza-piani.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Shield size={32} className="mx-auto mb-3 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-3">Piani Previdenza Funerix</h1>
           <p className="text-white/80">Scegliete il piano piu adatto. Tutti con prezzo bloccato e rate mensili.</p>

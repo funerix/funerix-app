@@ -62,11 +62,32 @@
 - ✅ Alternating row colors su tabelle
 - Card labels text-xs accettabili
 
-#### Immagini — PARZIALMENTE COMPLETATO
-- ✅ 50 immagini collegate a pagine (slideshow, card, sfondi, hero)
-- ⬜ 19 immagini da creare (13 guide + 3 pet + 3 previdenza/rimpatri)
-- ⬜ 25 immagini disponibili da collegare a catalogo/prodotti DB
-- Vedi **IMMAGINI.md** per mappa completa, prompt AI, e piano
+#### Immagini — DA RIFARE DA ZERO
+Le immagini sono state collegate ma mancano coerenza negli sfondi alternati e overlay.
+
+**STEP 1: PULIRE** — Rimuovere TUTTE le immagini di sfondo/overlay da TUTTE le pagine
+**STEP 2: PIANO** — Per ogni pagina definire:
+  - Quali sezioni ci sono
+  - Schema alternanza colori (bg-primary / bg-background / bg-background-dark / bianco)
+  - Quali sezioni hanno sfondo immagine overlay e quale immagine
+  - Solo hero + max 1-2 sezioni interne con overlay (non tutte)
+**STEP 3: IMPLEMENTARE** — Collegare tutto in un colpo unico
+
+**Regole da seguire:**
+1. Alternanza sezioni: primary -> dark -> bianco -> dark -> bianco -> primary (o simile)
+2. Overlay immagini SOLO su sezioni bg-primary (scure) — non su bianco o bg-dark
+3. Ogni pagina: hero con immagine dedicata (opacity 20%)
+4. Max 1 altra sezione con overlay (es. CTA finale)
+5. Le sezioni chiare (bianco, bg-dark) NON hanno overlay — solo colore piatto
+6. Card servizi homepage: immagini nelle card OK (sono contenuto, non sfondo)
+7. 98 immagini disponibili in /public/images/ — vedi IMMAGINI.md
+
+**Pagine da rifare (tutte le pubbliche, ~30):**
+- Homepage (10 sezioni)
+- Pet, Previdenza, Rimpatri, Convenzioni, Esumazione, Successione
+- Servizi Ricorrenti, Servizi Extra, Prezzi, Contatti, Chi Siamo
+- 14 guide, 3 pet sub-pages, previdenza/piani, rimpatri/paesi
+- Memorial, Blog, Catalogo, Assistenza
 
 #### Pagine gia eccellenti (nessun fix necessario)
 - Homepage (4.5/5), Chi Siamo (4.5/5), Contatti (4.5/5), Pet Previdenza (4.5/5), Rimpatri (4.5/5)

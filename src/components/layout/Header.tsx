@@ -232,6 +232,14 @@ export function Header() {
             className="lg:hidden border-t border-border bg-surface overflow-hidden">
             <nav className="px-4 py-3 max-h-[80vh] overflow-y-auto">
 
+              <div className="flex items-center justify-between mb-3 pb-3 border-b border-border">
+                <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
+                  className="flex items-center gap-2 text-secondary font-medium text-sm">
+                  <Phone size={16} /> {impostazioni.telefono}
+                </a>
+                <LanguageSelector />
+              </div>
+
               {mobileSections.map((section) => (
                 <div key={section.title} className="mb-3">
                   <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 py-1.5 font-medium">{section.title}</p>
@@ -263,14 +271,7 @@ export function Header() {
                 </Link>
               </div>
 
-              <div className="pt-3 border-t border-border mt-3 space-y-3">
-                <div className="flex items-center justify-between px-3">
-                  <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
-                    className="flex items-center gap-2 text-secondary font-medium text-sm">
-                    <Phone size={16} /> {impostazioni.telefono}
-                  </a>
-                  <LanguageSelector />
-                </div>
+              <div className="pt-3 border-t border-border mt-3">
                 <Link href="/configuratore" onClick={() => setMobileOpen(false)}
                   className="btn-accent w-full text-sm py-2.5 justify-center">Configura il Servizio</Link>
               </div>

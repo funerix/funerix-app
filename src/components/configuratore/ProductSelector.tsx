@@ -63,10 +63,10 @@ export function ProductSelector(props: Props) {
               )}
             </div>
 
-            <h4 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-1">
+            <h4 className="font-[family-name:var(--font-serif)] text-base md:text-lg text-primary mb-1 break-words">
               {prodotto.nome}
             </h4>
-            <p className="text-text-light text-sm mb-3">{prodotto.descrizioneBreve}</p>
+            <p className="text-text-light text-xs md:text-sm mb-3 break-words">{prodotto.descrizioneBreve}</p>
 
             {prodotto.materiale && (
               <p className="text-xs text-text-muted mb-1">

@@ -117,7 +117,7 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                     <span className="block text-text-muted text-[10px] md:text-sm mt-1">Pianifico per un genitore o caro</span></div>
                 </div>
                 {beneficiario === 'familiare' && (
-                  <div className="mt-6 grid grid-cols-3 gap-3">
+                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div><label className="text-xs font-medium text-text">Nome del familiare</label><input className="input-field text-sm mt-1" value={beneficiarioNome} onChange={e=>setBeneficiarioNome(e.target.value)} /></div>
                     <div><label className="text-xs font-medium text-text">Et&agrave;</label><input className="input-field text-sm mt-1" value={beneficiarioEta} onChange={e=>setBeneficiarioEta(e.target.value)} /></div>
                     <div><label className="text-xs font-medium text-text">Relazione</label>
@@ -169,10 +169,10 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                     <input type="range" min={12} max={60} step={6} value={numRate} onChange={e=>setNumRate(Number(e.target.value))}
                       className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer accent-secondary" />
                   </div>
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div className="bg-background rounded-xl p-4"><p className="text-text-muted text-xs">Rate</p><p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{numRate}</p></div>
-                    <div className="bg-secondary/10 rounded-xl p-4"><p className="text-secondary text-xs font-medium">Al mese</p><p className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}</p></div>
-                    <div className="bg-background rounded-xl p-4"><p className="text-text-muted text-xs">Durata</p><p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{Math.ceil(numRate/12)} {numRate<=12?'anno':'anni'}</p></div>
+                  <div className="grid grid-cols-3 gap-2 md:gap-4 text-center">
+                    <div className="bg-background rounded-xl p-3 md:p-4"><p className="text-text-muted text-[10px] md:text-xs">Rate</p><p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-primary font-bold">{numRate}</p></div>
+                    <div className="bg-secondary/10 rounded-xl p-3 md:p-4"><p className="text-secondary text-[10px] md:text-xs font-medium">Al mese</p><p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-secondary font-bold">&euro; {rataMensile}</p></div>
+                    <div className="bg-background rounded-xl p-3 md:p-4"><p className="text-text-muted text-[10px] md:text-xs">Durata</p><p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-primary font-bold">{Math.ceil(numRate/12)} {numRate<=12?'anno':'anni'}</p></div>
                   </div>
                 </div>
                 {/* Piano pagamento con date */}
@@ -240,7 +240,7 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                   <div className="grid grid-cols-3 gap-3">{[{v:'telefonata',l:'Chiamata'},{v:'videochiamata',l:'Videochiamata'},{v:'whatsapp',l:'WhatsApp'}].map(o=>(
                     <label key={o.v} className="cursor-pointer"><input type="radio" name="modalita" value={o.v} className="peer sr-only" required />
                     <div className="product-card py-3 text-center peer-checked:border-secondary peer-checked:border-2 peer-checked:bg-secondary/5"><span className="text-sm font-medium text-primary">{o.l}</span></div></label>))}</div></div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-medium text-text mb-1">Nome *</label><input name="nome" required className="input-field" /></div>
                     <div><label className="block text-sm font-medium text-text mb-1">Telefono *</label><input name="telefono" required className="input-field" /></div>
                     <div><label className="block text-sm font-medium text-text mb-1">Email</label><input name="email" type="email" className="input-field" /></div>

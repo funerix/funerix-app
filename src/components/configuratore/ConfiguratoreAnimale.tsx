@@ -172,7 +172,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
               {step === 1 && (
                 <div>
                   <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Tipo di animale</h2>
-                  <div className="grid grid-cols-3 md:grid-cols-5 gap-2 md:gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:gap-4">
                     {animali.map(a => (
                       <div key={a.id} onClick={() => {
                         setAnimale(a.id)
@@ -328,7 +328,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                             <span className="text-sm font-medium text-primary">{o.l}</span></div></label>))}
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div><label className="block text-sm font-medium text-text mb-1">Nome *</label><input name="nome" required className="input-field" /></div>
                       <div><label className="block text-sm font-medium text-text mb-1">Telefono *</label><input name="telefono" required className="input-field" /></div>
                       <div><label className="block text-sm font-medium text-text mb-1">Email</label><input name="email" type="email" className="input-field" /></div>

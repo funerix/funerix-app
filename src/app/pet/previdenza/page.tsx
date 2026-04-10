@@ -76,7 +76,7 @@ export default function PrevidenzaPetPage() {
             {/* Specie */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-text mb-3">Tipo di animale</label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                 {specieOptions.map(s => (
                   <button key={s.id} onClick={() => setSpecie(s.id)}
                     className={`px-3 py-2.5 rounded-lg text-xs font-medium transition-colors text-center ${
@@ -118,7 +118,7 @@ export default function PrevidenzaPetPage() {
             {/* Rate */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-text mb-3">Come volete pagare?</label>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                 {rateOptions.map(r => (
                   <button key={r.mesi} onClick={() => setRate(r.mesi)}
                     className={`px-2 py-3 rounded-lg text-xs font-medium transition-colors text-center ${

@@ -28,6 +28,11 @@ export function Footer() {
               <li><Link href="/configuratore" className="hover:text-white transition-colors">Configura il Servizio</Link></li>
               <li><Link href="/catalogo" className="hover:text-white transition-colors">Catalogo Prodotti</Link></li>
               <li><Link href="/memorial" className="hover:text-white transition-colors">Memorial Online</Link></li>
+              <li><Link href="/pet" className="hover:text-white transition-colors">Pet</Link></li>
+              <li><Link href="/previdenza" className="hover:text-white transition-colors">Previdenza</Link></li>
+              <li><Link href="/rimpatri" className="hover:text-white transition-colors">Rimpatri</Link></li>
+              <li><Link href="/servizi-ricorrenti" className="hover:text-white transition-colors">Fiori e Cura Tomba</Link></li>
+              <li><Link href="/successione" className="hover:text-white transition-colors">Successione</Link></li>
               <li><Link href="/contatti" className="hover:text-white transition-colors">Richiedi Assistenza</Link></li>
             </ul>
           </div>

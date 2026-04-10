@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Phone, ChevronDown, Cross, Globe, PawPrint, BookOpen, Euro, ShoppingBag, Shovel, Plane, Shield } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, Cross, Globe, PawPrint, BookOpen, Euro, ShoppingBag, Shovel, Plane, Shield, Flower2, FileText } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { LanguageSelector } from '@/components/LanguageSelector'
 
@@ -16,6 +16,8 @@ const serviziMenu = [
   { href: '/esumazione', label: 'Esumazione e Riesumazione', desc: 'Trasferimento resti e cremazione', icon: Shovel },
   { href: '/catalogo', label: 'Catalogo Prodotti', desc: 'Bare, urne, fiori, auto funebri', icon: ShoppingBag },
   { href: '/prezzi', label: 'Prezzi per Provincia', desc: 'Confronta i costi in Campania', icon: Euro },
+  { href: '/servizi-ricorrenti', label: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori, pulizia e manutenzione', icon: Flower2 },
+  { href: '/successione', label: 'Successione Ereditaria', desc: 'Assistenza completa dichiarazione successione', icon: FileText },
 ]
 
 const navLinks = [

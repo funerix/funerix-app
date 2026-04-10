@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Package, FileText, Heart, Edit3, Image as ImageIcon, Settings,
   Bell, Building2, LogOut, BookOpen, BarChart3, CalendarDays, Gift, Shield,
   ChevronLeft, ChevronDown, Menu, X, Users, Globe, PawPrint, Plane, CreditCard, Star,
-  Stethoscope, FileCheck, Megaphone, MessageSquare, Receipt
+  Stethoscope, FileCheck, Megaphone, MessageSquare, Receipt, Flower2
 } from 'lucide-react'
 import { RealtimeNotifiche } from '@/components/admin/RealtimeNotifiche'
 import { useSitoStore } from '@/store/sito'
@@ -82,6 +82,14 @@ const navGroups = [
       { href: '/admin/homepage', icon: LayoutDashboard, label: 'Homepage', ruolo: 'manager+' },
       { href: '/admin/contenuti', icon: Edit3, label: 'Contenuti Sito', ruolo: 'manager+' },
       { href: '/admin/media', icon: ImageIcon, label: 'Media', ruolo: 'perm:media' },
+    ],
+  },
+  {
+    label: 'Servizi Extra',
+    defaultOpen: false,
+    items: [
+      { href: '/admin/servizi-ricorrenti', icon: Flower2, label: 'Fiori e Cura Tomba', ruolo: 'manager+' },
+      { href: '/admin/successione', icon: FileText, label: 'Successione', ruolo: 'manager+' },
     ],
   },
   {

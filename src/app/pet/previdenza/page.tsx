@@ -149,7 +149,7 @@ export default function PrevidenzaPetPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/contatti" className="btn-accent text-sm py-3 px-6 justify-center">
+              <Link href="/pet/previdenza/configuratore" className="btn-accent text-sm py-3 px-6 justify-center">
                 Richiedi il piano <ChevronRight size={16} className="ml-1" />
               </Link>
               <a href="tel:+390815551234" className="btn-secondary text-sm py-3 px-6 justify-center">
@@ -233,7 +233,7 @@ export default function PrevidenzaPetPage() {
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Proteggete il vostro amico</h2>
           <p className="text-white/80 mb-8">Contattateci per attivare il piano. Un consulente vi guidera nella scelta migliore.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/contatti" className="btn-accent text-lg py-4 px-10">
+            <Link href="/pet/previdenza/configuratore" className="btn-accent text-lg py-4 px-10">
               Contattaci <ChevronRight size={18} className="ml-2" />
             </Link>
             <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">

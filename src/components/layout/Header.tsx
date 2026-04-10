@@ -45,7 +45,7 @@ const menuAnimali = {
       title: null,
       items: [
         { href: '/pet/configuratore', label: 'Cremazione Immediata', desc: 'Servizio per animale deceduto', icon: PawPrint },
-        { href: '/pet/previdenza', label: 'Piano Previdenza Pet', desc: 'Pianifica e paga a rate', icon: Shield },
+        { href: '/pet/previdenza', label: 'Piano Previdenza Pet', desc: 'Configura e paga a rate', icon: Shield },
         { href: '/pet/catalogo', label: 'Catalogo Urne Pet', desc: 'Urne e accessori', icon: ShoppingBag },
         { href: '/pet/veterinari', label: 'Veterinari Partner', desc: 'Studi convenzionati', icon: Stethoscope },
         { href: '/pet/memorial', label: 'Memorial Pet', desc: 'Ricordo digitale', icon: Heart },

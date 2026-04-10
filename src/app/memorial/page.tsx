@@ -107,7 +107,7 @@ export default function MemorialPage() {
 
                       {/* Info */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary group-hover:text-secondary transition-colors">
+                        <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary group-hover:text-secondary transition-colors">
                           {necrologio.nome}
                         </h3>
                         <div className="flex flex-wrap items-center gap-3 mt-1 text-sm text-text-muted">

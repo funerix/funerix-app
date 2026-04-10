@@ -30,7 +30,7 @@ const guideInformative = [
 export default function GuidaPage() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-16 md:py-20 relative overflow-hidden">
+      <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
         <Image src="/images/candele.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
@@ -45,7 +45,7 @@ export default function GuidaPage() {
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
           {/* Scenari decesso */}
-          <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Cosa fare in caso di decesso</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Cosa fare in caso di decesso</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
             {guideScenari.map(g => (
               <Link key={g.href} href={g.href} className="card group flex items-start gap-4">
@@ -64,7 +64,7 @@ export default function GuidaPage() {
           </div>
 
           {/* Guide informative */}
-          <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Guide informative</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Guide informative</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
             {guideInformative.map(g => (
               <Link key={g.href} href={g.href} className="card group">

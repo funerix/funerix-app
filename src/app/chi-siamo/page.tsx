@@ -39,7 +39,7 @@ export default function ChiSiamoPage() {
       </section>
 
       {/* Storia */}
-      <section className="py-20">
+      <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
@@ -109,7 +109,7 @@ export default function ChiSiamoPage() {
       </section>
 
       {/* Autorizzazioni */}
-      <section className="py-20 bg-background-dark">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial="hidden" whileInView="visible" viewport={{ once: true }}
@@ -143,7 +143,7 @@ export default function ChiSiamoPage() {
       </section>
 
       {/* Cosa fare quando */}
-      <section className="py-20">
+      <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial="hidden" whileInView="visible" viewport={{ once: true }}

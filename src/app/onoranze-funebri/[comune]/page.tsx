@@ -63,14 +63,14 @@ export default async function ComunePage({ params }: { params: Promise<{ comune:
               { titolo: 'Cremazione', desc: `Servizio di cremazione completo con trasporto al crematorio più vicino a ${nome}.` },
             ].map((s) => (
               <div key={s.titolo} className="card text-center">
-                <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">{s.titolo}</h3>
+                <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">{s.titolo}</h3>
                 <p className="text-text-light text-sm">{s.desc}</p>
               </div>
             ))}
           </div>
 
           <div className="prose max-w-none text-text-light leading-relaxed space-y-4">
-            <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary">
+            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">
               Impresa funebre a {nome}: perch&eacute; scegliere Funerix
             </h2>
             <p>
@@ -85,7 +85,7 @@ export default async function ComunePage({ params }: { params: Promise<{ comune:
               dedicato vi contatter&agrave; entro 30 minuti per accompagnarvi in ogni fase del percorso.
             </p>
 
-            <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary">
+            <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary">
               Cosa include il nostro servizio a {nome}
             </h3>
             <ul>
@@ -99,7 +99,7 @@ export default async function ComunePage({ params }: { params: Promise<{ comune:
               <li>Disponibilit&agrave; 24 ore su 24, 7 giorni su 7</li>
             </ul>
 
-            <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary">
+            <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary">
               Quanto costa un funerale a {nome}?
             </h3>
             <p>

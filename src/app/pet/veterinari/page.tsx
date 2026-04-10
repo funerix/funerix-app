@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function VeterinariPage() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-16">
+      <section className="bg-primary py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <MapPin size={32} className="mx-auto mb-3 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-3">Veterinari Partner</h1>

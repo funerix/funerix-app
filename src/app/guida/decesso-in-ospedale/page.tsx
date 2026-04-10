@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="bg-primary py-16">
+      <section className="bg-primary py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="font-[family-name:var(--font-serif)] text-4xl text-white">Decesso in Ospedale</h1>
           <p className="mt-3 text-white/90">Quando il decesso avviene in struttura ospedaliera</p>

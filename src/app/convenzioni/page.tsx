@@ -62,8 +62,9 @@ export default function ConvenzioniPage() {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="max-w-5xl mx-auto px-4">
+      <section className="py-16 relative overflow-hidden">
+        <Image src="/images/allestimento1.jpg" alt="" fill className="object-cover opacity-10" sizes="100vw" />
+        <div className="relative max-w-5xl mx-auto px-4">
           <div className="card mb-12">
             <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Vantaggi per la struttura</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

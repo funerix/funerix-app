@@ -70,7 +70,7 @@ export default function PetPage() {
 
       {/* Come funziona */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
+        <Image src="/images/config-animali-hero.jpg" alt="" fill className="object-cover opacity-10" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

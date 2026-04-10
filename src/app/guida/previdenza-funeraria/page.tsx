@@ -74,10 +74,11 @@ export default function GuidaPrevidenzaPage() {
             </div>
           </div>
 
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Piano Protezione Funerix</h2>
-          <p className="text-text-light mb-4">Con il <strong>Piano Protezione</strong>, se il beneficiario viene a mancare prima di aver completato tutte le rate, <strong>Funerix eroga comunque il servizio completo</strong>. La famiglia non dovra pagare nulla in piu.</p>
-          <p className="text-text-light mb-4">Non e un&apos;assicurazione ma un impegno contrattuale di Funerix. Il costo aggiuntivo e di circa il 10-15% sul prezzo totale del piano.</p>
-          <p className="text-text-light mb-8">E il vero valore aggiunto che nessun competitor offre in Italia.</p>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Polizza di Copertura (opzionale)</h2>
+          <p className="text-text-light mb-4">Funerix predispone la possibilita di abbinare al piano una <strong>polizza assicurativa di copertura</strong> tramite compagnie convenzionate. In caso di decesso del beneficiario prima del completamento delle rate, la polizza copre la differenza residua.</p>
+          <p className="text-text-light mb-4">La polizza e facoltativa e viene emessa da compagnie assicurative autorizzate IVASS. Funerix non eroga direttamente il servizio assicurativo ma facilita l&apos;attivazione.</p>
+          <p className="text-text-light mb-4"><strong>Senza polizza:</strong> se il beneficiario viene a mancare prima del completamento delle rate, il servizio verra erogato in proporzione a quanto versato oppure la famiglia potra saldare la differenza.</p>
+          <p className="text-text-light mb-8"><strong>Con polizza:</strong> il servizio viene erogato integralmente indipendentemente dalle rate versate.</p>
 
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Domande frequenti</h2>
           <div className="space-y-4 mb-8">

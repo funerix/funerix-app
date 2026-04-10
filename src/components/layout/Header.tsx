@@ -197,6 +197,9 @@ export function Header() {
             <Link href="/prezzi" className="px-3 py-2 text-primary/70 hover:text-primary transition-colors text-sm font-medium rounded-lg hover:bg-background">
               Prezzi
             </Link>
+            <Link href="/guida" className="px-3 py-2 text-primary/70 hover:text-primary transition-colors text-sm font-medium rounded-lg hover:bg-background">
+              Guide
+            </Link>
             <Link href="/contatti" className="px-3 py-2 text-primary/70 hover:text-primary transition-colors text-sm font-medium rounded-lg hover:bg-background">
               Contatti
             </Link>
@@ -247,6 +250,11 @@ export function Header() {
                   className="flex items-center gap-3 py-2.5 px-3 hover:bg-background rounded-lg">
                   <Euro size={16} className="text-secondary" />
                   <span className="text-sm font-medium text-primary">Prezzi</span>
+                </Link>
+                <Link href="/guida" onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 py-2.5 px-3 hover:bg-background rounded-lg">
+                  <FileText size={16} className="text-secondary" />
+                  <span className="text-sm font-medium text-primary">Guide</span>
                 </Link>
                 <Link href="/contatti" onClick={() => setMobileOpen(false)}
                   className="flex items-center gap-3 py-2.5 px-3 hover:bg-background rounded-lg">

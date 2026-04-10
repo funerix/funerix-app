@@ -44,7 +44,7 @@ export default function SuccessionePage() {
 
       {/* Cos'e */}
       <section className="py-16 relative overflow-hidden">
-        <Image src="/images/mani.jpg" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
+        <Image src="/images/card-successione.png" alt="" fill className="object-cover opacity-[0.08]" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <div>

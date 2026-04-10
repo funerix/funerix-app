@@ -112,7 +112,7 @@ export default function HomePage() {
 
       {/* ═══════════════ 3. COME FUNZIONA ═══════════════ */}
       <section className="py-16 bg-primary text-white relative overflow-hidden">
-        <Image src="/images/cerimonia.jpg" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-center text-white mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -179,7 +179,7 @@ export default function HomePage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
               className="relative hidden lg:block">
               <div className="relative h-[420px] rounded-2xl overflow-hidden shadow-xl">
-                <Image src="/images/famiglia.jpg" alt="Famiglia serena" fill className="object-cover" sizes="50vw" />
+                <Image src="/images/hero-previdenza.png" alt="Famiglia serena" fill className="object-cover" sizes="50vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <p className="text-white font-[family-name:var(--font-serif)] text-xl">Prezzo bloccato per sempre</p>
@@ -193,12 +193,12 @@ export default function HomePage() {
 
       {/* ═══════════════ 4. PREZZI RAPIDI ═══════════════ */}
       <section className="py-16 relative overflow-hidden">
-        <Image src="/images/allestimento2.jpg" alt="" fill className="object-cover opacity-[0.07]" sizes="100vw" />
+        <Image src="/images/slide-1-funerale.png" alt="" fill className="object-cover opacity-[0.07]" sizes="100vw" />
         <div className="relative max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Immagine laterale */}
             <div className="hidden lg:block relative h-[400px] rounded-2xl overflow-hidden shadow-lg">
-              <Image src="/images/allestimento2.jpg" alt="Servizio funebre" fill className="object-cover" sizes="33vw" />
+              <Image src="/images/slide-1-funerale.png" alt="Servizio funebre" fill className="object-cover" sizes="33vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-5">
                 <p className="text-white font-[family-name:var(--font-serif)] text-lg">Trasparenza totale</p>
@@ -314,7 +314,7 @@ export default function HomePage() {
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
       <section className="py-16 bg-background-dark relative overflow-hidden">
-        <Image src="/images/allestimento1.jpg" alt="" fill className="object-cover opacity-[0.10]" sizes="100vw" />
+        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-[0.10]" sizes="100vw" />
         <div className="relative max-w-6xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
             Le famiglie che abbiamo accompagnato

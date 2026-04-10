@@ -63,7 +63,7 @@ export default function ConvenzioniPage() {
       </section>
 
       <section className="py-16 relative overflow-hidden">
-        <Image src="/images/allestimento1.jpg" alt="" fill className="object-cover opacity-10" sizes="100vw" />
+        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-10" sizes="100vw" />
         <div className="relative max-w-5xl mx-auto px-4">
           <div className="card mb-12">
             <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Vantaggi per la struttura</h2>

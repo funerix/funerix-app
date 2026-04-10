@@ -17,7 +17,7 @@ export default function ChiSiamoPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/sala.jpg" alt="La nostra sede" fill className="object-cover opacity-30" />
+        <Image src="/images/hero-principale.png" alt="La nostra sede" fill className="object-cover opacity-30" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

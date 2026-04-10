@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { Cross, Shield, Clock, ChevronRight, Phone, MessageCircle, Star, ChevronDown, Globe, Plane, PawPrint, Shovel, Euro, ShoppingBag, Flower2, FileText, Package, Lock, Heart, MapPin, Check, Users } from 'lucide-react'
 import { useSitoStore, type ServiziHomepage } from '@/store/sito'
 import type { LucideIcon } from 'lucide-react'
+import { HeroSlideshow } from '@/components/HeroSlideshow'
 
 const iconMap: Record<string, LucideIcon> = { Cross, Plane, PawPrint, Shovel, ShoppingBag, Euro, Globe, Shield, Flower2, FileText, Package }
 import { useState } from 'react'
@@ -63,52 +64,8 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ═══════════════ 1. HERO ═══════════════ */}
-      <section className="relative bg-primary overflow-hidden h-[90vh] min-h-[650px] md:min-h-[550px] max-h-[800px]">
-        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-25" priority sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary/70 to-primary-dark/50" />
-        <div className="relative h-full flex flex-col justify-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-          <motion.div initial="hidden" animate="visible" className="max-w-2xl">
-            <motion.div variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 bg-secondary/20 text-secondary-light text-xs px-4 py-2 rounded-full mb-5 backdrop-blur-sm border border-secondary/20">
-              <Shield size={14} /> Dal 1920 al servizio delle famiglie — Registro Regionale Campania
-            </motion.div>
-            <motion.h1 variants={fadeUp} custom={1}
-              className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white leading-[1.1]">
-              La prima agenzia funebre<br />
-              <span className="text-secondary-light">digitale in Italia</span>
-            </motion.h1>
-            <motion.p variants={fadeUp} custom={2}
-              className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-xl">
-              Configurate il servizio funebre online in 5 minuti. Prezzi trasparenti, consulente dedicato entro 30 minuti, assistenza 24/7.
-            </motion.p>
-            <motion.div variants={fadeUp} custom={3} className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link href="/configuratore" className="btn-accent text-base py-4 px-8">
-                {contenuti.heroBottone} <ChevronRight size={18} className="ml-2" />
-              </Link>
-              <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
-                className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
-                <Phone size={18} className="mr-2" /> Chiama Ora
-              </a>
-            </motion.div>
-          </motion.div>
-
-          {/* Stats in basso */}
-          <motion.div variants={fadeUp} custom={4}
-            className="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm">
-            <div className="max-w-6xl mx-auto px-4 py-3 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              {[
-                { v: '< 30 min', l: 'Tempo di risposta' },
-                { v: 'In 5 minuti', l: 'Preventivo online' },
-                { v: '24/7', l: 'Sempre disponibili' },
-                { v: 'Oltre 2.000', l: 'Famiglie assistite' },
-              ].map(s => (
-                <div key={s.l}><p className="text-white font-semibold text-sm">{s.v}</p><p className="text-white/50 text-xs">{s.l}</p></div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* ═══════════════ 1. HERO SLIDESHOW ═══════════════ */}
+      <HeroSlideshow telefono={impostazioni.telefono} heroBottone={contenuti.heroBottone} />
 
       {/* ═══════════════ 2. SERVIZI — 6 card cliccabili ═══════════════ */}
       <section className="py-16 md:py-20 bg-background-dark">

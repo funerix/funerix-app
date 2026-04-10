@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Cross, Shield, Clock, ChevronRight, Phone, MessageCircle, Star, ChevronDown, Globe, Plane, PawPrint, Shovel, Euro, ShoppingBag, Flower2, FileText, Package } from 'lucide-react'
+import { Cross, Shield, Clock, ChevronRight, Phone, MessageCircle, Star, ChevronDown, Globe, Plane, PawPrint, Shovel, Euro, ShoppingBag, Flower2, FileText, Package, Lock, Heart, MapPin, Check, Users } from 'lucide-react'
 import { useSitoStore, type ServiziHomepage } from '@/store/sito'
 import type { LucideIcon } from 'lucide-react'
 
@@ -179,6 +179,63 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══════════════ 3.5. PREVIDENZA ═══════════════ */}
+      <section className="py-16 bg-background-dark">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <motion.div variants={fadeUp} custom={0}
+                className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full mb-4">
+                <Shield size={14} /> Previdenza Funerix
+              </motion.div>
+              <motion.h2 variants={fadeUp} custom={1}
+                className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
+                Pianificate oggi,<br />vivete sereni
+              </motion.h2>
+              <motion.p variants={fadeUp} custom={2} className="text-text-light mb-6">
+                Configurate il servizio funebre per voi o per un familiare. Bloccate il prezzo di oggi e pagate comodamente a rate mensili. Quando il momento arriver&agrave;, tutto sar&agrave; gi&agrave; organizzato.
+              </motion.p>
+              <motion.div variants={fadeUp} custom={3} className="grid grid-cols-3 gap-4 mb-6">
+                <div className="text-center">
+                  <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">da &euro;97</p>
+                  <p className="text-text-muted text-xs">al mese</p>
+                </div>
+                <div className="text-center">
+                  <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">12-60</p>
+                  <p className="text-text-muted text-xs">rate mensili</p>
+                </div>
+                <div className="text-center">
+                  <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">0%</p>
+                  <p className="text-text-muted text-xs">interessi</p>
+                </div>
+              </motion.div>
+              <motion.div variants={fadeUp} custom={4} className="flex flex-col sm:flex-row gap-3">
+                <Link href="/previdenza/configuratore" className="btn-primary text-sm py-3 px-6">
+                  Configura il Piano <ChevronRight size={14} className="ml-1" />
+                </Link>
+                <Link href="/previdenza/piani" className="btn-secondary text-sm py-3 px-6">
+                  Confronta i Piani
+                </Link>
+              </motion.div>
+            </motion.div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: Lock, t: 'Prezzo bloccato', d: 'Il prezzo non cambia mai, indipendentemente dall\'inflazione.' },
+                { icon: Shield, t: 'Fondi protetti', d: 'Depositati su conto dedicato e separato.' },
+                { icon: Users, t: 'Trasferibile', d: 'Il piano pu\u00F2 essere trasferito a un familiare.' },
+                { icon: Check, t: 'Annullabile', d: 'Recesso in qualsiasi momento con rimborso.' },
+              ].map((g, i) => (
+                <motion.div key={g.t} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="card text-center p-4">
+                  <g.icon size={20} className="mx-auto mb-2 text-accent" />
+                  <h3 className="font-medium text-primary text-sm mb-1">{g.t}</h3>
+                  <p className="text-text-muted text-[11px]">{g.d}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════ 4. PREZZI RAPIDI ═══════════════ */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
@@ -214,6 +271,79 @@ export default function HomePage() {
             <Link href="/prezzi" className="btn-secondary text-sm">
               Vedi tutti i prezzi dettagliati <ChevronRight size={14} className="ml-1" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ 4.5. FUNERIX PET ═══════════════ */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: PawPrint, t: 'Cremazione', d: 'Individuale con restituzione ceneri', prezzo: 'da \u20AC120', cardClass: 'bg-secondary/5 border-secondary/20', iconClass: 'text-secondary' },
+                  { icon: Shield, t: 'Previdenza Pet', d: 'Pianifica e paga a rate', prezzo: 'da \u20AC10/mese', cardClass: '', iconClass: 'text-accent' },
+                  { icon: Heart, t: 'Memorial Pet', d: 'Ricordo digitale per sempre', prezzo: '', cardClass: '', iconClass: 'text-secondary' },
+                  { icon: MapPin, t: 'Veterinari Partner', d: 'Rete convenzionata', prezzo: '', cardClass: '', iconClass: 'text-secondary' },
+                ].map((c, i) => (
+                  <motion.div key={c.t} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                    className={`card text-center p-5 ${c.cardClass}`}>
+                    <c.icon size={24} className={`mx-auto mb-2 ${c.iconClass}`} />
+                    <h3 className="font-medium text-primary text-sm">{c.t}</h3>
+                    <p className="text-text-muted text-xs">{c.d}</p>
+                    {c.prezzo && <p className="font-[family-name:var(--font-serif)] text-lg text-primary font-bold mt-2">{c.prezzo}</p>}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            <motion.div className="order-1 lg:order-2" initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <motion.div variants={fadeUp} custom={0}
+                className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full mb-4">
+                <PawPrint size={14} /> Funerix Pet
+              </motion.div>
+              <motion.h2 variants={fadeUp} custom={1}
+                className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
+                Per il vostro<br />compagno di vita
+              </motion.h2>
+              <motion.p variants={fadeUp} custom={2} className="text-text-light mb-6">
+                Un ultimo saluto dignitoso per il vostro animale domestico. Cremazione individuale con restituzione ceneri, urne commemorative e memorial digitale. Anche con piano previdenza a rate.
+              </motion.p>
+              <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-3">
+                <Link href="/pet/configuratore" className="btn-primary text-sm py-3 px-6">
+                  Cremazione Immediata <ChevronRight size={14} className="ml-1" />
+                </Link>
+                <Link href="/pet/previdenza" className="btn-secondary text-sm py-3 px-6">
+                  Piano Previdenza Pet
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ 4.7. SERVIZI EXTRA ═══════════════ */}
+      <section className="py-16 bg-background-dark">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">Non solo funerali</motion.h2>
+            <motion.p variants={fadeUp} custom={1} className="text-text-light mb-10 max-w-xl mx-auto">Una piattaforma completa per ogni esigenza legata al fine vita.</motion.p>
+          </motion.div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { href: '/servizi-ricorrenti', icon: Flower2, t: 'Fiori e Cura Tomba', d: 'Abbonamento mensile' },
+              { href: '/successione', icon: FileText, t: 'Successione', d: 'Assistenza completa' },
+              { href: '/rimpatri', icon: Plane, t: 'Rimpatri Salme', d: 'Trasporto internazionale' },
+              { href: '/servizi', icon: Package, t: 'Video e Stampa', d: 'Tributo, ricordi' },
+            ].map((s, i) => (
+              <motion.div key={s.href} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
+                <Link href={s.href} className="card text-center p-4 hover:border-secondary/30 transition-colors group block">
+                  <s.icon size={22} className="mx-auto mb-2 text-secondary" />
+                  <h3 className="font-medium text-primary text-sm group-hover:text-secondary transition-colors">{s.t}</h3>
+                  <p className="text-text-muted text-[11px]">{s.d}</p>
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

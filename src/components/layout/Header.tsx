@@ -4,40 +4,119 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Phone, ChevronDown, Cross, Globe, PawPrint, BookOpen, Euro, ShoppingBag, Shovel, Plane, Shield, Flower2, FileText, Package } from 'lucide-react'
+import {
+  Menu, X, Phone, ChevronDown, ChevronRight, Cross, PawPrint, Shield, Plane, Euro,
+  Shovel, ShoppingBag, Flower2, FileText, Package, Heart, MapPin, Building2,
+  Stethoscope, Film, Printer, Users, Calendar
+} from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { LanguageSelector } from '@/components/LanguageSelector'
 
-const serviziMenu = [
-  { href: '/configuratore', label: 'Configura Servizio Funebre', desc: 'Preventivo personalizzato in 5 minuti', icon: Cross },
-  { href: '/pet', label: 'Funerix Pet', desc: 'Cremazione animali domestici', icon: PawPrint },
-  { href: '/previdenza', label: 'Funerix Previdenza', desc: 'Piani funerari prepagati a rate mensili', icon: Shield },
-  { href: '/rimpatri', label: 'Funerix Rimpatri', desc: 'Trasporto internazionale salme', icon: Plane },
-  { href: '/esumazione', label: 'Esumazione e Riesumazione', desc: 'Trasferimento resti e cremazione', icon: Shovel },
-  { href: '/catalogo', label: 'Catalogo Prodotti', desc: 'Bare, urne, fiori, auto funebri', icon: ShoppingBag },
-  { href: '/prezzi', label: 'Prezzi per Provincia', desc: 'Confronta i costi in Campania', icon: Euro },
-  { href: '/servizi-ricorrenti', label: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori, pulizia e manutenzione', icon: Flower2 },
-  { href: '/successione', label: 'Successione Ereditaria', desc: 'Assistenza completa dichiarazione successione', icon: FileText },
-  { href: '/servizi', label: 'Servizi Aggiuntivi', desc: 'Video tributo, stampa ricordo, disbrigo pratiche', icon: Package },
-]
+// Mega menu structure
+const menuServizi = {
+  label: 'Servizi Funebri',
+  cols: [
+    {
+      title: 'Servizi Principali',
+      items: [
+        { href: '/configuratore', label: 'Configura Funerale', desc: 'Preventivo personalizzato', icon: Cross },
+        { href: '/rimpatri', label: 'Rimpatri Salme', desc: 'Trasporto internazionale', icon: Plane },
+        { href: '/memorial', label: 'Memorial Online', desc: 'Necrologi e ricordi digitali', icon: Heart },
+        { href: '/esumazione', label: 'Esumazione', desc: 'Trasferimento resti', icon: Shovel },
+      ],
+    },
+    {
+      title: 'Servizi Aggiuntivi',
+      items: [
+        { href: '/servizi-ricorrenti', label: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori e pulizia', icon: Flower2 },
+        { href: '/successione', label: 'Successione Ereditaria', desc: 'Assistenza dichiarazione', icon: FileText },
+        { href: '/servizi', label: 'Video, Stampa e Altro', desc: 'Tributo, ricordi, cerimonia laica', icon: Package },
+        { href: '/catalogo', label: 'Catalogo Prodotti', desc: 'Bare, urne, fiori', icon: ShoppingBag },
+      ],
+    },
+  ],
+  cta: { href: '/configuratore', label: 'Configura il tuo servizio' },
+}
 
-const navLinks = [
-  { href: '/memorial', label: 'Necrologi' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/guida', label: 'Guide' },
-  { href: '/contatti', label: 'Contatti' },
+const menuAnimali = {
+  label: 'Animali',
+  cols: [
+    {
+      title: null,
+      items: [
+        { href: '/pet/configuratore', label: 'Cremazione Immediata', desc: 'Servizio per animale deceduto', icon: PawPrint },
+        { href: '/pet/previdenza', label: 'Piano Previdenza Pet', desc: 'Pianifica e paga a rate', icon: Shield },
+        { href: '/pet/catalogo', label: 'Catalogo Urne Pet', desc: 'Urne e accessori', icon: ShoppingBag },
+        { href: '/pet/veterinari', label: 'Veterinari Partner', desc: 'Studi convenzionati', icon: Stethoscope },
+        { href: '/pet/memorial', label: 'Memorial Pet', desc: 'Ricordo digitale', icon: Heart },
+      ],
+    },
+  ],
+  cta: { href: '/pet', label: 'Scopri Funerix Pet' },
+}
+
+const menuPrevidenza = {
+  label: 'Previdenza',
+  cols: [
+    {
+      title: null,
+      items: [
+        { href: '/previdenza', label: 'Come Funziona', desc: 'Pianificate oggi, vivete sereni', icon: Shield },
+        { href: '/previdenza/piani', label: 'Confronta i Piani', desc: 'Base, Comfort, Premium', icon: Package },
+        { href: '/previdenza/configuratore', label: 'Configura il Piano', desc: 'Personalizzato e a rate', icon: Calendar },
+        { href: '/convenzioni', label: 'Convenzioni RSA', desc: 'Per strutture sanitarie', icon: Building2 },
+      ],
+    },
+  ],
+  cta: { href: '/previdenza/configuratore', label: 'Configura il tuo piano' },
+}
+
+const menus = [menuServizi, menuAnimali, menuPrevidenza]
+
+// Mobile sections
+const mobileSections = [
+  {
+    title: 'Servizi Funebri',
+    items: [
+      { href: '/configuratore', label: 'Configura Funerale', icon: Cross },
+      { href: '/rimpatri', label: 'Rimpatri Salme', icon: Plane },
+      { href: '/esumazione', label: 'Esumazione', icon: Shovel },
+      { href: '/servizi-ricorrenti', label: 'Fiori e Cura Tomba', icon: Flower2 },
+      { href: '/successione', label: 'Successione', icon: FileText },
+      { href: '/servizi', label: 'Servizi Aggiuntivi', icon: Package },
+      { href: '/catalogo', label: 'Catalogo', icon: ShoppingBag },
+      { href: '/memorial', label: 'Memorial', icon: Heart },
+    ],
+  },
+  {
+    title: 'Animali',
+    items: [
+      { href: '/pet/configuratore', label: 'Cremazione Immediata', icon: PawPrint },
+      { href: '/pet/previdenza', label: 'Previdenza Pet', icon: Shield },
+      { href: '/pet/catalogo', label: 'Urne Pet', icon: ShoppingBag },
+      { href: '/pet/veterinari', label: 'Veterinari', icon: Stethoscope },
+    ],
+  },
+  {
+    title: 'Previdenza',
+    items: [
+      { href: '/previdenza', label: 'Come Funziona', icon: Shield },
+      { href: '/previdenza/piani', label: 'Confronta Piani', icon: Package },
+      { href: '/previdenza/configuratore', label: 'Configura Piano', icon: Calendar },
+      { href: '/convenzioni', label: 'Convenzioni RSA', icon: Building2 },
+    ],
+  },
 ]
 
 export function Header() {
   const { impostazioni } = useSitoStore()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [serviziOpen, setServiziOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const navRef = useRef<HTMLDivElement>(null)
 
-  // Chiudi dropdown al click fuori
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) setServiziOpen(false)
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenMenu(null)
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
@@ -53,77 +132,86 @@ export function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-6">
-            <Link href="/" className="text-primary/70 hover:text-primary transition-colors text-sm font-medium">Home</Link>
+          <nav ref={navRef} className="hidden lg:flex items-center gap-1">
+            <Link href="/" className="px-3 py-2 text-primary/70 hover:text-primary transition-colors text-sm font-medium rounded-lg hover:bg-background">
+              Home
+            </Link>
 
-            {/* Servizi Dropdown */}
-            <div ref={dropdownRef} className="relative">
-              <button
-                onClick={() => setServiziOpen(!serviziOpen)}
-                className="flex items-center gap-1 text-primary/70 hover:text-primary transition-colors text-sm font-medium"
-              >
-                Servizi <ChevronDown size={14} className={`transition-transform ${serviziOpen ? 'rotate-180' : ''}`} />
-              </button>
+            {/* Mega Menus */}
+            {menus.map((menu) => (
+              <div key={menu.label} className="relative">
+                <button
+                  onClick={() => setOpenMenu(openMenu === menu.label ? null : menu.label)}
+                  className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    openMenu === menu.label ? 'text-primary bg-background' : 'text-primary/70 hover:text-primary hover:bg-background'
+                  }`}
+                >
+                  {menu.label}
+                  <ChevronDown size={14} className={`transition-transform duration-200 ${openMenu === menu.label ? 'rotate-180' : ''}`} />
+                </button>
 
-              <AnimatePresence>
-                {serviziOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[480px] bg-surface rounded-xl border border-border shadow-xl p-4"
-                  >
-                    <div className="grid grid-cols-2 gap-1">
-                      {serviziMenu.map((s) => (
-                        <Link
-                          key={s.href}
-                          href={s.href}
-                          onClick={() => setServiziOpen(false)}
-                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-background transition-colors group"
-                        >
-                          <div className="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-secondary/20">
-                            <s.icon size={16} className="text-secondary" />
+                <AnimatePresence>
+                  {openMenu === menu.label && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.15 }}
+                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-surface rounded-xl border border-border shadow-xl p-5 ${
+                        menu.cols.length > 1 ? 'w-[560px]' : 'w-[300px]'
+                      }`}
+                    >
+                      <div className={`grid gap-6 ${menu.cols.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                        {menu.cols.map((col, ci) => (
+                          <div key={ci}>
+                            {col.title && <p className="text-[10px] text-text-muted uppercase tracking-wider mb-2 px-2">{col.title}</p>}
+                            <div className="space-y-0.5">
+                              {col.items.map((item) => (
+                                <Link key={item.href} href={item.href} onClick={() => setOpenMenu(null)}
+                                  className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-background transition-colors group">
+                                  <div className="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-secondary/20 transition-colors">
+                                    <item.icon size={15} className="text-secondary" />
+                                  </div>
+                                  <div className="min-w-0">
+                                    <span className="text-sm font-medium text-primary block group-hover:text-secondary transition-colors">{item.label}</span>
+                                    <span className="text-[11px] text-text-muted leading-tight">{item.desc}</span>
+                                  </div>
+                                </Link>
+                              ))}
+                            </div>
                           </div>
-                          <div>
-                            <span className="text-sm font-medium text-primary block group-hover:text-secondary transition-colors">{s.label}</span>
-                            <span className="text-[11px] text-text-muted">{s.desc}</span>
-                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-border">
+                        <Link href={menu.cta.href} onClick={() => setOpenMenu(null)}
+                          className="btn-accent w-full text-sm py-2.5 justify-center">
+                          {menu.cta.label} <ChevronRight size={14} className="ml-1" />
                         </Link>
-                      ))}
-                    </div>
-                    <div className="mt-3 pt-3 border-t border-border">
-                      <Link href="/configuratore" onClick={() => setServiziOpen(false)}
-                        className="btn-accent w-full text-sm py-2.5 justify-center">
-                        Configura il tuo servizio
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}
-                className="text-primary/70 hover:text-primary transition-colors text-sm font-medium">
-                {link.label}
-              </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             ))}
+
+            <Link href="/prezzi" className="px-3 py-2 text-primary/70 hover:text-primary transition-colors text-sm font-medium rounded-lg hover:bg-background">
+              Prezzi
+            </Link>
+            <Link href="/contatti" className="px-3 py-2 text-primary/70 hover:text-primary transition-colors text-sm font-medium rounded-lg hover:bg-background">
+              Contatti
+            </Link>
           </nav>
 
           {/* CTA + Phone */}
           <div className="hidden lg:flex items-center gap-3">
             <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
-              className="relative flex items-center gap-1.5 text-secondary font-medium text-sm overflow-hidden group">
+              className="flex items-center gap-1.5 text-secondary font-medium text-sm">
               <Phone size={14} className="animate-pulse" />
-              <span className="relative">
-                {impostazioni.telefono}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 shimmer-auto" />
-              </span>
+              {impostazioni.telefono}
             </a>
             <LanguageSelector />
-            <Link href="/assistenza" className="btn-accent text-sm py-2 px-4">
-              Assistenza
+            <Link href="/configuratore" className="btn-accent text-sm py-2 px-4">
+              Preventivo
             </Link>
           </div>
 
@@ -139,37 +227,41 @@ export function Header() {
         {mobileOpen && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
             className="lg:hidden border-t border-border bg-surface overflow-hidden">
-            <nav className="px-4 py-3 space-y-1 max-h-[80vh] overflow-y-auto">
-              <Link href="/" onClick={() => setMobileOpen(false)}
-                className="block py-2.5 px-3 text-primary/70 hover:text-primary hover:bg-background rounded-lg font-medium">Home</Link>
+            <nav className="px-4 py-3 max-h-[80vh] overflow-y-auto">
 
-              <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 pt-3 pb-1">Servizi</p>
-              {serviziMenu.map((s) => (
-                <Link key={s.href} href={s.href} onClick={() => setMobileOpen(false)}
+              {mobileSections.map((section) => (
+                <div key={section.title} className="mb-3">
+                  <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 py-1.5 font-medium">{section.title}</p>
+                  {section.items.map((item) => (
+                    <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-3 py-2.5 px-3 hover:bg-background rounded-lg">
+                      <item.icon size={16} className="text-secondary flex-shrink-0" />
+                      <span className="text-sm font-medium text-primary">{item.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              ))}
+
+              <div className="border-t border-border mt-2 pt-3 space-y-1">
+                <Link href="/prezzi" onClick={() => setMobileOpen(false)}
                   className="flex items-center gap-3 py-2.5 px-3 hover:bg-background rounded-lg">
-                  <s.icon size={16} className="text-secondary flex-shrink-0" />
-                  <div>
-                    <span className="text-sm font-medium text-primary block">{s.label}</span>
-                    <span className="text-[10px] text-text-muted">{s.desc}</span>
-                  </div>
+                  <Euro size={16} className="text-secondary" />
+                  <span className="text-sm font-medium text-primary">Prezzi</span>
                 </Link>
-              ))}
-
-              <p className="text-[10px] text-text-muted uppercase tracking-wider px-3 pt-3 pb-1">Informazioni</p>
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
-                  className="block py-2.5 px-3 text-primary/70 hover:text-primary hover:bg-background rounded-lg font-medium">
-                  {link.label}
+                <Link href="/contatti" onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 py-2.5 px-3 hover:bg-background rounded-lg">
+                  <Phone size={16} className="text-secondary" />
+                  <span className="text-sm font-medium text-primary">Contatti</span>
                 </Link>
-              ))}
+              </div>
 
               <div className="pt-3 border-t border-border mt-3 space-y-2">
                 <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
                   className="flex items-center gap-2 py-2.5 px-3 text-secondary font-medium">
                   <Phone size={16} /> {impostazioni.telefono}
                 </a>
-                <Link href="/assistenza" onClick={() => setMobileOpen(false)}
-                  className="btn-accent w-full text-sm py-2.5 justify-center">Richiedi Assistenza</Link>
+                <Link href="/configuratore" onClick={() => setMobileOpen(false)}
+                  className="btn-accent w-full text-sm py-2.5 justify-center">Configura il Servizio</Link>
               </div>
             </nav>
           </motion.div>

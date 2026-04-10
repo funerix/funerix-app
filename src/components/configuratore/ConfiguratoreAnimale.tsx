@@ -7,15 +7,7 @@ import { ChevronLeft, ChevronRight, Check, RotateCcw, Send, Dog, Cat, Rabbit, Bi
 import { useSitoStore } from '@/store/sito'
 import { StepIndicator } from './StepIndicatorGeneric'
 
-const STEPS = ['Animale', 'Taglia', 'Servizio', 'Urna', 'Ritiro', 'Riepilogo', 'Pagamento', 'Contatto']
-
-const rateOptions = [
-  { mesi: 1, label: 'Paga subito' },
-  { mesi: 3, label: '3 rate' },
-  { mesi: 6, label: '6 rate' },
-  { mesi: 12, label: '12 rate' },
-  { mesi: 24, label: '24 rate' },
-]
+const STEPS = ['Animale', 'Taglia', 'Servizio', 'Urna', 'Ritiro', 'Riepilogo', 'Contatto']
 
 const animali = [
   { id: 'cane', label: 'Cane', icon: Dog },
@@ -43,8 +35,6 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
   const [urnaId, setUrnaId] = useState('')
   const [improntaZampa, setImprontaZampa] = useState(false)
   const [ritiro, setRitiro] = useState('')
-  const [modalita, setModalita] = useState<'immediato' | 'previdenza'>('immediato')
-  const [numRate, setNumRate] = useState(1)
   const [inviato, setInviato] = useState(false)
   const [tempoAttesa, setTempoAttesa] = useState('')
   const [mostraOrario, setMostraOrario] = useState(false)
@@ -122,14 +112,14 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
 
     // Anche nel vecchio sistema richieste per compatibilita notifiche
     const config = [
-      `🐾 CREMAZIONE ANIMALE${modalita === 'previdenza' ? ' — PIANO PREVIDENZA' : ''}`,
+      `🐾 CREMAZIONE ANIMALE`,
       `Animale: ${animaleNome || animale} (${animale})`,
       `Taglia: ${taglieInfo[taglia]?.label || taglia}`,
       `Cremazione: ${tipo}`,
       tipo === 'individuale' && urnaObj ? `Urna: ${urnaObj.nome} — €${urnaObj.prezzo}` : '',
       improntaZampa ? `Impronta zampa: Sì — €${prezzoImpronta}` : '',
       `Ritiro: ${ritiro === 'domicilio' ? `A domicilio — €${prezzoRitiroDom}` : 'Presso struttura'}`,
-      modalita === 'previdenza' ? `Pagamento: ${numRate} rate da €${Math.ceil(totale / numRate)}/mese` : 'Pagamento: immediato',
+      'Pagamento: immediato',
     ].filter(Boolean).join('\n')
 
     await useSitoStore.getState().aggiungiRichiesta({
@@ -323,64 +313,8 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                 </div>
               )}
 
-              {/* Step 7: Pagamento — immediato o previdenza */}
+              {/* Step 7: Contatto */}
               {step === 7 && (
-                <div>
-                  <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-6">Come volete procedere?</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div onClick={() => { setModalita('immediato'); setNumRate(1) }}
-                      className={modalita === 'immediato' ? 'product-card-selected py-6 text-center' : 'product-card py-6 text-center'}>
-                      <span className="block text-2xl mb-2">🐾</span>
-                      <span className="block font-medium text-primary text-lg">Servizio immediato</span>
-                      <p className="text-text-muted text-sm mt-1">Il mio animale e&apos; gia deceduto o ho bisogno del servizio subito</p>
-                      <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-3">&euro; {totale}</p>
-                      <p className="text-text-muted text-xs">Pagamento al ritiro o online</p>
-                    </div>
-                    <div onClick={() => { setModalita('previdenza'); setNumRate(12) }}
-                      className={modalita === 'previdenza' ? 'product-card-selected py-6 text-center' : 'product-card py-6 text-center'}>
-                      <span className="block text-2xl mb-2">🛡️</span>
-                      <span className="block font-medium text-primary text-lg">Piano previdenza</span>
-                      <p className="text-text-muted text-sm mt-1">Voglio pianificare in anticipo e pagare a rate</p>
-                      <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-3">da &euro; {Math.ceil(totale / 24)}/mese</p>
-                      <p className="text-text-muted text-xs">Da 3 a 24 rate, zero interessi</p>
-                    </div>
-                  </div>
-
-                  {modalita === 'previdenza' && (
-                    <div className="card p-4 mb-4">
-                      <label className="block text-sm font-medium text-text mb-3">In quante rate volete pagare?</label>
-                      <div className="grid grid-cols-5 gap-2">
-                        {rateOptions.filter(r => r.mesi > 1).map(r => (
-                          <button key={r.mesi} onClick={() => setNumRate(r.mesi)}
-                            className={`px-2 py-3 rounded-lg text-xs font-medium transition-colors text-center ${
-                              numRate === r.mesi ? 'bg-secondary text-white' : 'bg-background-dark text-text-muted hover:text-secondary'
-                            }`}>
-                            {r.label}
-                          </button>
-                        ))}
-                      </div>
-                      <div className="grid grid-cols-3 gap-3 mt-4 text-center">
-                        <div className="bg-background rounded-lg p-3">
-                          <p className="text-text-muted text-xs">Rate</p>
-                          <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">{numRate}</p>
-                        </div>
-                        <div className="bg-secondary/10 rounded-lg p-3">
-                          <p className="text-secondary text-xs font-medium">Al mese</p>
-                          <p className="font-[family-name:var(--font-serif)] text-xl text-secondary font-bold">&euro; {Math.ceil(totale / numRate)}</p>
-                        </div>
-                        <div className="bg-background rounded-lg p-3">
-                          <p className="text-text-muted text-xs">Totale</p>
-                          <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">&euro; {totale}</p>
-                        </div>
-                      </div>
-                      <p className="text-[10px] text-text-muted mt-3 text-center">Prezzo bloccato, zero interessi. Annullabile con rimborso del versato.</p>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Step 8: Contatto */}
-              {step === 8 && (
                 <div>
                   <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Richiesta di contatto</h2>
                   <p className="text-text-light mb-6">Un consulente vi accompagner&agrave; con delicatezza in ogni fase.</p>
@@ -437,7 +371,6 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
               {urnaObj && <SItem label="Urna" value={urnaObj.nome} prezzo={urnaObj.prezzo} />}
               {improntaZampa && <SItem label="Impronta zampa" value="Sì" prezzo={prezzoImpronta} />}
               {ritiro && <SItem label="Ritiro" value={ritiro === 'domicilio' ? 'A domicilio' : 'Struttura'} prezzo={ritiroPrezzo} />}
-              {modalita === 'previdenza' && numRate > 1 && <SItem label="Pagamento" value={`${numRate} rate da €${Math.ceil(totale / numRate)}`} />}
               {totale > 0 && <div className="border-t border-border pt-3 flex justify-between font-semibold text-primary">
                 <span>Totale</span><span className="font-[family-name:var(--font-serif)] text-lg">&euro; {totale}</span></div>}
               {totale === 0 && <p className="text-text-muted text-xs italic">Le scelte appariranno qui.</p>}

@@ -3,11 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Cross, Shield, Clock, ChevronRight, Phone, MessageCircle, Star, ChevronDown, Globe, Plane, PawPrint, Shovel, Euro, ShoppingBag } from 'lucide-react'
+import { Cross, Shield, Clock, ChevronRight, Phone, MessageCircle, Star, ChevronDown, Globe, Plane, PawPrint, Shovel, Euro, ShoppingBag, Flower2, FileText, Package } from 'lucide-react'
 import { useSitoStore, type ServiziHomepage } from '@/store/sito'
 import type { LucideIcon } from 'lucide-react'
 
-const iconMap: Record<string, LucideIcon> = { Cross, Plane, PawPrint, Shovel, ShoppingBag, Euro, Globe }
+const iconMap: Record<string, LucideIcon> = { Cross, Plane, PawPrint, Shovel, ShoppingBag, Euro, Globe, Shield, Flower2, FileText, Package }
 import { useState } from 'react'
 
 const fadeUp = {
@@ -20,11 +20,13 @@ const fadeUp = {
 
 const servizi = [
   { href: '/configuratore', img: '/images/card-servizio-funebre.jpg', titolo: 'Servizio Funebre', desc: 'Configurate il funerale online. Preventivo immediato, nessun obbligo.', icon: Cross },
+  { href: '/previdenza', img: '/images/card-previdenza.jpg', titolo: 'Previdenza Funerix', desc: 'Pianificate oggi, pagate a rate. Prezzo bloccato per sempre.', icon: Shield },
+  { href: '/pet', img: '/images/card-cremazione-animali.jpg', titolo: 'Funerix Pet', desc: 'Cremazione animali domestici. Servizio immediato o piano previdenza.', icon: PawPrint },
   { href: '/rimpatri', img: '/images/card-rimpatri.jpg', titolo: 'Rimpatri ed Espatri', desc: 'Trasporto internazionale salme da e verso qualsiasi paese del mondo.', icon: Plane },
-  { href: '/pet', img: '/images/card-cremazione-animali.jpg', titolo: 'Funerix Pet', desc: 'Cremazione animali domestici con restituzione ceneri.', icon: PawPrint },
-  { href: '/esumazione', img: '/images/card-esumazione.jpg', titolo: 'Esumazione', desc: 'Trasferimento resti, ricollocazione e cremazione resti.', icon: Shovel },
-  { href: '/catalogo', img: '/images/card-catalogo.jpg', titolo: 'Catalogo', desc: 'Bare, urne, fiori, auto funebri e servizi aggiuntivi.', icon: ShoppingBag },
-  { href: '/prezzi', img: '/images/card-prezzi.jpg', titolo: 'Prezzi', desc: 'Trasparenza totale. Confrontate i costi per provincia.', icon: Euro },
+  { href: '/servizi-ricorrenti', img: '/images/card-fiori.jpg', titolo: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori freschi, pulizia e manutenzione monumento.', icon: Flower2 },
+  { href: '/successione', img: '/images/card-successione.jpg', titolo: 'Successione', desc: 'Assistenza dichiarazione successione ereditaria. Ci pensiamo noi.', icon: FileText },
+  { href: '/servizi', img: '/images/card-servizi-extra.jpg', titolo: 'Servizi Aggiuntivi', desc: 'Video tributo, stampa ricordo, cerimonia laica, disbrigo pratiche.', icon: Package },
+  { href: '/prezzi', img: '/images/card-prezzi.jpg', titolo: 'Prezzi', desc: 'Confronta i costi in Italia, Europa e nel mondo.', icon: Euro },
 ]
 
 const testimonianze = [

@@ -6,6 +6,59 @@
 
 ---
 
+## STATO ATTUALE (aggiornato 10 aprile 2026)
+
+### Numeri piattaforma
+| Metrica | Valore |
+|---|---|
+| Pagine totali | **169** |
+| API endpoints | **24** |
+| Tabelle DB Supabase | **~65** |
+| Verticali attivi | 4 (Funebre, Pet, Previdenza, Rimpatri) |
+| Servizi aggiuntivi | Fiori/Tomba, Successione, 6 Servizi Extra |
+
+### Fasi completate
+| Fase | Stato | Cosa |
+|---|---|---|
+| A: Struttura multi-verticale | ✅ | Routing, sidebar admin, types, redirect |
+| B: Funerix Pet | ✅ | 10 tabelle, 5 API, configuratore da DB, admin CRUD |
+| C: Funerix Previdenza | ✅ | 10 tabelle, 7 API, piani da DB, portale RSA, admin |
+| D: Funerix Rimpatri | ✅ | 9 tabelle, 5 API, 18 paesi, admin completo |
+| UI Polish | ✅ | 87 pagine fixate, sidebar collassabile, scroll, responsive |
+| Prezzi Comparatore | ✅ | 20 regioni Italia + 15 EU + 8 mondo + 34 servizi |
+| Fix Pagine | ✅ | Rimpatri da DB, previdenza simulatore DB, form contatti funzionante |
+| Nuovi Servizi | ✅ | Fiori/tomba, successione, 6 servizi extra, previdenza pet |
+| Piano Protezione | ✅ | Predisposto per polizza esterna (non assicurazione diretta) |
+
+### Cosa resta da fare — FASE E: Funzionalita Trasversali
+| # | Feature | Priorita | Stato |
+|---|---|---|---|
+| 1 | Sistema notifiche multi-canale (template editabili da admin) | ALTA | ⬜ |
+| 2 | Recensioni verificate post-servizio | ALTA | ⬜ |
+| 3 | AI Chatbot assistente (OpenAI) | MEDIA | ⬜ Serve API key |
+| 4 | Video-consulenza (prenotazione + calendario) | MEDIA | ⬜ |
+| 5 | Dashboard famiglia real-time (Supabase Realtime) | MEDIA | ⬜ |
+
+### Cosa resta da fare — FASE F: Integrazioni Esterne
+| # | Feature | Stato |
+|---|---|---|
+| 1 | Stripe pagamenti (funebre + pet + previdenza + rimpatri) | ⬜ Serve API key |
+| 2 | Resend email (notifiche, conferme, promemoria) | ⬜ Serve API key |
+| 3 | OpenAI chatbot | ⬜ Serve API key |
+| 4 | Twilio SMS | ⬜ Serve API key |
+| 5 | Google Calendar sync | ⬜ Serve API key |
+
+### Cosa resta da fare — FASE G: Contenuti e Crescita
+| # | Feature | Stato |
+|---|---|---|
+| 1 | Immagini AI per tutti i verticali | ⬜ |
+| 2 | Blog articoli sui nuovi verticali | ⬜ |
+| 3 | Google Reviews widget | ⬜ |
+| 4 | A/B testing landing | ⬜ |
+| 5 | App mobile consulente | ⬜ |
+
+---
+
 ## Accessi e Deploy
 
 ### GitHub

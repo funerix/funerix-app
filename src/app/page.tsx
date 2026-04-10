@@ -137,8 +137,10 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 3.5. PREVIDENZA ═══════════════ */}
-      <section className="py-16 bg-background-dark">
-        <div className="max-w-6xl mx-auto px-4">
+      <section className="py-16 bg-background-dark relative overflow-hidden">
+        <Image src="/images/hero-cta-finale.png" alt="" fill className="object-cover opacity-[0.04]" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/95 to-transparent" />
+        <div className="relative max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <motion.div variants={fadeUp} custom={0}
@@ -233,8 +235,10 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 4.5. FUNERIX PET ═══════════════ */}
-      <section className="py-16 bg-background-dark">
-        <div className="max-w-6xl mx-auto px-4">
+      <section className="py-16 bg-background-dark relative overflow-hidden">
+        <Image src="/images/hero-come-funziona.png" alt="" fill className="object-cover opacity-[0.04]" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-l from-background-dark via-background-dark/95 to-transparent" />
+        <div className="relative max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="grid grid-cols-2 gap-4">
@@ -306,8 +310,9 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
-      <section className="py-16 bg-background-dark">
-        <div className="max-w-6xl mx-auto px-4">
+      <section className="py-16 bg-background-dark relative overflow-hidden">
+        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-[0.03]" sizes="100vw" />
+        <div className="relative max-w-6xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
             Le famiglie che abbiamo accompagnato
           </h2>

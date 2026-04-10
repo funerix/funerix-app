@@ -6,6 +6,18 @@
 
 ---
 
+## Accessi e Deploy
+
+- **GitHub**: push su `main` -> auto-deploy Vercel (funerix-app.vercel.app + funerix.com)
+- **Supabase**: progetto `rnimsuoabbucrtmhhcqx` — env vars in `.env.local`
+  - `NEXT_PUBLIC_SUPABASE_URL` — URL progetto
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — chiave pubblica (frontend)
+  - `SUPABASE_SERVICE_ROLE_KEY` — chiave admin (solo API server-side, bypassa RLS)
+- **SQL da eseguire**: per attivare nuove tabelle, copia il file SQL indicato nel Supabase SQL Editor e eseguilo
+- **Vercel**: deploy automatico da GitHub, zero configurazione manuale
+
+---
+
 ## Visione
 
 Funerix non e' un semplice sito di onoranze funebri. E' una **piattaforma digitale multi-verticale** che copre ogni aspetto del fine vita: servizi funebri, cremazione animali, previdenza funeraria e rimpatrio salme. Ogni verticale ha il proprio frontend, configuratore, area cliente e pannello admin — tutto gestibile da backend senza toccare codice.

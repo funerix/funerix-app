@@ -26,7 +26,7 @@ const taglieInfo: Record<string, { label: string; desc: string }> = {
 // Specie con una sola taglia (auto-selezionata come piccolo)
 const specieSingolaAlpha = ['gatto', 'coniglio', 'uccello']
 
-export function ConfiguratoreAnimale() {
+export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean } = {}) {
   const { impostazioni } = useSitoStore()
   const [step, setStep] = useState(1)
   const [animale, setAnimale] = useState('')
@@ -137,16 +137,18 @@ export function ConfiguratoreAnimale() {
   )
 
   if (inviato) return (
-    <div className="card text-center py-12 max-w-lg mx-auto">
-      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center"><Check size={32} className="text-accent" /></div>
-      <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Richiesta inviata</h2>
-      <p className="text-text-light">Un nostro consulente vi contatter&agrave; <strong>{tempoAttesa.toLowerCase()}</strong>.</p>
-      <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-3">&euro; {totale}</p>
+    <div className={embedded ? '' : 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12'}>
+      <div className="card text-center py-12 max-w-lg mx-auto">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center"><Check size={32} className="text-accent" /></div>
+        <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Richiesta inviata</h2>
+        <p className="text-text-light">Un nostro consulente vi contatter&agrave; <strong>{tempoAttesa.toLowerCase()}</strong>.</p>
+        <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-3">&euro; {totale}</p>
+      </div>
     </div>
   )
 
   return (
-    <>
+    <div className={embedded ? '' : 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12'}>
       {/* Hero mini */}
       <div className="relative bg-primary rounded-2xl overflow-hidden mb-8">
         <Image src="/images/config-animali-hero.jpg" alt="" fill className="object-cover opacity-25" sizes="100vw" />
@@ -376,7 +378,7 @@ export function ConfiguratoreAnimale() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

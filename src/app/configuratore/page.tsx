@@ -83,9 +83,9 @@ function ConfiguratorePage() {
         </div>
 
         {/* Redirect per animale e rimpatrio */}
-        {tipoConfigurazione === 'animale' && <ConfiguratoreAnimale />}
-        {tipoConfigurazione === 'rimpatrio' && <ConfiguratoreRimpatrio />}
-        {tipoConfigurazione === 'previdenza' && <ConfiguratorePrevidenza />}
+        {tipoConfigurazione === 'animale' && <ConfiguratoreAnimale embedded />}
+        {tipoConfigurazione === 'rimpatrio' && <ConfiguratoreRimpatrio embedded />}
+        {tipoConfigurazione === 'previdenza' && <ConfiguratorePrevidenza embedded />}
 
         {tipoConfigurazione === 'funebre' && (<>
         {/* Hero card */}

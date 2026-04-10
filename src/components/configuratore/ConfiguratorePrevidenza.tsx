@@ -10,7 +10,7 @@ import { StepIndicator } from './StepIndicatorGeneric'
 
 const STEPS = ['Per chi', 'Servizio', 'Bara', 'Cerimonia', 'Extra', 'Piano', 'Riepilogo', 'Contatto']
 
-export function ConfiguratorePrevidenza() {
+export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boolean } = {}) {
   const { prodotti, categorie, impostazioni } = useSitoStore()
   const [step, setStep] = useState(1)
   const [beneficiario, setBeneficiario] = useState<'se_stesso' | 'familiare' | ''>('')
@@ -74,6 +74,7 @@ export function ConfiguratorePrevidenza() {
   }
 
   if (inviato) return (
+    <div className={embedded ? '' : 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12'}>
     <div className="card text-center py-12 max-w-lg mx-auto">
       <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center"><Check size={32} className="text-accent" /></div>
       <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Piano inviato</h2>
@@ -83,10 +84,11 @@ export function ConfiguratorePrevidenza() {
         <p className="text-text-muted text-sm">{numRate} rate — Totale &euro; {totale.toLocaleString('it-IT')}</p>
       </div>
     </div>
+    </div>
   )
 
   return (
-    <>
+    <div className={embedded ? '' : 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12'}>
       <div className="relative bg-primary rounded-2xl overflow-hidden mb-8">
         <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 to-primary/60" />
@@ -260,6 +262,6 @@ export function ConfiguratorePrevidenza() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

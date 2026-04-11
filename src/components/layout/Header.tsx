@@ -218,10 +218,13 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 text-primary" aria-label="Menu">
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: Language + Toggle */}
+          <div className="lg:hidden flex items-center gap-1">
+            <LanguageSelector />
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 text-primary" aria-label="Menu">
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -232,12 +235,11 @@ export function Header() {
             className="lg:hidden border-t border-border bg-surface overflow-hidden">
             <nav className="px-4 py-3 max-h-[80vh] overflow-y-auto">
 
-              <div className="flex items-center justify-between mb-3 pb-3 border-b border-border">
+              <div className="flex items-center gap-2 mb-3 pb-3 border-b border-border">
                 <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`}
                   className="flex items-center gap-2 text-secondary font-medium text-sm">
                   <Phone size={16} /> {impostazioni.telefono}
                 </a>
-                <LanguageSelector />
               </div>
 
               {mobileSections.map((section) => (

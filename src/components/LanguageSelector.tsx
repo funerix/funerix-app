@@ -26,12 +26,15 @@ const LINGUE = [
 
 const COUNTRY_MAP: Record<string, string> = {
   GB: 'en', US: 'en', AU: 'en', CA: 'en', IE: 'en',
+  AE: 'en', QA: 'en', BH: 'en', KW: 'en', OM: 'en', // Golfo: inglese come lingua business
   FR: 'fr', BE: 'fr', ES: 'es', MX: 'es', AR: 'es',
   DE: 'de', AT: 'de', CH: 'de', PT: 'pt', BR: 'pt',
   RO: 'ro', MD: 'ro', SA: 'ar', EG: 'ar', MA: 'ar',
   RU: 'ru', CN: 'zh-CN', TW: 'zh-CN', UA: 'uk',
   PL: 'pl', AL: 'sq', IN: 'hi', BD: 'bn', PH: 'tl',
 }
+
+const RTL_LANGS = new Set(['ar'])
 
 function getCountryFromCookie(): string | null {
   const match = document.cookie.match(/funerix-country=([A-Z]{2})/)
@@ -63,13 +66,18 @@ export function LanguageSelector() {
     if (lang === 'it') {
       restoreOriginals()
       stopObserver()
+      document.documentElement.dir = 'ltr'
+      document.documentElement.lang = 'it'
       hideOverlay()
       return
     }
     showOverlay()
     setLoading(true)
     await translatePage(lang)
-    startObserver(lang) // Osserva nuovi nodi (FAQ, dropdown, lazy content)
+    startObserver(lang)
+    // RTL per arabo
+    document.documentElement.dir = RTL_LANGS.has(lang) ? 'rtl' : 'ltr'
+    document.documentElement.lang = lang
     hideOverlay()
     setLoading(false)
   }
@@ -87,6 +95,8 @@ export function LanguageSelector() {
         showOverlay()
         await translatePage(saved)
         startObserver(saved)
+        document.documentElement.dir = RTL_LANGS.has(saved) ? 'rtl' : 'ltr'
+        document.documentElement.lang = saved
         hideOverlay()
         return
       }
@@ -111,6 +121,8 @@ export function LanguageSelector() {
           showOverlay()
           await translatePage(lang)
           startObserver(lang)
+          document.documentElement.dir = RTL_LANGS.has(lang) ? 'rtl' : 'ltr'
+          document.documentElement.lang = lang
           hideOverlay()
           return
         }

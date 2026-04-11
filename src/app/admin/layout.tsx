@@ -161,7 +161,7 @@ function SidebarNav({ groups, pathname, adminRuolo, adminPermessi, richiesteNuov
             {sidebarOpen ? (
               <button
                 onClick={() => toggleGroup(group.label)}
-                className={`w-full flex items-center justify-between px-4 py-1.5 text-[9px] uppercase tracking-wider transition-colors ${
+                className={`w-full flex items-center justify-between px-4 py-1.5 text-[11px] uppercase tracking-wider transition-colors ${
                   hasActive ? 'text-secondary-light' : 'text-white/30 hover:text-white/50'
                 }`}
               >
@@ -177,13 +177,13 @@ function SidebarNav({ groups, pathname, adminRuolo, adminPermessi, richiesteNuov
                 : pathname.startsWith(item.href) && item.href !== '/admin'
               return (
                 <Link key={item.href} href={item.href}
-                  className={`flex items-center gap-2 px-3 py-1.5 mx-1.5 rounded-md text-[11px] transition-colors relative ${
+                  className={`flex items-center gap-2 px-3 py-1.5 mx-1.5 rounded-md text-xs transition-colors relative ${
                     isActive ? 'bg-white/15 text-white font-medium' : 'text-white/55 hover:text-white hover:bg-white/5'
                   }`}>
                   <item.icon size={14} className="flex-shrink-0" />
                   {sidebarOpen && <span className="truncate">{item.label}</span>}
                   {item.badge && richiesteNuove > 0 && (
-                    <span className={`${sidebarOpen ? 'ml-auto' : 'absolute -top-1 -right-1'} w-4 h-4 bg-red-500 rounded-full text-[8px] flex items-center justify-center text-white font-bold`}>
+                    <span className={`${sidebarOpen ? 'ml-auto' : 'absolute -top-1 -right-1'} w-4 h-4 bg-red-500 rounded-full text-[10px] flex items-center justify-center text-white font-bold`}>
                       {richiesteNuove}
                     </span>
                   )}
@@ -278,17 +278,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <Users size={10} className="text-secondary-light" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] text-white truncate">{adminNome || 'Admin'}</p>
-                  <p className="text-[9px] text-white/40 capitalize">{adminRuolo}</p>
+                  <p className="text-xs text-white truncate">{adminNome || 'Admin'}</p>
+                  <p className="text-[11px] text-white/40 capitalize">{adminRuolo}</p>
                 </div>
               </div>
             )}
             <div className="flex gap-1">
-              <Link href="/" className={`flex items-center gap-1.5 px-2 py-1 rounded text-[10px] text-white/40 hover:text-white hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
+              <Link href="/" className={`flex items-center gap-1.5 px-2 py-1 rounded text-[11px] text-white/40 hover:text-white hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
                 <Globe size={11} />
                 {sidebarOpen && <span>Sito</span>}
               </Link>
-              <button onClick={logout} className={`flex items-center gap-1.5 px-2 py-1 rounded text-[10px] text-white/40 hover:text-red-400 hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
+              <button onClick={logout} className={`flex items-center gap-1.5 px-2 py-1 rounded text-[11px] text-white/40 hover:text-red-400 hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
                 <LogOut size={11} />
                 {sidebarOpen && <span>Esci</span>}
               </button>
@@ -304,7 +304,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Image src="/images/logo-white.png" alt="Funerix" width={80} height={24} className="h-5 w-auto" />
           <Link href="/admin/richieste" className="relative p-1.5">
             <Bell size={18} />
-            {richiesteNuove > 0 && <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full text-[8px] flex items-center justify-center font-bold">{richiesteNuove}</span>}
+            {richiesteNuove > 0 && <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full text-[10px] flex items-center justify-center font-bold">{richiesteNuove}</span>}
           </Link>
         </div>
 

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Check, RotateCcw, Send, Plane, Globe } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { StepIndicator } from './StepIndicatorGeneric'
+import { useConfiguratorSteps } from '@/hooks/useConfiguratorSteps'
 
 const STEPS = ['Direzione', 'Zona', 'Paese', 'Servizi', 'Riepilogo', 'Contatto']
 
@@ -28,7 +29,7 @@ const serviziExtra = [
 
 export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolean } = {}) {
   const { impostazioni } = useSitoStore()
-  const [step, setStep] = useState(1)
+  const { step, setStep, next, prev } = useConfiguratorSteps(STEPS.length)
   const [dir, setDir] = useState<'rimpatrio'|'espatrio'|''>('')
   const [zonaId, setZonaId] = useState('')
   const [paese, setPaese] = useState('')
@@ -42,8 +43,6 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
   const totale = (zonaObj?.base || 0) + totExtras
   const toggleExtra = (id: string) => setExtras(p => p.includes(id) ? p.filter(e => e !== id) : [...p, id])
 
-  const next = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.min(STEPS.length, s + 1)) }
-  const prev = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.max(1, s - 1)) }
   const reset = () => { setStep(1); setDir(''); setZonaId(''); setPaese(''); setExtras([]) }
 
   const handleSubmit = async (e: React.FormEvent) => {

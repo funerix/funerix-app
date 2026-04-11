@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Check, RotateCcw, Send, Dog, Cat, Rabbit, Bird, PawPrint } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { StepIndicator } from './StepIndicatorGeneric'
+import { useConfiguratorSteps } from '@/hooks/useConfiguratorSteps'
 
 const STEPS = ['Animale', 'Taglia', 'Servizio', 'Urna', 'Ritiro', 'Riepilogo', 'Contatto']
 
@@ -28,7 +29,7 @@ const specieSingolaAlpha = ['gatto', 'coniglio', 'uccello']
 
 export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean } = {}) {
   const { impostazioni } = useSitoStore()
-  const [step, setStep] = useState(1)
+  const { step, setStep, next, prev } = useConfiguratorSteps(STEPS.length)
   const [animale, setAnimale] = useState('')
   const [taglia, setTaglia] = useState('')
   const [tipo, setTipo] = useState('')
@@ -76,8 +77,6 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
   // Taglie disponibili per la specie selezionata
   const taglieDisponibili = [...new Set(prezziDb.filter(p => p.specie === animale).map(p => p.taglia))]
 
-  const next = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.min(STEPS.length, s + 1)) }
-  const prev = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.max(1, s - 1)) }
   const reset = () => { setStep(1); setAnimale(''); setTaglia(''); setTipo(''); setUrnaId(''); setRitiro(''); setImprontaZampa(false); setAnimaleNome('') }
 
   const handleSubmit = async (e: React.FormEvent) => {

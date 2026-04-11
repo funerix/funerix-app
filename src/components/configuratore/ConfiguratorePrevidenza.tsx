@@ -7,12 +7,13 @@ import { ChevronLeft, ChevronRight, Check, RotateCcw, Send, Shield, Heart, Lock,
 import { useSitoStore } from '@/store/sito'
 import { ProductSelector } from './ProductSelector'
 import { StepIndicator } from './StepIndicatorGeneric'
+import { useConfiguratorSteps } from '@/hooks/useConfiguratorSteps'
 
 const STEPS = ['Per chi', 'Servizio', 'Bara', 'Cerimonia', 'Extra', 'Piano', 'Riepilogo', 'Contatto']
 
 export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boolean } = {}) {
   const { prodotti, categorie, impostazioni } = useSitoStore()
-  const [step, setStep] = useState(1)
+  const { step, setStep, next, prev } = useConfiguratorSteps(STEPS.length)
   const [beneficiario, setBeneficiario] = useState<'se_stesso' | 'familiare' | ''>('')
   const [beneficiarioNome, setBeneficiarioNome] = useState('')
   const [beneficiarioEta, setBeneficiarioEta] = useState('')
@@ -38,8 +39,6 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
   const totale = (baraObj?.prezzo || 0) + fioriTot + extraTot
   const rataMensile = totale > 0 ? Math.ceil(totale / numRate) : 0
 
-  const next = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.min(STEPS.length, s + 1)) }
-  const prev = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setStep(s => Math.max(1, s - 1)) }
   const reset = () => { setStep(1); setBeneficiario(''); setBara(null); setFioriSel([]); setExtraSel([]) }
 
   const handleSubmit = async (e: React.FormEvent) => {

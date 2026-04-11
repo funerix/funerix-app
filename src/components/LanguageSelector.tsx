@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Globe, Loader2 } from 'lucide-react'
-import { translatePage, restoreOriginals } from '@/lib/translate'
+import { translatePage, restoreOriginals, startObserver, stopObserver } from '@/lib/translate'
 
 const LINGUE = [
   { code: 'it', label: 'Italiano', flag: '🇮🇹' },
@@ -62,12 +62,14 @@ export function LanguageSelector() {
   const applyLanguage = async (lang: string) => {
     if (lang === 'it') {
       restoreOriginals()
+      stopObserver()
       hideOverlay()
       return
     }
     showOverlay()
     setLoading(true)
     await translatePage(lang)
+    startObserver(lang) // Osserva nuovi nodi (FAQ, dropdown, lazy content)
     hideOverlay()
     setLoading(false)
   }
@@ -84,6 +86,7 @@ export function LanguageSelector() {
         setCurrent(saved)
         showOverlay()
         await translatePage(saved)
+        startObserver(saved)
         hideOverlay()
         return
       }
@@ -107,6 +110,7 @@ export function LanguageSelector() {
           setCurrent(lang)
           showOverlay()
           await translatePage(lang)
+          startObserver(lang)
           hideOverlay()
           return
         }
@@ -126,6 +130,7 @@ export function LanguageSelector() {
     // Aspetta che il DOM della nuova pagina si monti
     const timer = setTimeout(async () => {
       await translatePage(lang)
+      startObserver(lang)
     }, 300)
 
     return () => clearTimeout(timer)
@@ -149,6 +154,7 @@ export function LanguageSelector() {
 
     if (code === 'it') {
       restoreOriginals()
+      stopObserver()
       return
     }
 

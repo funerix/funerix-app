@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Flower2, ChevronRight, Check, MapPin, Calendar, Camera, Heart, Send } from 'lucide-react'
+import { Flower2, ChevronRight, Check, MapPin, Calendar, Camera, Heart, Send, CreditCard } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
 import { LuogoSelector } from '@/components/LuogoSelector'
+import { PaymentButton } from '@/components/PaymentButton'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 
@@ -214,12 +215,22 @@ export default function InviaFioriPage() {
                 <span className="text-sm text-text-light">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</span>
               </label>
 
-              <button type="submit" className="btn-accent w-full py-4">
-                <Send size={16} className="mr-2" /> Invia Richiesta
-              </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button type="submit" className="btn-primary py-4">
+                  <Send size={16} className="mr-2" /> Invia Richiesta
+                </button>
+                <PaymentButton
+                  amount={composizione?.prezzo || 0}
+                  label="Paga e Invia"
+                  onPaymentRequest={async () => {
+                    const form = document.querySelector('form') as HTMLFormElement
+                    if (form?.checkValidity()) form.requestSubmit()
+                  }}
+                />
+              </div>
 
               <p className="text-text-muted text-xs text-center">
-                Vi contatteremo entro 30 minuti per confermare la consegna. Il pagamento avviene dopo la conferma.
+                Con &ldquo;Invia Richiesta&rdquo; vi contatteremo per il pagamento. Con &ldquo;Paga e Invia&rdquo; pagate subito online.
               </p>
             </form>
           </div>

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Heart, ChevronRight, Check, Flower2, Send, MessageCircle, MapPin } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
 import { LuogoSelector } from '@/components/LuogoSelector'
+import { PaymentButton } from '@/components/PaymentButton'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 
@@ -218,9 +219,25 @@ export default function CondoglianzePage() {
               <span className="text-sm text-text-light">Acconsento al trattamento dei dati personali ai sensi del GDPR. *</span>
             </label>
 
-            <button type="submit" className="btn-accent w-full py-4">
-              <Send size={16} className="mr-2" /> Invia Condoglianze{fioriSel !== 'nessuno' ? ' e Fiori' : ''}
-            </button>
+            {fioriSel !== 'nessuno' && fiori && fiori.prezzo > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button type="submit" className="btn-primary py-4">
+                  <Send size={16} className="mr-2" /> Invia Richiesta
+                </button>
+                <PaymentButton
+                  amount={fiori.prezzo}
+                  label="Paga e Invia"
+                  onPaymentRequest={async () => {
+                    const form = document.querySelector('form') as HTMLFormElement
+                    if (form?.checkValidity()) form.requestSubmit()
+                  }}
+                />
+              </div>
+            ) : (
+              <button type="submit" className="btn-accent w-full py-4">
+                <Send size={16} className="mr-2" /> Invia Condoglianze
+              </button>
+            )}
 
             <p className="text-text-muted text-xs text-center">
               Vi contatteremo per confermare la consegna. Il pagamento dei fiori avviene dopo la conferma.

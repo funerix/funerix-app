@@ -7,7 +7,8 @@ import {
   LayoutDashboard, Package, FileText, Heart, Edit3, Image as ImageIcon, Settings,
   Bell, Building2, LogOut, BookOpen, BarChart3, CalendarDays, Gift, Shield,
   ChevronLeft, ChevronDown, Menu, X, Users, Globe, PawPrint, Plane, CreditCard, Star,
-  Stethoscope, FileCheck, Megaphone, MessageSquare, Receipt, Flower2
+  Stethoscope, FileCheck, Megaphone, MessageSquare, Receipt, Flower2, Shovel,
+  Mail, Handshake, BookText, Euro
 } from 'lucide-react'
 import { RealtimeNotifiche } from '@/components/admin/RealtimeNotifiche'
 import { useSitoStore } from '@/store/sito'
@@ -25,64 +26,56 @@ const navGroups = [
     ],
   },
   {
-    label: 'Funerix Pet',
+    label: 'Servizi Funebri',
     defaultOpen: false,
     items: [
-      { href: '/admin/pet', icon: PawPrint, label: 'Dashboard Pet', ruolo: 'perm:pet' },
-      { href: '/admin/pet/ordini', icon: FileText, label: 'Ordini Pet', ruolo: 'perm:pet' },
-      { href: '/admin/pet/catalogo', icon: Package, label: 'Catalogo Pet', ruolo: 'perm:pet' },
-      { href: '/admin/pet/prezzi', icon: CreditCard, label: 'Prezzi Pet', ruolo: 'perm:pet' },
-      { href: '/admin/pet/veterinari', icon: Stethoscope, label: 'Veterinari', ruolo: 'perm:pet' },
-      { href: '/admin/pet/memorial', icon: Heart, label: 'Memorial Pet', ruolo: 'perm:pet' },
-      { href: '/admin/pet/contenuti', icon: Edit3, label: 'Contenuti Pet', ruolo: 'perm:pet' },
-      { href: '/admin/pet/previdenza-pet', icon: Shield, label: 'Previdenza Pet', ruolo: 'perm:pet' },
+      { href: '/admin/prodotti', icon: Package, label: 'Prodotti e Catalogo', ruolo: 'perm:prodotti' },
+      { href: '/admin/prezzi', icon: Euro, label: 'Prezzi Comparatore', ruolo: 'manager+' },
+      { href: '/admin/esumazione', icon: Shovel, label: 'Esumazione', ruolo: 'manager+' },
+      { href: '/admin/memorial', icon: Heart, label: 'Memorial', ruolo: 'perm:memorial' },
     ],
   },
   {
-    label: 'Funerix Previdenza',
+    label: 'Previdenza',
     defaultOpen: false,
     items: [
       { href: '/admin/previdenza', icon: Shield, label: 'Dashboard', ruolo: 'perm:previdenza' },
       { href: '/admin/previdenza/piani', icon: FileCheck, label: 'Piani Attivi', ruolo: 'perm:previdenza' },
       { href: '/admin/previdenza/rate', icon: CreditCard, label: 'Rate e Pagamenti', ruolo: 'perm:previdenza' },
       { href: '/admin/previdenza/tipi-piano', icon: Package, label: 'Tipi Piano', ruolo: 'perm:previdenza' },
-      { href: '/admin/previdenza/rsa', icon: Building2, label: 'RSA Partner', ruolo: 'manager+' },
-      { href: '/admin/previdenza/commissioni', icon: Receipt, label: 'Commissioni', ruolo: 'manager+' },
       { href: '/admin/previdenza/beneficiari', icon: Users, label: 'Beneficiari', ruolo: 'perm:previdenza' },
       { href: '/admin/previdenza/contratti', icon: FileText, label: 'Contratti', ruolo: 'perm:previdenza' },
+      { href: '/admin/previdenza/rsa', icon: Building2, label: 'RSA e Convenzioni', ruolo: 'manager+' },
+      { href: '/admin/previdenza/commissioni', icon: Receipt, label: 'Commissioni', ruolo: 'manager+' },
       { href: '/admin/previdenza/contenuti', icon: Edit3, label: 'Contenuti', ruolo: 'perm:previdenza' },
     ],
   },
   {
-    label: 'Funerix Rimpatri',
+    label: 'Pet',
+    defaultOpen: false,
+    items: [
+      { href: '/admin/pet', icon: PawPrint, label: 'Dashboard Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/ordini', icon: FileText, label: 'Ordini', ruolo: 'perm:pet' },
+      { href: '/admin/pet/catalogo', icon: Package, label: 'Catalogo Urne', ruolo: 'perm:pet' },
+      { href: '/admin/pet/prezzi', icon: CreditCard, label: 'Prezzi', ruolo: 'perm:pet' },
+      { href: '/admin/pet/veterinari', icon: Stethoscope, label: 'Veterinari Partner', ruolo: 'perm:pet' },
+      { href: '/admin/pet/previdenza-pet', icon: Shield, label: 'Previdenza Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/memorial', icon: Heart, label: 'Memorial Pet', ruolo: 'perm:pet' },
+      { href: '/admin/pet/contenuti', icon: Edit3, label: 'Contenuti', ruolo: 'perm:pet' },
+    ],
+  },
+  {
+    label: 'Rimpatri',
     defaultOpen: false,
     items: [
       { href: '/admin/rimpatri', icon: Plane, label: 'Dashboard', ruolo: 'perm:rimpatri' },
       { href: '/admin/rimpatri/pratiche', icon: FileText, label: 'Pratiche', ruolo: 'perm:rimpatri' },
       { href: '/admin/rimpatri/paesi', icon: Globe, label: 'Paesi e Zone', ruolo: 'perm:rimpatri' },
+      { href: '/admin/rimpatri/prezzi', icon: CreditCard, label: 'Prezzi', ruolo: 'perm:rimpatri' },
       { href: '/admin/rimpatri/consolati', icon: Building2, label: 'Consolati', ruolo: 'perm:rimpatri' },
       { href: '/admin/rimpatri/partner', icon: Users, label: 'Partner Esteri', ruolo: 'perm:rimpatri' },
-      { href: '/admin/rimpatri/prezzi', icon: CreditCard, label: 'Prezzi', ruolo: 'perm:rimpatri' },
       { href: '/admin/rimpatri/documenti', icon: FileCheck, label: 'Documenti', ruolo: 'perm:rimpatri' },
       { href: '/admin/rimpatri/contenuti', icon: Edit3, label: 'Contenuti', ruolo: 'perm:rimpatri' },
-    ],
-  },
-  {
-    label: 'Catalogo',
-    defaultOpen: false,
-    items: [
-      { href: '/admin/prodotti', icon: Package, label: 'Prodotti', ruolo: 'perm:prodotti' },
-      { href: '/admin/memorial', icon: Heart, label: 'Memorial', ruolo: 'perm:memorial' },
-      { href: '/admin/blog', icon: BookOpen, label: 'Blog', ruolo: 'perm:blog' },
-    ],
-  },
-  {
-    label: 'Contenuti',
-    defaultOpen: false,
-    items: [
-      { href: '/admin/homepage', icon: LayoutDashboard, label: 'Homepage', ruolo: 'manager+' },
-      { href: '/admin/contenuti', icon: Edit3, label: 'Contenuti Sito', ruolo: 'manager+' },
-      { href: '/admin/media', icon: ImageIcon, label: 'Media', ruolo: 'perm:media' },
     ],
   },
   {
@@ -95,12 +88,23 @@ const navGroups = [
     ],
   },
   {
+    label: 'Contenuti Sito',
+    defaultOpen: false,
+    items: [
+      { href: '/admin/homepage', icon: LayoutDashboard, label: 'Homepage', ruolo: 'manager+' },
+      { href: '/admin/contenuti', icon: Edit3, label: 'Testi e Pagine', ruolo: 'manager+' },
+      { href: '/admin/blog', icon: BookOpen, label: 'Blog', ruolo: 'perm:blog' },
+      { href: '/admin/guide', icon: BookText, label: 'Guide', ruolo: 'manager+' },
+      { href: '/admin/media', icon: ImageIcon, label: 'Media', ruolo: 'perm:media' },
+    ],
+  },
+  {
     label: 'Marketing',
     defaultOpen: false,
     items: [
-      { href: '/admin/referral', icon: Gift, label: 'Referral', ruolo: 'manager+' },
-      { href: '/admin/agenzie', icon: Globe, label: 'Agenzie', ruolo: 'admin' },
       { href: '/admin/recensioni', icon: Star, label: 'Recensioni', ruolo: 'manager+' },
+      { href: '/admin/referral', icon: Gift, label: 'Referral', ruolo: 'manager+' },
+      { href: '/admin/agenzie', icon: Handshake, label: 'Agenzie Partner', ruolo: 'admin' },
     ],
   },
   {
@@ -253,7 +257,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Logo + Toggle */}
           <div className="flex items-center justify-between px-3 py-4 border-b border-white/10 flex-shrink-0">
             {sidebarOpen && (
-              <Image src="/images/logo-white.png" alt="Funerix" width={200} height={60} className="h-10 w-auto" />
+              <Image src="/images/logo-white.png" alt="Funerix" width={240} height={72} className="h-12 w-auto" />
             )}
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 hover:bg-white/10 rounded transition-colors">
               {sidebarOpen ? <ChevronLeft size={14} /> : <Menu size={14} />}

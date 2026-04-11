@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, Save, MessageCircle } from 'lucide-react'
+import { ArrowLeft, Save, MessageCircle, Globe, Loader2, Check } from 'lucide-react'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 
@@ -235,6 +235,9 @@ export default function AdminImpostazioniPage() {
             </div>
           </div>
 
+          {/* Traduzioni */}
+          <TraduzioniSection />
+
           {/* Cosa riceve il consulente */}
           <div className="card bg-primary/5 border-primary/20">
             <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Cosa riceve il consulente?</h2>
@@ -256,6 +259,85 @@ export default function AdminImpostazioniPage() {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+function TraduzioniSection() {
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState<{ testi_totali: number; lingue: { lingua: string; count: number }[] } | null>(null)
+  const [error, setError] = useState('')
+
+  const handleAggiorna = async () => {
+    setLoading(true)
+    setError('')
+    setResult(null)
+    try {
+      const res = await fetch('/api/traduzioni', { method: 'POST' })
+      if (!res.ok) {
+        const data = await res.json()
+        setError(data.error || 'Errore durante l\'aggiornamento')
+        return
+      }
+      const data = await res.json()
+      setResult(data)
+    } catch {
+      setError('Errore di connessione')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="card">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+          <Globe size={20} className="text-secondary" />
+        </div>
+        <div>
+          <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary">Traduzioni</h2>
+          <p className="text-text-muted text-sm">Pre-traduci tutte le pagine in 15 lingue</p>
+        </div>
+      </div>
+
+      <p className="text-text-light text-sm mb-4">
+        Cliccate per aggiornare la cache delle traduzioni. Il sistema visiterà tutte le pagine pubbliche,
+        estrarrà i testi e li tradurrà in 15 lingue usando Google Translate. Le traduzioni verranno salvate
+        nel database per un caricamento istantaneo.
+      </p>
+
+      <button
+        onClick={handleAggiorna}
+        disabled={loading}
+        className="btn-primary text-sm disabled:opacity-50"
+      >
+        {loading ? (
+          <><Loader2 size={16} className="mr-2 animate-spin" /> Traduzione in corso... (può richiedere 2-3 minuti)</>
+        ) : (
+          <><Globe size={16} className="mr-2" /> Aggiorna tutte le traduzioni</>
+        )}
+      </button>
+
+      {error && (
+        <div className="mt-4 bg-error/10 border border-error/20 rounded-lg p-3 text-sm text-error">{error}</div>
+      )}
+
+      {result && (
+        <div className="mt-4 space-y-3">
+          <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 flex items-center gap-2">
+            <Check size={16} className="text-accent" />
+            <span className="text-sm text-primary font-medium">Completato — {result.testi_totali} testi estratti</span>
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+            {result.lingue.map(l => (
+              <div key={l.lingua} className={`rounded-lg p-2 text-center text-xs ${l.count >= 0 ? 'bg-accent/10' : 'bg-error/10'}`}>
+                <p className="font-medium text-primary">{l.lingua.toUpperCase()}</p>
+                <p className="text-text-muted">{l.count >= 0 ? `${l.count} nuove` : 'errore'}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

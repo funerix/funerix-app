@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { Globe, Loader2 } from 'lucide-react'
-import { translatePage, saveOriginals, restoreOriginals } from '@/lib/translate'
+import { translatePage, restoreOriginals } from '@/lib/translate'
 
 const LINGUE = [
   { code: 'it', label: 'Italiano', flag: '🇮🇹' },
@@ -37,7 +38,6 @@ function getCountryFromCookie(): string | null {
   return match ? match[1] : null
 }
 
-// Overlay di caricamento
 function showOverlay() {
   if (document.getElementById('ft-overlay')) return
   const div = document.createElement('div')
@@ -57,6 +57,7 @@ export function LanguageSelector() {
   const [loading, setLoading] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const initialized = useRef(false)
+  const pathname = usePathname()
 
   const applyLanguage = async (lang: string) => {
     if (lang === 'it') {
@@ -66,12 +67,12 @@ export function LanguageSelector() {
     }
     showOverlay()
     setLoading(true)
-    saveOriginals()
     await translatePage(lang)
     hideOverlay()
     setLoading(false)
   }
 
+  // Init: carica lingua salvata o rileva da geolocalizzazione
   useEffect(() => {
     if (initialized.current) return
     initialized.current = true
@@ -82,7 +83,6 @@ export function LanguageSelector() {
       if (saved && saved !== 'it') {
         setCurrent(saved)
         showOverlay()
-        saveOriginals()
         await translatePage(saved)
         hideOverlay()
         return
@@ -106,7 +106,6 @@ export function LanguageSelector() {
           localStorage.setItem('funerix-lang', lang)
           setCurrent(lang)
           showOverlay()
-          saveOriginals()
           await translatePage(lang)
           hideOverlay()
           return
@@ -118,6 +117,21 @@ export function LanguageSelector() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Ri-traduce quando cambia pagina (navigazione SPA)
+  useEffect(() => {
+    if (!initialized.current) return
+    const lang = localStorage.getItem('funerix-lang')
+    if (!lang || lang === 'it') return
+
+    // Aspetta che il DOM della nuova pagina si monti
+    const timer = setTimeout(async () => {
+      await translatePage(lang)
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [pathname])
+
+  // Chiudi dropdown al click fuori
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -138,7 +152,7 @@ export function LanguageSelector() {
       return
     }
 
-    // Se era già in un'altra lingua, ripristina prima
+    // Ripristina gli originali italiani prima di tradurre nella nuova lingua
     restoreOriginals()
     await new Promise(r => setTimeout(r, 50))
     await applyLanguage(code)

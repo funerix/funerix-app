@@ -31,7 +31,7 @@ export default function Page() {
             </div>
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">2. Contattare l&apos;impresa funebre</h2>
-              <p>Chiamateci a qualsiasi ora al 081 555 1234. Ci occuperemo immediatamente del trasporto della salma e di tutte le pratiche necessarie.</p>
+              <p>Chiamateci a qualsiasi ora. Ci occuperemo immediatamente del trasporto della salma e di tutte le pratiche necessarie.</p>
             </div>
             <div className="card">
               <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">3. Documenti necessari</h2>

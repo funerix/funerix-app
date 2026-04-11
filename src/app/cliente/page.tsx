@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { useSitoStore } from '@/store/sito'
 import Image from 'next/image'
 import { Phone, Mail, MessageCircle, FileCheck, Clock, CheckCircle2, Circle, ChevronRight, Send, Heart, Upload, FileText, Loader2, PenTool } from 'lucide-react'
 import { FirmaDigitale } from '@/components/FirmaDigitale'
@@ -52,6 +53,7 @@ export default function ClientePageWrapper() {
 function ClientePage() {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
+  const { impostazioni } = useSitoStore()
   const [cliente, setCliente] = useState<ClienteData | null>(null)
   const [loading, setLoading] = useState(true)
   const [errore, setErrore] = useState('')
@@ -372,13 +374,13 @@ function ClientePage() {
                 Contatto rapido
               </h2>
               <div className="space-y-3">
-                <a href="tel:0815551234" className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
-                  <Phone size={16} className="text-secondary" /> Chiama il consulente
+                <a href={`tel:${impostazioni.telefono.replace(/\s/g, '')}`} className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
+                  <Phone size={16} className="text-secondary" /> {impostazioni.telefono || 'Chiama il consulente'}
                 </a>
-                <a href="https://wa.me/393331234567" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
+                <a href={`https://wa.me/${impostazioni.whatsapp.replace(/\s/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
                   <MessageCircle size={16} className="text-[#25D366]" /> WhatsApp
                 </a>
-                <a href="mailto:info@funerix.com" className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
+                <a href={`mailto:${impostazioni.email}`} className="flex items-center gap-2 text-sm text-text-light hover:text-primary transition-colors">
                   <Mail size={16} className="text-secondary" /> Scrivi email
                 </a>
               </div>

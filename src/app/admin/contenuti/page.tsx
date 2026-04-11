@@ -105,10 +105,10 @@ export default function AdminContenutiPage() {
 
                 <div className="card">
                   <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Sezione Valori</h2>
-                  {['Rispetto', 'Trasparenza', 'Disponibilità 24/7', 'Esperienza'].map(valore => (
+                  {['rispetto', 'trasparenza', 'disponibilita', 'esperienza'].map(valore => (
                     <div key={valore} className="border-b border-border pb-4 mb-4 last:border-0 last:mb-0 last:pb-0">
-                      <label className="block text-sm font-medium text-text mb-1">{valore} — descrizione</label>
-                      <textarea rows={2} className="input-field" defaultValue={`Descrizione del valore "${valore}"...`} />
+                      <label className="block text-sm font-medium text-text mb-1 capitalize">{valore.replace('disponibilita', 'Disponibilità 24/7')} — descrizione</label>
+                      <textarea rows={2} className="input-field" value={getExtra(`valore_${valore}`) || ''} onChange={e => setExtra(`valore_${valore}`, e.target.value)} placeholder={`Descrizione del valore...`} />
                     </div>
                   ))}
                 </div>
@@ -122,15 +122,15 @@ export default function AdminContenutiPage() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Titolo pagina</label>
-                      <input type="text" className="input-field" defaultValue="Chi Siamo" />
+                      <input type="text" className="input-field" value={formContenuti.chiSiamoTitolo} onChange={e => setFormContenuti({...formContenuti, chiSiamoTitolo: e.target.value})} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Sottotitolo hero</label>
-                      <textarea rows={2} className="input-field" defaultValue="Da oltre trent'anni al fianco delle famiglie campane, con professionalità, rispetto e dedizione in ogni momento." />
+                      <textarea rows={2} className="input-field" value={formContenuti.chiSiamoSottotitolo} onChange={e => setFormContenuti({...formContenuti, chiSiamoSottotitolo: e.target.value})} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Storia dell&apos;impresa</label>
-                      <textarea rows={8} className="input-field" defaultValue="Funerix nasce dalla tradizione di una famiglia che da tre generazioni si dedica all'accompagnamento delle famiglie nei momenti più delicati della vita..." />
+                      <textarea rows={8} className="input-field" value={formContenuti.chiSiamoStoria} onChange={e => setFormContenuti({...formContenuti, chiSiamoStoria: e.target.value})} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-text mb-1">Immagine di sfondo</label>
@@ -164,11 +164,11 @@ export default function AdminContenutiPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Orari ufficio</label>
-                    <input type="text" className="input-field" defaultValue="Lun-Sab 9:00-18:00" />
+                    <input type="text" className="input-field" value={formImpostazioni.orari || ''} onChange={e => setFormImpostazioni({...formImpostazioni, orari: e.target.value})} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Google Maps URL</label>
-                    <input type="url" className="input-field" placeholder="https://goo.gl/maps/..." />
+                    <input type="url" className="input-field" value={getExtra('google_maps_url') || ''} onChange={e => setExtra('google_maps_url', e.target.value)} placeholder="https://goo.gl/maps/..." />
                   </div>
                 </div>
               </div>
@@ -178,16 +178,16 @@ export default function AdminContenutiPage() {
               <div className="space-y-6">
                 <div className="card">
                   <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Disclaimer Preventivo</h2>
-                  <textarea rows={6} className="input-field font-mono text-xs" defaultValue={`Il presente preventivo ha valore meramente indicativo e informativo ai sensi dell'art. 1336 del Codice Civile e non costituisce offerta al pubblico né proposta contrattuale vincolante. I prezzi indicati sono orientativi e possono variare in base alle specifiche circostanze del servizio, alle disposizioni dell'autorità comunale competente e alla normativa vigente.\n\nIl preventivo definitivo sarà formulato esclusivamente a seguito di un colloquio diretto con la famiglia e della verifica di tutti gli elementi necessari, nel rispetto della L.R. Campania n. 12/2001 e s.m.i. e del D.Lgs. 206/2005 (Codice del Consumo).`} />
+                  <textarea rows={6} className="input-field font-mono text-xs" value={formContenuti.disclaimerPreventivo || ''} onChange={e => setFormContenuti({...formContenuti, disclaimerPreventivo: e.target.value})} placeholder="Il presente preventivo ha valore meramente indicativo..." />
                 </div>
                 <div className="card">
                   <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Numero Registro Regionale</h2>
-                  <input type="text" className="input-field" placeholder="Es. XXXX" defaultValue="" />
+                  <input type="text" className="input-field" placeholder="Es. XXXX" value={formImpostazioni.registroRegionale || ''} onChange={e => setFormImpostazioni({...formImpostazioni, registroRegionale: e.target.value})} />
                   <p className="text-xs text-text-muted mt-1">Numero iscrizione al Registro Regionale Campania delle imprese funebri</p>
                 </div>
                 <div className="card">
                   <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Autorizzazione Comunale</h2>
-                  <input type="text" className="input-field" placeholder="Es. n. 123/2020" defaultValue="" />
+                  <input type="text" className="input-field" placeholder="Es. n. 123/2020" value={formImpostazioni.autorizzazioneComunale || ''} onChange={e => setFormImpostazioni({...formImpostazioni, autorizzazioneComunale: e.target.value})} />
                 </div>
               </div>
             )}
@@ -198,21 +198,21 @@ export default function AdminContenutiPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Titolo sito (meta title)</label>
-                    <input type="text" className="input-field" defaultValue="Funerix — Servizi Funebri in Campania" />
+                    <input type="text" className="input-field" value={formContenuti.metaTitle} onChange={e => setFormContenuti({...formContenuti, metaTitle: e.target.value})} />
                     <p className="text-xs text-text-muted mt-1">Max 60 caratteri</p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Descrizione (meta description)</label>
-                    <textarea rows={3} className="input-field" defaultValue="Configura il servizio funebre per il tuo caro con rispetto e trasparenza. Preventivo indicativo immediato. Impresa funebre autorizzata in Campania." />
+                    <textarea rows={3} className="input-field" value={formContenuti.metaDescription} onChange={e => setFormContenuti({...formContenuti, metaDescription: e.target.value})} />
                     <p className="text-xs text-text-muted mt-1">Max 160 caratteri</p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Parole chiave</label>
-                    <input type="text" className="input-field" defaultValue="onoranze funebri, funerali Campania, servizi funebri Napoli, cremazione" />
+                    <input type="text" className="input-field" value={formContenuti.metaKeywords} onChange={e => setFormContenuti({...formContenuti, metaKeywords: e.target.value})} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Google My Business URL</label>
-                    <input type="url" className="input-field" placeholder="https://g.page/..." />
+                    <input type="url" className="input-field" value={getExtra('google_business_url') || ''} onChange={e => setExtra('google_business_url', e.target.value)} placeholder="https://g.page/..." />
                   </div>
                 </div>
               </div>
@@ -224,15 +224,15 @@ export default function AdminContenutiPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Titolo pagina</label>
-                    <input type="text" className="input-field" defaultValue="Configura il Servizio Funebre" />
+                    <input type="text" className="input-field" value={getExtra('configuratore_titolo') || 'Configura il Servizio Funebre'} onChange={e => setExtra('configuratore_titolo', e.target.value)} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Sottotitolo</label>
-                    <input type="text" className="input-field" defaultValue="Personalizzate ogni aspetto con calma. Nessun obbligo, nessuna fretta." />
+                    <input type="text" className="input-field" value={getExtra('configuratore_sottotitolo') || 'Personalizzate ogni aspetto con calma. Nessun obbligo, nessuna fretta.'} onChange={e => setExtra('configuratore_sottotitolo', e.target.value)} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Costo per km extra (oltre 20 km)</label>
-                    <input type="number" className="input-field" defaultValue="3" />
+                    <input type="number" className="input-field" value={getExtra('costo_km_extra') || '3'} onChange={e => setExtra('costo_km_extra', e.target.value)} />
                     <p className="text-xs text-text-muted mt-1">Euro per km oltre i primi 20 km inclusi</p>
                   </div>
                 </div>
@@ -245,11 +245,11 @@ export default function AdminContenutiPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Titolo pagina necrologi</label>
-                    <input type="text" className="input-field" defaultValue="Necrologi e Memorial" />
+                    <input type="text" className="input-field" value={getExtra('memorial_titolo') || 'Necrologi e Memorial'} onChange={e => setExtra('memorial_titolo', e.target.value)} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Descrizione</label>
-                    <textarea rows={3} className="input-field" defaultValue="Uno spazio per onorare e ricordare chi non c'è più. Lasciate un pensiero, una condoglianza o un ricordo per i vostri cari." />
+                    <textarea rows={3} className="input-field" value={getExtra('memorial_descrizione') || ''} onChange={e => setExtra('memorial_descrizione', e.target.value)} placeholder="Uno spazio per onorare e ricordare chi non c'è più..." />
                   </div>
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input type="checkbox" defaultChecked className="w-5 h-5 rounded border-border" />
@@ -352,15 +352,15 @@ export default function AdminContenutiPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Descrizione impresa</label>
-                    <textarea rows={3} className="input-field" defaultValue="Accompagniamo le famiglie con rispetto e dignità nei momenti più difficili. Impresa funebre autorizzata e iscritta al Registro Regionale della Campania." />
+                    <textarea rows={3} className="input-field" value={formContenuti.footerDescrizione} onChange={e => setFormContenuti({...formContenuti, footerDescrizione: e.target.value})} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Testo copyright</label>
-                    <input type="text" className="input-field" defaultValue="Funerix — Tutti i diritti riservati." />
+                    <input type="text" className="input-field" value={formContenuti.footerCopyright} onChange={e => setFormContenuti({...formContenuti, footerCopyright: e.target.value})} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-text mb-1">Nota sui preventivi</label>
-                    <input type="text" className="input-field" defaultValue="I preventivi generati online sono indicativi e non costituiscono proposta contrattuale." />
+                    <input type="text" className="input-field" value={formContenuti.footerNotaPreventivi} onChange={e => setFormContenuti({...formContenuti, footerNotaPreventivi: e.target.value})} />
                   </div>
                 </div>
               </div>

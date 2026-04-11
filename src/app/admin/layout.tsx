@@ -253,7 +253,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Logo + Toggle */}
           <div className="flex items-center justify-between p-2.5 border-b border-white/10 flex-shrink-0">
             {sidebarOpen && (
-              <Image src="/images/logo-white.png" alt="Funerix" width={100} height={30} className="h-5 w-auto" />
+              <Image src="/images/logo-white.png" alt="Funerix" width={140} height={42} className="h-7 w-auto" />
             )}
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 hover:bg-white/10 rounded transition-colors">
               {sidebarOpen ? <ChevronLeft size={14} /> : <Menu size={14} />}

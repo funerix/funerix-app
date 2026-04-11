@@ -13,7 +13,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-12 gap-6 items-start">
           {/* Brand — 3 colonne */}
           <div className="col-span-2 md:col-span-3">
-            <Image src="/images/logo-white.png" alt="Funerix" width={200} height={60} className="h-10 w-auto mb-2" />
+            <Image src="/images/logo-white.png" alt="Funerix" width={280} height={84} className="h-14 w-auto mb-3" />
             <p className="text-xs leading-relaxed text-white/60">
               {contenuti.footerDescrizione}
             </p>

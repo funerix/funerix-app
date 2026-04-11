@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Flower2, ChevronRight, Check, MapPin, Calendar, Camera, Heart, Send } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { LuogoSelector } from '@/components/LuogoSelector'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 
@@ -29,6 +30,7 @@ const occasioni = [
 export default function InviaFioriPage() {
   const { impostazioni } = useSitoStore()
   const [selected, setSelected] = useState('')
+  const [luogoNome, setLuogoNome] = useState('')
   const [inviato, setInviato] = useState(false)
 
   const composizione = composizioni.find(c => c.id === selected)
@@ -168,23 +170,10 @@ export default function InviaFioriPage() {
                 <label className="block text-sm font-medium text-text mb-1">Per chi sono i fiori? *</label>
                 <input name="defunto" required className="input-field" placeholder="Nome del defunto" />
               </div>
+              <LuogoSelector tipo="cimitero" value={luogoNome} onChange={setLuogoNome} required />
               <div>
-                <label className="block text-sm font-medium text-text mb-1">Dove consegnare? *</label>
-                <select name="luogo_consegna" required className="input-field" defaultValue="cimitero">
-                  <option value="cimitero">Cimitero (sulla tomba)</option>
-                  <option value="chiesa">Chiesa (per la cerimonia)</option>
-                  <option value="domicilio">A domicilio (casa della famiglia)</option>
-                </select>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-text mb-1">Luogo / Cimitero / Chiesa *</label>
-                  <input name="cimitero" required className="input-field" placeholder="Es. Cimitero di Poggioreale, Napoli" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-text mb-1">Posizione esatta *</label>
-                  <input name="zona_tomba" required className="input-field" placeholder="Settore, fila, numero o indirizzo" />
-                </div>
+                <label className="block text-sm font-medium text-text mb-1">Posizione tomba (settore, fila, numero) *</label>
+                <input name="zona_tomba" required className="input-field" placeholder="Es. Settore 3, Fila 12, n. 45" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -239,9 +228,9 @@ export default function InviaFioriPage() {
 
       {/* Perché sceglierci */}
       <section className="py-16 bg-background-dark">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Perch&eacute; scegliere Funerix</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-8">Perch&eacute; scegliere Funerix</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto text-left">
             {[
               'Fiori freschi di stagione, mai artificiali',
               'Consegna con foto su WhatsApp',

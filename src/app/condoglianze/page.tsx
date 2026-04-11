@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Heart, ChevronRight, Check, Flower2, Send, MessageCircle, MapPin } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { LuogoSelector } from '@/components/LuogoSelector'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
 
@@ -17,6 +18,7 @@ const opzioniFiori = [
 export default function CondoglianzePage() {
   const [fioriSel, setFioriSel] = useState('nessuno')
   const [luogoConsegna, setLuogoConsegna] = useState('')
+  const [luogoNome, setLuogoNome] = useState('')
   const [inviato, setInviato] = useState(false)
 
   const fiori = opzioniFiori.find(f => f.id === fioriSel)
@@ -124,13 +126,13 @@ export default function CondoglianzePage() {
             {/* Dove consegnare */}
             <div>
               <h3 className="font-medium text-primary mb-3">Dove consegnare?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                 {[
                   { id: 'cimitero', label: 'Cimitero', desc: 'Sulla tomba' },
                   { id: 'chiesa', label: 'Chiesa', desc: 'Per la cerimonia' },
                   { id: 'domicilio', label: 'A domicilio', desc: 'Casa della famiglia' },
                 ].map(l => (
-                  <div key={l.id} onClick={() => setLuogoConsegna(l.id)}
+                  <div key={l.id} onClick={() => { setLuogoConsegna(l.id); setLuogoNome('') }}
                     className={`card cursor-pointer text-center py-3 transition-all ${luogoConsegna === l.id ? 'border-2 border-secondary bg-secondary/5' : 'hover:border-secondary/30'}`}>
                     <MapPin size={18} className={`mx-auto mb-1 ${luogoConsegna === l.id ? 'text-secondary' : 'text-text-muted'}`} />
                     <p className="font-medium text-primary text-sm">{l.label}</p>
@@ -138,17 +140,22 @@ export default function CondoglianzePage() {
                   </div>
                 ))}
               </div>
-              {luogoConsegna && (
+              {luogoConsegna === 'cimitero' && (
+                <div className="space-y-3">
+                  <LuogoSelector tipo="cimitero" value={luogoNome} onChange={setLuogoNome} required />
+                  <div>
+                    <label className="block text-sm font-medium text-text mb-1">Posizione tomba (settore, fila, numero)</label>
+                    <input name="indirizzo_consegna" className="input-field" placeholder="Es. Settore 3, Fila 12, n. 45" />
+                  </div>
+                </div>
+              )}
+              {luogoConsegna === 'chiesa' && (
+                <LuogoSelector tipo="chiesa" value={luogoNome} onChange={setLuogoNome} required />
+              )}
+              {luogoConsegna === 'domicilio' && (
                 <div>
-                  <label className="block text-sm font-medium text-text mb-1">
-                    {luogoConsegna === 'cimitero' ? 'Nome cimitero e posizione tomba (settore, fila, numero) *' :
-                     luogoConsegna === 'chiesa' ? 'Nome e indirizzo della chiesa *' :
-                     'Indirizzo completo della famiglia *'}
-                  </label>
-                  <input name="indirizzo_consegna" required className="input-field"
-                    placeholder={luogoConsegna === 'cimitero' ? 'Es. Poggioreale, Napoli — Settore 3, Fila 12, n. 45' :
-                      luogoConsegna === 'chiesa' ? 'Es. Chiesa di San Gennaro, Via Duomo 149, Napoli' :
-                      'Es. Via Roma 25, 80100 Napoli'} />
+                  <label className="block text-sm font-medium text-text mb-1">Indirizzo completo *</label>
+                  <input name="indirizzo_consegna" required className="input-field" placeholder="Es. Via Roma 25, 80100 Napoli" value={luogoNome} onChange={e => setLuogoNome(e.target.value)} />
                 </div>
               )}
             </div>

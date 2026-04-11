@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Shield, Award, Users, MapPin } from 'lucide-react'
+import { useSitoStore } from '@/store/sito'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -13,6 +14,7 @@ const fadeUp = {
 }
 
 export default function ChiSiamoPage() {
+  const { contenuti } = useSitoStore()
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
@@ -24,7 +26,7 @@ export default function ChiSiamoPage() {
             animate={{ opacity: 1, y: 0 }}
             className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white"
           >
-            Chi Siamo
+            {contenuti.chiSiamoTitolo || 'Chi Siamo'}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -32,8 +34,7 @@ export default function ChiSiamoPage() {
             transition={{ delay: 0.1 }}
             className="mt-6 text-white/90 text-lg leading-relaxed max-w-2xl mx-auto"
           >
-            Da oltre trent&apos;anni al fianco delle famiglie campane, con professionalit&agrave;,
-            rispetto e dedizione in ogni momento.
+            {contenuti.chiSiamoSottotitolo || 'Da oltre trent\'anni al fianco delle famiglie campane, con professionalità, rispetto e dedizione in ogni momento.'}
           </motion.p>
         </div>
       </section>

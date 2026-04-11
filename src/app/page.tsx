@@ -69,12 +69,12 @@ export default function HomePage() {
 
       {/* ═══════════════ 2. SERVIZI — 6 card cliccabili ═══════════════ */}
       <section className="py-16 md:py-20 bg-background-dark">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
-            <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary">
+        <div className="max-w-5xl mx-auto px-4">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
+            <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl text-primary">
               I nostri servizi
             </motion.h2>
-            <motion.p variants={fadeUp} custom={1} className="mt-3 text-text-light text-lg">
+            <motion.p variants={fadeUp} custom={1} className="mt-3 text-text-light">
               Tutto ciò di cui avete bisogno, in un unico posto
             </motion.p>
           </motion.div>
@@ -113,7 +113,7 @@ export default function HomePage() {
       {/* ═══════════════ 3. COME FUNZIONA ═══════════════ */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-center text-primary mb-12">Come funziona</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-center text-primary mb-10">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { n: '01', t: 'Configurate online', d: 'Scegliete tipo di servizio, prodotti e dettagli. Ricevete un preventivo indicativo in 5 minuti.' },
@@ -186,19 +186,19 @@ export default function HomePage() {
 
       {/* ═══════════════ 4. PREZZI RAPIDI ═══════════════ */}
       <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4">
-              <div className="text-center mb-8">
+        <div className="max-w-5xl mx-auto px-4">
+              <div className="text-center mb-10">
                 <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary">Prezzi chiari, senza sorprese</h2>
-                <p className="mt-2 text-text-light">Funerale completo a partire da — per provincia</p>
+                <p className="mt-3 text-text-light">Funerale completo a partire da — per provincia</p>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6">
                 {prezziRapidi.map(p => (
                   <div key={p.provincia} className="card text-center py-4">
-                    <p className="text-text-muted text-[10px] uppercase tracking-wider">{p.provincia}</p>
+                    <p className="text-text-muted text-xs uppercase tracking-wider">{p.provincia}</p>
                     <p className="text-xl text-primary font-bold mt-1">
                       &euro; {p.da}
                     </p>
-                    <p className="text-text-muted text-[10px] mt-0.5">a partire da</p>
+                    <p className="text-text-muted text-xs mt-0.5">a partire da</p>
                   </div>
                 ))}
               </div>
@@ -209,9 +209,9 @@ export default function HomePage() {
                   { servizio: 'Cremazione animali', da: '120' },
                   { servizio: 'Esumazione', da: '400' },
                 ].map(s => (
-                  <div key={s.servizio} className="bg-background-dark rounded-xl p-3 text-center">
-                    <p className="text-text-muted text-xs">{s.servizio}</p>
-                    <p className="text-lg text-primary font-bold">da &euro; {s.da}</p>
+                  <div key={s.servizio} className="bg-background-dark rounded-xl p-4 text-center">
+                    <p className="text-text-muted text-sm">{s.servizio}</p>
+                    <p className="text-xl text-primary font-bold">da &euro; {s.da}</p>
                   </div>
                 ))}
               </div>
@@ -239,16 +239,16 @@ export default function HomePage() {
             <motion.p variants={fadeUp} custom={2} className="text-white/80 mb-8 max-w-2xl mx-auto">
               Cremazione individuale con restituzione ceneri, urne commemorative e memorial digitale. Servizio immediato o piano previdenza a rate.
             </motion.p>
-            <motion.div variants={fadeUp} custom={3} className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-lg mx-auto">
+            <motion.div variants={fadeUp} custom={3} className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-xl mx-auto">
               {[
                 { t: 'Cremazione', d: 'da \u20AC120' },
                 { t: 'Previdenza', d: 'da \u20AC10/mese' },
                 { t: 'Memorial', d: 'Gratuito' },
                 { t: 'Veterinari', d: 'Convenzionati' },
               ].map(c => (
-                <div key={c.t} className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-                  <p className="text-white font-medium text-xs">{c.t}</p>
-                  <p className="text-white/60 text-[10px]">{c.d}</p>
+                <div key={c.t} className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                  <p className="text-white font-medium text-sm">{c.t}</p>
+                  <p className="text-white/60 text-xs">{c.d}</p>
                 </div>
               ))}
             </motion.div>
@@ -268,8 +268,8 @@ export default function HomePage() {
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
-            <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">Non solo funerali</motion.h2>
-            <motion.p variants={fadeUp} custom={1} className="text-text-light max-w-xl mx-auto">Una piattaforma completa per ogni esigenza legata al fine vita.</motion.p>
+            <motion.h2 variants={fadeUp} custom={0} className="font-[family-name:var(--font-serif)] text-3xl text-primary">Non solo funerali</motion.h2>
+            <motion.p variants={fadeUp} custom={1} className="mt-3 text-text-light max-w-xl mx-auto">Una piattaforma completa per ogni esigenza legata al fine vita.</motion.p>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[
@@ -354,7 +354,7 @@ export default function HomePage() {
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
       <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
             Le famiglie che abbiamo accompagnato
           </h2>

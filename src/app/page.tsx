@@ -158,24 +158,24 @@ export default function HomePage() {
                     Configura il Piano <ChevronRight size={14} className="ml-1" />
                   </Link>
                   <Link href="/previdenza/piani" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm py-3 px-8">
-                    Confronta i Piani
+                    Scopri i Piani
                   </Link>
                 </motion.div>
               </div>
-              <motion.div variants={fadeUp} custom={2} className="grid grid-cols-3 gap-3">
+              <motion.div variants={fadeUp} custom={2} className="grid grid-cols-3 gap-2 md:gap-3">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                   <Lock size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">da &euro;97</p>
+                  <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">da &euro;97</p>
                   <p className="text-white/60 text-xs">al mese</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                   <Clock size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">12-60</p>
+                  <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">12-60</p>
                   <p className="text-white/60 text-xs">rate mensili</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                   <Euro size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">0%</p>
+                  <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">0%</p>
                   <p className="text-white/60 text-xs">interessi</p>
                 </div>
               </motion.div>

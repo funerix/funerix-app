@@ -72,7 +72,7 @@ export default async function ServiziRicorrentiPage() {
               return (
                 <div key={s.id} className={`card flex flex-col ${s.slug === 'pacchetto-completo' ? 'border-2 border-secondary relative' : ''}`}>
                   {s.slug === 'pacchetto-completo' && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white text-xs px-3 py-1 rounded-full font-medium">
+                    <div className="bg-secondary text-white text-xs px-3 py-1.5 rounded-lg font-medium text-center mb-3 -mt-1">
                       Più scelto
                     </div>
                   )}

@@ -55,7 +55,7 @@ const slides: Slide[] = [
     highlight: 'vivete sereni',
     desc: 'Configurate il servizio funebre per voi o un familiare. Bloccate il prezzo di oggi e pagate a rate da 12 a 60 mesi. Zero interessi.',
     cta: { label: 'Configura il Piano', href: '/previdenza/configuratore' },
-    ctaSecondary: { label: 'Confronta i Piani', href: '/previdenza/piani' },
+    ctaSecondary: { label: 'Scopri i Piani', href: '/previdenza/piani' },
     bgImage: '/images/slide-3-previdenza.png',
     gradientFrom: 'from-[#3a2a1a]/90 via-[#4a3a2a]/70 to-[#3a2a1a]/50',
     accentColor: 'text-secondary-light',

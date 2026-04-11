@@ -84,20 +84,21 @@ export default function PrezziPage() {
             Dati aggiornati al 2025 da fonti ufficiali.
           </p>
           {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-6 mt-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 text-center">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 md:px-6 py-3 text-center">
               <p className="text-white/60 text-xs">Media Italia</p>
-              <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">&euro; {mediaItalia.toLocaleString('it-IT')}</p>
+              <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">&euro; 3.500</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 text-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 md:px-6 py-3 text-center">
               <p className="text-white/60 text-xs">Media Europa</p>
-              <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">&euro; {mediaEuropa.toLocaleString('it-IT')}</p>
+              <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">&euro; 5.500</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 text-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 md:px-6 py-3 text-center">
               <p className="text-white/60 text-xs">Regioni + Paesi</p>
-              <p className="font-[family-name:var(--font-serif)] text-2xl text-white font-bold">{aree.length}</p>
+              <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">{aree.length}</p>
             </div>
           </div>
+          <p className="text-white/40 text-xs mt-3">Fonte: Federconsumatori, SunLife, NFDA — 2025</p>
         </div>
       </section>
 

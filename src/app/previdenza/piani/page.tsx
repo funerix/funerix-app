@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Piani Previdenza Funeraria — Funerix Previdenza',
-  description: 'Confronta i piani previdenza funeraria Funerix. Base, Comfort e Premium. Prezzo bloccato, rate mensili.',
+  description: 'Scopri i piani previdenza funeraria Funerix. Base, Comfort e Premium. Prezzo bloccato, rate mensili.',
 }
 
 const borderColors = ['border-border', 'border-secondary', 'border-accent']
@@ -46,7 +46,7 @@ export default async function PianiPrevidenzaPage() {
               return (
                 <div key={piano.id} className={`card border-2 ${borderColors[i] || 'border-border'} relative`}>
                   {isMiddle && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white text-xs px-3 py-1 rounded-full font-medium">
+                    <div className="bg-secondary text-white text-xs px-3 py-1.5 rounded-lg font-medium text-center mb-3 -mt-1">
                       Consigliato
                     </div>
                   )}

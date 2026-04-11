@@ -62,7 +62,7 @@ const menuPrevidenza = {
       title: null,
       items: [
         { href: '/previdenza', label: 'Come Funziona', desc: 'Pianificate oggi, vivete sereni', icon: Shield },
-        { href: '/previdenza/piani', label: 'Confronta i Piani', desc: 'Base, Comfort, Premium', icon: Package },
+        { href: '/previdenza/piani', label: 'Scopri i Piani', desc: 'Base, Comfort, Premium', icon: Package },
         { href: '/previdenza/configuratore', label: 'Configura il Piano', desc: 'Personalizzato e a rate', icon: Calendar },
         { href: '/convenzioni', label: 'Convenzioni RSA', desc: 'Per strutture sanitarie', icon: Building2 },
       ],

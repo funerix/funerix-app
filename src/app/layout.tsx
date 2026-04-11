@@ -20,12 +20,13 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://funerix.com"),
   title: {
     default: "Funerix — Servizi Funebri in Campania",
     template: "%s | Funerix",
   },
   description:
-    "Configura il servizio funebre per il tuo caro con rispetto e trasparenza. Preventivo indicativo immediato. Impresa funebre autorizzata in Campania.",
+    "Configurate il servizio funebre con rispetto e trasparenza. Preventivo indicativo immediato. Impresa funebre autorizzata in Campania.",
   keywords: [
     "onoranze funebri",
     "funerali Campania",
@@ -33,6 +34,24 @@ export const metadata: Metadata = {
     "cremazione Campania",
     "impresa funebre",
   ],
+  openGraph: {
+    type: "website",
+    locale: "it_IT",
+    url: "https://funerix.com",
+    siteName: "Funerix",
+    title: "Funerix — Servizi Funebri in Campania",
+    description: "Configurate il servizio funebre con rispetto e trasparenza. Preventivo immediato, cremazione, previdenza, rimpatri, pet. Campania 24/7.",
+    images: [{ url: "/images/og-funerix.png", width: 1200, height: 630, alt: "Funerix — Servizi Funebri" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Funerix — Servizi Funebri in Campania",
+    description: "Configurate il servizio funebre con rispetto e trasparenza. Preventivo immediato. Campania 24/7.",
+    images: ["/images/og-funerix.png"],
+  },
+  alternates: {
+    canonical: "https://funerix.com",
+  },
 }
 
 export default async function RootLayout({

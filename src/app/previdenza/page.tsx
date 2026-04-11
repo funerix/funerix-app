@@ -126,7 +126,7 @@ export default function PrevidenzaPage() {
 
             <div className="mt-6 text-center">
               <Link href={`/previdenza/piani`} className="btn-secondary text-sm mr-3">
-                Confronta i piani
+                Scopri i piani
               </Link>
               <Link href="/previdenza/configuratore" className="btn-primary text-sm">
                 Configura il tuo piano <ChevronRight size={14} className="ml-1" />

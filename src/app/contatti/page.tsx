@@ -116,8 +116,8 @@ export default function ContattiPage() {
                         <input name="telefono" type="tel" required className="input-field" />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-text mb-1">Email</label>
-                        <input name="email" type="email" className="input-field" />
+                        <label className="block text-sm font-medium text-text mb-1">Email *</label>
+                        <input name="email" type="email" required className="input-field" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-text mb-1">Oggetto</label>

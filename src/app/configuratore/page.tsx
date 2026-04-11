@@ -471,9 +471,16 @@ function ConfiguratorePage() {
                           orario = oraSpec ? `Alle ore ${oraSpec}` : 'Orario specifico non indicato'
                         }
                         const note = (form.querySelector('textarea[name="note"]') as HTMLTextAreaElement)?.value || ''
+                        const defuntoNome = (form.querySelector('input[name="defunto_nome"]') as HTMLInputElement)?.value || ''
+                        const defuntoData = (form.querySelector('input[name="defunto_data_decesso"]') as HTMLInputElement)?.value || ''
+                        const defuntoLuogo = (form.querySelector('select[name="defunto_luogo"]') as HTMLSelectElement)?.value || ''
 
                         // Costruisci riepilogo configurazione
                         const righe: string[] = []
+                        if (defuntoNome) righe.push(`DEFUNTO: ${defuntoNome}`)
+                        if (defuntoData) righe.push(`Data decesso: ${defuntoData}`)
+                        if (defuntoLuogo) righe.push(`Luogo salma: ${defuntoLuogo}`)
+                        righe.push(`---`)
                         righe.push(`Tipo servizio: ${store.tipoServizio || 'Non selezionato'}`)
                         if (store.bara) righe.push(`Bara: ${store.bara.nome} — €${store.bara.prezzo}`)
                         if (store.urna) righe.push(`Urna: ${store.urna.nome} — €${store.urna.prezzo}`)
@@ -533,7 +540,37 @@ function ConfiguratorePage() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Dati defunto */}
+                      <div className="mb-4">
+                        <h3 className="font-medium text-primary mb-3">Informazioni sul defunto</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-text mb-1">Nome e cognome del defunto *</label>
+                            <input type="text" name="defunto_nome" required className="input-field" placeholder="Es. Giuseppe Esposito" />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-text mb-1">Data del decesso</label>
+                            <input type="date" name="defunto_data_decesso" className="input-field" />
+                          </div>
+                          <div className="sm:col-span-2">
+                            <label className="block text-sm font-medium text-text mb-1">Dove si trova attualmente la salma?</label>
+                            <select name="defunto_luogo" className="input-field">
+                              <option value="">Selezionate...</option>
+                              <option value="casa">In casa</option>
+                              <option value="ospedale">In ospedale</option>
+                              <option value="rsa">In RSA / casa di riposo</option>
+                              <option value="obitorio">In obitorio</option>
+                              <option value="altra_impresa">Presso altra impresa funebre</option>
+                              <option value="estero">All&apos;estero</option>
+                              <option value="non_ancora">Decesso non ancora avvenuto (previdenza)</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Dati richiedente */}
+                      <h3 className="font-medium text-primary mb-3">I vostri dati</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-sm font-medium text-text mb-1">Nome e Cognome *</label>
                           <input type="text" name="nome" required className="input-field" placeholder="Mario Rossi" />

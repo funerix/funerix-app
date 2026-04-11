@@ -55,7 +55,17 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
     if (orario === 'orario_specifico') orario = `Alle ore ${(form.querySelector('[name=orario_spec]') as HTMLInputElement)?.value || ''}`
     const modalita = (form.querySelector('input[name=modalita]:checked') as HTMLInputElement)?.value || 'telefonata'
 
+    const defuntoNome = (form.querySelector('[name=defunto_nome]') as HTMLInputElement)?.value || ''
+    const defuntoLuogo = (form.querySelector('[name=defunto_luogo]') as HTMLInputElement)?.value || ''
+    const defuntoData = (form.querySelector('[name=defunto_data]') as HTMLInputElement)?.value || ''
+    const urgenza = (form.querySelector('[name=urgenza]') as HTMLSelectElement)?.value || 'urgente'
+
     const config = [
+      defuntoNome ? `DEFUNTO: ${defuntoNome}` : '',
+      defuntoLuogo ? `Luogo salma: ${defuntoLuogo}` : '',
+      defuntoData ? `Data decesso: ${defuntoData}` : '',
+      `Urgenza: ${urgenza}`,
+      `---`,
       `Direzione: ${dir === 'rimpatrio' ? 'Rimpatrio in Italia' : 'Espatrio dall\'Italia'}`,
       `Zona: ${zonaObj?.label} — €${zonaObj?.base}`,
       `Paese: ${paese}`,
@@ -64,7 +74,7 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
 
     await useSitoStore.getState().aggiungiRichiesta({
       nome, telefono: tel, email, modalita, orario,
-      note: `${dir === 'rimpatrio' ? 'RIMPATRIO' : 'ESPATRIO'} — ${paese}`,
+      note: `${dir === 'rimpatrio' ? 'RIMPATRIO' : 'ESPATRIO'} — ${paese} — Defunto: ${defuntoNome} — ${urgenza}`,
       configurazione: config, totale, stato: 'nuova', createdAt: new Date().toISOString(),
     })
     setTempoAttesa(orario)
@@ -171,6 +181,23 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
                 <div><h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Richiesta di contatto</h2>
                 <p className="text-text-light mb-6">Un consulente specializzato in trasporti internazionali vi accompagner&agrave;.</p>
                 <form className="space-y-5" onSubmit={handleSubmit}>
+                  {/* Dati defunto */}
+                  <div>
+                    <h3 className="font-medium text-primary mb-3">Informazioni sul defunto</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div><label className="block text-sm font-medium text-text mb-1">Nome e cognome del defunto *</label><input name="defunto_nome" required className="input-field" placeholder="Es. Giuseppe Esposito" /></div>
+                      <div><label className="block text-sm font-medium text-text mb-1">Dove si trova la salma? *</label><input name="defunto_luogo" required className="input-field" placeholder="Es. Ospedale di Berlino, Germania" /></div>
+                      <div><label className="block text-sm font-medium text-text mb-1">Data del decesso</label><input name="defunto_data" type="date" className="input-field" /></div>
+                      <div><label className="block text-sm font-medium text-text mb-1">Urgenza</label>
+                        <select name="urgenza" className="input-field">
+                          <option value="urgente">Urgente (il prima possibile)</option>
+                          <option value="entro_settimana">Entro una settimana</option>
+                          <option value="programmato">Programmato (data da concordare)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
                   <div><label className="block text-sm font-medium text-text mb-3">Modalit&agrave; di contatto *</label>
                   <div className="grid grid-cols-3 gap-3">
                     {[{v:'telefonata',l:'Chiamata'},{v:'videochiamata',l:'Videochiamata'},{v:'whatsapp',l:'WhatsApp'}].map(o=>(
@@ -178,6 +205,7 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
                       <div className="product-card py-3 text-center peer-checked:border-secondary peer-checked:border-2 peer-checked:bg-secondary/5">
                         <span className="text-sm font-medium text-primary">{o.l}</span></div></label>))}
                   </div></div>
+                  <h3 className="font-medium text-primary">I vostri dati</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-medium text-text mb-1">Nome *</label><input name="nome" required className="input-field" /></div>
                     <div><label className="block text-sm font-medium text-text mb-1">Telefono *</label><input name="telefono" required className="input-field" /></div>

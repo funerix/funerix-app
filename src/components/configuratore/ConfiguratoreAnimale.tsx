@@ -290,6 +290,18 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                       <span className="block text-primary font-semibold mt-2">Gratuito</span>
                     </div>
                   </div>
+                  {ritiro === 'domicilio' && (
+                    <div className="mt-6 space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-text mb-1">Indirizzo di ritiro *</label>
+                        <input name="indirizzo_ritiro" className="input-field" placeholder="Es. Via Roma 25, 80100 Napoli" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-text mb-1">Data e orario preferito per il ritiro</label>
+                        <input name="data_ritiro" type="datetime-local" className="input-field" />
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 

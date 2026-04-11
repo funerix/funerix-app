@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Plane, FileText, Phone, ChevronRight, Clock, Shield, AlertTriangle } from 'lucide-react'
+import { Plane, FileText, ChevronRight, Clock, Shield, AlertTriangle } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -118,9 +119,7 @@ export default function GuidaRimpatrioPage() {
             <Link href="/rimpatri" className="btn-primary text-base py-4 px-10">
               Vai al Servizio Rimpatri <ChevronRight size={18} className="ml-2" />
             </Link>
-            <a href="tel:+390815551234" className="btn-secondary text-base py-4 px-10">
-              <Phone size={18} className="mr-2" /> Urgenze 24/7
-            </a>
+            <PhoneLink className="btn-secondary text-base py-4 px-10" showIcon label="Urgenze 24/7" />
           </div>
         </div>
       </section>

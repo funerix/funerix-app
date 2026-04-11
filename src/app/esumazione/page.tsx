@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, ChevronRight, Shovel, Check, FileText, ClipboardCheck, Search, HardHat } from 'lucide-react'
+import { ChevronRight, Shovel, Check, FileText, ClipboardCheck, Search, HardHat } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -147,9 +148,7 @@ export default function EsumazionePage() {
             <Link href="/configuratore" className="btn-accent text-lg py-4 px-10">
               Configura il Servizio <ChevronRight size={16} className="ml-1" />
             </Link>
-            <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">
-              <Phone size={16} className="mr-2" /> Chiama per Preventivo
-            </a>
+            <PhoneLink className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10" showIcon label="Chiama per Preventivo" />
           </div>
         </div>
       </section>

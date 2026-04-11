@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Phone, ChevronRight } from 'lucide-react'
+import { ArrowLeft, ChevronRight } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -48,7 +49,7 @@ export default function Page() {
           <div className="mt-12 text-center">
             <p className="text-text-muted mb-4">Avete bisogno di assistenza immediata?</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="tel:+390815551234" className="btn-primary"><Phone size={16} className="mr-2" /> Chiama Ora</a>
+              <PhoneLink className="btn-primary" showIcon label="Chiama Ora" />
               <Link href="/configuratore" className="btn-secondary">Configura il Servizio <ChevronRight size={14} className="ml-1" /></Link>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Globe, Plane, FileText, Phone, ChevronRight, Shield, Clock } from 'lucide-react'
+import { Globe, Plane, FileText, ChevronRight, Shield, Clock } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 
@@ -65,9 +66,7 @@ export default async function RimpatriPage() {
             <Link href="/rimpatri/configuratore" className="btn-accent text-base py-4 px-8">
               Configura Rimpatrio <ChevronRight size={18} className="ml-2" />
             </Link>
-            <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
-              <Phone size={18} className="mr-2" /> Urgenze 24/7
-            </a>
+            <PhoneLink className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8" showIcon label="Urgenze 24/7" />
           </div>
         </div>
       </section>
@@ -239,9 +238,7 @@ export default async function RimpatriPage() {
             <Link href="/rimpatri/configuratore" className="btn-accent text-lg py-4 px-10">
               Configura Rimpatrio <ChevronRight size={18} className="ml-2" />
             </Link>
-            <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">
-              <Phone size={18} className="mr-2" /> Urgenze 24/7
-            </a>
+            <PhoneLink className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10" showIcon label="Urgenze 24/7" />
           </div>
         </div>
       </section>

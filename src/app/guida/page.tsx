@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Home, Building2, Globe, PawPrint, ChevronRight, Phone, Euro, FileText, Flame, BookOpen, ScrollText, Users, Shield, Plane } from 'lucide-react'
+import { Home, Building2, Globe, PawPrint, ChevronRight, Euro, FileText, Flame, BookOpen, ScrollText, Users, Shield, Plane } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -84,7 +85,7 @@ export default function GuidaPage() {
           <div className="card bg-primary/5 border-primary/10 text-center">
             <p className="text-text-light mb-4">Non trovate quello che cercate? Siamo a vostra disposizione 24/7.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="tel:+390815551234" className="btn-primary text-sm"><Phone size={16} className="mr-2" /> Chiama Ora</a>
+              <PhoneLink className="btn-primary text-sm" showIcon label="Chiama Ora" />
               <Link href="/assistenza" className="btn-secondary text-sm">Chatta con noi</Link>
             </div>
           </div>

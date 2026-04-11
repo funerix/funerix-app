@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Shield, Lock, Heart, ChevronRight, Phone, Check, Euro, Calendar, Users } from 'lucide-react'
+import { Shield, Lock, Heart, ChevronRight, Check, Euro, Calendar, Users } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import { useState, useEffect } from 'react'
 
 const fadeUp = {
@@ -52,9 +53,7 @@ export default function PrevidenzaPage() {
               <Link href="/previdenza/configuratore" className="btn-accent text-base py-4 px-8">
                 Configura il tuo piano <ChevronRight size={18} className="ml-2" />
               </Link>
-              <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8">
-                <Phone size={18} className="mr-2" /> Parla con un consulente
-              </a>
+              <PhoneLink className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-base py-4 px-8" showIcon label="Parla con un consulente" />
             </motion.div>
           </motion.div>
         </div>

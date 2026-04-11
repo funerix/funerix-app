@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Shield, Euro, Users, Phone, ChevronRight, Check, Building2 } from 'lucide-react'
+import { Shield, Euro, Users, ChevronRight, Check, Building2 } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -92,7 +93,7 @@ export default function ConvenzioniPage() {
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-3">Diventa partner</h2>
           <p className="text-white/80 mb-6 max-w-lg mx-auto">Contattateci per attivare la convenzione. Vi ricontatteremo entro 24 ore.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="tel:+390815551234" className="btn-accent text-lg py-4 px-10"><Phone size={16} className="mr-2" /> Chiama Ora</a>
+            <PhoneLink className="btn-accent text-lg py-4 px-10" showIcon label="Chiama Ora" />
             <Link href="/contatti" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">Compila il form</Link>
           </div>
         </div>

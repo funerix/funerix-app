@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, Phone, ChevronRight, FileText, CheckCircle2 } from "lucide-react"
+import { ArrowLeft, ChevronRight, FileText, CheckCircle2 } from "lucide-react"
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default function Page() {
           <ul className="list-disc pl-5 space-y-1 text-sm text-text-light"><li>Denuncia di morte: entro 24 ore dal decesso</li><li>Autorizzazione al trasporto: 24-48 ore</li><li>Autorizzazione alla sepoltura: 24-48 ore</li><li>Concessione cimiteriale: variabile (da 1 a 5 giorni)</li></ul></div>
         </div>
         <div className="mt-12 text-center">
-          <a href="tel:+390815551234" className="btn-primary"><Phone size={16} className="mr-2" /> Chiamaci — pensiamo a tutto noi</a>
+          <PhoneLink className="btn-primary" showIcon label="Chiamaci — pensiamo a tutto noi" />
         </div>
       </div></section>
     </div>

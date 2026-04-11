@@ -1,4 +1,5 @@
-import { Flower2, Sparkles, Wrench, Camera, Package, Phone, ChevronRight, Check } from 'lucide-react'
+import { Flower2, Sparkles, Wrench, Camera, Package, ChevronRight, Check } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
@@ -134,9 +135,7 @@ export default async function ServiziRicorrentiPage() {
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Attivate il servizio</h2>
           <p className="text-white/80 mb-8">Contattateci per attivare l&apos;abbonamento o per un servizio una tantum.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="tel:+390815551234" className="btn-accent text-lg py-4 px-10">
-              <Phone size={18} className="mr-2" /> Chiama Ora
-            </a>
+            <PhoneLink className="btn-accent text-lg py-4 px-10" showIcon label="Chiama Ora" />
             <Link href="/contatti" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">
               Compila il Form <ChevronRight size={18} className="ml-2" />
             </Link>

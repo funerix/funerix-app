@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { PawPrint, ChevronRight, Phone, Check, Heart, Calendar, Euro, Shield, Stethoscope } from 'lucide-react'
+import { PawPrint, ChevronRight, Check, Heart, Calendar, Euro, Shield, Stethoscope } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import { useState, useEffect } from 'react'
 
 const specieOptions = [
@@ -153,9 +154,7 @@ export default function PrevidenzaPetPage() {
               <Link href="/pet/previdenza/configuratore" className="btn-accent text-sm py-3 px-6 justify-center">
                 Richiedi il piano <ChevronRight size={16} className="ml-1" />
               </Link>
-              <a href="tel:+390815551234" className="btn-secondary text-sm py-3 px-6 justify-center">
-                <Phone size={16} className="mr-1" /> Parla con noi
-              </a>
+              <PhoneLink className="btn-secondary text-sm py-3 px-6 justify-center" showIcon label="Parla con noi" />
             </div>
           </div>
         </div>
@@ -251,9 +250,7 @@ export default function PrevidenzaPetPage() {
             <Link href="/pet/previdenza/configuratore" className="btn-accent text-lg py-4 px-10">
               Contattaci <ChevronRight size={18} className="ml-2" />
             </Link>
-            <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">
-              <Phone size={18} className="mr-2" /> Chiama ora
-            </a>
+            <PhoneLink className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10" showIcon label="Chiama ora" />
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { FileText, Phone, ChevronRight, Check, Euro, Clock, Shield } from 'lucide-react'
+import { FileText, ChevronRight, Check, Euro, Clock, Shield } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -145,9 +146,7 @@ export default function SuccessionePage() {
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Avete bisogno di assistenza?</h2>
           <p className="text-white/80 mb-8">Contattateci per un preventivo gratuito. Vi guideremo in ogni passo della pratica.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="tel:+390815551234" className="btn-accent text-lg py-4 px-10">
-              <Phone size={18} className="mr-2" /> Chiama Ora
-            </a>
+            <PhoneLink className="btn-accent text-lg py-4 px-10" showIcon label="Chiama Ora" />
             <Link href="/contatti" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">
               Richiedi Preventivo <ChevronRight size={18} className="ml-2" />
             </Link>

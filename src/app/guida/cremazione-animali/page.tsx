@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, ChevronRight, Heart, Phone, Dog, Cat } from "lucide-react"
+import { ArrowLeft, ChevronRight, Heart, Dog, Cat } from "lucide-react"
+import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -108,9 +109,7 @@ export default function Page() {
             <Link href="/configuratore" className="btn-primary">
               Configura cremazione animale <ChevronRight size={14} className="ml-1" />
             </Link>
-            <a href="tel:+390815551234" className="btn-secondary">
-              <Phone size={16} className="mr-2" /> Chiama Ora
-            </a>
+            <PhoneLink className="btn-secondary" showIcon label="Chiama Ora" />
           </div>
         </div>
       </section>

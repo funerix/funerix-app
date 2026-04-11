@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Check, ChevronRight, Phone, Package } from 'lucide-react'
+import { Check, ChevronRight, Package } from 'lucide-react'
+import { PhoneLink } from '@/components/PhoneLink'
 import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 
@@ -120,9 +121,7 @@ export default async function ServiziPage() {
             <Link href="/contatti" className="btn-accent text-lg py-4 px-10">
               Contattaci <ChevronRight size={18} className="ml-2" />
             </Link>
-            <a href="tel:+390815551234" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">
-              <Phone size={18} className="mr-2" /> Chiama ora
-            </a>
+            <PhoneLink className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10" showIcon label="Chiama ora" />
           </div>
         </div>
       </section>

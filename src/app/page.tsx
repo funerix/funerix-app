@@ -402,7 +402,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 7. CTA FINALE ═══════════════ */}
-      <section className="py-16 bg-background-dark">
+      <section className="py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-3">
             Avete bisogno di assistenza?

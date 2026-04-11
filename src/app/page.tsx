@@ -264,58 +264,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════════ 4.6. DIASPORA — FIORI E CONDOGLIANZE ═══════════════ */}
-      <section className="py-16 md:py-20 bg-primary relative overflow-hidden">
-        <Image src="/images/hero-fiori.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
-        <div className="relative max-w-5xl mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-              <div>
-                <motion.h2 variants={fadeUp} custom={0}
-                  className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-4">
-                  Vivete lontano?<br />
-                  <span className="text-secondary-light">Ci pensiamo noi.</span>
-                </motion.h2>
-                <motion.p variants={fadeUp} custom={1} className="text-white/80 mb-6">
-                  Un fiore fresco sulla tomba dei vostri cari, un messaggio di condoglianze alla famiglia.
-                  Anche a distanza, potete dimostrare il vostro affetto con un gesto concreto.
-                </motion.p>
-                <motion.div variants={fadeUp} custom={2} className="flex flex-col sm:flex-row gap-3">
-                  <Link href="/invia-fiori" className="btn-accent text-sm py-3 px-8">
-                    Inviate Fiori <ChevronRight size={14} className="ml-1" />
-                  </Link>
-                  <Link href="/condoglianze" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm py-3 px-8">
-                    Inviate Condoglianze
-                  </Link>
-                </motion.div>
-              </div>
-              <motion.div variants={fadeUp} custom={2} className="grid grid-cols-2 gap-3">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                  <Flower2 size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="text-white font-medium text-sm">Fiori freschi</p>
-                  <p className="text-white/50 text-xs">da &euro;35</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                  <Heart size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="text-white font-medium text-sm">Condoglianze</p>
-                  <p className="text-white/50 text-xs">con fiori opzionali</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                  <MapPin size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="text-white font-medium text-sm">Tutta la Campania</p>
-                  <p className="text-white/50 text-xs">ogni cimitero</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                  <MessageCircle size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="text-white font-medium text-sm">Foto WhatsApp</p>
-                  <p className="text-white/50 text-xs">conferma consegna</p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ═══════════════ 4.7. SERVIZI EXTRA ═══════════════ */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
@@ -349,6 +297,57 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ 4.8. DIASPORA — FIORI E CONDOGLIANZE ═══════════════ */}
+      <section className="py-16 md:py-20 bg-background-dark">
+        <div className="max-w-5xl mx-auto px-4">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+              <div>
+                <motion.h2 variants={fadeUp} custom={0}
+                  className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
+                  Vivete lontano?<br />
+                  <span className="text-secondary">Ci pensiamo noi.</span>
+                </motion.h2>
+                <motion.p variants={fadeUp} custom={1} className="text-text-light mb-6">
+                  Un fiore fresco sulla tomba dei vostri cari, un messaggio di condoglianze alla famiglia.
+                  Anche a distanza, potete dimostrare il vostro affetto con un gesto concreto.
+                </motion.p>
+                <motion.div variants={fadeUp} custom={2} className="flex flex-col sm:flex-row gap-3">
+                  <Link href="/invia-fiori" className="btn-primary text-sm py-3 px-8">
+                    Inviate Fiori <ChevronRight size={14} className="ml-1" />
+                  </Link>
+                  <Link href="/condoglianze" className="btn-secondary text-sm py-3 px-8">
+                    Inviate Condoglianze
+                  </Link>
+                </motion.div>
+              </div>
+              <motion.div variants={fadeUp} custom={2} className="grid grid-cols-2 gap-3">
+                <div className="card text-center">
+                  <Flower2 size={20} className="mx-auto mb-2 text-secondary" />
+                  <p className="text-primary font-medium text-sm">Fiori freschi</p>
+                  <p className="text-text-muted text-xs">da &euro;35</p>
+                </div>
+                <div className="card text-center">
+                  <Heart size={20} className="mx-auto mb-2 text-secondary" />
+                  <p className="text-primary font-medium text-sm">Condoglianze</p>
+                  <p className="text-text-muted text-xs">con fiori opzionali</p>
+                </div>
+                <div className="card text-center">
+                  <MapPin size={20} className="mx-auto mb-2 text-secondary" />
+                  <p className="text-primary font-medium text-sm">Tutta la Campania</p>
+                  <p className="text-text-muted text-xs">ogni cimitero</p>
+                </div>
+                <div className="card text-center">
+                  <MessageCircle size={20} className="mx-auto mb-2 text-secondary" />
+                  <p className="text-primary font-medium text-sm">Foto WhatsApp</p>
+                  <p className="text-text-muted text-xs">conferma consegna</p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

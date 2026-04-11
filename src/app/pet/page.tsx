@@ -78,7 +78,7 @@ export default function PetPage() {
               { n: '04', t: 'Ricordate', d: 'Create un memorial digitale per il vostro compagno.' },
             ].map(s => (
               <div key={s.n} className="text-center">
-                <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
+                <span className="text-secondary/30 text-3xl font-bold">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm">{s.d}</p>
               </div>

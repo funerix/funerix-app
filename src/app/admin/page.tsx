@@ -80,7 +80,7 @@ export default function AdminPage() {
                   </span>
                 )}
               </div>
-              <p className="font-[family-name:var(--font-serif)] text-3xl text-primary font-bold">{stat.value}</p>
+              <p className="text-3xl text-primary font-bold">{stat.value}</p>
               <p className="text-text-muted text-sm mt-1">{stat.label}</p>
             </div>
           ))}
@@ -148,7 +148,7 @@ export default function AdminPage() {
                         {r.stato.replace('_', ' ')}
                       </span>
                     </td>
-                    <td className="py-3 px-2 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">
+                    <td className="py-3 px-2 text-right font-semibold text-primary">
                       &euro; {r.totale.toLocaleString('it-IT')}
                     </td>
                   </tr>

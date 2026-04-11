@@ -62,7 +62,7 @@ export default function PrevidenzaPage() {
       {/* Simulatore rate — DA DB */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">Quanto costa al mese?</h2>
+          <h2 className="text-3xl text-primary text-center mb-4">Quanto costa al mese?</h2>
           <p className="text-text-light text-center mb-10">Scegliete un piano e simulate il costo mensile</p>
 
           <div className="card p-6 md:p-8">
@@ -82,7 +82,7 @@ export default function PrevidenzaPage() {
 
             <div className="text-center mb-8">
               <p className="text-text-muted text-sm">{pianoSelezionato?.nome || 'Piano'} — {pianoSelezionato?.descrizione || 'Servizio funebre completo'}</p>
-              <p className="font-[family-name:var(--font-serif)] text-4xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</p>
+              <p className="text-4xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</p>
             </div>
 
             <div className="mb-8">
@@ -101,17 +101,17 @@ export default function PrevidenzaPage() {
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="bg-background rounded-xl p-4">
                 <p className="text-text-muted text-xs">Rate</p>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{rate}</p>
+                <p className="text-2xl text-primary font-bold">{rate}</p>
                 <p className="text-text-muted text-xs">mesi</p>
               </div>
               <div className="bg-secondary/10 rounded-xl p-4">
                 <p className="text-secondary text-xs font-medium">Al mese</p>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}</p>
+                <p className="text-2xl text-secondary font-bold">&euro; {rataMensile}</p>
                 <p className="text-secondary/60 text-xs">al mese</p>
               </div>
               <div className="bg-background rounded-xl p-4">
                 <p className="text-text-muted text-xs">Durata</p>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{Math.ceil(rate / 12)}</p>
+                <p className="text-2xl text-primary font-bold">{Math.ceil(rate / 12)}</p>
                 <p className="text-text-muted text-xs">{rate <= 12 ? 'anno' : 'anni'}</p>
               </div>
             </div>
@@ -151,7 +151,7 @@ export default function PrevidenzaPage() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
                   <s.icon size={24} className="text-secondary" />
                 </div>
-                <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
+                <span className="text-secondary/30 text-3xl font-bold">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm">{s.d}</p>
               </motion.div>

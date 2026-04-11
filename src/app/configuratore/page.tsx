@@ -411,10 +411,10 @@ function ConfiguratorePage() {
                         </div>
                       )}
                       <div className="border-t-2 border-primary pt-4 mt-4 flex justify-between items-center">
-                        <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">Totale indicativo</span>
+                        <span className="text-xl text-primary font-bold">Totale indicativo</span>
                         <div className="text-right">
                           {referralSconto > 0 && <span className="text-text-muted text-sm line-through block">&euro; {totale.toLocaleString('it-IT')}</span>}
-                          <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totaleConSconto.toLocaleString('it-IT')}</span>
+                          <span className="text-2xl text-primary font-bold">&euro; {totaleConSconto.toLocaleString('it-IT')}</span>
                         </div>
                       </div>
                       <div className="mt-6 p-4 bg-background-dark rounded-lg border border-border">

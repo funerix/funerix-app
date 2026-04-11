@@ -62,22 +62,22 @@ export default function AnalyticsPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="card py-4">
             <FileText size={20} className="text-secondary mb-2" />
-            <p className="font-[family-name:var(--font-serif)] text-2xl font-bold text-primary">{richieste.length}</p>
+            <p className="text-2xl font-bold text-primary">{richieste.length}</p>
             <p className="text-text-muted text-xs">Richieste totali</p>
           </div>
           <div className="card py-4">
             <Euro size={20} className="text-secondary mb-2" />
-            <p className="font-[family-name:var(--font-serif)] text-2xl font-bold text-primary">&euro; {fatturatoTotale.toLocaleString('it-IT')}</p>
+            <p className="text-2xl font-bold text-primary">&euro; {fatturatoTotale.toLocaleString('it-IT')}</p>
             <p className="text-text-muted text-xs">Fatturato potenziale</p>
           </div>
           <div className="card py-4">
             <TrendingUp size={20} className="text-accent mb-2" />
-            <p className="font-[family-name:var(--font-serif)] text-2xl font-bold text-accent">{tassoConversione}%</p>
+            <p className="text-2xl font-bold text-accent">{tassoConversione}%</p>
             <p className="text-text-muted text-xs">Tasso conversione</p>
           </div>
           <div className="card py-4">
             <Users size={20} className="text-secondary mb-2" />
-            <p className="font-[family-name:var(--font-serif)] text-2xl font-bold text-primary">&euro; {fatturatoConfermato.toLocaleString('it-IT')}</p>
+            <p className="text-2xl font-bold text-primary">&euro; {fatturatoConfermato.toLocaleString('it-IT')}</p>
             <p className="text-text-muted text-xs">Fatturato confermato</p>
           </div>
         </div>

@@ -26,10 +26,10 @@ export default function AdminPrevidenzaPage() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="card py-4"><p className="text-text-muted text-xs">Piani attivi</p><p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{pianiAttivi}</p></div>
-          <div className="card py-4"><p className="text-text-muted text-xs">Totale incassato</p><p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totaleIncassi.toLocaleString('it-IT')}</p></div>
-          <div className="card py-4"><p className="text-text-muted text-xs">Rata media</p><p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {piani.length > 0 ? Math.round(piani.reduce((s, p) => s + p.importo_rata, 0) / piani.length) : 0}</p></div>
-          <div className="card py-4"><p className="text-text-muted text-xs">Valore totale</p><p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {piani.reduce((s, p) => s + p.totale, 0).toLocaleString('it-IT')}</p></div>
+          <div className="card py-4"><p className="text-text-muted text-xs">Piani attivi</p><p className="text-2xl text-primary font-bold">{pianiAttivi}</p></div>
+          <div className="card py-4"><p className="text-text-muted text-xs">Totale incassato</p><p className="text-2xl text-primary font-bold">&euro; {totaleIncassi.toLocaleString('it-IT')}</p></div>
+          <div className="card py-4"><p className="text-text-muted text-xs">Rata media</p><p className="text-2xl text-primary font-bold">&euro; {piani.length > 0 ? Math.round(piani.reduce((s, p) => s + p.importo_rata, 0) / piani.length) : 0}</p></div>
+          <div className="card py-4"><p className="text-text-muted text-xs">Valore totale</p><p className="text-2xl text-primary font-bold">&euro; {piani.reduce((s, p) => s + p.totale, 0).toLocaleString('it-IT')}</p></div>
         </div>
 
         {piani.length === 0 ? (
@@ -49,7 +49,7 @@ export default function AdminPrevidenzaPage() {
                 <tr key={p.id} className="border-b border-border/50 hover:bg-background">
                   <td className="py-3 px-3"><p className="font-medium text-primary">{p.cliente_nome}</p><p className="text-[10px] text-text-muted">{p.cliente_telefono}</p></td>
                   <td className="py-3 px-3 text-text-light">{p.beneficiario === 'se_stesso' ? 'Sé stesso' : p.beneficiario_nome}</td>
-                  <td className="py-3 px-3 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">&euro; {p.totale.toLocaleString('it-IT')}</td>
+                  <td className="py-3 px-3 text-right font-semibold text-primary">&euro; {p.totale.toLocaleString('it-IT')}</td>
                   <td className="py-3 px-3 text-right">&euro; {p.importo_rata}/mese</td>
                   <td className="py-3 px-3 text-center"><span className="text-xs">{p.rate_pagate}/{p.num_rate}</span>
                     <div className="w-full h-1.5 bg-border rounded-full mt-1"><div className="h-full bg-accent rounded-full" style={{ width: `${(p.rate_pagate / p.num_rate) * 100}%` }} /></div></td>

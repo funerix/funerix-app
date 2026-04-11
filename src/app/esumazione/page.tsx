@@ -52,7 +52,7 @@ export default function EsumazionePage() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
                   <s.icon size={24} className="text-secondary" />
                 </div>
-                <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
+                <span className="text-secondary/30 text-3xl font-bold">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm">{s.d}</p>
               </div>
@@ -72,7 +72,7 @@ export default function EsumazionePage() {
                   <h3 className="font-medium text-primary">{s.nome}</h3>
                   <p className="text-text-muted text-sm">{s.desc}</p>
                 </div>
-                <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-semibold whitespace-nowrap">&euro; {s.prezzo}</span>
+                <span className="text-xl text-primary font-semibold whitespace-nowrap">&euro; {s.prezzo}</span>
               </div>
             ))}
           </div>

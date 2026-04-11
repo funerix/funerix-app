@@ -68,7 +68,7 @@ export default function InviaFioriPage() {
           <p className="text-text-light">Vi contatteremo entro 30 minuti per confermare la consegna e il pagamento.</p>
           {composizione && (
             <div className="mt-4 bg-secondary/10 rounded-xl p-4">
-              <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">{composizione.nome}</p>
+              <p className="text-xl text-primary font-bold">{composizione.nome}</p>
               <p className="text-secondary font-medium">&euro; {composizione.prezzo}</p>
             </div>
           )}
@@ -121,7 +121,7 @@ export default function InviaFioriPage() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
                   <s.icon size={24} className="text-secondary" />
                 </div>
-                <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
+                <span className="text-secondary/30 text-3xl font-bold">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm">{s.d}</p>
               </div>
@@ -149,7 +149,7 @@ export default function InviaFioriPage() {
                 </div>
                 <p className="text-text-light text-sm mb-3">{c.desc}</p>
                 <div className="flex items-center justify-between">
-                  <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {c.prezzo}</p>
+                  <p className="text-2xl text-primary font-bold">&euro; {c.prezzo}</p>
                   {selected === c.id && <span className="text-accent text-sm font-medium">Selezionato</span>}
                 </div>
               </div>
@@ -209,7 +209,7 @@ export default function InviaFioriPage() {
                   <p className="text-sm text-text-muted">Composizione selezionata</p>
                   <p className="font-medium text-primary">{composizione?.nome}</p>
                 </div>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {composizione?.prezzo}</p>
+                <p className="text-2xl text-primary font-bold">&euro; {composizione?.prezzo}</p>
               </div>
 
               <label className="flex items-start gap-3 cursor-pointer">

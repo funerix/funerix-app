@@ -89,7 +89,7 @@ export default function CondoglianzePage() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
                   <s.icon size={24} className="text-secondary" />
                 </div>
-                <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
+                <span className="text-secondary/30 text-3xl font-bold">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm">{s.d}</p>
               </div>
@@ -137,7 +137,7 @@ export default function CondoglianzePage() {
                     <h4 className="font-medium text-primary text-sm">{f.nome}</h4>
                     <p className="text-text-muted text-xs mt-1">{f.desc}</p>
                     {f.prezzo > 0 && (
-                      <p className="font-[family-name:var(--font-serif)] text-lg text-primary font-bold mt-2">&euro; {f.prezzo}</p>
+                      <p className="text-lg text-primary font-bold mt-2">&euro; {f.prezzo}</p>
                     )}
                     {f.prezzo === 0 && (
                       <p className="text-accent text-xs font-medium mt-2">Gratuito</p>
@@ -172,7 +172,7 @@ export default function CondoglianzePage() {
                   <p className="text-sm text-text-muted">Composizione floreale</p>
                   <p className="font-medium text-primary">{fiori.nome}</p>
                 </div>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {fiori.prezzo}</p>
+                <p className="text-2xl text-primary font-bold">&euro; {fiori.prezzo}</p>
               </div>
             )}
 

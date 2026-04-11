@@ -121,7 +121,7 @@ export default function HomePage() {
               { n: '03', t: 'Ci occupiamo di tutto', d: 'Dalla burocrazia alla cerimonia, gestiamo ogni aspetto con cura e rispetto.' },
             ].map((s, i) => (
               <motion.div key={s.n} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                <span className="font-[family-name:var(--font-serif)] text-5xl font-bold text-primary/10">{s.n}</span>
+                <span className="text-5xl font-bold text-primary/10">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-xl text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm leading-relaxed">{s.d}</p>
               </motion.div>
@@ -165,17 +165,17 @@ export default function HomePage() {
               <motion.div variants={fadeUp} custom={2} className="grid grid-cols-3 gap-2 md:gap-3">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                   <Lock size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">da &euro;97</p>
+                  <p className="text-xl md:text-2xl text-white font-bold">da &euro;97</p>
                   <p className="text-white/60 text-xs">al mese</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                   <Clock size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">12-60</p>
+                  <p className="text-xl md:text-2xl text-white font-bold">12-60</p>
                   <p className="text-white/60 text-xs">rate mensili</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                   <Euro size={20} className="mx-auto mb-2 text-secondary-light" />
-                  <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">0%</p>
+                  <p className="text-xl md:text-2xl text-white font-bold">0%</p>
                   <p className="text-white/60 text-xs">interessi</p>
                 </div>
               </motion.div>
@@ -195,7 +195,7 @@ export default function HomePage() {
                 {prezziRapidi.map(p => (
                   <div key={p.provincia} className="card text-center py-4">
                     <p className="text-text-muted text-[10px] uppercase tracking-wider">{p.provincia}</p>
-                    <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-1">
+                    <p className="text-xl text-primary font-bold mt-1">
                       &euro; {p.da}
                     </p>
                     <p className="text-text-muted text-[10px] mt-0.5">a partire da</p>
@@ -211,7 +211,7 @@ export default function HomePage() {
                 ].map(s => (
                   <div key={s.servizio} className="bg-background-dark rounded-xl p-3 text-center">
                     <p className="text-text-muted text-xs">{s.servizio}</p>
-                    <p className="font-[family-name:var(--font-serif)] text-lg text-primary font-bold">da &euro; {s.da}</p>
+                    <p className="text-lg text-primary font-bold">da &euro; {s.da}</p>
                   </div>
                 ))}
               </div>
@@ -368,7 +368,7 @@ export default function HomePage() {
                 <p className="text-white/80 text-sm leading-relaxed italic mb-5">&ldquo;{t.testo}&rdquo;</p>
                 <div className="pt-4 border-t border-white/10 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                    <span className="font-[family-name:var(--font-serif)] text-white font-bold text-sm">{t.nome.charAt(0)}{t.nome.split(' ').pop()?.charAt(0)}</span>
+                    <span className="text-white font-bold text-sm">{t.nome.charAt(0)}{t.nome.split(' ').pop()?.charAt(0)}</span>
                   </div>
                   <div>
                     <p className="font-medium text-white text-sm">{t.nome}</p>

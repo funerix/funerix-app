@@ -79,7 +79,7 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
       <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Piano inviato</h2>
       <p className="text-text-light">Un consulente vi contatter&agrave; <strong>{tempoAttesa.toLowerCase()}</strong> per finalizzare il piano.</p>
       <div className="mt-4 bg-secondary/10 rounded-xl p-4">
-        <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {rataMensile}/mese</p>
+        <p className="text-2xl text-primary font-bold">&euro; {rataMensile}/mese</p>
         <p className="text-text-muted text-sm">{numRate} rate — Totale &euro; {totale.toLocaleString('it-IT')}</p>
       </div>
     </div>
@@ -161,7 +161,7 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                 <div className="card p-6 mb-6">
                   <div className="text-center mb-6">
                     <p className="text-text-muted text-sm">Totale servizio configurato</p>
-                    <p className="font-[family-name:var(--font-serif)] text-4xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</p>
+                    <p className="text-4xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</p>
                   </div>
                   <div className="mb-6">
                     <div className="flex justify-between text-xs text-text-muted mb-2"><span>12 mesi</span><span>{numRate} mesi</span><span>60 mesi</span></div>
@@ -169,9 +169,9 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                       className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer accent-secondary" />
                   </div>
                   <div className="grid grid-cols-3 gap-2 md:gap-4 text-center">
-                    <div className="bg-background rounded-xl p-3 md:p-4"><p className="text-text-muted text-[10px] md:text-xs">Rate</p><p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-primary font-bold">{numRate}</p></div>
-                    <div className="bg-secondary/10 rounded-xl p-3 md:p-4"><p className="text-secondary text-[10px] md:text-xs font-medium">Al mese</p><p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-secondary font-bold">&euro; {rataMensile}</p></div>
-                    <div className="bg-background rounded-xl p-3 md:p-4"><p className="text-text-muted text-[10px] md:text-xs">Durata</p><p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-primary font-bold">{Math.ceil(numRate/12)} {numRate<=12?'anno':'anni'}</p></div>
+                    <div className="bg-background rounded-xl p-3 md:p-4"><p className="text-text-muted text-[10px] md:text-xs">Rate</p><p className="text-xl md:text-2xl text-primary font-bold">{numRate}</p></div>
+                    <div className="bg-secondary/10 rounded-xl p-3 md:p-4"><p className="text-secondary text-[10px] md:text-xs font-medium">Al mese</p><p className="text-xl md:text-2xl text-secondary font-bold">&euro; {rataMensile}</p></div>
+                    <div className="bg-background rounded-xl p-3 md:p-4"><p className="text-text-muted text-[10px] md:text-xs">Durata</p><p className="text-xl md:text-2xl text-primary font-bold">{Math.ceil(numRate/12)} {numRate<=12?'anno':'anni'}</p></div>
                   </div>
                 </div>
                 {/* Piano pagamento con date */}
@@ -222,10 +222,10 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
                   {fioriSel.map(id=>{const p=attivi.find(x=>x.id===id);return p?<div key={id} className="flex justify-between py-2 border-b border-border"><span className="text-text-muted text-sm">Fiori</span><span className="text-primary font-medium text-sm">{p.nome} — &euro; {p.prezzo}</span></div>:null})}
                   {extraSel.map(id=>{const p=attivi.find(x=>x.id===id);return p?<div key={id} className="flex justify-between py-2 border-b border-border"><span className="text-text-muted text-sm">Extra</span><span className="text-primary font-medium text-sm">{p.nome} — &euro; {p.prezzo}</span></div>:null})}
                   <div className="pt-4 border-t-2 border-primary">
-                    <div className="flex justify-between items-center mb-2"><span className="font-bold text-primary">Totale</span><span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</span></div>
+                    <div className="flex justify-between items-center mb-2"><span className="font-bold text-primary">Totale</span><span className="text-2xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</span></div>
                     <div className="bg-secondary/10 rounded-xl p-4 text-center">
                       <p className="text-secondary font-medium">{numRate} rate mensili da</p>
-                      <p className="font-[family-name:var(--font-serif)] text-3xl text-secondary font-bold">&euro; {rataMensile}/mese</p>
+                      <p className="text-3xl text-secondary font-bold">&euro; {rataMensile}/mese</p>
                     </div>
                   </div>
                 </div></div>
@@ -279,10 +279,10 @@ export function ConfiguratorePrevidenza({ embedded = false }: { embedded?: boole
               {fioriSel.length > 0 && <div className="flex justify-between"><span className="text-text-muted">Fiori</span><span className="text-primary">&euro; {fioriTot}</span></div>}
               {extraSel.length > 0 && <div className="flex justify-between"><span className="text-text-muted">Extra</span><span className="text-primary">&euro; {extraTot}</span></div>}
               {totale > 0 && (<>
-                <div className="border-t border-border pt-3 flex justify-between font-semibold text-primary"><span>Totale</span><span className="font-[family-name:var(--font-serif)] text-lg">&euro; {totale.toLocaleString('it-IT')}</span></div>
+                <div className="border-t border-border pt-3 flex justify-between font-semibold text-primary"><span>Totale</span><span className="text-lg">&euro; {totale.toLocaleString('it-IT')}</span></div>
                 <div className="bg-secondary/10 rounded-lg p-3 text-center">
                   <p className="text-secondary text-xs">Piano {numRate} rate</p>
-                  <p className="font-[family-name:var(--font-serif)] text-xl text-secondary font-bold">&euro; {rataMensile}/mese</p>
+                  <p className="text-xl text-secondary font-bold">&euro; {rataMensile}/mese</p>
                 </div>
               </>)}
               {totale === 0 && <p className="text-text-muted text-xs italic">Le scelte appariranno qui.</p>}

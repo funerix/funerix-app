@@ -491,8 +491,8 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
               {/* Totale — sotto la configurazione */}
               <div className="card py-4 bg-primary/5 border-primary/20">
                 <div className="flex justify-between items-center">
-                  <span className="font-[family-name:var(--font-serif)] text-lg text-primary font-bold">Totale preventivo</span>
-                  <span className="font-[family-name:var(--font-serif)] text-3xl text-primary font-bold">
+                  <span className="text-lg text-primary font-bold">Totale preventivo</span>
+                  <span className="text-3xl text-primary font-bold">
                     &euro; {richiesta.totale.toLocaleString('it-IT')}
                   </span>
                 </div>
@@ -989,8 +989,8 @@ export default function RichiestaDettaglioPage({ params }: { params: Promise<{ i
 
               {/* Totale */}
               <div className="mt-6 pt-4 border-t-2 border-primary flex justify-between items-center">
-                <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">Totale</span>
-                <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">
+                <span className="text-xl text-primary font-bold">Totale</span>
+                <span className="text-2xl text-primary font-bold">
                   &euro; {totalePreventivo.toLocaleString('it-IT')}
                 </span>
               </div>

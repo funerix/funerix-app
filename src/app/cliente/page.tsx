@@ -176,7 +176,7 @@ function ClientePage() {
                 </pre>
                 <div className="flex justify-between items-center pt-4 border-t border-border">
                   <span className="text-text-muted">Preventivo indicativo</span>
-                  <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">
+                  <span className="text-2xl text-primary font-bold">
                     &euro; {Number(richiesta.totale).toLocaleString('it-IT')}
                   </span>
                 </div>

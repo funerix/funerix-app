@@ -40,7 +40,7 @@ export default function AdminEsumazionePage() {
                   <p className="font-medium text-primary text-sm">{s.nome}</p>
                   <p className="text-text-muted text-xs">{s.desc}</p>
                 </div>
-                <p className="font-[family-name:var(--font-serif)] text-primary font-medium ml-4">&euro; {s.prezzo}</p>
+                <p className="text-primary font-medium ml-4">&euro; {s.prezzo}</p>
               </div>
             ))}
           </div>

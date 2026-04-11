@@ -53,7 +53,7 @@ export default async function PianiPrevidenzaPage() {
                   <h3 className="font-[family-name:var(--font-serif)] text-2xl text-primary text-center mb-1">{piano.nome}</h3>
                   {piano.descrizione && <p className="text-text-muted text-xs text-center mb-3">{piano.descrizione}</p>}
                   <p className="text-center mb-4">
-                    <span className="font-[family-name:var(--font-serif)] text-3xl text-primary font-bold">
+                    <span className="text-3xl text-primary font-bold">
                       &euro; {Number(piano.prezzo_base).toLocaleString('it-IT')}
                     </span>
                   </p>

@@ -77,7 +77,7 @@ export default function GuidaRimpatrioPage() {
                 ].map(z => (
                   <tr key={z.zona} className="border-b border-border/50">
                     <td className="py-3 px-4 font-medium text-primary">{z.zona}</td>
-                    <td className="py-3 px-4 text-right font-[family-name:var(--font-serif)] font-semibold">&euro; {z.costo}</td>
+                    <td className="py-3 px-4 text-right font-semibold">&euro; {z.costo}</td>
                     <td className="py-3 px-4 text-right text-text-muted hidden md:table-cell flex items-center justify-end gap-1"><Clock size={12} /> {z.tempo}</td>
                   </tr>
                 ))}

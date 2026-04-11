@@ -80,7 +80,7 @@ export function ProductSelector(props: Props) {
             )}
 
             <div className="flex items-center justify-between pt-3 border-t border-border">
-              <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-semibold">
+              <span className="text-xl text-primary font-semibold">
                 &euro; {prodotto.prezzo.toLocaleString('it-IT')}
               </span>
               {isSelected && (

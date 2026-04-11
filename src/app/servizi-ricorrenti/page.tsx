@@ -52,7 +52,7 @@ export default async function ServiziRicorrentiPage() {
               { n: '04', t: 'Ricevete aggiornamenti', d: 'Foto su WhatsApp dopo ogni intervento. Tranquillità garantita.' },
             ].map(s => (
               <div key={s.n} className="text-center">
-                <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
+                <span className="text-secondary/30 text-3xl font-bold">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm">{s.d}</p>
               </div>
@@ -88,13 +88,13 @@ export default async function ServiziRicorrentiPage() {
                   <p className="text-text-light text-sm mb-4 flex-1">{s.descrizione}</p>
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {Number(s.prezzo).toLocaleString('it-IT')}</p>
+                      <p className="text-2xl text-primary font-bold">&euro; {Number(s.prezzo).toLocaleString('it-IT')}</p>
                       <p className="text-text-muted text-xs">/{s.frequenza === 'annuale' ? 'anno' : s.frequenza === 'una_tantum' ? 'volta' : 'volta'}</p>
                     </div>
                     {s.prezzo_annuale && (
                       <div className="text-right">
                         <p className="text-xs text-accent font-medium">Abbonamento annuale</p>
-                        <p className="font-[family-name:var(--font-serif)] text-lg text-accent font-bold">&euro; {Number(s.prezzo_annuale).toLocaleString('it-IT')}/anno</p>
+                        <p className="text-lg text-accent font-bold">&euro; {Number(s.prezzo_annuale).toLocaleString('it-IT')}/anno</p>
                       </div>
                     )}
                   </div>

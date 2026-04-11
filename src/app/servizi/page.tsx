@@ -96,7 +96,7 @@ export default async function ServiziPage() {
 
                   <div className="pt-4 border-t border-border flex items-center justify-between">
                     <div>
-                      <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-semibold">
+                      <span className="text-xl text-primary font-semibold">
                         &euro; {servizio.prezzo_min.toLocaleString('it-IT')}
                       </span>
                       {servizio.prezzo_max > servizio.prezzo_min && (

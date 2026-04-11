@@ -22,13 +22,13 @@ export default function Page() {
       <section className="py-16"><div className="max-w-3xl mx-auto px-4">
         <Link href="/guida" className="flex items-center gap-1 text-secondary text-sm mb-8 hover:underline"><ArrowLeft size={14} /> Tutte le guide</Link>
         <div className="prose max-w-none text-text-light leading-relaxed space-y-6">
-          <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Funerale economico: da €1.350</h2>
+          <div className="card"><h2 className="text-xl text-primary mb-3">Funerale economico: da €1.350</h2>
           <p>Include cofano in paulownia o abete, trasporto standard, corona base, pratiche burocratiche essenziali. Adatto a chi cerca un servizio dignitoso con budget contenuto.</p></div>
-          <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Funerale standard: €4.000 — €8.000</h2>
+          <div className="card"><h2 className="text-xl text-primary mb-3">Funerale standard: €4.000 — €8.000</h2>
           <p>Include cofano in noce o rovere, auto funebre Mercedes, corona e addobbi, vestizione, necrologi su giornale locale, manifesti funebri, assistenza burocratica completa, camera ardente.</p></div>
-          <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Funerale premium: €8.000 — €20.000+</h2>
+          <div className="card"><h2 className="text-xl text-primary mb-3">Funerale premium: €8.000 — €20.000+</h2>
           <p>Include cofano pregiato (mogano, bronzo), allestimento completo della cerimonia, tanatocosmesi, memorial online con QR Code, composizioni floreali personalizzate, assistenza totale.</p></div>
-          <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Cremazione: da €1.370</h2>
+          <div className="card"><h2 className="text-xl text-primary mb-3">Cremazione: da €1.370</h2>
           <p>Tariffa crematorio (€500-€800), cofano per cremazione, urna cineraria (€80-€1.200), trasporto. Attenzione ai tempi di attesa del crematorio (10-30 giorni a Napoli).</p></div>
           <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Cosa incide sul prezzo?</h2>
           <ul className="list-disc pl-5 space-y-1"><li>Tipo di cofano (da €350 a €10.000+)</li><li>Tipo di auto funebre (da €300 a €800)</li><li>Concessione cimiteriale (da €300 a €8.000)</li><li>Composizioni floreali (da €80 a €500)</li><li>Servizi aggiuntivi (tanatocosmesi, necrologi, manifesti)</li><li>Distanza del trasporto</li></ul></div>

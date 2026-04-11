@@ -60,7 +60,7 @@ export default function GuidaPrevidenzaPage() {
               ].map(p => (
                 <div key={p.nome} className="bg-background-dark rounded-xl p-4 text-center">
                   <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-1">{p.nome}</h3>
-                  <p className="font-[family-name:var(--font-serif)] text-2xl font-bold text-primary">&euro; {p.prezzo}</p>
+                  <p className="text-2xl font-bold text-primary">&euro; {p.prezzo}</p>
                   <p className="text-text-muted text-xs mt-1">{p.rata}</p>
                 </div>
               ))}

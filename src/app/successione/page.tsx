@@ -88,7 +88,7 @@ export default function SuccessionePage() {
                 <p className="text-text-light text-sm mb-4 flex-1">{p.desc}</p>
                 <div className="flex items-center justify-between pt-4 border-t border-border">
                   <div>
-                    <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {p.prezzo}</p>
+                    <p className="text-2xl text-primary font-bold">&euro; {p.prezzo}</p>
                   </div>
                   <div className="flex items-center gap-1 text-text-muted text-xs">
                     <Clock size={12} /> {p.tempo}

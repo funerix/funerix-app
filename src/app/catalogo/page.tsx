@@ -107,7 +107,7 @@ export default function CatalogoPage() {
                 <p className="text-xs text-text-muted">Materiale: {prodotto.materiale}</p>
               )}
               <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
-                <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-semibold">
+                <span className="text-xl text-primary font-semibold">
                   &euro; {prodotto.prezzo.toLocaleString('it-IT')}
                 </span>
                 <span className="text-xs text-text-muted">

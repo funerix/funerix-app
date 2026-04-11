@@ -142,7 +142,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center"><Check size={32} className="text-accent" /></div>
         <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Richiesta inviata</h2>
         <p className="text-text-light">Un nostro consulente vi contatter&agrave; <strong>{tempoAttesa.toLowerCase()}</strong>.</p>
-        <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-3">&euro; {totale}</p>
+        <p className="text-xl text-primary font-bold mt-3">&euro; {totale}</p>
       </div>
     </div>
   )
@@ -204,7 +204,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                           className={taglia===t ? 'product-card-selected text-center py-5 md:py-8' : 'product-card text-center py-5 md:py-8'}>
                           <span className="block font-medium text-primary">{info.label}</span>
                           <p className="text-text-light text-xs">{info.desc}</p>
-                          {prezzo && <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">da &euro; {prezzo.prezzo}</span>}
+                          {prezzo && <span className="block text-primary font-semibold mt-2">da &euro; {prezzo.prezzo}</span>}
                         </div>
                       )
                     })}
@@ -224,7 +224,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                           className={tipo===t ? 'product-card-selected text-center py-5 md:py-8' : 'product-card text-center py-5 md:py-8'}>
                           <span className="block font-medium text-primary capitalize">{t === 'individuale' ? 'Cremazione individuale' : 'Cremazione collettiva'}</span>
                           <p className="text-text-light text-xs">{t === 'individuale' ? 'Con restituzione ceneri' : 'Senza restituzione ceneri'}</p>
-                          {prezzo && <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {prezzo.prezzo}</span>}
+                          {prezzo && <span className="block text-primary font-semibold mt-2">&euro; {prezzo.prezzo}</span>}
                         </div>
                       )
                     })}
@@ -242,14 +242,14 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                         className={urnaId===u.id ? 'product-card-selected text-center py-5' : 'product-card text-center py-5'}>
                         <span className="block font-medium text-primary">{u.nome}</span>
                         <p className="text-text-light text-xs">{u.materiale || u.descrizione}</p>
-                        <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {u.prezzo}</span>
+                        <span className="block text-primary font-semibold mt-2">&euro; {u.prezzo}</span>
                       </div>
                     ))}
                     <div onClick={() => setUrnaId('')}
                       className={!urnaId ? 'product-card-selected text-center py-5' : 'product-card text-center py-5'}>
                       <span className="block font-medium text-primary">Nessuna urna</span>
                       <p className="text-text-light text-xs">Contenitore standard</p>
-                      <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">Incluso</span>
+                      <span className="block text-primary font-semibold mt-2">Incluso</span>
                     </div>
                   </div>
                   {/* Impronta zampa */}
@@ -260,7 +260,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                         <span className="font-medium text-primary">Impronta della zampa</span>
                         <p className="text-text-muted text-xs">Calco in ceramica della zampa del vostro compagno</p>
                       </div>
-                      <span className="font-[family-name:var(--font-serif)] text-primary font-semibold">+ &euro; {prezzoImpronta}</span>
+                      <span className="text-primary font-semibold">+ &euro; {prezzoImpronta}</span>
                     </label>
                   )}
                 </div>
@@ -281,13 +281,13 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                       className={ritiro==='domicilio' ? 'product-card-selected text-center py-5 md:py-8' : 'product-card text-center py-5 md:py-8'}>
                       <span className="block font-medium text-primary">Ritiro a domicilio</span>
                       <p className="text-text-light text-xs">Veniamo noi a casa vostra</p>
-                      <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {prezzoRitiroDom}</span>
+                      <span className="block text-primary font-semibold mt-2">&euro; {prezzoRitiroDom}</span>
                     </div>
                     <div onClick={() => setRitiro('struttura')}
                       className={ritiro==='struttura' ? 'product-card-selected text-center py-5 md:py-8' : 'product-card text-center py-5 md:py-8'}>
                       <span className="block font-medium text-primary">Portate voi</span>
                       <p className="text-text-light text-xs">Consegna presso la nostra struttura</p>
-                      <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">Gratuito</span>
+                      <span className="block text-primary font-semibold mt-2">Gratuito</span>
                     </div>
                   </div>
                 </div>
@@ -305,8 +305,8 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
                     {improntaZampa && <Row label="Impronta zampa" value="Sì" prezzo={prezzoImpronta} onEdit={() => setStep(4)} />}
                     <Row label="Ritiro" value={ritiro === 'domicilio' ? 'A domicilio' : 'Presso struttura'} prezzo={ritiroPrezzo} onEdit={() => setStep(5)} />
                     <div className="border-t-2 border-primary pt-4 flex justify-between items-center">
-                      <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">Totale indicativo</span>
-                      <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totale}</span>
+                      <span className="text-xl text-primary font-bold">Totale indicativo</span>
+                      <span className="text-2xl text-primary font-bold">&euro; {totale}</span>
                     </div>
                   </div>
                 </div>
@@ -371,7 +371,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
               {improntaZampa && <SItem label="Impronta zampa" value="Sì" prezzo={prezzoImpronta} />}
               {ritiro && <SItem label="Ritiro" value={ritiro === 'domicilio' ? 'A domicilio' : 'Struttura'} prezzo={ritiroPrezzo} />}
               {totale > 0 && <div className="border-t border-border pt-3 flex justify-between font-semibold text-primary">
-                <span>Totale</span><span className="font-[family-name:var(--font-serif)] text-lg">&euro; {totale}</span></div>}
+                <span>Totale</span><span className="text-lg">&euro; {totale}</span></div>}
               {totale === 0 && <p className="text-text-muted text-xs italic">Le scelte appariranno qui.</p>}
               <p className="text-[10px] text-text-muted mt-4 border-t border-border pt-3">Preventivo indicativo. Non costituisce proposta contrattuale.</p>
             </div>
@@ -385,7 +385,7 @@ export function ConfiguratoreAnimale({ embedded = false }: { embedded?: boolean 
 function Row({ label, value, prezzo, onEdit }: { label: string; value?: string|null; prezzo?: number; onEdit?: ()=>void }) {
   return <div className="flex items-center justify-between py-3 border-b border-border">
     <div><span className="text-xs text-text-muted uppercase tracking-wider">{label}</span><p className="text-text font-medium capitalize">{value||'—'}</p></div>
-    <div className="flex items-center gap-4">{prezzo!=null && prezzo > 0 && <span className="font-[family-name:var(--font-serif)] text-lg text-primary">&euro; {prezzo}</span>}
+    <div className="flex items-center gap-4">{prezzo!=null && prezzo > 0 && <span className="text-lg text-primary">&euro; {prezzo}</span>}
     {onEdit&&<button onClick={onEdit} className="text-secondary text-sm hover:underline">Modifica</button>}</div></div>
 }
 

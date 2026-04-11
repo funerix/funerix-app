@@ -184,7 +184,7 @@ export default function ConfiguratorePrevidenzaPet() {
                           className={taglia === t ? 'product-card-selected text-center py-6' : 'product-card text-center py-6'}>
                           <span className="block font-medium text-primary">{info.label}</span>
                           <p className="text-text-light text-xs">{info.desc}</p>
-                          {prezzo && <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">da &euro; {prezzo.prezzo}</span>}
+                          {prezzo && <span className="block text-primary font-semibold mt-2">da &euro; {prezzo.prezzo}</span>}
                         </div>
                       )
                     })}
@@ -204,7 +204,7 @@ export default function ConfiguratorePrevidenzaPet() {
                           className={tipo === t ? 'product-card-selected text-center py-6' : 'product-card text-center py-6'}>
                           <span className="block font-medium text-primary capitalize">{t === 'individuale' ? 'Cremazione individuale' : 'Cremazione collettiva'}</span>
                           <p className="text-text-light text-xs">{t === 'individuale' ? 'Con restituzione ceneri' : 'Senza restituzione ceneri'}</p>
-                          {prezzo && <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {prezzo.prezzo}</span>}
+                          {prezzo && <span className="block text-primary font-semibold mt-2">&euro; {prezzo.prezzo}</span>}
                         </div>
                       )
                     })}
@@ -224,14 +224,14 @@ export default function ConfiguratorePrevidenzaPet() {
                             className={urnaId === u.id ? 'product-card-selected text-center py-5' : 'product-card text-center py-5'}>
                             <span className="block font-medium text-primary">{u.nome}</span>
                             <p className="text-text-light text-xs">{u.materiale || u.descrizione}</p>
-                            <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {u.prezzo}</span>
+                            <span className="block text-primary font-semibold mt-2">&euro; {u.prezzo}</span>
                           </div>
                         ))}
                         <div onClick={() => setUrnaId('')}
                           className={!urnaId ? 'product-card-selected text-center py-5' : 'product-card text-center py-5'}>
                           <span className="block font-medium text-primary">Nessuna urna</span>
                           <p className="text-text-light text-xs">Contenitore standard</p>
-                          <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">Incluso</span>
+                          <span className="block text-primary font-semibold mt-2">Incluso</span>
                         </div>
                       </div>
                       {prezzoImpronta > 0 && (
@@ -241,7 +241,7 @@ export default function ConfiguratorePrevidenzaPet() {
                             <span className="font-medium text-primary">Impronta della zampa</span>
                             <p className="text-text-muted text-xs">Calco in ceramica</p>
                           </div>
-                          <span className="font-[family-name:var(--font-serif)] text-primary font-semibold">+ &euro; {prezzoImpronta}</span>
+                          <span className="text-primary font-semibold">+ &euro; {prezzoImpronta}</span>
                         </label>
                       )}
                     </>
@@ -260,13 +260,13 @@ export default function ConfiguratorePrevidenzaPet() {
                       className={ritiroDomicilio ? 'product-card-selected text-center py-6' : 'product-card text-center py-6'}>
                       <span className="block font-medium text-primary">Ritiro a domicilio</span>
                       <p className="text-text-light text-xs">Veniamo noi quando il momento arriva</p>
-                      <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">&euro; {prezzoRitiroDom}</span>
+                      <span className="block text-primary font-semibold mt-2">&euro; {prezzoRitiroDom}</span>
                     </div>
                     <div onClick={() => setRitiroDomicilio(false)}
                       className={!ritiroDomicilio ? 'product-card-selected text-center py-6' : 'product-card text-center py-6'}>
                       <span className="block font-medium text-primary">Presso struttura</span>
                       <p className="text-text-light text-xs">Portate voi o il veterinario</p>
-                      <span className="block font-[family-name:var(--font-serif)] text-primary font-semibold mt-2">Gratuito</span>
+                      <span className="block text-primary font-semibold mt-2">Gratuito</span>
                     </div>
                   </div>
                   <div className="card p-4">
@@ -295,7 +295,7 @@ export default function ConfiguratorePrevidenzaPet() {
                   <div className="card p-6 mb-6">
                     <div className="text-center mb-6">
                       <p className="text-text-muted text-sm">Totale servizio</p>
-                      <p className="font-[family-name:var(--font-serif)] text-3xl text-primary font-bold">&euro; {totale}</p>
+                      <p className="text-3xl text-primary font-bold">&euro; {totale}</p>
                     </div>
 
                     {/* Slider rate */}
@@ -314,17 +314,17 @@ export default function ConfiguratorePrevidenzaPet() {
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div className="bg-background rounded-xl p-4">
                         <p className="text-text-muted text-xs">{numRate === 1 ? 'Pagamento' : 'Rate'}</p>
-                        <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{numRate}</p>
+                        <p className="text-2xl text-primary font-bold">{numRate}</p>
                         <p className="text-text-muted text-xs">{numRate === 1 ? 'unico' : 'mesi'}</p>
                       </div>
                       <div className="bg-secondary/10 rounded-xl p-4">
                         <p className="text-secondary text-xs font-medium">{numRate === 1 ? 'Totale' : 'Al mese'}</p>
-                        <p className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}</p>
+                        <p className="text-2xl text-secondary font-bold">&euro; {rataMensile}</p>
                         <p className="text-secondary/60 text-xs">{numRate === 1 ? 'una tantum' : 'al mese'}</p>
                       </div>
                       <div className="bg-background rounded-xl p-4">
                         <p className="text-text-muted text-xs">Interessi</p>
-                        <p className="font-[family-name:var(--font-serif)] text-2xl text-accent font-bold">0%</p>
+                        <p className="text-2xl text-accent font-bold">0%</p>
                         <p className="text-text-muted text-xs">zero</p>
                       </div>
                     </div>
@@ -391,15 +391,15 @@ export default function ConfiguratorePrevidenzaPet() {
                     {improntaZampa && <Row label="Impronta zampa" value="Si" prezzo={prezzoImpronta} onEdit={() => setStep(4)} />}
                     <Row label="Ritiro" value={ritiroDomicilio ? 'A domicilio' : 'Presso struttura'} prezzo={ritiroDomicilio ? prezzoRitiroDom : 0} onEdit={() => setStep(5)} />
                     <div className="border-t-2 border-primary pt-4 flex justify-between items-center">
-                      <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">Totale</span>
-                      <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totale}</span>
+                      <span className="text-xl text-primary font-bold">Totale</span>
+                      <span className="text-2xl text-primary font-bold">&euro; {totale}</span>
                     </div>
                     <div className="bg-secondary/10 rounded-xl p-4 flex justify-between items-center">
                       <div>
                         <span className="text-secondary font-medium">{numRate === 1 ? 'Pagamento unico' : `${numRate} rate mensili`}</span>
                         <p className="text-xs text-text-muted">Metodo: {metodoPagamento === 'carta' ? 'Carta di credito' : 'Addebito IBAN'}</p>
                       </div>
-                      <span className="font-[family-name:var(--font-serif)] text-xl text-secondary font-bold">&euro; {rataMensile}/mese</span>
+                      <span className="text-xl text-secondary font-bold">&euro; {rataMensile}/mese</span>
                     </div>
                   </div>
                 </div>
@@ -442,7 +442,7 @@ export default function ConfiguratorePrevidenzaPet() {
                           <p className="font-medium text-primary">{modalitaAttivazione === 'subito' ? 'Prima rata (attivazione)' : 'Piano da attivare'}</p>
                           <p className="text-xs text-text-muted">{numRate === 1 ? 'Pagamento unico' : `${numRate} rate da €${rataMensile}`} — {metodoPagamento === 'carta' ? 'Carta' : 'IBAN'}</p>
                         </div>
-                        <span className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}{numRate > 1 ? '/mese' : ''}</span>
+                        <span className="text-2xl text-secondary font-bold">&euro; {rataMensile}{numRate > 1 ? '/mese' : ''}</span>
                       </div>
                     </div>
 
@@ -494,7 +494,7 @@ export default function ConfiguratorePrevidenzaPet() {
                 <>
                   <div className="border-t border-border pt-3 flex justify-between font-semibold text-primary">
                     <span>Totale</span>
-                    <span className="font-[family-name:var(--font-serif)] text-lg">&euro; {totale}</span>
+                    <span className="text-lg">&euro; {totale}</span>
                   </div>
                   {numRate > 1 && (
                     <div className="bg-secondary/10 rounded-lg p-2 text-center">
@@ -517,7 +517,7 @@ export default function ConfiguratorePrevidenzaPet() {
 function Row({ label, value, prezzo, onEdit }: { label: string; value?: string | null; prezzo?: number; onEdit?: () => void }) {
   return <div className="flex items-center justify-between py-3 border-b border-border">
     <div><span className="text-xs text-text-muted uppercase tracking-wider">{label}</span><p className="text-text font-medium capitalize">{value || '—'}</p></div>
-    <div className="flex items-center gap-4">{prezzo != null && prezzo > 0 && <span className="font-[family-name:var(--font-serif)] text-lg text-primary">&euro; {prezzo}</span>}
+    <div className="flex items-center gap-4">{prezzo != null && prezzo > 0 && <span className="text-lg text-primary">&euro; {prezzo}</span>}
       {onEdit && <button onClick={onEdit} className="text-secondary text-sm hover:underline">Modifica</button>}</div></div>
 }
 

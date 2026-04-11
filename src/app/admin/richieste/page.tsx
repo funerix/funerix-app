@@ -148,7 +148,7 @@ export default function RichiestePage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-[family-name:var(--font-serif)] text-lg font-semibold text-primary">
+                        <p className="text-lg font-semibold text-primary">
                           &euro; {r.totale.toLocaleString('it-IT')}
                         </p>
                       </div>
@@ -194,7 +194,7 @@ export default function RichiestePage() {
                       </div>
                       <div>
                         <span className="text-text-muted">Totale preventivo</span>
-                        <p className="font-[family-name:var(--font-serif)] text-xl font-bold text-primary">
+                        <p className="text-xl font-bold text-primary">
                           &euro; {richiestaDettaglio.totale.toLocaleString('it-IT')}
                         </p>
                       </div>

@@ -118,7 +118,7 @@ export default async function RimpatriPage() {
           <div className="space-y-6 mb-16">
             {steps.map((s, i) => (
               <div key={i} className="flex gap-5 items-start">
-                <span className="font-[family-name:var(--font-serif)] text-4xl font-bold text-secondary/20 flex-shrink-0 w-12">{s.n}</span>
+                <span className="text-4xl font-bold text-secondary/20 flex-shrink-0 w-12">{s.n}</span>
                 <div>
                   <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-1">{s.titolo}</h3>
                   <p className="text-text-light text-sm">{s.desc}</p>
@@ -159,7 +159,7 @@ export default async function RimpatriPage() {
                               <span className="flex items-center justify-end gap-1"><Clock size={12} /> {p.tempo_medio_giorni} giorni</span>
                             ) : '—'}
                           </td>
-                          <td className="py-2.5 px-4 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">
+                          <td className="py-2.5 px-4 text-right font-semibold text-primary">
                             &euro; {Number(p.prezzo_base).toLocaleString('it-IT')}
                           </td>
                         </tr>

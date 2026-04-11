@@ -97,7 +97,7 @@ export default function PrevidenzaPetPage() {
                   <span className="font-medium text-primary text-sm">Urna in legno</span>
                   <p className="text-text-muted text-xs">Urna elegante con incisione nome</p>
                 </div>
-                <span className="font-[family-name:var(--font-serif)] text-primary font-medium">+ &euro; {prezzoUrna}</span>
+                <span className="text-primary font-medium">+ &euro; {prezzoUrna}</span>
               </label>
               <label className="flex items-center gap-3 card p-3 cursor-pointer">
                 <input type="checkbox" checked={includiRitiro} onChange={e => setIncludiRitiro(e.target.checked)} className="w-5 h-5 rounded" />
@@ -105,14 +105,14 @@ export default function PrevidenzaPetPage() {
                   <span className="font-medium text-primary text-sm">Ritiro a domicilio</span>
                   <p className="text-text-muted text-xs">Ritiriamo il vostro animale a casa vostra</p>
                 </div>
-                <span className="font-[family-name:var(--font-serif)] text-primary font-medium">+ &euro; {prezzoRitiro}</span>
+                <span className="text-primary font-medium">+ &euro; {prezzoRitiro}</span>
               </label>
             </div>
 
             {/* Totale */}
             <div className="text-center mb-6 py-4 bg-background-dark rounded-xl">
               <p className="text-text-muted text-sm">Totale servizio</p>
-              <p className="font-[family-name:var(--font-serif)] text-4xl text-primary font-bold">&euro; {totale}</p>
+              <p className="text-4xl text-primary font-bold">&euro; {totale}</p>
               <p className="text-text-muted text-xs mt-1">Cremazione individuale con restituzione ceneri</p>
             </div>
 
@@ -135,17 +135,17 @@ export default function PrevidenzaPetPage() {
             <div className="grid grid-cols-3 gap-4 text-center mb-6">
               <div className="bg-background rounded-xl p-4">
                 <p className="text-text-muted text-xs">{rate === 1 ? 'Pagamento' : 'Rate'}</p>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">{rate === 1 ? '1' : rate}</p>
+                <p className="text-2xl text-primary font-bold">{rate === 1 ? '1' : rate}</p>
                 <p className="text-text-muted text-xs">{rate === 1 ? 'unico' : 'mesi'}</p>
               </div>
               <div className="bg-secondary/10 rounded-xl p-4">
                 <p className="text-secondary text-xs font-medium">{rate === 1 ? 'Totale' : 'Al mese'}</p>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-secondary font-bold">&euro; {rataMensile}</p>
+                <p className="text-2xl text-secondary font-bold">&euro; {rataMensile}</p>
                 <p className="text-secondary/60 text-xs">{rate === 1 ? 'una tantum' : 'al mese'}</p>
               </div>
               <div className="bg-background rounded-xl p-4">
                 <p className="text-text-muted text-xs">Risparmi</p>
-                <p className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">0%</p>
+                <p className="text-2xl text-primary font-bold">0%</p>
                 <p className="text-text-muted text-xs">zero interessi</p>
               </div>
             </div>
@@ -175,7 +175,7 @@ export default function PrevidenzaPetPage() {
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
                   <s.icon size={24} className="text-secondary" />
                 </div>
-                <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
+                <span className="text-secondary/30 text-3xl font-bold">{s.n}</span>
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mt-1 mb-2">{s.t}</h3>
                 <p className="text-text-muted text-sm">{s.d}</p>
               </div>

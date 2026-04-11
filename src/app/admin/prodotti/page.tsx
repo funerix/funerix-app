@@ -290,7 +290,7 @@ export default function ProdottiAdminPage() {
                     {categorie.find(c => c.id === p.categoriaId)?.nome}
                   </td>
                   <td className="py-3 px-3 text-text-light">{p.materiale || '—'}</td>
-                  <td className="py-3 px-3 text-right font-[family-name:var(--font-serif)] font-semibold text-primary">
+                  <td className="py-3 px-3 text-right font-semibold text-primary">
                     &euro; {p.prezzo.toLocaleString('it-IT')}
                   </td>
                   <td className="py-3 px-3 text-center">

@@ -77,7 +77,7 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center"><Check size={32} className="text-accent" /></div>
         <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-2">Richiesta inviata</h2>
         <p className="text-text-light">Un consulente specializzato vi contatter&agrave; <strong>{tempoAttesa.toLowerCase()}</strong>.</p>
-        <p className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold mt-3">Stima: &euro; {totale.toLocaleString('it-IT')}</p>
+        <p className="text-xl text-primary font-bold mt-3">Stima: &euro; {totale.toLocaleString('it-IT')}</p>
       </div>
     </div>
   )
@@ -146,7 +146,7 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
                     <div className="flex justify-between items-center">
                       <span className="font-medium text-primary text-sm">{s.label}</span>
                       <div className="flex items-center gap-2">
-                        <span className="font-[family-name:var(--font-serif)] text-primary font-semibold">&euro; {s.prezzo}</span>
+                        <span className="text-primary font-semibold">&euro; {s.prezzo}</span>
                         {extras.includes(s.id)&&<Check size={16} className="text-accent" />}
                       </div>
                     </div></div>))}</div></div>
@@ -160,8 +160,8 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
                   <Row label="Paese" value={paese} onEdit={()=>setStep(3)} />
                   {extras.map(id=>{const e=serviziExtra.find(x=>x.id===id);return e?<Row key={id} label="Extra" value={e.label} prezzo={e.prezzo} onEdit={()=>setStep(4)} />:null})}
                   <div className="border-t-2 border-primary pt-4 flex justify-between items-center">
-                    <span className="font-[family-name:var(--font-serif)] text-xl text-primary font-bold">Totale indicativo</span>
-                    <span className="font-[family-name:var(--font-serif)] text-2xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</span>
+                    <span className="text-xl text-primary font-bold">Totale indicativo</span>
+                    <span className="text-2xl text-primary font-bold">&euro; {totale.toLocaleString('it-IT')}</span>
                   </div>
                   <p className="text-xs text-text-muted">Il costo definitivo sar&agrave; concordato dopo valutazione del caso specifico.</p>
                 </div></div>
@@ -219,7 +219,7 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
               {paese && <SItem label="Paese" value={paese} />}
               {extras.map(id=>{const e=serviziExtra.find(x=>x.id===id);return e?<SItem key={id} label="Extra" value={e.label} prezzo={e.prezzo} />:null})}
               {totale > 0 && <div className="border-t border-border pt-3 flex justify-between font-semibold text-primary">
-                <span>Totale</span><span className="font-[family-name:var(--font-serif)] text-lg">&euro; {totale.toLocaleString('it-IT')}</span></div>}
+                <span>Totale</span><span className="text-lg">&euro; {totale.toLocaleString('it-IT')}</span></div>}
               {totale === 0 && <p className="text-text-muted text-xs italic">Le scelte appariranno qui.</p>}
               <p className="text-[10px] text-text-muted mt-4 border-t border-border pt-3">Preventivo indicativo. Il costo definitivo dipende dal caso specifico.</p>
             </div>
@@ -233,7 +233,7 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
 function Row({ label, value, prezzo, onEdit }: { label: string; value?: string|null; prezzo?: number; onEdit?: ()=>void }) {
   return <div className="flex items-center justify-between py-3 border-b border-border">
     <div><span className="text-xs text-text-muted uppercase tracking-wider">{label}</span><p className="text-text font-medium">{value||'—'}</p></div>
-    <div className="flex items-center gap-4">{prezzo!=null&&<span className="font-[family-name:var(--font-serif)] text-lg text-primary">&euro; {prezzo.toLocaleString('it-IT')}</span>}
+    <div className="flex items-center gap-4">{prezzo!=null&&<span className="text-lg text-primary">&euro; {prezzo.toLocaleString('it-IT')}</span>}
     {onEdit&&<button onClick={onEdit} className="text-secondary text-sm hover:underline">Modifica</button>}</div></div>
 }
 

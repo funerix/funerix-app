@@ -87,15 +87,15 @@ export default function PrezziPage() {
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 md:px-6 py-3 text-center">
               <p className="text-white/60 text-xs">Media Italia</p>
-              <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">&euro; 3.500</p>
+              <p className="text-xl md:text-2xl text-white font-bold">&euro; 3.500</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 md:px-6 py-3 text-center">
               <p className="text-white/60 text-xs">Media Europa</p>
-              <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">&euro; 5.500</p>
+              <p className="text-xl md:text-2xl text-white font-bold">&euro; 5.500</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl px-5 md:px-6 py-3 text-center">
               <p className="text-white/60 text-xs">Regioni + Paesi</p>
-              <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-white font-bold">{aree.length}</p>
+              <p className="text-xl md:text-2xl text-white font-bold">{aree.length}</p>
             </div>
           </div>
           <p className="text-white/40 text-xs mt-3">Fonte: Federconsumatori, SunLife, NFDA — 2025</p>
@@ -225,7 +225,7 @@ export default function PrezziPage() {
                         <td className="py-3 px-4 text-right font-[family-name:var(--font-serif)] hidden md:table-cell">
                           &euro; {Number(a.cremazione_min).toLocaleString('it-IT')} — {Number(a.cremazione_max).toLocaleString('it-IT')}
                         </td>
-                        <td className="py-3 px-4 text-right font-[family-name:var(--font-serif)] font-semibold text-primary hidden lg:table-cell">
+                        <td className="py-3 px-4 text-right font-semibold text-primary hidden lg:table-cell">
                           &euro; {Number(a.premium_min).toLocaleString('it-IT')} — {Number(a.premium_max).toLocaleString('it-IT')}
                         </td>
                       </tr>

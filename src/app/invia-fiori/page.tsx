@@ -168,14 +168,22 @@ export default function InviaFioriPage() {
                 <label className="block text-sm font-medium text-text mb-1">Per chi sono i fiori? *</label>
                 <input name="defunto" required className="input-field" placeholder="Nome del defunto" />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-text mb-1">Dove consegnare? *</label>
+                <select name="luogo_consegna" required className="input-field" defaultValue="cimitero">
+                  <option value="cimitero">Cimitero (sulla tomba)</option>
+                  <option value="chiesa">Chiesa (per la cerimonia)</option>
+                  <option value="domicilio">A domicilio (casa della famiglia)</option>
+                </select>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-text mb-1">Cimitero *</label>
-                  <input name="cimitero" required className="input-field" placeholder="Es. Poggioreale, Napoli" />
+                  <label className="block text-sm font-medium text-text mb-1">Luogo / Cimitero / Chiesa *</label>
+                  <input name="cimitero" required className="input-field" placeholder="Es. Cimitero di Poggioreale, Napoli" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text mb-1">Zona tomba *</label>
-                  <input name="zona_tomba" required className="input-field" placeholder="Settore, fila, numero" />
+                  <label className="block text-sm font-medium text-text mb-1">Posizione esatta *</label>
+                  <input name="zona_tomba" required className="input-field" placeholder="Settore, fila, numero o indirizzo" />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

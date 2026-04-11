@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Heart, ChevronRight, Check, Flower2, Send, MessageCircle } from 'lucide-react'
+import { Heart, ChevronRight, Check, Flower2, Send, MessageCircle, MapPin } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
 import { useSitoStore } from '@/store/sito'
 import { useState } from 'react'
@@ -15,8 +15,8 @@ const opzioniFiori = [
 ]
 
 export default function CondoglianzePage() {
-  const { impostazioni } = useSitoStore()
   const [fioriSel, setFioriSel] = useState('nessuno')
+  const [luogoConsegna, setLuogoConsegna] = useState('')
   const [inviato, setInviato] = useState(false)
 
   const fiori = opzioniFiori.find(f => f.id === fioriSel)
@@ -31,6 +31,8 @@ export default function CondoglianzePage() {
       destinatario_famiglia: (form.querySelector('[name=destinatario_famiglia]') as HTMLInputElement)?.value,
       defunto_nome: (form.querySelector('[name=defunto_nome]') as HTMLInputElement)?.value,
       messaggio: (form.querySelector('[name=messaggio]') as HTMLTextAreaElement)?.value,
+      luogo: luogoConsegna,
+      indirizzo: (form.querySelector('[name=indirizzo_consegna]') as HTMLInputElement)?.value || '',
       fiori: fiori?.nome,
       prezzo: fiori?.prezzo || 0,
       nastro: (form.querySelector('[name=nastro]') as HTMLInputElement)?.value || '',
@@ -39,7 +41,7 @@ export default function CondoglianzePage() {
     await useSitoStore.getState().aggiungiRichiesta({
       nome: data.mittente_nome, telefono: data.mittente_telefono, email: data.mittente_email,
       modalita: 'telefonata', orario: '',
-      note: `CONDOGLIANZE — Da: ${data.mittente_nome} — A famiglia: ${data.destinatario_famiglia} — Defunto: ${data.defunto_nome} — Messaggio: "${data.messaggio}" — Fiori: ${data.fiori} (€${data.prezzo})${data.nastro ? ` — Nastro: "${data.nastro}"` : ''}`,
+      note: `CONDOGLIANZE — Da: ${data.mittente_nome} — A famiglia: ${data.destinatario_famiglia} — Defunto: ${data.defunto_nome} — Consegna: ${data.luogo} (${data.indirizzo}) — Messaggio: "${data.messaggio}" — Fiori: ${data.fiori} (€${data.prezzo})${data.nastro ? ` — Nastro: "${data.nastro}"` : ''}`,
       configurazione: '', totale: data.prezzo, stato: 'nuova', createdAt: new Date().toISOString(),
     })
     setInviato(true)
@@ -76,7 +78,7 @@ export default function CondoglianzePage() {
       </section>
 
       {/* Come funziona */}
-      <section className="py-16 bg-background-dark">
+      <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -99,7 +101,7 @@ export default function CondoglianzePage() {
       </section>
 
       {/* Form */}
-      <section className="py-16">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Le vostre condoglianze</h2>
 
@@ -119,11 +121,43 @@ export default function CondoglianzePage() {
               </div>
             </div>
 
+            {/* Dove consegnare */}
+            <div>
+              <h3 className="font-medium text-primary mb-3">Dove consegnare?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+                {[
+                  { id: 'cimitero', label: 'Cimitero', desc: 'Sulla tomba' },
+                  { id: 'chiesa', label: 'Chiesa', desc: 'Per la cerimonia' },
+                  { id: 'domicilio', label: 'A domicilio', desc: 'Casa della famiglia' },
+                ].map(l => (
+                  <div key={l.id} onClick={() => setLuogoConsegna(l.id)}
+                    className={`card cursor-pointer text-center py-3 transition-all ${luogoConsegna === l.id ? 'border-2 border-secondary bg-secondary/5' : 'hover:border-secondary/30'}`}>
+                    <MapPin size={18} className={`mx-auto mb-1 ${luogoConsegna === l.id ? 'text-secondary' : 'text-text-muted'}`} />
+                    <p className="font-medium text-primary text-sm">{l.label}</p>
+                    <p className="text-text-muted text-xs">{l.desc}</p>
+                  </div>
+                ))}
+              </div>
+              {luogoConsegna && (
+                <div>
+                  <label className="block text-sm font-medium text-text mb-1">
+                    {luogoConsegna === 'cimitero' ? 'Nome cimitero e posizione tomba (settore, fila, numero) *' :
+                     luogoConsegna === 'chiesa' ? 'Nome e indirizzo della chiesa *' :
+                     'Indirizzo completo della famiglia *'}
+                  </label>
+                  <input name="indirizzo_consegna" required className="input-field"
+                    placeholder={luogoConsegna === 'cimitero' ? 'Es. Poggioreale, Napoli — Settore 3, Fila 12, n. 45' :
+                      luogoConsegna === 'chiesa' ? 'Es. Chiesa di San Gennaro, Via Duomo 149, Napoli' :
+                      'Es. Via Roma 25, 80100 Napoli'} />
+                </div>
+              )}
+            </div>
+
             {/* Messaggio */}
             <div>
               <label className="block text-sm font-medium text-text mb-1">Il vostro messaggio di condoglianze *</label>
               <textarea name="messaggio" required rows={4} className="input-field"
-                placeholder="Es. Carissimi, siamo vicini a voi in questo momento di dolore. Giuseppe rester&agrave; sempre nei nostri cuori..." />
+                placeholder="Es. Carissimi, siamo vicini a voi in questo momento di dolore..." />
             </div>
 
             {/* Fiori opzionali */}
@@ -136,18 +170,14 @@ export default function CondoglianzePage() {
                     {f.id !== 'nessuno' ? <Flower2 size={24} className="mx-auto mb-2 text-secondary" /> : <MessageCircle size={24} className="mx-auto mb-2 text-text-muted" />}
                     <h4 className="font-medium text-primary text-sm">{f.nome}</h4>
                     <p className="text-text-muted text-xs mt-1">{f.desc}</p>
-                    {f.prezzo > 0 && (
-                      <p className="text-lg text-primary font-bold mt-2">&euro; {f.prezzo}</p>
-                    )}
-                    {f.prezzo === 0 && (
-                      <p className="text-accent text-xs font-medium mt-2">Gratuito</p>
-                    )}
+                    {f.prezzo > 0 && <p className="text-lg text-primary font-bold mt-2">&euro; {f.prezzo}</p>}
+                    {f.prezzo === 0 && <p className="text-accent text-xs font-medium mt-2">Gratuito</p>}
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Nastro personalizzato */}
+            {/* Nastro */}
             {fioriSel !== 'nessuno' && (
               <div>
                 <label className="block text-sm font-medium text-text mb-1">Dedica sul nastro (opzionale)</label>
@@ -192,8 +222,8 @@ export default function CondoglianzePage() {
         </div>
       </section>
 
-      {/* Collegamento Memorial */}
-      <section className="py-12 bg-background-dark">
+      {/* Memorial */}
+      <section className="py-12">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-2xl text-primary mb-3">Cercate un Memorial?</h2>
           <p className="text-text-light mb-4">Se il defunto ha una pagina memorial su Funerix, potete lasciare un messaggio direttamente l&igrave;.</p>
@@ -208,9 +238,7 @@ export default function CondoglianzePage() {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Siamo qui per voi</h2>
           <p className="text-white/80 mb-8">Un gesto di vicinanza, anche quando non potete esserci di persona.</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <PhoneLink className="btn-accent text-lg py-4 px-10" showIcon label="Chiama Ora" />
-          </div>
+          <PhoneLink className="btn-accent text-lg py-4 px-10" showIcon label="Chiama Ora" />
         </div>
       </section>
     </div>

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Shield, Lock, Heart, ChevronRight, Check, Euro, Calendar, Users } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { useSitoStore } from '@/store/sito'
 import { useState, useEffect } from 'react'
 
 const fadeUp = {
@@ -13,6 +14,8 @@ const fadeUp = {
 }
 
 export default function PrevidenzaPage() {
+  const { contenuti } = useSitoStore()
+  const ex = contenuti.extra || {}
   const [piani, setPiani] = useState<any[]>([])
   const [pianoSelezionato, setPianoSelezionato] = useState<any>(null)
   const [rate, setRate] = useState(36)
@@ -40,14 +43,13 @@ export default function PrevidenzaPage() {
               <Shield size={14} /> Fondi protetti su conto dedicato separato
             </motion.div>
             <motion.h1 variants={fadeUp} custom={1} className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white leading-tight">
-              Previdenza Funerix
+              {ex.previdenza_hero_titolo || 'Previdenza Funerix'}
             </motion.h1>
             <motion.p variants={fadeUp} custom={2} className="mt-4 text-xl text-secondary-light font-medium">
-              Pianificate oggi, vivete sereni
+              {ex.previdenza_hero_sottotitolo || 'Pianificate oggi, vivete sereni'}
             </motion.p>
             <motion.p variants={fadeUp} custom={3} className="mt-4 text-white/80 text-lg max-w-2xl mx-auto">
-              Configurate il servizio funebre per voi o per un familiare, bloccate il prezzo
-              e pagate comodamente a rate mensili.
+              {ex.previdenza_hero_desc || 'Configurate il servizio funebre per voi o per un familiare, bloccate il prezzo e pagate comodamente a rate mensili.'}
             </motion.p>
             <motion.div variants={fadeUp} custom={4} className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/previdenza/configuratore" className="btn-accent text-base py-4 px-8">
@@ -228,8 +230,8 @@ export default function PrevidenzaPage() {
       <section className="bg-primary py-16 relative overflow-hidden">
         <Image src="/images/hero-previdenza.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Iniziate oggi</h2>
-          <p className="text-white/80 mb-8">Configurate il piano in 5 minuti. Un consulente vi contatter&agrave; entro 30 minuti.</p>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">{ex.previdenza_cta_titolo || 'Iniziate oggi'}</h2>
+          <p className="text-white/80 mb-8">{ex.previdenza_cta_desc || 'Configurate il piano in 5 minuti. Un consulente vi contatterà entro 30 minuti.'}</p>
           <Link href="/previdenza/configuratore" className="btn-accent text-lg py-4 px-10">
             Configura il tuo piano <ChevronRight size={18} className="ml-2" />
           </Link>

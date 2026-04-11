@@ -68,6 +68,8 @@ export interface ContenutiSito {
   metaTitle: string
   metaDescription: string
   metaKeywords: string
+  // Campi extra per CMS completo (salvati in colonna JSONB 'extra')
+  extra: Record<string, string>
 }
 
 // ========== Store ==========
@@ -147,6 +149,7 @@ const defaultContenuti: ContenutiSito = {
   metaTitle: 'Funerix — Servizi Funebri in Campania',
   metaDescription: 'Configura il servizio funebre con rispetto e trasparenza.',
   metaKeywords: 'onoranze funebri, funerali Campania, servizi funebri Napoli',
+  extra: {},
 }
 
 // Helpers per mappare snake_case DB → camelCase app
@@ -204,6 +207,7 @@ function mapContenuti(row: Record<string, unknown>): ContenutiSito {
     metaTitle: (row.meta_title as string) || defaultContenuti.metaTitle,
     metaDescription: (row.meta_description as string) || defaultContenuti.metaDescription,
     metaKeywords: (row.meta_keywords as string) || defaultContenuti.metaKeywords,
+    extra: (row.extra as Record<string, string>) || {},
   }
 }
 
@@ -474,6 +478,7 @@ export const useSitoStore = create<SitoStore>()((set, get) => ({
     if (c.metaTitle !== undefined) dbData.meta_title = c.metaTitle
     if (c.metaDescription !== undefined) dbData.meta_description = c.metaDescription
     if (c.metaKeywords !== undefined) dbData.meta_keywords = c.metaKeywords
+    if (c.extra !== undefined) dbData.extra = c.extra
     dbData.updated_at = new Date().toISOString()
 
     await sb.from('contenuti').update(dbData).eq('id', 1)

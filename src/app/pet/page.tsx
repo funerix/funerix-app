@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Heart, ChevronRight, PawPrint, Truck, Award, Star, MapPin } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { getContenutiExtra } from '@/lib/contenuti'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -18,7 +19,8 @@ const servizi = [
   { icon: MapPin, nome: 'Veterinari Partner', desc: 'Rete di veterinari convenzionati per un servizio senza pensieri.' },
 ]
 
-export default function PetPage() {
+export default async function PetPage() {
+  const ex = await getContenutiExtra()
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
@@ -29,11 +31,10 @@ export default function PetPage() {
             <PawPrint size={14} /> Funerix Pet
           </div>
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
-            Cremazione Animali Domestici
+            {ex.pet_hero_titolo || 'Cremazione Animali Domestici'}
           </h1>
           <p className="text-white/90 text-lg max-w-2xl mx-auto mb-8">
-            Un ultimo saluto dignitoso per il vostro compagno di vita.
-            Servizio rispettoso e professionale con restituzione ceneri.
+            {ex.pet_hero_sottotitolo || 'Un ultimo saluto dignitoso per il vostro compagno di vita. Servizio rispettoso e professionale con restituzione ceneri.'}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/pet/configuratore" className="btn-accent text-base py-4 px-8">

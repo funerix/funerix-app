@@ -12,6 +12,13 @@ export default function AdminContenutiPage() {
   const [formContenuti, setFormContenuti] = useState(contenuti)
   const [formImpostazioni, setFormImpostazioni] = useState(impostazioni)
 
+  // Helper per campi extra (CMS pagine)
+  const getExtra = (key: string) => formContenuti.extra?.[key] || ''
+  const setExtra = (key: string, value: string) => setFormContenuti({
+    ...formContenuti,
+    extra: { ...formContenuti.extra, [key]: value },
+  })
+
   const handleSalva = async () => {
     await salvaContenuti(formContenuti)
     await salvaImpostazioni(formImpostazioni)
@@ -44,6 +51,12 @@ export default function AdminContenutiPage() {
             {[
               { id: 'homepage', label: 'Homepage' },
               { id: 'chi-siamo', label: 'Chi Siamo' },
+              { id: 'previdenza', label: 'Previdenza' },
+              { id: 'pet', label: 'Pet' },
+              { id: 'rimpatri', label: 'Rimpatri' },
+              { id: 'servizi-ricorrenti', label: 'Fiori e Cura Tomba' },
+              { id: 'successione', label: 'Successione' },
+              { id: 'convenzioni', label: 'Convenzioni' },
               { id: 'configuratore', label: 'Configuratore' },
               { id: 'contatti', label: 'Contatti' },
               { id: 'memorial', label: 'Memorial' },
@@ -250,6 +263,85 @@ export default function AdminContenutiPage() {
                     <input type="checkbox" defaultChecked className="w-5 h-5 rounded border-border" />
                     <span className="text-sm text-text">Genera automaticamente QR Code per ogni memorial</span>
                   </label>
+                </div>
+              </div>
+            )}
+
+            {sezioneAttiva === 'previdenza' && (
+              <div className="space-y-6">
+                <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Pagina Previdenza</h2>
+                  <div className="space-y-4">
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo hero</label><input className="input-field" value={getExtra('previdenza_hero_titolo') || 'Previdenza Funerix'} onChange={e => setExtra('previdenza_hero_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Sottotitolo hero</label><input className="input-field" value={getExtra('previdenza_hero_sottotitolo') || 'Pianificate oggi, vivete sereni'} onChange={e => setExtra('previdenza_hero_sottotitolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Descrizione hero</label><textarea rows={2} className="input-field" value={getExtra('previdenza_hero_desc') || 'Configurate il servizio funebre per voi o per un familiare, bloccate il prezzo e pagate comodamente a rate mensili.'} onChange={e => setExtra('previdenza_hero_desc', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo simulatore rate</label><input className="input-field" value={getExtra('previdenza_simulatore_titolo') || 'Quanto costa al mese?'} onChange={e => setExtra('previdenza_simulatore_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo garanzie</label><input className="input-field" value={getExtra('previdenza_garanzie_titolo') || 'Le nostre garanzie'} onChange={e => setExtra('previdenza_garanzie_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo CTA</label><input className="input-field" value={getExtra('previdenza_cta_titolo') || 'Iniziate oggi'} onChange={e => setExtra('previdenza_cta_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Descrizione CTA</label><textarea rows={2} className="input-field" value={getExtra('previdenza_cta_desc') || 'Configurate il piano in 5 minuti. Un consulente vi contatterà entro 30 minuti.'} onChange={e => setExtra('previdenza_cta_desc', e.target.value)} /></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {sezioneAttiva === 'pet' && (
+              <div className="space-y-6">
+                <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Pagina Pet</h2>
+                  <div className="space-y-4">
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo hero</label><input className="input-field" value={getExtra('pet_hero_titolo') || 'Cremazione Animali Domestici'} onChange={e => setExtra('pet_hero_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Sottotitolo hero</label><textarea rows={2} className="input-field" value={getExtra('pet_hero_sottotitolo') || 'Un ultimo saluto dignitoso per il vostro compagno di vita.'} onChange={e => setExtra('pet_hero_sottotitolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo CTA</label><input className="input-field" value={getExtra('pet_cta_titolo') || 'Configurate il servizio per il vostro compagno'} onChange={e => setExtra('pet_cta_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Descrizione CTA</label><textarea rows={2} className="input-field" value={getExtra('pet_cta_desc') || 'Cremazione individuale con restituzione ceneri, urne commemorative e memorial digitale.'} onChange={e => setExtra('pet_cta_desc', e.target.value)} /></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {sezioneAttiva === 'rimpatri' && (
+              <div className="space-y-6">
+                <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Pagina Rimpatri</h2>
+                  <div className="space-y-4">
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo hero</label><input className="input-field" value={getExtra('rimpatri_hero_titolo') || 'Rimpatrio e Espatrio Salme'} onChange={e => setExtra('rimpatri_hero_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Sottotitolo hero</label><textarea rows={2} className="input-field" value={getExtra('rimpatri_hero_sottotitolo') || 'Trasporto internazionale salme da e verso qualsiasi paese del mondo.'} onChange={e => setExtra('rimpatri_hero_sottotitolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo CTA</label><input className="input-field" value={getExtra('rimpatri_cta_titolo') || 'Avete bisogno di assistenza urgente?'} onChange={e => setExtra('rimpatri_cta_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Descrizione CTA</label><textarea rows={2} className="input-field" value={getExtra('rimpatri_cta_desc') || 'Il nostro team è disponibile 24/7 per assistervi.'} onChange={e => setExtra('rimpatri_cta_desc', e.target.value)} /></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {sezioneAttiva === 'servizi-ricorrenti' && (
+              <div className="space-y-6">
+                <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Pagina Fiori e Cura Tomba</h2>
+                  <div className="space-y-4">
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo hero</label><input className="input-field" value={getExtra('ricorrenti_hero_titolo') || 'Fiori e Cura della Tomba'} onChange={e => setExtra('ricorrenti_hero_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Sottotitolo hero</label><textarea rows={2} className="input-field" value={getExtra('ricorrenti_hero_sottotitolo') || 'Non potete visitare spesso il cimitero? Ci pensiamo noi.'} onChange={e => setExtra('ricorrenti_hero_sottotitolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo CTA</label><input className="input-field" value={getExtra('ricorrenti_cta_titolo') || 'Attivate il servizio'} onChange={e => setExtra('ricorrenti_cta_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Descrizione CTA</label><textarea rows={2} className="input-field" value={getExtra('ricorrenti_cta_desc') || 'Contattateci per attivare l\'abbonamento o per un servizio una tantum.'} onChange={e => setExtra('ricorrenti_cta_desc', e.target.value)} /></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {sezioneAttiva === 'successione' && (
+              <div className="space-y-6">
+                <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Pagina Successione</h2>
+                  <div className="space-y-4">
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo hero</label><input className="input-field" value={getExtra('successione_hero_titolo') || 'Dichiarazione di Successione'} onChange={e => setExtra('successione_hero_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Sottotitolo hero</label><textarea rows={2} className="input-field" value={getExtra('successione_hero_sottotitolo') || 'Ci occupiamo di tutto noi: documenti, calcoli, invio telematico.'} onChange={e => setExtra('successione_hero_sottotitolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo CTA</label><input className="input-field" value={getExtra('successione_cta_titolo') || 'Avete bisogno di assistenza?'} onChange={e => setExtra('successione_cta_titolo', e.target.value)} /></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {sezioneAttiva === 'convenzioni' && (
+              <div className="space-y-6">
+                <div className="card"><h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-4">Pagina Convenzioni RSA</h2>
+                  <div className="space-y-4">
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo hero</label><input className="input-field" value={getExtra('convenzioni_hero_titolo') || 'Convenzioni RSA e Case di Cura'} onChange={e => setExtra('convenzioni_hero_titolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Sottotitolo hero</label><textarea rows={2} className="input-field" value={getExtra('convenzioni_hero_sottotitolo') || 'Offrite ai familiari dei vostri ospiti la tranquillità di un piano previdenza funeraria.'} onChange={e => setExtra('convenzioni_hero_sottotitolo', e.target.value)} /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Titolo CTA</label><input className="input-field" value={getExtra('convenzioni_cta_titolo') || 'Diventate partner Funerix'} onChange={e => setExtra('convenzioni_cta_titolo', e.target.value)} /></div>
+                  </div>
                 </div>
               </div>
             )}

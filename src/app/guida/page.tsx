@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Home, Building2, Globe, PawPrint, ChevronRight, Euro, FileText, Flame, BookOpen, ScrollText, Users, Shield, Plane } from 'lucide-react'
+import { Home, Building2, Globe, PawPrint, ChevronRight, Euro, FileText, Flame, BookOpen, ScrollText, Users, Shield, Plane, Flower2, Heart } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
 import type { Metadata } from 'next'
 
@@ -28,6 +28,11 @@ const guideInformative = [
   { href: '/guida/cremazione-animali', icon: PawPrint, titolo: 'Cremazione animali domestici', desc: 'Cremazione cani, gatti e altri animali: individuale, collettiva, costi, urne, ritiro.' },
   { href: '/guida/previdenza-funeraria', icon: Shield, titolo: 'Previdenza funeraria', desc: 'Come pianificare e pagare in anticipo il funerale. Piani, costi, diritto di recesso, Piano Protezione.' },
   { href: '/guida/rimpatrio-salma', icon: Plane, titolo: 'Rimpatrio salma', desc: 'Guida al trasporto internazionale: documenti, procedure consolari, tempi e costi per zona.' },
+  { href: '/guida/diritti-del-consumatore', icon: Shield, titolo: 'Diritti del consumatore', desc: 'I vostri diritti nei servizi funebri: preventivo obbligatorio, trasparenza, segnalazioni.' },
+  { href: '/guida/fiori-funebri', icon: Flower2, titolo: 'Fiori funebri', desc: 'Significato dei fiori, composizioni, prezzi corone e cuscini, fiori per la tomba.' },
+  { href: '/guida/cerimonia-laica', icon: Heart, titolo: 'Cerimonia laica', desc: 'Come organizzare un funerale senza rito religioso: celebrante, luoghi, costi.' },
+  { href: '/guida/successione-ereditaria', icon: FileText, titolo: 'Successione ereditaria', desc: 'Guida completa: documenti, tempistiche, imposte, rinuncia all\'eredità.' },
+  { href: '/guida/donazione-organi', icon: Heart, titolo: 'Donazione organi', desc: 'Come esprimere la volontà, silenzio-assenso, processo, domande frequenti.' },
 ]
 
 export default function GuidaPage() {

@@ -145,8 +145,8 @@ export default function EsumazionePage() {
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Avete bisogno di un&apos;esumazione?</h2>
           <p className="text-white/80 mb-8">Contattateci per un sopralluogo gratuito e un preventivo senza impegno.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/configuratore" className="btn-accent text-lg py-4 px-10">
-              Configura il Servizio <ChevronRight size={16} className="ml-1" />
+            <Link href="/contatti" className="btn-accent text-lg py-4 px-10">
+              Richiedi Preventivo <ChevronRight size={16} className="ml-1" />
             </Link>
             <PhoneLink className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10" showIcon label="Chiama per Preventivo" />
           </div>

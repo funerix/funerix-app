@@ -46,11 +46,11 @@ const faq = [
 ]
 
 const prezziRapidi = [
-  { provincia: 'Napoli', da: '1.350', tipo: 'Funerale economico' },
-  { provincia: 'Caserta', da: '1.200', tipo: 'Funerale economico' },
-  { provincia: 'Salerno', da: '1.300', tipo: 'Funerale economico' },
-  { provincia: 'Avellino', da: '1.100', tipo: 'Funerale economico' },
-  { provincia: 'Benevento', da: '1.100', tipo: 'Funerale economico' },
+  { provincia: 'Napoli', da: '1.400', tipo: 'Funerale economico' },
+  { provincia: 'Caserta', da: '1.250', tipo: 'Funerale economico' },
+  { provincia: 'Salerno', da: '1.350', tipo: 'Funerale economico' },
+  { provincia: 'Avellino', da: '1.150', tipo: 'Funerale economico' },
+  { provincia: 'Benevento', da: '1.150', tipo: 'Funerale economico' },
 ]
 
 export default function HomePage() {
@@ -75,7 +75,7 @@ export default function HomePage() {
               I nostri servizi
             </motion.h2>
             <motion.p variants={fadeUp} custom={1} className="mt-3 text-text-light text-lg">
-              Un portale completo a 360 gradi per ogni esigenza
+              Tutto ciò di cui avete bisogno, in un unico posto
             </motion.p>
           </motion.div>
 
@@ -204,7 +204,7 @@ export default function HomePage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                 {[
-                  { servizio: 'Cremazione', da: '1.370' },
+                  { servizio: 'Cremazione', da: '1.500' },
                   { servizio: 'Rimpatrio Europa', da: '1.800' },
                   { servizio: 'Cremazione animali', da: '120' },
                   { servizio: 'Esumazione', da: '400' },

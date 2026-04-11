@@ -161,8 +161,8 @@ function SidebarNav({ groups, pathname, adminRuolo, adminPermessi, richiesteNuov
             {sidebarOpen ? (
               <button
                 onClick={() => toggleGroup(group.label)}
-                className={`w-full flex items-center justify-between px-4 py-1.5 text-[11px] uppercase tracking-wider transition-colors ${
-                  hasActive ? 'text-secondary-light' : 'text-white/30 hover:text-white/50'
+                className={`w-full flex items-center justify-between px-4 py-1.5 text-xs uppercase tracking-wider transition-colors ${
+                  hasActive ? 'text-secondary-light' : 'text-white/50 hover:text-white/70'
                 }`}
               >
                 <span>{group.label}</span>
@@ -177,8 +177,8 @@ function SidebarNav({ groups, pathname, adminRuolo, adminPermessi, richiesteNuov
                 : pathname.startsWith(item.href) && item.href !== '/admin'
               return (
                 <Link key={item.href} href={item.href}
-                  className={`flex items-center gap-2 px-3 py-1.5 mx-1.5 rounded-md text-xs transition-colors relative ${
-                    isActive ? 'bg-white/15 text-white font-medium' : 'text-white/55 hover:text-white hover:bg-white/5'
+                  className={`flex items-center gap-2 px-3 py-1.5 mx-1.5 rounded-md text-[13px] transition-colors relative ${
+                    isActive ? 'bg-white/15 text-white font-medium' : 'text-white/70 hover:text-white hover:bg-white/5'
                   }`}>
                   <item.icon size={14} className="flex-shrink-0" />
                   {sidebarOpen && <span className="truncate">{item.label}</span>}
@@ -249,7 +249,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       <div className="flex h-screen overflow-hidden" data-admin>
         {/* Sidebar Desktop */}
-        <aside className={`hidden md:flex flex-col bg-primary-dark text-white/80 transition-all duration-300 flex-shrink-0 ${sidebarOpen ? 'w-52' : 'w-14'}`}>
+        <aside className={`hidden md:flex flex-col bg-primary-dark text-white/80 transition-all duration-300 flex-shrink-0 ${sidebarOpen ? 'w-[232px]' : 'w-14'}`}>
           {/* Logo + Toggle */}
           <div className="flex items-center justify-between px-3 py-4 border-b border-white/10 flex-shrink-0">
             {sidebarOpen && (
@@ -278,17 +278,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <Users size={10} className="text-secondary-light" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-white truncate">{adminNome || 'Admin'}</p>
-                  <p className="text-[11px] text-white/40 capitalize">{adminRuolo}</p>
+                  <p className="text-[13px] text-white truncate">{adminNome || 'Admin'}</p>
+                  <p className="text-xs text-white/50 capitalize">{adminRuolo}</p>
                 </div>
               </div>
             )}
             <div className="flex gap-1">
-              <Link href="/" className={`flex items-center gap-1.5 px-2 py-1 rounded text-[11px] text-white/40 hover:text-white hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
+              <Link href="/" className={`flex items-center gap-1.5 px-2 py-1 rounded text-xs text-white/50 hover:text-white hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
                 <Globe size={11} />
                 {sidebarOpen && <span>Sito</span>}
               </Link>
-              <button onClick={logout} className={`flex items-center gap-1.5 px-2 py-1 rounded text-[11px] text-white/40 hover:text-red-400 hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
+              <button onClick={logout} className={`flex items-center gap-1.5 px-2 py-1 rounded text-xs text-white/50 hover:text-red-400 hover:bg-white/5 transition-colors ${sidebarOpen ? 'flex-1' : ''}`}>
                 <LogOut size={11} />
                 {sidebarOpen && <span>Esci</span>}
               </button>
@@ -324,10 +324,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div className="border-t border-white/10 p-3 flex-shrink-0">
                 <p className="text-xs text-white mb-2">{adminNome || 'Admin'} <span className="text-white/40 capitalize text-[10px]">({adminRuolo})</span></p>
                 <div className="flex gap-2">
-                  <Link href="/" onClick={() => setMobileOpen(false)} className="text-[11px] text-white/40 hover:text-white flex items-center gap-1">
+                  <Link href="/" onClick={() => setMobileOpen(false)} className="text-xs text-white/50 hover:text-white flex items-center gap-1">
                     <Globe size={12} /> Sito
                   </Link>
-                  <button onClick={logout} className="text-[11px] text-white/40 hover:text-red-400 flex items-center gap-1">
+                  <button onClick={logout} className="text-xs text-white/50 hover:text-red-400 flex items-center gap-1">
                     <LogOut size={12} /> Esci
                   </button>
                 </div>

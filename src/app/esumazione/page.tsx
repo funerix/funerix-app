@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronRight, Shovel, Check, FileText, ClipboardCheck, Search, HardHat } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,15 +10,23 @@ export const metadata: Metadata = {
   description: 'Servizio di esumazione e riesumazione salme in Campania. Trasferimento resti, ricollocazione in loculo, cremazione resti. Assistenza pratiche.',
 }
 
-const servizi = [
-  { nome: 'Esumazione ordinaria', prezzo: '400 — 800', desc: 'Al termine della concessione cimiteriale (generalmente dopo 10-30 anni).' },
-  { nome: 'Esumazione straordinaria', prezzo: '600 — 1.200', desc: 'Prima del termine della concessione, su richiesta della famiglia o dell\'autorità.' },
-  { nome: 'Riesumazione da loculo', prezzo: '500 — 1.000', desc: 'Estrazione della salma da un loculo per trasferimento o cremazione.' },
-  { nome: 'Cremazione resti', prezzo: '200 — 400', desc: 'Cremazione dei resti ossei dopo esumazione.' },
-  { nome: 'Trasferimento in altro cimitero', prezzo: '800 — 2.000', desc: 'Trasporto dei resti in un cimitero diverso, anche fuori provincia.' },
-  { nome: 'Ricollocazione in loculo/ossario', prezzo: '300 — 600', desc: 'Collocazione dei resti in nuovo loculo, ossario o cappella di famiglia.' },
-  { nome: 'Assistenza pratiche', prezzo: '150 — 300', desc: 'Gestione completa delle autorizzazioni con Comune, ASL e cimitero.' },
+const serviziFallback = [
+  { nome: 'Esumazione ordinaria', prezzo: '400 — 800', descrizione: 'Al termine della concessione cimiteriale (generalmente dopo 10-30 anni).' },
+  { nome: 'Esumazione straordinaria', prezzo: '600 — 1.200', descrizione: 'Prima del termine della concessione, su richiesta della famiglia o dell\'autorità.' },
+  { nome: 'Riesumazione da loculo', prezzo: '500 — 1.000', descrizione: 'Estrazione della salma da un loculo per trasferimento o cremazione.' },
+  { nome: 'Cremazione resti', prezzo: '200 — 400', descrizione: 'Cremazione dei resti ossei dopo esumazione.' },
+  { nome: 'Trasferimento in altro cimitero', prezzo: '800 — 2.000', descrizione: 'Trasporto dei resti in un cimitero diverso, anche fuori provincia.' },
+  { nome: 'Ricollocazione in loculo/ossario', prezzo: '300 — 600', descrizione: 'Collocazione dei resti in nuovo loculo, ossario o cappella di famiglia.' },
+  { nome: 'Assistenza pratiche', prezzo: '150 — 300', descrizione: 'Gestione completa delle autorizzazioni con Comune, ASL e cimitero.' },
 ]
+
+async function getServizi() {
+  try {
+    const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+    const { data } = await sb.from('servizi_esumazione').select('*').eq('attivo', true).order('ordine')
+    return data && data.length > 0 ? data : serviziFallback
+  } catch { return serviziFallback }
+}
 
 const passaggi = [
   { n: '01', icon: FileText, t: 'Richiesta', d: 'Contattateci e spiegateci la vostra esigenza. Vi guideremo nella scelta del servizio più adatto.' },
@@ -26,7 +35,8 @@ const passaggi = [
   { n: '04', icon: HardHat, t: 'Esumazione', d: 'Eseguiamo l\'intervento con personale qualificato nel pieno rispetto delle normative.' },
 ]
 
-export default function EsumazionePage() {
+export default async function EsumazionePage() {
+  const servizi = await getServizi()
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
@@ -70,7 +80,7 @@ export default function EsumazionePage() {
               <div key={s.nome} className="card flex flex-col md:flex-row md:items-center justify-between gap-2">
                 <div>
                   <h3 className="font-medium text-primary">{s.nome}</h3>
-                  <p className="text-text-muted text-sm">{s.desc}</p>
+                  <p className="text-text-muted text-sm">{s.descrizione}</p>
                 </div>
                 <span className="text-xl text-primary font-semibold whitespace-nowrap">&euro; {s.prezzo}</span>
               </div>

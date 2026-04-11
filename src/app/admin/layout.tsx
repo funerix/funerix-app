@@ -21,6 +21,7 @@ const navGroups = [
     items: [
       { href: '/admin', icon: LayoutDashboard, label: 'Dashboard', ruolo: 'tutti' },
       { href: '/admin/richieste', icon: FileText, label: 'Richieste', badge: true, ruolo: 'tutti' },
+      { href: '/admin/clienti', icon: Users, label: 'Clienti', ruolo: 'tutti' },
       { href: '/admin/calendario', icon: CalendarDays, label: 'Calendario', ruolo: 'tutti' },
       { href: '/admin/analytics', icon: BarChart3, label: 'Analytics', ruolo: 'perm:analytics_globali' },
     ],

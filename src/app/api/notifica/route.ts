@@ -70,28 +70,66 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // 2. Email (pronto per Resend — attivare quando si ha la API key)
-  // if (process.env.RESEND_API_KEY) {
-  //   const emailRes = await fetch('https://api.resend.com/emails', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       from: 'Funerix <noreply@funerix.com>',
-  //       to: imp.email_richieste,
-  //       subject: `Nuova richiesta: ${richiesta.nome} — €${richiesta.totale}`,
-  //       html: `<h2>Nuova richiesta preventivo</h2>
-  //         <p><strong>${richiesta.nome}</strong> — ${richiesta.telefono}</p>
-  //         <p>Modalità: ${richiesta.modalita} — ${richiesta.orario}</p>
-  //         <pre>${richiesta.configurazione}</pre>
-  //         <p><strong>Totale: €${richiesta.totale}</strong></p>
-  //         ${richiesta.note ? `<p>Note: ${richiesta.note}</p>` : ''}`,
-  //     }),
-  //   })
-  //   results.email = emailRes.ok ? 'sent' : await emailRes.json()
-  // }
+  // 2. Email al consulente (Resend — se configurata)
+  if (process.env.RESEND_API_KEY && imp.email_richieste) {
+    try {
+      const emailRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'Funerix <noreply@funerix.com>',
+          to: imp.email_richieste,
+          subject: `Nuova richiesta: ${richiesta.nome} — €${Number(richiesta.totale).toLocaleString('it-IT')}`,
+          html: `<div style="font-family:sans-serif;max-width:600px">
+            <h2 style="color:#2C3E50">Nuova richiesta</h2>
+            <p><strong>${richiesta.nome}</strong> — ${richiesta.telefono}</p>
+            ${richiesta.email ? `<p>Email: ${richiesta.email}</p>` : ''}
+            <p>Modalità: ${richiesta.modalita} — ${richiesta.orario || 'Non specificato'}</p>
+            <hr/>
+            <pre style="white-space:pre-wrap;font-size:13px">${richiesta.configurazione || richiesta.note || ''}</pre>
+            <p style="font-size:18px;color:#2C3E50"><strong>Totale: €${Number(richiesta.totale).toLocaleString('it-IT')}</strong></p>
+          </div>`,
+        }),
+      })
+      results.email_consulente = emailRes.ok ? 'sent' : await emailRes.json()
+    } catch (e) {
+      results.email_consulente = `error: ${e}`
+    }
+  }
+
+  // 3. Email conferma al cliente (se ha fornito email)
+  if (process.env.RESEND_API_KEY && richiesta.email) {
+    try {
+      const emailRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'Funerix <noreply@funerix.com>',
+          to: richiesta.email,
+          subject: `Conferma richiesta — Funerix`,
+          html: `<div style="font-family:sans-serif;max-width:600px">
+            <h2 style="color:#2C3E50">Grazie, ${richiesta.nome}</h2>
+            <p>La vostra richiesta è stata ricevuta con successo.</p>
+            <p>Un nostro consulente vi contatterà <strong>entro 30 minuti</strong> per accompagnarvi in ogni dettaglio.</p>
+            ${Number(richiesta.totale) > 0 ? `<p>Preventivo indicativo: <strong>€${Number(richiesta.totale).toLocaleString('it-IT')}</strong></p>` : ''}
+            <hr/>
+            <p style="color:#6B7280;font-size:12px">Funerix — Servizi Funebri in Campania<br/>
+            Tel: ${imp.telefono || ''} | Email: ${imp.email || ''}<br/>
+            Disponibili 24 ore su 24, 7 giorni su 7</p>
+          </div>`,
+        }),
+      })
+      results.email_cliente = emailRes.ok ? 'sent' : await emailRes.json()
+    } catch (e) {
+      results.email_cliente = `error: ${e}`
+    }
+  }
 
   return NextResponse.json({ success: true, results })
 }

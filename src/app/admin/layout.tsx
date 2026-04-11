@@ -85,6 +85,8 @@ const navGroups = [
       { href: '/admin/servizi-ricorrenti', icon: Flower2, label: 'Fiori e Cura Tomba', ruolo: 'manager+' },
       { href: '/admin/successione', icon: FileText, label: 'Successione', ruolo: 'manager+' },
       { href: '/admin/servizi-extra', icon: Package, label: 'Servizi Aggiuntivi', ruolo: 'manager+' },
+      { href: '/admin/invia-fiori', icon: Flower2, label: 'Invio Fiori', ruolo: 'manager+' },
+      { href: '/admin/condoglianze', icon: Heart, label: 'Condoglianze', ruolo: 'manager+' },
     ],
   },
   {

@@ -36,6 +36,8 @@ export function Footer() {
                 ['/pet', 'Pet'],
                 ['/previdenza', 'Previdenza'],
                 ['/rimpatri', 'Rimpatri'],
+                ['/invia-fiori', 'Invia Fiori'],
+                ['/condoglianze', 'Invia Condoglianze'],
                 ['/servizi-ricorrenti', 'Fiori e Cura Tomba'],
                 ['/successione', 'Successione'],
                 ['/servizi', 'Servizi Aggiuntivi'],

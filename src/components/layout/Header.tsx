@@ -28,6 +28,8 @@ const menuServizi = {
     {
       title: 'Servizi Aggiuntivi',
       items: [
+        { href: '/invia-fiori', label: 'Invia Fiori', desc: 'Fiori sulla tomba, anche da lontano', icon: Flower2 },
+        { href: '/condoglianze', label: 'Invia Condoglianze', desc: 'Messaggio e fiori alla famiglia', icon: Heart },
         { href: '/servizi-ricorrenti', label: 'Fiori e Cura Tomba', desc: 'Abbonamento fiori e pulizia', icon: Flower2 },
         { href: '/successione', label: 'Successione Ereditaria', desc: 'Assistenza dichiarazione', icon: FileText },
         { href: '/servizi', label: 'Video, Stampa e Altro', desc: 'Tributo, ricordi, cerimonia laica', icon: Package },
@@ -79,6 +81,8 @@ const mobileSections = [
     title: 'Servizi Funebri',
     items: [
       { href: '/configuratore', label: 'Configura Funerale', icon: Cross },
+      { href: '/invia-fiori', label: 'Invia Fiori', icon: Flower2 },
+      { href: '/condoglianze', label: 'Invia Condoglianze', icon: Heart },
       { href: '/rimpatri', label: 'Rimpatri Salme', icon: Plane },
       { href: '/esumazione', label: 'Esumazione', icon: Shovel },
       { href: '/servizi-ricorrenti', label: 'Fiori e Cura Tomba', icon: Flower2 },

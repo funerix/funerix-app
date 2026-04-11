@@ -251,9 +251,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Sidebar Desktop */}
         <aside className={`hidden md:flex flex-col bg-primary-dark text-white/80 transition-all duration-300 flex-shrink-0 ${sidebarOpen ? 'w-52' : 'w-14'}`}>
           {/* Logo + Toggle */}
-          <div className="flex items-center justify-between p-3 border-b border-white/10 flex-shrink-0">
+          <div className="flex items-center justify-between px-3 py-4 border-b border-white/10 flex-shrink-0">
             {sidebarOpen && (
-              <Image src="/images/logo-white.png" alt="Funerix" width={160} height={48} className="h-8 w-auto brightness-200" />
+              <Image src="/images/logo-white.png" alt="Funerix" width={200} height={60} className="h-10 w-auto" />
             )}
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 hover:bg-white/10 rounded transition-colors">
               {sidebarOpen ? <ChevronLeft size={14} /> : <Menu size={14} />}

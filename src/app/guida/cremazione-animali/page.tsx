@@ -17,7 +17,7 @@ export default function Page() {
         <Image src="/images/guida-cremazione-animali.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Heart size={36} className="mx-auto mb-3 text-secondary-light" />
-          <h1 className="font-[family-name:var(--font-serif)] text-4xl text-white">Cremazione Animali Domestici</h1>
+          <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white">Cremazione Animali Domestici</h1>
           <p className="mt-3 text-white/85">Guida completa — un ultimo saluto dignitoso per il vostro compagno</p>
         </div>
       </section>

@@ -76,16 +76,12 @@ export async function PUT(req: NextRequest) {
 
 /** POST — Pre-traduce tutte le pagine in tutte le lingue (admin only) */
 export async function POST(req: NextRequest) {
-  // Verifica admin
+  // Verifica admin: controlla presenza cookie di sessione
   const adminToken = req.cookies.get('funerix-admin-token')?.value
-  if (!adminToken) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 })
-
-  const { data: admin } = await supabase
-    .from('admin_users')
-    .select('id')
-    .eq('token', adminToken)
-    .single()
-  if (!admin) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 })
+  const adminUser = req.cookies.get('funerix-admin-user')?.value
+  if (!adminToken || !adminUser) {
+    return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 })
+  }
 
   // Raccogli testi da tutte le pagine
   const allTexts = new Set<string>()

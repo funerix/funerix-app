@@ -504,16 +504,7 @@ function ConfiguratorePage() {
                           if (ref) await sb.from('referral').update({ utilizzi: ref.utilizzi + 1 }).eq('id', ref.id)
                         }
 
-                        // Notifica consulente (WhatsApp Business API + email)
-                        // L'API legge le impostazioni dal DB e invia automaticamente
-                        const nuovaRichiesta = useSitoStore.getState().richieste[0]
-                        if (nuovaRichiesta) {
-                          fetch('/api/notifica', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ richiestaId: nuovaRichiesta.id }),
-                          }).catch(() => {})
-                        }
+                        // Notifica consulente — gestita automaticamente da aggiungiRichiesta()
 
                         // Mostra modale di conferma
                         setTempoAttesa(orario)
@@ -552,8 +543,8 @@ function ConfiguratorePage() {
                           <input type="tel" name="telefono" required className="input-field" placeholder="333 1234567" />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-text mb-1">Email</label>
-                          <input type="email" name="email" className="input-field" placeholder="mario.rossi@email.com" />
+                          <label className="block text-sm font-medium text-text mb-1">Email *</label>
+                          <input type="email" name="email" required className="input-field" placeholder="mario.rossi@email.com" />
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-text mb-1">Quando preferite essere contattati? *</label>

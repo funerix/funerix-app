@@ -414,7 +414,15 @@ export const useSitoStore = create<SitoStore>()((set, get) => ({
       modalita: r.modalita, orario: r.orario, note: r.note,
       configurazione: r.configurazione, totale: r.totale, stato: r.stato,
     }).select().single()
-    if (data) set((s) => ({ richieste: [mapRichiesta(data), ...s.richieste] }))
+    if (data) {
+      set((s) => ({ richieste: [mapRichiesta(data), ...s.richieste] }))
+      // Notifica consulente (WhatsApp/email) in background
+      fetch('/api/notifica', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ richiestaId: data.id }),
+      }).catch(() => {})
+    }
   },
 
   aggiornaStatoRichiesta: async (id, stato) => {

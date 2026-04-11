@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
+import bcrypt from 'bcryptjs'
 
 const sb = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -21,7 +22,26 @@ export async function POST(request: NextRequest) {
     .eq('attivo', true)
     .single()
 
-  if (!user || user.password_hash !== password) {
+  if (!user) {
+    return NextResponse.json({ error: 'Credenziali non valide' }, { status: 401 })
+  }
+
+  // Supporta sia password hashate (bcrypt) che plaintext (legacy)
+  let valid = false
+  if (user.password_hash.startsWith('$2')) {
+    // Password già hashata con bcrypt
+    valid = await bcrypt.compare(password, user.password_hash)
+  } else {
+    // Password plaintext (legacy) — verifica e migra automaticamente
+    valid = user.password_hash === password
+    if (valid) {
+      // Migra a bcrypt
+      const hash = await bcrypt.hash(password, 10)
+      await sb.from('admin_users').update({ password_hash: hash }).eq('id', user.id)
+    }
+  }
+
+  if (!valid) {
     return NextResponse.json({ error: 'Credenziali non valide' }, { status: 401 })
   }
 
@@ -34,7 +54,7 @@ export async function POST(request: NextRequest) {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 7, // 7 giorni
+    maxAge: 60 * 60 * 24 * 7,
     path: '/',
   })
   cookieStore.set('funerix-admin-user', JSON.stringify({ id: user.id, email: user.email, nome: user.nome, ruolo: user.ruolo, permessi: user.permessi || {} }), {

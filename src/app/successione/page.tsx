@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { FileText, ChevronRight, Check, Euro, Clock, Shield } from 'lucide-react'
+import { FileText, ChevronRight, Check, Euro, Clock, Shield, Send } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { SuccessioneForm } from '@/components/SuccessioneForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -138,6 +139,15 @@ export default function SuccessionePage() {
         </div>
       </section>
 
+
+      {/* Form Richiesta */}
+      <section className="py-16">
+        <div className="max-w-2xl mx-auto px-4">
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">Richiedete Assistenza</h2>
+          <p className="text-text-light text-center mb-8">Compilate il form e un consulente vi contatterà per un preventivo gratuito.</p>
+          <SuccessioneForm />
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="bg-primary py-16 relative overflow-hidden">

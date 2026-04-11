@@ -181,7 +181,7 @@ export function ConfiguratoreRimpatrio({ embedded = false }: { embedded?: boolea
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-medium text-text mb-1">Nome *</label><input name="nome" required className="input-field" /></div>
                     <div><label className="block text-sm font-medium text-text mb-1">Telefono *</label><input name="telefono" required className="input-field" /></div>
-                    <div><label className="block text-sm font-medium text-text mb-1">Email</label><input name="email" type="email" className="input-field" /></div>
+                    <div><label className="block text-sm font-medium text-text mb-1">Email *</label><input name="email" type="email" required className="input-field" /></div>
                     <div><label className="block text-sm font-medium text-text mb-1">Quando contattarvi? *</label>
                       <select name="orario" required className="input-field" onChange={e=>setMostraOrario(e.target.value==='orario_specifico')}>
                         <option value="">Selezionate...</option><option value="Entro 30 minuti">Entro 30 minuti</option>

@@ -61,26 +61,27 @@ export default function ConsulentiPage() {
     const sb = getSupabase()
 
     if (editId) {
-      const updates: Record<string, unknown> = {
-        nome: form.nome, email: form.email, ruolo: form.ruolo, telefono: form.telefono,
-        permessi: form.permessi, max_pratiche: form.max_pratiche, turni: form.turni,
-      }
-      if (form.password) updates.password_hash = form.password
-      await sb.from('admin_users').update(updates).eq('id', editId)
-      setConsulenti(consulenti.map(c => c.id === editId ? { ...c, ...updates } as Consulente : c))
-      // Log
+      const res = await fetch('/api/admin/users', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: editId, ...form }),
+      })
+      const result = await res.json()
+      if (!res.ok) { setErrore(result.error); return }
+      setConsulenti(consulenti.map(c => c.id === editId ? { ...c, nome: form.nome, email: form.email, ruolo: form.ruolo, telefono: form.telefono, permessi: form.permessi, max_pratiche: form.max_pratiche, turni: form.turni } as Consulente : c))
       await sb.from('log_attivita').insert({ user_nome: 'Admin', azione: 'modifica_consulente', dettaglio: `Modificato ${form.nome} (${form.ruolo})` })
     } else {
       if (!form.password) { setErrore('Password obbligatoria'); return }
       const { data: existing } = await sb.from('admin_users').select('id').eq('email', form.email)
       if (existing && existing.length > 0) { setErrore('Email già in uso'); return }
-      const { data, error } = await sb.from('admin_users').insert({
-        nome: form.nome, email: form.email, password_hash: form.password,
-        ruolo: form.ruolo, telefono: form.telefono, attivo: true,
-        permessi: form.permessi, max_pratiche: form.max_pratiche, turni: form.turni,
-      }).select().single()
-      if (error) { setErrore(error.message); return }
-      if (data) setConsulenti([...consulenti, data as unknown as Consulente])
+      const res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const result = await res.json()
+      if (!res.ok) { setErrore(result.error); return }
+      if (result.data) setConsulenti([...consulenti, result.data as unknown as Consulente])
       await sb.from('log_attivita').insert({ user_nome: 'Admin', azione: 'crea_consulente', dettaglio: `Creato ${form.nome} (${form.ruolo})` })
     }
     setShowForm(false); setEditId(null)

@@ -161,7 +161,7 @@ export default function CondoglianzePage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label className="block text-sm font-medium text-text mb-1">Il vostro nome *</label><input name="mittente_nome" required className="input-field" /></div>
                 <div><label className="block text-sm font-medium text-text mb-1">Telefono *</label><input name="mittente_telefono" required className="input-field" /></div>
-                <div><label className="block text-sm font-medium text-text mb-1">Email</label><input name="mittente_email" type="email" className="input-field" /></div>
+                <div><label className="block text-sm font-medium text-text mb-1">Email *</label><input name="mittente_email" type="email" required className="input-field" /></div>
               </div>
             </div>
 

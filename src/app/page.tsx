@@ -301,49 +301,50 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 4.8. DIASPORA — FIORI E CONDOGLIANZE ═══════════════ */}
-      <section className="py-16 md:py-20 bg-background-dark">
-        <div className="max-w-5xl mx-auto px-4">
+      <section className="py-16 md:py-20 bg-primary relative overflow-hidden">
+        <Image src="/images/hero-fiori.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
+        <div className="relative max-w-5xl mx-auto px-4">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
               <div>
                 <motion.h2 variants={fadeUp} custom={0}
-                  className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-primary mb-4">
+                  className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-4">
                   Vivete lontano?<br />
-                  <span className="text-secondary">Ci pensiamo noi.</span>
+                  <span className="text-secondary-light">Ci pensiamo noi.</span>
                 </motion.h2>
-                <motion.p variants={fadeUp} custom={1} className="text-text-light mb-6">
+                <motion.p variants={fadeUp} custom={1} className="text-white/80 mb-6">
                   Un fiore fresco sulla tomba dei vostri cari, un messaggio di condoglianze alla famiglia.
                   Anche a distanza, potete dimostrare il vostro affetto con un gesto concreto.
                 </motion.p>
                 <motion.div variants={fadeUp} custom={2} className="flex flex-col sm:flex-row gap-3">
-                  <Link href="/invia-fiori" className="btn-primary text-sm py-3 px-8">
+                  <Link href="/invia-fiori" className="btn-accent text-sm py-3 px-8">
                     Inviate Fiori <ChevronRight size={14} className="ml-1" />
                   </Link>
-                  <Link href="/condoglianze" className="btn-secondary text-sm py-3 px-8">
+                  <Link href="/condoglianze" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-sm py-3 px-8">
                     Inviate Condoglianze
                   </Link>
                 </motion.div>
               </div>
               <motion.div variants={fadeUp} custom={2} className="grid grid-cols-2 gap-3">
-                <div className="card text-center">
-                  <Flower2 size={20} className="mx-auto mb-2 text-secondary" />
-                  <p className="text-primary font-medium text-sm">Fiori freschi</p>
-                  <p className="text-text-muted text-xs">da &euro;35</p>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <Flower2 size={20} className="mx-auto mb-2 text-secondary-light" />
+                  <p className="text-white font-medium text-sm">Fiori freschi</p>
+                  <p className="text-white/50 text-xs">da &euro;35</p>
                 </div>
-                <div className="card text-center">
-                  <Heart size={20} className="mx-auto mb-2 text-secondary" />
-                  <p className="text-primary font-medium text-sm">Condoglianze</p>
-                  <p className="text-text-muted text-xs">con fiori opzionali</p>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <Heart size={20} className="mx-auto mb-2 text-secondary-light" />
+                  <p className="text-white font-medium text-sm">Condoglianze</p>
+                  <p className="text-white/50 text-xs">con fiori opzionali</p>
                 </div>
-                <div className="card text-center">
-                  <MapPin size={20} className="mx-auto mb-2 text-secondary" />
-                  <p className="text-primary font-medium text-sm">Tutta la Campania</p>
-                  <p className="text-text-muted text-xs">ogni cimitero</p>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <MapPin size={20} className="mx-auto mb-2 text-secondary-light" />
+                  <p className="text-white font-medium text-sm">Tutta la Campania</p>
+                  <p className="text-white/50 text-xs">ogni cimitero</p>
                 </div>
-                <div className="card text-center">
-                  <MessageCircle size={20} className="mx-auto mb-2 text-secondary" />
-                  <p className="text-primary font-medium text-sm">Foto WhatsApp</p>
-                  <p className="text-text-muted text-xs">conferma consegna</p>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <MessageCircle size={20} className="mx-auto mb-2 text-secondary-light" />
+                  <p className="text-white font-medium text-sm">Foto WhatsApp</p>
+                  <p className="text-white/50 text-xs">conferma consegna</p>
                 </div>
               </motion.div>
             </div>
@@ -352,26 +353,26 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 5. TESTIMONIANZE ═══════════════ */}
-      <section className="py-16 bg-primary">
+      <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white text-center mb-10">
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">
             Le famiglie che abbiamo accompagnato
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonianzeDaMostrare.map((t, i) => (
               <motion.div key={t.nome} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+                className="card">
                 <div className="flex gap-0.5 mb-4">
                   {Array.from({ length: t.stelle }).map((_, j) => <Star key={j} size={14} className="text-secondary fill-secondary" />)}
                 </div>
-                <p className="text-white/80 text-sm leading-relaxed italic mb-5">&ldquo;{t.testo}&rdquo;</p>
-                <div className="pt-4 border-t border-white/10 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-sm">{t.nome.charAt(0)}{t.nome.split(' ').pop()?.charAt(0)}</span>
+                <p className="text-text-light text-sm leading-relaxed italic mb-5">&ldquo;{t.testo}&rdquo;</p>
+                <div className="pt-4 border-t border-border flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <span className="font-[family-name:var(--font-serif)] text-primary font-bold text-sm">{t.nome.charAt(0)}{t.nome.split(' ').pop()?.charAt(0)}</span>
                   </div>
                   <div>
-                    <p className="font-medium text-white text-sm">{t.nome}</p>
-                    <p className="text-white/50 text-xs">{t.citta}</p>
+                    <p className="font-medium text-primary text-sm">{t.nome}</p>
+                    <p className="text-text-muted text-xs">{t.citta}</p>
                   </div>
                 </div>
               </motion.div>
@@ -381,7 +382,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ 6. FAQ ═══════════════ */}
-      <section className="py-16">
+      <section className="py-16 bg-background-dark">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Domande frequenti</h2>
           <div className="space-y-2">

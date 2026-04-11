@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { FileText, ChevronRight, Check, Euro, Clock, Shield, Send } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
 import { SuccessioneForm } from '@/components/SuccessioneForm'
+import { getContenutiExtra } from '@/lib/contenuti'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -27,7 +28,8 @@ const documenti = [
   'Documenti dei veicoli intestati al defunto',
 ]
 
-export default function SuccessionePage() {
+export default async function SuccessionePage() {
+  const ex = await getContenutiExtra()
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
@@ -36,11 +38,10 @@ export default function SuccessionePage() {
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <FileText size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
-            Dichiarazione di Successione
+            {ex.successione_hero_titolo || 'Dichiarazione di Successione'}
           </h1>
           <p className="text-white/90 text-lg max-w-2xl mx-auto">
-            Ci occupiamo di tutto: documenti, calcolo imposte, presentazione all&apos;Agenzia delle Entrate
-            e voltura catastale. Voi non dovete pensare a nulla.
+            {ex.successione_hero_sottotitolo || 'Ci occupiamo di tutto: documenti, calcolo imposte, presentazione all\'Agenzia delle Entrate e voltura catastale. Voi non dovete pensare a nulla.'}
           </p>
         </div>
       </section>
@@ -153,8 +154,8 @@ export default function SuccessionePage() {
       <section className="bg-primary py-16 relative overflow-hidden">
         <Image src="/images/card-successione.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Avete bisogno di assistenza?</h2>
-          <p className="text-white/80 mb-8">Contattateci per un preventivo gratuito. Vi guideremo in ogni passo della pratica.</p>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">{ex.successione_cta_titolo || 'Avete bisogno di assistenza?'}</h2>
+          <p className="text-white/80 mb-8">{ex.successione_cta_desc || 'Contattateci per un preventivo gratuito. Vi guideremo in ogni passo della pratica.'}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <PhoneLink className="btn-accent text-lg py-4 px-10" showIcon label="Chiama Ora" />
             <Link href="/contatti" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">

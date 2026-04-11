@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Globe, Plane, FileText, ChevronRight, Shield, Clock } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { getContenutiExtra } from '@/lib/contenuti'
 import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 
@@ -38,6 +39,7 @@ async function getServizi() {
 export default async function RimpatriPage() {
   const paesi = await getPaesi()
   const serviziExtra = await getServizi()
+  const ex = await getContenutiExtra()
 
   // Raggruppa per zona
   const perZona: Record<string, any[]> = {}
@@ -56,10 +58,10 @@ export default async function RimpatriPage() {
             <Globe size={16} /> {paesi.length} paesi serviti in tutto il mondo
           </div>
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
-            Rimpatrio e Espatrio Salme
+            {ex.rimpatri_hero_titolo || 'Rimpatrio e Espatrio Salme'}
           </h1>
           <p className="text-white/90 text-lg max-w-2xl mx-auto mb-8">
-            Trasporto internazionale della salma da e verso qualsiasi paese del mondo.
+            {ex.rimpatri_hero_sottotitolo || 'Trasporto internazionale della salma da e verso qualsiasi paese del mondo.'}
             Assistenza completa per documentazione, pratiche consolari e logistica.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -228,10 +230,10 @@ export default async function RimpatriPage() {
         <Image src="/images/config-rimpatri-hero.jpg" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">
-            Avete bisogno di un rimpatrio urgente?
+            {ex.rimpatri_cta_titolo || 'Avete bisogno di un rimpatrio urgente?'}
           </h2>
           <p className="text-white/80 mb-8">
-            Siamo operativi 24 ore su 24 per gestire rimpatri urgenti in tutto il mondo.
+            {ex.rimpatri_cta_desc || 'Siamo operativi 24 ore su 24 per gestire rimpatri urgenti in tutto il mondo.'}
             Un consulente specializzato vi seguir&agrave; in ogni fase.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

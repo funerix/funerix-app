@@ -1,5 +1,6 @@
 import { Flower2, Sparkles, Wrench, Camera, Package, ChevronRight, Check } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { getContenutiExtra } from '@/lib/contenuti'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
@@ -22,6 +23,7 @@ async function getServizi() {
 
 export default async function ServiziRicorrentiPage() {
   const servizi = await getServizi()
+  const ex = await getContenutiExtra()
 
   return (
     <div className="min-h-screen bg-background">
@@ -31,11 +33,10 @@ export default async function ServiziRicorrentiPage() {
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Flower2 size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">
-            Fiori e Cura della Tomba
+            {ex.ricorrenti_hero_titolo || 'Fiori e Cura della Tomba'}
           </h1>
           <p className="text-white/90 text-lg max-w-2xl mx-auto">
-            Non potete visitare spesso il cimitero? Ci pensiamo noi.
-            Fiori freschi, pulizia e manutenzione con abbonamento mensile.
+            {ex.ricorrenti_hero_sottotitolo || 'Non potete visitare spesso il cimitero? Ci pensiamo noi. Fiori freschi, pulizia e manutenzione con abbonamento mensile.'}
           </p>
         </div>
       </section>
@@ -132,8 +133,8 @@ export default async function ServiziRicorrentiPage() {
       <section className="bg-primary py-16 relative overflow-hidden">
         <Image src="/images/hero-fiori.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Attivate il servizio</h2>
-          <p className="text-white/80 mb-8">Contattateci per attivare l&apos;abbonamento o per un servizio una tantum.</p>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">{ex.ricorrenti_cta_titolo || 'Attivate il servizio'}</h2>
+          <p className="text-white/80 mb-8">{ex.ricorrenti_cta_desc || 'Contattateci per attivare l\'abbonamento o per un servizio una tantum.'}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <PhoneLink className="btn-accent text-lg py-4 px-10" showIcon label="Chiama Ora" />
             <Link href="/contatti" className="btn-secondary border-white/30 text-white hover:bg-white/10 hover:text-white text-lg py-4 px-10">

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Shield, Euro, Users, ChevronRight, Check, Building2 } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
+import { getContenutiExtra } from '@/lib/contenuti'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,17 +10,17 @@ export const metadata: Metadata = {
   description: 'Diventa partner Funerix. Offri ai familiari dei tuoi ospiti un piano previdenza funeraria. Commissioni per la struttura, assistenza completa.',
 }
 
-export default function ConvenzioniPage() {
+export default async function ConvenzioniPage() {
+  const ex = await getContenutiExtra()
   return (
     <div className="min-h-screen bg-background">
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
         <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Building2 size={40} className="mx-auto mb-4 text-secondary-light" />
-          <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">Convenzioni RSA e Case di Cura</h1>
+          <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">{ex.convenzioni_hero_titolo || 'Convenzioni RSA e Case di Cura'}</h1>
           <p className="text-white/85 text-lg max-w-2xl mx-auto">
-            Offrite ai familiari dei vostri ospiti la tranquillit&agrave; di un servizio funebre gi&agrave; organizzato e pagato.
-            Diventate partner Funerix.
+            {ex.convenzioni_hero_sottotitolo || 'Offrite ai familiari dei vostri ospiti la tranquillità di un servizio funebre già organizzato e pagato. Diventate partner Funerix.'}
           </p>
         </div>
       </section>

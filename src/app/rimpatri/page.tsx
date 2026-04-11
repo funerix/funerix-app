@@ -204,7 +204,7 @@ export default async function RimpatriPage() {
             {[
               'Certificato di morte (originale + traduzione)',
               'Passaporto mortuario (rilasciato dal Comune)',
-              'Nulla osta dell\'autorita consolare',
+              'Nulla osta dell\'autorità consolare',
               'Autorizzazione al trasporto internazionale',
               'Certificato di imbalsamazione (se richiesto)',
               'Dichiarazione di non contenere oggetti estranei',

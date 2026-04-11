@@ -94,17 +94,17 @@ export default function PetPage() {
             <Link href="/pet/catalogo" className="card hover:border-secondary/30 transition-colors group">
               <Award size={24} className="text-secondary mb-3" />
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-1 group-hover:text-secondary transition-colors">Catalogo Urne</h3>
-              <p className="text-text-muted text-sm">Sfoglia la nostra collezione di urne e accessori commemorativi.</p>
+              <p className="text-text-muted text-sm">Sfogliate la nostra collezione di urne e accessori commemorativi.</p>
             </Link>
             <Link href="/pet/veterinari" className="card hover:border-secondary/30 transition-colors group">
               <MapPin size={24} className="text-secondary mb-3" />
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-1 group-hover:text-secondary transition-colors">Veterinari Partner</h3>
-              <p className="text-text-muted text-sm">Trova il veterinario convenzionato piu vicino a te.</p>
+              <p className="text-text-muted text-sm">Trovate il veterinario convenzionato più vicino a voi.</p>
             </Link>
             <Link href="/pet/memorial" className="card hover:border-secondary/30 transition-colors group">
               <Heart size={24} className="text-secondary mb-3" />
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-1 group-hover:text-secondary transition-colors">Memorial Pet</h3>
-              <p className="text-text-muted text-sm">Crea una pagina ricordo per il tuo compagno di vita.</p>
+              <p className="text-text-muted text-sm">Create una pagina ricordo per il vostro compagno di vita.</p>
             </Link>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function PetPage() {
             Scegliete tipo di cremazione, urna e servizi. Un operatore vi contatter&agrave; per organizzare tutto.
           </p>
           <Link href="/pet/configuratore" className="btn-accent text-lg py-4 px-10">
-            Configura Cremazione Pet <ChevronRight size={18} className="ml-2" />
+            Configurate Cremazione Pet <ChevronRight size={18} className="ml-2" />
           </Link>
         </div>
       </section>

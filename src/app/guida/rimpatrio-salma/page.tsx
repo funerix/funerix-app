@@ -24,7 +24,7 @@ export default function GuidaRimpatrioPage() {
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 prose max-w-none">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-6">Quando serve il rimpatrio?</h2>
-          <p className="text-text-light mb-4">Il rimpatrio salma e necessario quando una persona decede in un paese diverso da quello in cui la famiglia desidera la sepoltura. Ci sono due scenari principali:</p>
+          <p className="text-text-light mb-4">Il rimpatrio salma è necessario quando una persona decede in un paese diverso da quello in cui la famiglia desidera la sepoltura. Ci sono due scenari principali:</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="card">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-2">Rimpatrio IN Italia</h3>

@@ -70,7 +70,7 @@ export default function PrevidenzaPetPage() {
       {/* Simulatore libero */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">Configura il tuo piano</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-4">Configurate il vostro piano</h2>
           <p className="text-text-light text-center mb-10">Scegliete il vostro animale, i servizi e come pagare.</p>
 
           <div className="card p-6 md:p-8">
@@ -166,7 +166,7 @@ export default function PrevidenzaPetPage() {
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-12">Come funziona</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { n: '01', icon: Heart, t: 'Configurate', d: 'Scegliete specie, taglia, servizi e modalita di pagamento.' },
+              { n: '01', icon: Heart, t: 'Configurate', d: 'Scegliete specie, taglia, servizi e modalità di pagamento.' },
               { n: '02', icon: Euro, t: 'Pagate come volete', d: 'Tutto subito, in 3, 6, 12 o 24 rate mensili. Zero interessi.' },
               { n: '03', icon: Shield, t: 'Prezzo bloccato', d: 'Il prezzo non cambia mai. Nessun aumento, nessuna sorpresa.' },
               { n: '04', icon: Calendar, t: 'Tutto organizzato', d: 'Quando il momento arriva, chiamate e ci occupiamo di tutto.' },
@@ -187,12 +187,12 @@ export default function PrevidenzaPetPage() {
       {/* Vantaggi */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Perche scegliere la previdenza pet</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Perché scegliere la previdenza pet</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: Euro, t: 'Prezzo bloccato per sempre', d: 'Il prezzo che scegliete oggi resta invariato, indipendentemente dall\'inflazione e dagli aumenti.' },
-              { icon: Heart, t: 'Nessun pensiero nel dolore', d: 'Quando il momento arriva, non dovrete prendere nessuna decisione. Tutto e gia organizzato.' },
-              { icon: Stethoscope, t: 'Collegamento veterinario', d: 'Il vostro veterinario partner puo attivare direttamente il servizio, senza che dobbiate fare nulla.' },
+              { icon: Heart, t: 'Nessun pensiero nel dolore', d: 'Quando il momento arriva, non dovrete prendere nessuna decisione. Tutto è già organizzato.' },
+              { icon: Stethoscope, t: 'Collegamento veterinario', d: 'Il vostro veterinario partner può attivare direttamente il servizio, senza che dobbiate fare nulla.' },
             ].map(g => (
               <div key={g.t} className="card text-center">
                 <g.icon size={28} className="mx-auto mb-3 text-accent" />
@@ -245,7 +245,7 @@ export default function PrevidenzaPetPage() {
         <Image src="/images/hero-pet.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Proteggete il vostro amico</h2>
-          <p className="text-white/80 mb-8">Contattateci per attivare il piano. Un consulente vi guidera nella scelta migliore.</p>
+          <p className="text-white/80 mb-8">Contattateci per attivare il piano. Un consulente vi guiderà nella scelta migliore.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/pet/previdenza/configuratore" className="btn-accent text-lg py-4 px-10">
               Contattaci <ChevronRight size={18} className="ml-2" />

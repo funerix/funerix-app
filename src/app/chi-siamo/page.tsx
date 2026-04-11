@@ -163,7 +163,7 @@ export default function ChiSiamoPage() {
           <div className="space-y-6">
             {[
               { step: '1', titolo: 'Chiamare il medico', desc: 'Il medico curante o il 118 dovr\u00e0 constatare il decesso e rilasciare il certificato di morte.' },
-              { step: '2', titolo: 'Contattare l\'impresa funebre', desc: 'Chiamateci a qualsiasi ora al 081 555 1234. Ci occuperemo di tutto, incluso il trasporto della salma.' },
+              { step: '2', titolo: 'Contattare l\'impresa funebre', desc: 'Chiamateci a qualsiasi ora. Ci occuperemo di tutto, incluso il trasporto della salma.' },
               { step: '3', titolo: 'Documenti necessari', desc: 'Carta d\'identit\u00e0 del defunto, tessera sanitaria, certificato di morte. Penseremo noi a tutto il resto.' },
               { step: '4', titolo: 'Scelta del servizio', desc: 'Insieme definiremo il tipo di cerimonia, la bara, i fiori e ogni dettaglio. Potete usare il nostro configuratore online.' },
               { step: '5', titolo: 'Pratiche burocratiche', desc: 'Ci occupiamo noi della denuncia di morte, dell\'autorizzazione al trasporto e delle pratiche cimiteriali.' },

@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Veterinari Partner — Funerix Pet',
-  description: 'Rete di veterinari convenzionati Funerix per la cremazione animali. Trova il piu vicino a te.',
+  description: 'Rete di veterinari convenzionati Funerix per la cremazione animali. Trova il più vicino a te.',
 }
 
 export default function VeterinariPage() {
@@ -15,7 +15,7 @@ export default function VeterinariPage() {
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <MapPin size={32} className="mx-auto mb-3 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-3">Veterinari Partner</h1>
-          <p className="text-white/80">Trova il veterinario convenzionato Funerix piu vicino a te.</p>
+          <p className="text-white/80">Trova il veterinario convenzionato Funerix più vicino a te.</p>
         </div>
       </section>
       <section className="py-16">

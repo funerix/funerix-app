@@ -116,7 +116,7 @@ export default async function ServiziPage() {
         <Image src="/images/card-servizi-extra.png" alt="" fill className="object-cover opacity-15" sizes="100vw" />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl text-white mb-4">Avete bisogno di un servizio aggiuntivo?</h2>
-          <p className="text-white/80 mb-8">Contattateci per aggiungere uno o piu servizi al vostro preventivo. Un consulente vi guidera nella scelta.</p>
+          <p className="text-white/80 mb-8">Contattateci per aggiungere uno o più servizi al vostro preventivo. Un consulente vi guiderà nella scelta.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/contatti" className="btn-accent text-lg py-4 px-10">
               Contattaci <ChevronRight size={18} className="ml-2" />

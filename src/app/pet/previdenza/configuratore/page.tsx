@@ -271,7 +271,7 @@ export default function ConfiguratorePrevidenzaPet() {
                   </div>
                   <div className="card p-4">
                     <p className="text-sm font-medium text-primary mb-3">Dove vive il vostro animale?</p>
-                    <p className="text-xs text-text-muted mb-3">Ci serve per organizzare il ritiro e trovare il veterinario partner piu vicino.</p>
+                    <p className="text-xs text-text-muted mb-3">Ci serve per organizzare il ritiro e trovare il veterinario partner più vicino.</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
                         <label className="text-xs text-text-muted">Indirizzo</label>
@@ -431,7 +431,7 @@ export default function ConfiguratorePrevidenzaPet() {
                           className={modalitaAttivazione === 'consulente' ? 'product-card-selected py-4 text-center' : 'product-card py-4 text-center'}>
                           <PawPrint size={20} className="mx-auto mb-1 text-secondary" />
                           <span className="block font-medium text-primary text-sm">Parla con noi</span>
-                          <p className="text-text-muted text-[10px]">Un consulente vi chiamera per confermare</p>
+                          <p className="text-text-muted text-[10px]">Un consulente vi chiamerà per confermare</p>
                         </div>
                       </div>
                     </div>

@@ -48,8 +48,8 @@ export default async function ServiziRicorrentiPage() {
             {[
               { n: '01', t: 'Scegliete il servizio', d: 'Fiori, pulizia, manutenzione o pacchetto completo.' },
               { n: '02', t: 'Indicateci la tomba', d: 'Cimitero, settore, fila e numero. Verificheremo la posizione.' },
-              { n: '03', t: 'Ci occupiamo di tutto', d: 'I nostri operatori eseguono il servizio con regolarita.' },
-              { n: '04', t: 'Ricevete aggiornamenti', d: 'Foto su WhatsApp dopo ogni intervento. Tranquillita garantita.' },
+              { n: '03', t: 'Ci occupiamo di tutto', d: 'I nostri operatori eseguono il servizio con regolarità.' },
+              { n: '04', t: 'Ricevete aggiornamenti', d: 'Foto su WhatsApp dopo ogni intervento. Tranquillità garantita.' },
             ].map(s => (
               <div key={s.n} className="text-center">
                 <span className="text-secondary/30 font-[family-name:var(--font-serif)] text-3xl font-bold">{s.n}</span>
@@ -73,7 +73,7 @@ export default async function ServiziRicorrentiPage() {
                 <div key={s.id} className={`card flex flex-col ${s.slug === 'pacchetto-completo' ? 'border-2 border-secondary relative' : ''}`}>
                   {s.slug === 'pacchetto-completo' && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white text-xs px-3 py-1 rounded-full font-medium">
-                      Piu scelto
+                      Più scelto
                     </div>
                   )}
                   <div className="flex items-center gap-3 mb-3">
@@ -105,15 +105,15 @@ export default async function ServiziRicorrentiPage() {
         </div>
       </section>
 
-      {/* Perche sceglierci */}
+      {/* Perché sceglierci */}
       <section className="py-16 bg-background-dark">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Perche scegliere Funerix</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-8">Perché scegliere Funerix</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               'Operatori dedicati e rispettosi',
               'Foto inviate dopo ogni intervento',
-              'Fiori sempre freschi e di qualita',
+              'Fiori sempre freschi e di qualità',
               'Copertura su tutta la Campania',
               'Annullabile in qualsiasi momento',
               'Assistenza WhatsApp dedicata',

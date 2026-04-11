@@ -20,7 +20,7 @@ const servizi = [
 ]
 
 const passaggi = [
-  { n: '01', icon: FileText, t: 'Richiesta', d: 'Contattateci e spiegateci la vostra esigenza. Vi guideremo nella scelta del servizio piu adatto.' },
+  { n: '01', icon: FileText, t: 'Richiesta', d: 'Contattateci e spiegateci la vostra esigenza. Vi guideremo nella scelta del servizio più adatto.' },
   { n: '02', icon: Search, t: 'Sopralluogo', d: 'Verifichiamo la situazione presso il cimitero: stato della concessione, posizione e condizioni.' },
   { n: '03', icon: ClipboardCheck, t: 'Autorizzazioni', d: 'Ci occupiamo di tutte le pratiche con Comune, ASL e direzione cimiteriale.' },
   { n: '04', icon: HardHat, t: 'Esumazione', d: 'Eseguiamo l\'intervento con personale qualificato nel pieno rispetto delle normative.' },
@@ -79,10 +79,10 @@ export default function EsumazionePage() {
         </div>
       </section>
 
-      {/* Quando e necessaria */}
+      {/* Quando è necessaria */}
       <section className="py-16 bg-background-dark">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Quando e&apos; necessaria</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary text-center mb-10">Quando è necessaria</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Esumazione Ordinaria</h3>
@@ -103,7 +103,7 @@ export default function EsumazionePage() {
                 cremazione o ricongiungimento con altri familiari. Richiede autorizzazione specifica.
               </p>
               <ul className="space-y-2">
-                {['Su richiesta della famiglia o autorita giudiziaria', 'Trasferimento in altro cimitero o citta', 'Cremazione dei resti o ricongiungimento familiare'].map(t => (
+                {['Su richiesta della famiglia o autorità giudiziaria', 'Trasferimento in altro cimitero o città', 'Cremazione dei resti o ricongiungimento familiare'].map(t => (
                   <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
                 ))}
               </ul>

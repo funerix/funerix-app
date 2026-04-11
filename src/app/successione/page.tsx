@@ -11,15 +11,15 @@ export const metadata: Metadata = {
 
 const pratiche = [
   { tipo: 'Successione Standard', prezzo: '800 — 1.500', desc: 'Nessun immobile, solo conti correnti, titoli, veicoli. Disbrigo pratiche e presentazione all\'Agenzia delle Entrate.', tempo: '30-60 giorni' },
-  { tipo: 'Successione con Immobili', prezzo: '1.500 — 3.000', desc: 'Uno o piu immobili. Include visure catastali, voltura, calcolo imposte, presentazione dichiarazione.', tempo: '60-90 giorni' },
-  { tipo: 'Successione Complessa', prezzo: '3.000 — 5.000+', desc: 'Eredita complesse con piu immobili, societa, attivita commerciali, contenziosi tra eredi.', tempo: '90-180 giorni' },
+  { tipo: 'Successione con Immobili', prezzo: '1.500 — 3.000', desc: 'Uno o più immobili. Include visure catastali, voltura, calcolo imposte, presentazione dichiarazione.', tempo: '60-90 giorni' },
+  { tipo: 'Successione Complessa', prezzo: '3.000 — 5.000+', desc: 'Eredità complesse con più immobili, società, attività commerciali, contenziosi tra eredi.', tempo: '90-180 giorni' },
 ]
 
 const documenti = [
   'Certificato di morte',
   'Stato di famiglia storico del defunto',
   'Codice fiscale del defunto e degli eredi',
-  'Atto di ultima volonta (testamento, se presente)',
+  'Atto di ultima volontà (testamento, se presente)',
   'Visure catastali degli immobili',
   'Estratti conto bancari alla data del decesso',
   'Certificati di possesso titoli/azioni',
@@ -44,32 +44,32 @@ export default function SuccessionePage() {
         </div>
       </section>
 
-      {/* Cos'e */}
+      {/* Cos'è */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <div>
-              <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Cos&apos;e la successione?</h2>
+              <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Cos&apos;è la successione?</h2>
               <p className="text-text-light text-base leading-relaxed mb-4">
-                La dichiarazione di successione e&apos; un obbligo fiscale che gli eredi devono presentare
+                La dichiarazione di successione è un obbligo fiscale che gli eredi devono presentare
                 all&apos;Agenzia delle Entrate entro 12 mesi dal decesso. Serve per trasferire
                 ufficialmente i beni del defunto (immobili, conti, veicoli) agli eredi.
               </p>
               <p className="text-text-light text-base leading-relaxed">
-                E&apos; una pratica complessa che richiede la raccolta di numerosi documenti,
+                È una pratica complessa che richiede la raccolta di numerosi documenti,
                 il calcolo delle imposte dovute e la presentazione telematica. Funerix si occupa
                 di tutto, dalla raccolta documenti alla voltura catastale.
               </p>
             </div>
             <div className="card bg-primary/5 border-primary/10">
-              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">Quando e&apos; obbligatoria?</h3>
+              <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-4">Quando è obbligatoria?</h3>
               <ul className="space-y-3 text-sm text-text-light">
                 <li className="flex gap-2"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" /> Sempre, se il defunto possedeva beni (immobili, conti, titoli)</li>
                 <li className="flex gap-2"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" /> Entro 12 mesi dal decesso (sanzioni per ritardo)</li>
-                <li className="flex gap-2"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" /> Anche se non c&apos;e&apos; testamento (successione legittima)</li>
+                <li className="flex gap-2"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" /> Anche se non c&apos;è testamento (successione legittima)</li>
                 <li className="flex gap-2"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" /> Anche per conti correnti con saldo minimo</li>
               </ul>
-              <p className="text-xs text-text-muted mt-4">Non e&apos; obbligatoria solo se il valore dell&apos;eredita e&apos; inferiore a €100.000 e non ci sono immobili.</p>
+              <p className="text-xs text-text-muted mt-4">Non è obbligatoria solo se il valore dell&apos;eredità è inferiore a €100.000 e non ci sono immobili.</p>
             </div>
           </div>
 
@@ -83,7 +83,7 @@ export default function SuccessionePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {pratiche.map((p, i) => (
               <div key={p.tipo} className={`card flex flex-col ${i === 1 ? 'border-2 border-secondary relative' : ''}`}>
-                {i === 1 && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white text-xs px-3 py-1 rounded-full font-medium">Piu comune</div>}
+                {i === 1 && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white text-xs px-3 py-1 rounded-full font-medium">Più comune</div>}
                 <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-2">{p.tipo}</h3>
                 <p className="text-text-light text-sm mb-4 flex-1">{p.desc}</p>
                 <div className="flex items-center justify-between pt-4 border-t border-border">
@@ -113,7 +113,7 @@ export default function SuccessionePage() {
               'Presentazione telematica all\'Agenzia delle Entrate',
               'Voltura catastale degli immobili',
               'Sblocco conti correnti bancari',
-              'Assistenza per rinuncia all\'eredita (se necessario)',
+              'Assistenza per rinuncia all\'eredità (se necessario)',
               'Supporto per divisione ereditaria tra eredi',
               'Consulenza su agevolazioni prima casa eredi',
             ].map(t => (

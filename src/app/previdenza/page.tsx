@@ -145,7 +145,7 @@ export default function PrevidenzaPage() {
               { n: '01', icon: Heart, t: 'Configurate', d: 'Scegliete ogni dettaglio del servizio: bara, fiori, cerimonia, trasporto.' },
               { n: '02', icon: Calendar, t: 'Scegliete il piano', d: 'Da 12 a 60 rate mensili. Prezzo bloccato per sempre.' },
               { n: '03', icon: Euro, t: 'Pagate a rate', d: 'Addebito automatico mensile su carta o conto corrente.' },
-              { n: '04', icon: Shield, t: 'Vivete sereni', d: 'Quando il momento arriva, tutto e gia organizzato e pagato.' },
+              { n: '04', icon: Shield, t: 'Vivete sereni', d: 'Quando il momento arriva, tutto è già organizzato e pagato.' },
             ].map((s, i) => (
               <motion.div key={s.n} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="text-center">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
@@ -168,7 +168,7 @@ export default function PrevidenzaPage() {
             {[
               { icon: Lock, t: 'Fondi protetti', d: 'I versamenti sono depositati su un conto bancario dedicato e separato, non aggredibile. Rimborsabili in qualsiasi momento.' },
               { icon: Shield, t: 'Prezzo bloccato', d: 'Il prezzo che configurate oggi resta invariato per tutta la durata del piano, indipendentemente dall\'inflazione.' },
-              { icon: Users, t: 'Trasferibile', d: 'Il piano puo essere trasferito a un altro familiare o modificato in qualsiasi momento senza costi aggiuntivi.' },
+              { icon: Users, t: 'Trasferibile', d: 'Il piano può essere trasferito a un altro familiare o modificato in qualsiasi momento senza costi aggiuntivi.' },
             ].map((g, i) => (
               <motion.div key={g.t} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="card text-center">
                 <g.icon size={28} className="mx-auto mb-3 text-accent" />
@@ -197,14 +197,14 @@ export default function PrevidenzaPage() {
             <div className="card">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Per voi stessi</h3>
               <p className="text-text-light text-sm mb-4">Decidete oggi come volete essere ricordati, senza lasciare il peso delle scelte e delle spese ai vostri cari.</p>
-              <ul className="space-y-2">{['Scegliete ogni dettaglio con calma','Il prezzo non aumentera mai','La vostra famiglia non dovra decidere nulla','Potete modificare le scelte in qualsiasi momento'].map(t=>
+              <ul className="space-y-2">{['Scegliete ogni dettaglio con calma','Il prezzo non aumenterà mai','La vostra famiglia non dovrà decidere nulla','Potete modificare le scelte in qualsiasi momento'].map(t=>
                 <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
               )}</ul>
             </div>
             <div className="card">
               <h3 className="font-[family-name:var(--font-serif)] text-lg text-primary mb-3">Per un familiare</h3>
               <p className="text-text-light text-sm mb-4">Organizzate in anticipo per un genitore anziano o un familiare, garantendogli il servizio che merita.</p>
-              <ul className="space-y-2">{['Ideale per genitori anziani','Perfetto per ospiti di RSA e case di cura','Nessuna decisione da prendere nel dolore','Il servizio e garantito qualsiasi cosa accada'].map(t=>
+              <ul className="space-y-2">{['Ideale per genitori anziani','Perfetto per ospiti di RSA e case di cura','Nessuna decisione da prendere nel dolore','Il servizio è garantito qualsiasi cosa accada'].map(t=>
                 <li key={t} className="flex gap-2 text-sm text-text-light"><Check size={14} className="text-accent mt-0.5 flex-shrink-0" />{t}</li>
               )}</ul>
             </div>
@@ -215,10 +215,10 @@ export default function PrevidenzaPage() {
       {/* RSA */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Sei una RSA o casa di cura?</h2>
+          <h2 className="font-[family-name:var(--font-serif)] text-3xl text-primary mb-4">Siete una RSA o casa di cura?</h2>
           <p className="text-text-light mb-6 max-w-xl mx-auto">
-            Offri ai familiari dei tuoi ospiti la tranquillita di un piano previdenza funeraria.
-            Diventa partner convenzionato Funerix.
+            Offrite ai familiari dei vostri ospiti la tranquillità di un piano previdenza funeraria.
+            Diventate partner convenzionato Funerix.
           </p>
           <Link href="/convenzioni" className="btn-secondary">Scopri la convenzione <ChevronRight size={14} className="ml-1" /></Link>
         </div>

@@ -34,7 +34,7 @@ export default async function PianiPrevidenzaPage() {
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Shield size={32} className="mx-auto mb-3 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-white mb-3">Piani Previdenza Funerix</h1>
-          <p className="text-white/80">Scegliete il piano piu adatto. Tutti con prezzo bloccato e rate mensili.</p>
+          <p className="text-white/80">Scegliete il piano più adatto. Tutti con prezzo bloccato e rate mensili.</p>
         </div>
       </section>
       <section className="py-16">

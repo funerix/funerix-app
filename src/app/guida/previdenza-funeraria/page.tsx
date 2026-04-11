@@ -24,9 +24,9 @@ export default function GuidaPrevidenzaPage() {
         <Link href="/guida" className="flex items-center gap-1 text-secondary text-sm mb-8 hover:underline"><ArrowLeft size={14} /> Tutte le guide</Link>
         <div className="space-y-4">
           <div className="card">
-            <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Cos&apos;e la previdenza funeraria?</h2>
-            <p className="text-sm text-text-light mb-2">La previdenza funeraria e un servizio che permette di <strong>pianificare e pagare in anticipo il proprio funerale</strong> o quello di un familiare. Non si tratta di un finanziamento o di un&apos;assicurazione, ma di un semplice <strong>prepagamento rateale per un servizio futuro</strong>.</p>
-            <p className="text-sm text-text-light">E come comprare un viaggio a rate: scegliete ogni dettaglio oggi, pagate comodamente mese per mese, e quando il momento arrivera tutto sara gia organizzato e pagato.</p>
+            <h2 className="font-[family-name:var(--font-serif)] text-xl text-primary mb-3">Cos&apos;è la previdenza funeraria?</h2>
+            <p className="text-sm text-text-light mb-2">La previdenza funeraria è un servizio che permette di <strong>pianificare e pagare in anticipo il proprio funerale</strong> o quello di un familiare. Non si tratta di un finanziamento o di un&apos;assicurazione, ma di un semplice <strong>prepagamento rateale per un servizio futuro</strong>.</p>
+            <p className="text-sm text-text-light">È come comprare un viaggio a rate: scegliete ogni dettaglio oggi, pagate comodamente mese per mese, e quando il momento arriverà tutto sarà già organizzato e pagato.</p>
           </div>
 
           <div className="card">

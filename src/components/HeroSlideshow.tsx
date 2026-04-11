@@ -31,7 +31,7 @@ const slides: Slide[] = [
     cta: { label: 'Configura il Servizio', href: '/configuratore' },
     ctaSecondary: { label: 'Prezzi', href: '/prezzi' },
     bgImage: '/images/slide-1-funerale.png',
-    gradientFrom: 'from-primary-dark/90 via-primary/70 to-primary-dark/50',
+    gradientFrom: 'from-primary-dark/80 via-primary/50 to-primary-dark/30',
     accentColor: 'text-secondary-light',
   },
   {
@@ -44,7 +44,7 @@ const slides: Slide[] = [
     cta: { label: 'Cremazione Immediata', href: '/pet/configuratore' },
     ctaSecondary: { label: 'Piano Previdenza Pet', href: '/pet/previdenza' },
     bgImage: '/images/slide-2-pet.png',
-    gradientFrom: 'from-[#1a3a2a]/90 via-[#2a4a3a]/70 to-[#1a3a2a]/50',
+    gradientFrom: 'from-[#1a3a2a]/80 via-[#2a4a3a]/50 to-[#1a3a2a]/30',
     accentColor: 'text-accent-light',
   },
   {
@@ -57,7 +57,7 @@ const slides: Slide[] = [
     cta: { label: 'Configura il Piano', href: '/previdenza/configuratore' },
     ctaSecondary: { label: 'Scopri i Piani', href: '/previdenza/piani' },
     bgImage: '/images/slide-3-previdenza.png',
-    gradientFrom: 'from-[#3a2a1a]/90 via-[#4a3a2a]/70 to-[#3a2a1a]/50',
+    gradientFrom: 'from-[#3a2a1a]/80 via-[#4a3a2a]/50 to-[#3a2a1a]/30',
     accentColor: 'text-secondary-light',
   },
 ]
@@ -113,7 +113,7 @@ export function HeroSlideshow({ telefono, heroBottone }: { telefono: string; her
           transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
-          <Image src={slide.bgImage} alt="" fill className="object-cover opacity-25" priority sizes="100vw" />
+          <Image src={slide.bgImage} alt="" fill className="object-cover opacity-40" priority sizes="100vw" />
           <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradientFrom}`} />
         </motion.div>
       </AnimatePresence>

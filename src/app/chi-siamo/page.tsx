@@ -89,19 +89,19 @@ export default function ChiSiamoPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-2 gap-3 sm:gap-4"
           >
             <div className="relative aspect-[3/4] rounded-xl overflow-hidden">
-              <Image src="/images/chi-siamo-cappella.jpg" alt="Cappella" fill className="object-cover" sizes="250px" />
+              <Image src="/images/chi-siamo-cappella.jpg" alt="Cappella" fill className="object-cover" sizes="(max-width: 768px) 45vw, 250px" />
             </div>
-            <div className="relative aspect-[3/4] rounded-xl overflow-hidden mt-8">
-              <Image src="/images/chi-siamo-cerimonia.jpg" alt="Cerimonia" fill className="object-cover" sizes="250px" />
+            <div className="relative aspect-[3/4] rounded-xl overflow-hidden sm:mt-8">
+              <Image src="/images/chi-siamo-cerimonia.jpg" alt="Cerimonia" fill className="object-cover" sizes="(max-width: 768px) 45vw, 250px" />
             </div>
             <div className="relative aspect-[3/4] rounded-xl overflow-hidden">
-              <Image src="/images/chi-siamo-team.jpg" alt="Il nostro team" fill className="object-cover" sizes="250px" />
+              <Image src="/images/chi-siamo-team.jpg" alt="Il nostro team" fill className="object-cover" sizes="(max-width: 768px) 45vw, 250px" />
             </div>
-            <div className="relative aspect-[3/4] rounded-xl overflow-hidden mt-8">
-              <Image src="/images/chi-siamo-showroom.jpg" alt="Showroom" fill className="object-cover" sizes="250px" />
+            <div className="relative aspect-[3/4] rounded-xl overflow-hidden sm:mt-8">
+              <Image src="/images/chi-siamo-showroom.jpg" alt="Showroom" fill className="object-cover" sizes="(max-width: 768px) 45vw, 250px" />
             </div>
           </motion.div>
           </div>

@@ -29,7 +29,7 @@ export default async function ServiziRicorrentiPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/hero-fiori.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <Image src={ex.ricorrenti_hero_img || '/images/hero-fiori.png'} alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Flower2 size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">

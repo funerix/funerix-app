@@ -15,7 +15,7 @@ export default async function ConvenzioniPage() {
   return (
     <div className="min-h-screen bg-background">
       <section className="bg-primary py-20 md:py-28 relative overflow-hidden">
-        <Image src="/images/hero-principale.png" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+        <Image src={ex.convenzioni_hero_img || '/images/hero-principale.png'} alt="" fill className="object-cover opacity-20" sizes="100vw" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <Building2 size={40} className="mx-auto mb-4 text-secondary-light" />
           <h1 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-white mb-4">{ex.convenzioni_hero_titolo || 'Convenzioni RSA e Case di Cura'}</h1>

@@ -48,6 +48,10 @@ export default function ChiSiamoPage() {
               La nostra storia
             </motion.h2>
             <motion.div variants={fadeUp} custom={1} className="prose prose-lg text-text-light leading-relaxed space-y-4">
+              {contenuti.chiSiamoStoria ? (
+                <div dangerouslySetInnerHTML={{ __html: contenuti.chiSiamoStoria.replace(/\n/g, '<br/>') }} />
+              ) : (<>
+              {/* Contenuto di default — visibile solo se admin non ha compilato la storia */}
               <p>
                 <strong className="text-primary">Dal 1920</strong>, la nostra famiglia si dedica con passione e devozione
                 all&apos;accompagnamento delle famiglie nei momenti pi&ugrave; delicati della vita.
@@ -81,6 +85,7 @@ export default function ChiSiamoPage() {
                 Offriamo inoltre il servizio di cremazione per animali domestici, esumazione e riesumazione,
                 e il memorial online con QR Code per lapide.
               </p>
+              </>)}
             </motion.div>
           </motion.div>
 
